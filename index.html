@@ -589,6 +589,60 @@ header .nav .nb:focus-visible{outline:3px solid #0f5bff66;outline-offset:2px}
 @media(min-width:769px) and (max-width:1180px){header .ph{display:none}header .cb span{display:none}header .cb{padding:9px}}
 @media(min-width:769px) and (max-width:960px){header .nav .nb{font-size:13px;padding:7px 7px;margin:0 1px}header .logo{height:40px}}
 
+/* ===== v4.3: smaller headline, offer sticker, compact booking form ===== */
+/* headline a size smaller */
+.hx h1{font-size:clamp(32px,3.7vw,54px)}
+@media(min-width:861px) and (max-height:800px){.hx h1{font-size:clamp(30px,3.4vw,48px)}}
+@media(max-width:860px){.hx h1{font-size:clamp(26px,7.6vw,36px)}}
+@media(min-width:960px){body.shell .hx h1{font-size:clamp(30px,3.2vw,48px)}}
+
+/* row: 50-minute badge + offer sticker */
+.vh-row{display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px;margin:0 0 16px}
+.vh-row .vh-b{margin:0}
+/* ---- offer sticker (AC SERVICE @600 Rs only) ---- */
+.osk{position:relative;display:inline-flex;flex-direction:column;align-items:flex-start;padding:6px 6px 4px;margin:4px 0 0;border:0!important;background:none!important;box-shadow:none!important;cursor:pointer;color:inherit;font:inherit;text-transform:none;letter-spacing:0;transform:rotate(-4deg);animation:ofl 4.5s ease-in-out infinite;-webkit-tap-highlight-color:transparent}
+.osk[hidden]{display:none}
+.osk:hover{animation-play-state:paused;transform:rotate(-2deg) scale(1.05)}
+.osk:active{transform:rotate(-2deg) scale(.97)}
+.osk-t{position:relative;z-index:2;display:block;padding:7px 16px 9px;border-radius:12px;background:linear-gradient(135deg,#1452d6,#0a2f86);color:#fff;font-family:var(--hf);font-weight:700;font-size:28px;line-height:1;letter-spacing:.03em;text-shadow:0 2px 0 #061d5c;box-shadow:0 5px 0 #061d5c,0 12px 26px #0007}
+.osk-t::after{content:"";position:absolute;right:-22px;top:-14px;width:22px;height:22px;background:linear-gradient(#3aa0ff,#3aa0ff) 2px 12px/12px 3px no-repeat,linear-gradient(#3aa0ff,#3aa0ff) 9px 3px/3px 11px no-repeat,linear-gradient(#3aa0ff,#3aa0ff) 12px 16px/9px 3px no-repeat;transform:rotate(-30deg);animation:ofs 1.6s ease-in-out infinite}
+.osk-p{position:relative;z-index:1;display:flex;align-items:center;gap:4px;margin:-5px 0 0 16px;padding:8px 16px 6px 12px;border-radius:14px;background:linear-gradient(180deg,#ffe23a,#ffcc00);box-shadow:0 5px 0 #c99a00,0 14px 28px #0008;transform:rotate(1.5deg)}
+.osk-p i{font-style:normal;font-family:var(--hf);font-weight:700;font-size:32px;line-height:1;color:#0a2f86}
+.osk-p b{font-family:var(--hf);font-weight:700;font-size:60px;line-height:.92;color:#e10600;letter-spacing:.01em;text-shadow:-2px -2px 0 #fff,2px -2px 0 #fff,-2px 2px 0 #fff,2px 2px 0 #fff,0 -3px 0 #fff,0 3px 0 #fff,-3px 0 0 #fff,3px 0 0 #fff,0 6px 0 #b10000,0 9px 12px #0004}
+.osk-rs{display:flex;flex-direction:column;margin-left:4px;font-family:'Nunito','Arial Rounded MT Bold',Arial,sans-serif;font-weight:800;font-size:22px;line-height:.95;color:#0a2f86}
+.osk-rs small{font-size:17px;color:#0a2f86}
+.osk-g{margin:9px 0 0 20px;padding-bottom:3px;font-family:'Nunito','Arial Rounded MT Bold',Arial,sans-serif;font-style:italic;font-weight:800;font-size:16px;line-height:1.1;color:#fff;text-shadow:0 2px 10px #000b;border-bottom:3px solid #3aa0ff;transform:rotate(-2deg)}
+.osk-c{position:absolute;right:-26px;top:-4px;z-index:3;padding:5px 10px;border-radius:999px;background:#e10600;color:#fff;font-family:var(--hf);font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;box-shadow:0 6px 14px #e1060066;transform:rotate(8deg);animation:ofc 1.4s ease-in-out infinite}
+@keyframes ofl{0%,100%{transform:rotate(-4deg) translateY(0)}50%{transform:rotate(-3deg) translateY(-5px)}}
+@keyframes ofs{0%,100%{opacity:1;transform:rotate(-30deg) scale(1)}50%{opacity:.5;transform:rotate(-30deg) scale(.8)}}
+@keyframes ofc{0%,100%{transform:rotate(8deg) scale(1)}50%{transform:rotate(8deg) scale(1.1)}}
+@media(max-width:860px){
+ .vh-row{gap:10px 16px;margin-bottom:12px}
+ .osk{margin:2px 0 0}
+ .osk-t{font-size:21px;padding:6px 12px 7px;border-radius:10px}
+ .osk-p{padding:6px 12px 5px 10px;margin-left:12px}
+ .osk-p i{font-size:24px}.osk-p b{font-size:44px}
+ .osk-rs{font-size:17px}.osk-rs small{font-size:13px}
+ .osk-g{font-size:13px;margin-left:14px}
+ .osk-c{font-size:11px;padding:4px 8px;right:-22px;top:-4px}
+}
+@media(prefers-reduced-motion:reduce){.osk,.osk-t::after,.osk-c{animation:none}}
+
+/* ---- compact booking form (website) ---- */
+@media(min-width:861px){#home .hero{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)}}
+#bf.box{padding:18px 20px 20px;border-radius:18px}
+#bf.box h2{font-size:24px;margin-bottom:4px}
+#bf.box h2::after{width:44px;height:3px;margin-top:6px}
+#bf label{font-size:11.5px;margin-top:8px;letter-spacing:.05em}
+#bf input,#bf select,#bf textarea{padding:7px 10px;font-size:14.5px;margin-top:3px}
+#bf textarea{min-height:52px}
+#bf .sh{font-size:16px;margin:12px 0 2px}
+#bf .note{font-size:12.5px;padding:8px 10px;margin:8px 0;line-height:1.45}
+#bf button{font-size:14px;padding:8px 14px}
+#bf .row{gap:6px}
+#bf small{font-size:11.5px}
+#bf #bk,#bf #pay{padding:10px 18px;font-size:15px}
+
 /* ===== v4.2 app home polish ===== */
 /* dots under sliding cards */
 .cdots{display:none}
@@ -923,7 +977,8 @@ body.shell #home .acg>figure{border-radius:18px;overflow:hidden;background:var(-
 <p class="vh-k"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v7H3z"/><path d="M6 9h12"/><path d="M7 15c0 1.5-1 2-1 3.5M12 15c0 1.5-1 2-1 3.5M17 15c0 1.5-1 2-1 3.5"/></svg></i>AC Service, Repair &amp; Copper Piping Work</p>
 <h1>Premium AC Cleaning. Affordable Price. <em>Exceptional Service.</em></h1>
 <p class="vh-r"><span>Expert Technicians for</span><span class="vh-w" aria-live="off"><b class="on">AC Repair</b><b>Deep Cleaning</b><b>Gas Refill</b><b>Copper Piping</b><b>Installation</b><b>AC Shifting</b></span></p>
-<p class="vh-b"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>Service Within 50 Minutes</p>
+<div class="vh-row"><p class="vh-b"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>Service Within 50 Minutes</p>
+<button type="button" class="osk" id="osk" onclick="ofrBook()" aria-label="Special offer - book now"><span class="osk-t" id="osk_t">AC SERVICE</span><span class="osk-p"><i>@</i><b id="osk_p">600</b><span class="osk-rs">Rs<small>only</small></span></span><span class="osk-g" id="osk_g">Cooler Home, Happier You!</span><span class="osk-c">Book Now</span></button></div>
 <p class="vh-p">Trained technicians, clear pricing, and a confirmation call right after you book. Pay only Rs 100 in advance, and it is adjusted in your final bill.</p>
 <div class="vh-c"><button type="button" class="go" onclick="book()">Book Your Service <span>&rarr;</span></button><a class="gl" href="tel:+918448166502"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>Call<span class="lt">&nbsp;8448166502</span></a></div>
 <div class="vh-n"><button type="button" class="vh-d" aria-pressed="true"><small>01</small><span>Repair &amp; Diagnosis</span><i></i></button><button type="button" class="vh-d" aria-pressed="false"><small>02</small><span>Complete AC Care</span><i></i></button><button type="button" class="vh-pp" aria-label="Pause background video"></button></div>
@@ -3166,10 +3221,11 @@ window.NTM={"s1":"data:image/webp;base64,UklGRvB7AABXRUJQVlA4IOR7AAAwKQKdASqEA44
       if(v.duration-v.currentTime<1.1&&!v._sw){v._sw=1;go(cur+1)}
     });
     v.addEventListener('ended',function(){if(vids[cur]===v&&!v._sw){v._sw=1;go(cur+1)}});
+    v.addEventListener('error',function(){if(v._hd&&v.src.indexOf('1080')>=0&&M['v'+(i+1)]){v._hd='';v.src=b64blob(M['v'+(i+1)]);if(vids[cur]===v)playV(v)}else if(vids[cur]===v){v._sw=1;go(cur+1)}});
     try{v.load()}catch(e){}
   });
   /* optional sharper 1080p copies (media folder next to index.html, and inside the app) */
-  if(/^https?:$/.test(location.protocol)&&vids.length&&vids[0].canPlayType('video/mp4')){
+  if(!APP&&/^https?:$/.test(location.protocol)&&vids.length&&vids[0].canPlayType('video/mp4')){
     var cn=navigator.connection||{};
     if(!(cn.saveData||/(^|-)(2g|3g)$/.test(cn.effectiveType||'')))vids.forEach(function(v,i){
       var t=document.createElement('video');t.muted=true;t.preload='metadata';
@@ -3205,6 +3261,18 @@ window.NTM={"s1":"data:image/webp;base64,UklGRvB7AABXRUJQVlA4IOR7AAAwKQKdASqEA44
   if(vh&&window.IntersectionObserver)new IntersectionObserver(function(e){var was=inView;inView=e[0].isIntersecting;if(inView&&!was)resume();else if(!inView)pauseAll()},{threshold:0}).observe(vh);
   document.addEventListener('visibilitychange',function(){if(document.hidden)pauseAll();else resume()});
   if(vids.length){vids[0].classList.add('on');if(dots[0])dots[0].classList.add('on');if(!userPaused)playV(vids[0])}
+  /* watchdog: if the video stops by itself (phone, slow file, decoder hiccup) start it again */
+  var wdT=-1,wdN=0;
+  setInterval(function(){
+    if(!vids.length||userPaused||fallbackT||document.hidden||(home&&home.hidden))return;
+    var r=vh.getBoundingClientRect();if(r.bottom<=0||r.top>=innerHeight||!r.height){return}
+    inView=true;var v=vids[cur];
+    if(v.paused||v.ended){wdN++;if(wdN>=2){wdN=0;v._sw=1;go(cur+1)}else playV(v);return}
+    if(v.currentTime===wdT){wdN++;if(wdN>=3){wdN=0;v._sw=1;go(cur+1)}}else wdN=0;
+    wdT=v.currentTime;
+  },1500);
+  document.addEventListener('visibilitychange',function(){if(!document.hidden){wdN=0;setTimeout(resume,300)}});
+  addEventListener('pageshow',function(){setTimeout(resume,300)});
 
   /* rotating service word */
   var ws=qa('.vh-w b'),wi=0;
@@ -3253,7 +3321,7 @@ window.NTM={"s1":"data:image/webp;base64,UklGRvB7AABXRUJQVlA4IOR7AAAwKQKdASqEA44
   /* keep settings on this device if the Google script is an older version without the "set" list */
   const _adS=adopt;adopt=function(srv){const keep=srv&&!Array.isArray(srv.set)?(db.set||[]):null;_adS(srv);if(keep)db.set=keep;applySet()};
 
-  const DEF={id:'co',name:CO.name,addr:CO.addr,ph:CO.ph,wa:CO.ph,em:CO.em,gstin:CO.gstin||'',gstOn:false,gstHome:false,bankOn:false,rzpKey:'',live:false,appUrl:'NTUV-Care.apk',recEmail:'',adm:null,
+  const DEF={id:'co',name:CO.name,addr:CO.addr,ph:CO.ph,wa:CO.ph,em:CO.em,gstin:CO.gstin||'',gstOn:false,gstHome:false,bankOn:false,rzpKey:'',live:false,appUrl:'NTUV-Care.apk',ofrOn:true,ofrTitle:'AC SERVICE',ofrPrice:'600',ofrTag:'Cooler Home, Happier You!',ofrSvc:'AC General Service',recEmail:'',adm:null,
     bank:{name:CO.name,bank:(CO.bank&&CO.bank.name)||'',acc:(CO.bank&&CO.bank.acc)||'',ifsc:(CO.bank&&CO.bank.ifsc)||'',upi:'',qr64:''}};
   const qrOf=S=>S.bank&&S.bank.qr64?'data:'+S.bank.qr64:'';
   window.coQR=()=>qrOf(setGet());
@@ -3343,6 +3411,11 @@ ${fi('cfg_bu','UPI ID (optional)',B.upi,'maxlength="60"')}
 <div class="cfgqr"><div class="cfgqr-p" id="cfg_qrp">${B.qr64?'<img src="data:'+B.qr64+'" alt="Payment QR code">':'<span>No QR code</span>'}</div><div><b>Payment QR Code / Barcode</b><small>Upload the QR code of your UPI / bank account (photo or screenshot). Customers see it when they pay by UPI, account transfer or online, in their account when a payment is pending, and on invoices.${B.upi?' If no image is uploaded, a QR code is made automatically from your UPI ID.':''}</small>
 <p class="row" style="justify-content:flex-start;gap:8px;margin:8px 0 0"><label class="btn alt cfgup" style="margin:0">&#128247; Upload QR Code<input type="file" accept="image/*" id="cfg_qrf" hidden onchange="cfgQrPick(this)"></label><button type="button" class="alt" onclick="cfgQrDel()" ${B.qr64?'':'hidden'} id="cfg_qrd">Remove</button></p></div></div>
 </div>
+<div class="cfgc"><h4>Offer Banner (Home page)</h4>
+${tg('cfg_oon',S.ofrOn,'Show offer banner','The "AC SERVICE @ Rs 600 only" sticker on the home page. Tapping it opens the booking form with the service below selected.')}
+<div class="row">${fi('cfg_ot','Offer Title',S.ofrTitle,'maxlength="24"')}${fi('cfg_op','Price (Rs)',S.ofrPrice,'inputmode="numeric" maxlength="6"')}</div>
+<div class="row">${fi('cfg_og','Tagline',S.ofrTag,'maxlength="40"')}<label>Service selected on booking<select id="cfg_os">${[...($('is')?$('is').options:[])].filter(o=>o.value).map(o=>`<option ${o.value==S.ofrSvc?'selected':''}>${esc(o.value)}</option>`).join('')}</select></label></div>
+</div>
 <div class="cfgc"><h4>Online Payments (Razorpay)</h4>
 ${tg('cfg_live',S.live,'Live payments','ON: customers must verify OTP and pay online before booking. OFF: testing mode (OTP and payment are optional).')}
 <div class="row">${fi('cfg_rk','Razorpay Key ID',S.rzpKey,'placeholder="rzp_live_xxxxxxxxxxxx" autocomplete="off"')}<label>Razorpay Key Secret <small style="text-transform:none;letter-spacing:0;font-weight:400">(optional)</small><input id="cfg_rs" type="password" autocomplete="new-password" placeholder="${S.rzpSec?'Saved - type to replace':'Paste once to auto-capture payments'}"></label></div>
@@ -3379,7 +3452,7 @@ ${S.adm?'':'<div class="note"><b>You are using the default login</b> &ndash; ID:
     if(pw){const salt=Math.random().toString(36).slice(2,12);adm={id:aid,salt:salt,h:sha256(salt+':'+pw),at:new Date().toLocaleString()}}
     else if(aid!==(adm?adm.id:'admin')){if(!adm)return alert('To change the Admin ID, also set a new password');adm=Object.assign({},adm,{id:aid,at:new Date().toLocaleString()})}
     Object.assign(r,{name:v('cfg_nm'),addr:v('cfg_ad'),ph:ph,wa:wa||ph,em:v('cfg_em'),gstin:gs,gstOn:$('cfg_gon').checked,bankOn:$('cfg_bon').checked,gstHome:$('cfg_gh').checked,
-      bank:{name:v('cfg_bh'),bank:v('cfg_bb'),acc:v('cfg_ba'),ifsc:ifsc,upi:v('cfg_bu'),qr64:cfgQR},rzpKey:rk,live:$('cfg_live').checked,appUrl:v('cfg_app')||'NTUV-Care.apk',recEmail:rec,adm:adm,by:me.id||aid,at:new Date().toLocaleString()});
+      bank:{name:v('cfg_bh'),bank:v('cfg_bb'),acc:v('cfg_ba'),ifsc:ifsc,upi:v('cfg_bu'),qr64:cfgQR},rzpKey:rk,live:$('cfg_live').checked,ofrOn:$('cfg_oon').checked,ofrTitle:v('cfg_ot')||'AC SERVICE',ofrPrice:(v('cfg_op').replace(/\D/g,'')||'600'),ofrTag:v('cfg_og'),ofrSvc:$('cfg_os')?$('cfg_os').value:'AC General Service',appUrl:v('cfg_app')||'NTUV-Care.apk',recEmail:rec,adm:adm,by:me.id||aid,at:new Date().toLocaleString()});
     if(pw&&window.meKeep)meKeep();
     save();applySet();setForce=true;render();
     const m=$('cfg_msg');if(m){m.hidden=false;m.textContent='Settings saved'+(GAS_URL?' and sent to Google Sheet.':' on this device.')}
@@ -3721,7 +3794,9 @@ ${S.adm?'':'<div class="note"><b>You are using the default login</b> &ndash; ID:
   const _ap=applySet;applySet=function(){_ap.apply(this,arguments);const S=setGet();
     try{TEST=!S.live}catch(e){}
     const tm=$('tmode');if(tm)tm.hidden=!!S.live;
-    const a=$('dlapp');if(a)a.setAttribute('href',S.appUrl||'NTUV-Care.apk')};
+    const a=$('dlapp');if(a)a.setAttribute('href',S.appUrl||'NTUV-Care.apk');
+    const o=$('osk');if(o){o.hidden=!S.ofrOn;$('osk_t').textContent=S.ofrTitle||'AC SERVICE';$('osk_p').textContent=S.ofrPrice||'600';$('osk_g').textContent=S.ofrTag||'';$('osk_g').hidden=!S.ofrTag;o.setAttribute('aria-label',(S.ofrTitle||'AC Service')+' at Rs '+(S.ofrPrice||'600')+' only - book now')}};
+  window.ofrBook=function(){const S=setGet();try{bookFor(S.ofrSvc||'AC General Service')}catch(e){book()}};
   applySet();
 
   /* ---------- Razorpay: payments go to the account set in Settings ---------- */
