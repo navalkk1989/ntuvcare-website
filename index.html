@@ -643,6 +643,74 @@ header .nav .nb:focus-visible{outline:3px solid #0f5bff66;outline-offset:2px}
 #bf small{font-size:11.5px}
 #bf #bk,#bf #pay{padding:10px 18px;font-size:15px}
 
+/* ===== v4.4: clean app home, call pill in the top bar, colourful bottom bar ===== */
+/* --- top bar: highlighted phone number --- */
+.tb2-call{display:inline-flex!important;align-items:center;gap:8px;width:auto!important;height:40px;padding:0 14px 0 4px!important;border-radius:999px!important;background:linear-gradient(135deg,#15803d,#22c55e)!important;border:0!important;color:#fff!important;text-decoration:none;box-shadow:0 6px 16px #16a34a55;font-family:'Arial Rounded MT Bold','Nunito',Arial,sans-serif}
+.tb2-call:hover{filter:brightness(1.06);color:#fff!important}
+.tb2-ci{position:relative;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#ffffff2e}
+.tb2-ci::after{content:"";position:absolute;inset:0;border-radius:50%;box-shadow:0 0 0 0 #ffffffaa;animation:cring 1.8s ease-out infinite}
+.tb2-ci .ic{width:17px;height:17px;animation:cshake 1.8s ease-in-out infinite}
+.tb2-cn{font-size:15px;font-weight:800;letter-spacing:.02em;white-space:nowrap}
+@keyframes cring{0%{box-shadow:0 0 0 0 #ffffffaa}80%,100%{box-shadow:0 0 0 9px #ffffff00}}
+@keyframes cshake{0%,60%,100%{transform:rotate(0)}65%,75%,85%{transform:rotate(-14deg)}70%,80%,90%{transform:rotate(14deg)}}
+@media(max-width:959px){
+ .tb2-a>button.tb2-i{display:none}           /* theme switch moves to the profile menu */
+ .tb2-call{height:38px;padding:0 11px 0 3px!important;gap:6px}
+ .tb2-cn{font-size:14px}
+}
+@media(max-width:520px){.tb2-t,.tb2-b{display:none!important}.tb2{gap:8px}}
+@media(max-width:340px){.tb2-cn{font-size:12.5px}.tb2-logo{height:30px!important}}
+
+/* --- colourful bottom bar with a raised Book button --- */
+body.shell{--bnh:70px}
+@media(min-width:960px){body.shell{--bnh:0px}}
+.bn2{align-items:flex-end;padding:0 6px calc(6px + env(safe-area-inset-bottom));overflow:visible}
+.bni{position:relative;gap:3px;padding:6px 2px 2px;background:transparent!important}
+.bni .bni-i{display:grid;place-items:center;width:38px;height:32px;border-radius:12px;background:color-mix(in srgb,var(--bc) 14%,transparent);color:var(--bc);transition:transform .2s,background .2s,box-shadow .2s}
+.bni .bni-i .ic{width:20px;height:20px}
+.bni .bni-t{font-size:11px;font-weight:800;color:var(--mut)}
+.bni.c1{--bc:#0f5bff}.bni.c2{--bc:#f97316}.bni.c3{--bc:#0f5bff}.bni.c4{--bc:#10b981}.bni.c5{--bc:#8b5cf6}
+.bni.on{background:transparent!important}
+.bni.on .bni-i{background:var(--bc);color:#fff;box-shadow:0 6px 14px color-mix(in srgb,var(--bc) 45%,transparent);transform:translateY(-2px)}
+.bni.on .bni-t{color:var(--bc)}
+.bni.on::after{content:"";position:absolute;top:1px;left:50%;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:var(--bc)}
+/* centre Book button */
+.bni.fab{flex:1.15}
+.bni.fab .bni-i{width:58px;height:58px;margin-top:-26px;border-radius:50%;background:linear-gradient(135deg,#0b3fe0,#0f5bff 50%,#19b0ff);color:#fff;box-shadow:0 10px 22px #0f5bff66,0 0 0 5px var(--card);animation:fabp 2.4s ease-in-out infinite}
+.bni.fab .bni-i .ic{width:26px;height:26px}
+.bni.fab .bni-t{color:#0f5bff}
+.bni.fab.on::after{display:none}
+@keyframes fabp{0%,100%{box-shadow:0 10px 22px #0f5bff66,0 0 0 5px var(--card)}50%{box-shadow:0 12px 28px #0f5bff99,0 0 0 5px var(--card),0 0 0 11px #0f5bff22}}
+:root[data-theme=dark] .bni .bni-t{color:#9fb0d4}
+
+/* --- clean app home: only the important things --- */
+body.shell #home[data-sub=main] .hx .vh-r,
+body.shell #home[data-sub=main] .hx .vh-n,
+body.shell #home[data-sub=main] .hx .qa,
+body.shell #home[data-sub=main] .hl .shw,
+body.shell #home[data-sub=main]>.rb,
+body.shell #home[data-sub=main]>.wn,
+body.shell #home[data-sub=main]>.dcl,
+body.shell #home[data-sub=main]>.act,
+body.shell #home[data-sub=main]>.gal,
+body.shell #home[data-sub=main]>footer{display:none!important}
+body.shell #home[data-sub=main] .hx::after{display:none!important}
+body.shell #home[data-sub=main] .hx{min-height:calc(100dvh - var(--tbh) - var(--bnh) - 150px);padding-bottom:22px}
+body.shell #home[data-sub=main] .hx .vh-k{margin-bottom:12px}
+body.shell #home[data-sub=main] .hx .vh-c{margin-top:4px}
+@media(max-width:959px){body.shell #home[data-sub=main] .hx{padding-top:70px}}
+/* explore tiles under the services */
+.exg{display:none}
+body.shell #home[data-sub=main] .exg{display:block;margin:6px 0 4px}
+.exg h3{margin:0 0 10px;font-family:var(--hf);font-size:22px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink)}
+.exg-l{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.exg-t{display:flex;flex-direction:column;align-items:center;gap:7px;padding:14px 6px 12px;border-radius:16px;background:var(--card)!important;border:1px solid var(--line)!important;color:var(--ink)!important;box-shadow:0 6px 18px #0b2a780f!important;font-family:var(--bf)!important;font-size:12.5px;font-weight:700;letter-spacing:0;text-transform:none;text-align:center;line-height:1.2;text-decoration:none;transition:transform .18s}
+.exg-t:active{transform:scale(.95)}
+.exg-t>span:first-child{display:grid;place-items:center;width:42px;height:42px;border-radius:14px;background:color-mix(in srgb,var(--tc) 14%,transparent);color:var(--tc)}
+.exg-t .ic{width:22px;height:22px}
+@media(min-width:960px){.exg-l{grid-template-columns:repeat(6,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){.tb2-ci::after,.tb2-ci .ic,.bni.fab .bni-i{animation:none}}
+
 /* ===== v4.2 app home polish ===== */
 /* dots under sliding cards */
 .cdots{display:none}
@@ -781,7 +849,7 @@ body.shell main{position:fixed;top:var(--tbh);left:var(--sideW);right:0;bottom:v
 .tb2-q:not([hidden])+.tb2-a{margin-left:0}
 .tb2-i{width:40px;height:40px;padding:0;display:grid;place-items:center;border-radius:11px;background:var(--bg2)!important;border:1px solid var(--line)!important;color:var(--ink)!important;text-decoration:none}
 .tb2-i:hover{border-color:var(--acc)!important;color:var(--acc)!important}
-.tb2-call{background:#15803d!important;color:#fff!important;border-color:#15803d!important}
+.tb2-call{background:linear-gradient(135deg,#15803d,#22c55e)!important;color:#fff!important;border-color:transparent!important}
 .dd{position:relative}
 .tb2-u{display:flex;align-items:center;gap:8px;height:42px;padding:0 10px 0 4px;border-radius:999px;background:var(--bg2)!important;border:1px solid var(--line)!important;color:var(--ink)!important;font-family:var(--bf)!important;font-size:14px;font-weight:700;letter-spacing:0;text-transform:none;box-shadow:none!important}
 .tb2-un{max-width:140px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -866,7 +934,7 @@ body.shell #login>.box,body.shell #clog{margin-top:6vh!important}
  .qa-t{flex-direction:row;align-items:center;padding:10px 12px}
  body.shell .hx{padding:90px 0 18px}
 }
-@media(max-width:400px){.tb2-call{display:none!important}}
+
 @media(prefers-reduced-motion:reduce){.vin,dialog[open],.toast{animation:none!important}.sb{transition:none}}
 /* fixes */
 .sbn{display:block!important;flex-wrap:nowrap!important}
@@ -3543,7 +3611,7 @@ ${S.adm?'':'<div class="note"><b>You are using the default login</b> &ndash; ID:
 <div id="tb2" class="tb2"><button type="button" class="tb2-m" id="tb2m" aria-label="Open menu">${ico('menu')}</button><button type="button" class="tb2-b" id="tb2b" aria-label="Back" hidden>${ico('chev','back')}</button>
 <img class="tb2-logo" src="${logo}" alt="NTUV We Care"><div class="tb2-t"><small id="tb2s"></small><b id="tb2h">Home</b></div>
 <label class="tb2-q" id="tb2q" hidden>${ico('search')}<input id="tb2qi" type="search" placeholder="Search bookings, customers, ID..." autocomplete="off"></label>
-<div class="tb2-a"><a class="tb2-i tb2-call" id="tb2c" href="tel:+91${esc(CO.ph||'')}" aria-label="Call">${ico('phone')}</a><button type="button" class="tb2-i" onclick="toggleTheme()" aria-label="Dark / Light theme">${ico('moon')}</button>
+<div class="tb2-a"><a class="tb2-i tb2-call" id="tb2c" href="tel:+91${esc(CO.ph||'')}" aria-label="Call ${esc(CO.ph||'')}"><span class="tb2-ci">${ico('phone')}</span><span class="tb2-cn" id="tb2cn">${esc(CO.ph||'')}</span></a><button type="button" class="tb2-i" onclick="toggleTheme()" aria-label="Dark / Light theme">${ico('moon')}</button>
 <div class="dd" id="tb2u"><button type="button" class="tb2-u" aria-haspopup="true" aria-expanded="false"><span class="av2" id="tb2av">G</span><span class="tb2-un" id="tb2un">Guest</span>${ico('chev','sm')}</button><div class="dd-m" id="tb2dd" role="menu"></div></div></div></div>
 <nav id="bn2" class="bn2" aria-label="Quick menu"></nav>`);
   const sb=$('sb'),sbo=$('sbo');
@@ -3603,14 +3671,15 @@ ${S.adm?'':'<div class="note"><b>You are using the default login</b> &ndash; ID:
     /* bottom bar (phones) */
     let bn;
     if(me&&v=='panel'){const t=[...document.querySelectorAll('#panel .tabs button')].slice(0,3);bn=t.map((b,i)=>({k:'tab:'+i,i:tabIcon(b.textContent),t:b.textContent.replace(/\s*\(\d+\)\s*$/,'').replace(/^\W+/,'').trim().split(' ').slice(0,2).join(' '),a:b.classList.contains('on')}))}
-    else bn=[{k:'home:main',i:'home',t:'Home',a:v=='home'&&sub=='main'},{k:'home:book',i:'cal',t:'Book',a:v=='home'&&sub=='book'},{k:me?'panel':'cust',i:me?'dash':'user',t:me?'Panel':'Account',a:v=='cust'||v=='panel'}];
-    bn.push({k:'menu',i:'menu',t:'Menu'});
-    $('bn2').innerHTML=bn.map(b=>`<button type="button" class="bni${b.a?' on':''}" data-go="${b.k}">${ico(b.i)}<span>${esc(b.t)}</span></button>`).join('');
+    else bn=[{k:'home:main',i:'home',t:'Home',a:v=='home'&&sub=='main',c:'c1'},{k:'tech',i:'tool',t:'Technician',a:v=='tech',c:'c2'},{k:'home:book',i:'cal',t:'Book Now',a:v=='home'&&sub=='book',c:'c3 fab'},{k:me?'panel':'cust',i:me?'dash':'user',t:me?'Panel':'Account',a:v=='cust'||v=='panel',c:'c4'}];
+    bn.push({k:'menu',i:'menu',t:'Menu',c:'c5'});
+    bn.forEach((b,i)=>{if(!b.c)b.c='c'+(i+1)});
+    $('bn2').innerHTML=bn.map(b=>`<button type="button" class="bni ${b.c}${b.a?' on':''}" data-go="${b.k}"><span class="bni-i">${ico(b.i)}</span><span class="bni-t">${esc(b.t)}</span></button>`).join('');
     /* top search mirrors the panel search box */
     const src=document.querySelector('#panel:not([hidden]) input[placeholder^="Search"], #cust:not([hidden]) input[placeholder^="Search"]');
     $('tb2q').hidden=!src;if(src){src.classList.add('sh-src');const q=$('tb2qi');if(document.activeElement!==q)q.value=src.value;q._src=src}
     $('tb2b').hidden=!(history.state&&history.state.ntuv&&!(v=='home'&&sub=='main'));
-    const call=$('tb2c');if(call&&CO.ph)call.href='tel:+91'+String(CO.ph).replace(/\D/g,'').slice(-10);
+    const call=$('tb2c');if(call&&CO.ph){const n=String(CO.ph).replace(/\D/g,'').slice(-10);call.href='tel:+91'+n;$('tb2cn').textContent=n;call.setAttribute('aria-label','Call '+n)}
   }
   window.shellSync=sync;
   $('tb2qi').addEventListener('input',e=>{const s=e.target._src;if(!s)return;s.value=e.target.value;s.dispatchEvent(new Event('input',{bubbles:true}));s.dispatchEvent(new KeyboardEvent('keyup',{bubbles:true}))});
@@ -3643,7 +3712,7 @@ ${S.adm?'':'<div class="note"><b>You are using the default login</b> &ndash; ID:
     const q=seq();if(!q||q.i<0)return;const n=q.i+(dx<0?1:-1);if(n<0||n>=q.l.length)return;
     swDir=dx<0?1:-1;go(q.l[n]);if(navigator.vibrate)try{navigator.vibrate(8)}catch(_){}},{passive:true});
   function act(a){closeDd();closeSb();if(a=='logout'){me=null;show('home');toast('Logged out')}else if(a=='clogout'){if(typeof cLogout=='function')cLogout()}else if(a=='theme')toggleTheme()}
-  document.addEventListener('click',e=>{const g=e.target.closest&&e.target.closest('[data-go]');if(g&&(g.closest('#sb,#bn2,#tb2,.qa'))){e.preventDefault();go(g.dataset.go);return}
+  document.addEventListener('click',e=>{const g=e.target.closest&&e.target.closest('[data-go]');if(g&&(g.closest('#sb,#bn2,#tb2,.qa,.exg'))){e.preventDefault();go(g.dataset.go);return}
     const a=e.target.closest&&e.target.closest('[data-act]');if(a&&a.closest('#sb,#tb2')){e.preventDefault();act(a.dataset.act);return}
     const u=e.target.closest&&e.target.closest('.tb2-u');if(u){const o=$('tb2u').classList.toggle('open');u.setAttribute('aria-expanded',o);return}
     if(!(e.target.closest&&e.target.closest('#tb2u')))closeDd()});
@@ -3862,6 +3931,13 @@ ${S.adm?'':'<div class="note"><b>You are using the default login</b> &ndash; ID:
   /* ---------- quick tiles take turns to glow ---------- */
   let qi=0;
   setInterval(()=>{if(RM||!homeOn()||document.hidden)return;const t=[...document.querySelectorAll('.qa .qa-t')];if(!t.length)return;t.forEach(x=>x.classList.remove('glow'));t[qi%t.length].classList.add('glow');qi++},2200);
+
+
+  /* ---------- explore tiles on the clean app home ---------- */
+  (function(){const hl=document.querySelector('#home .hl');if(!hl||document.querySelector('.exg'))return;const I=window.shIco||(()=>'');
+    const wa=(document.querySelector('a[href*="wa.me/"]')||{}).href||'#';
+    const T=[['home:dcl','spark','Deep Cleaning','#0ea5e9'],['home:act','ac','AC Types','#6366f1'],['home:gal','img','Our Work','#f97316'],['home:why','shield','Why NTUV','#10b981'],['home:contact','phone','Contact Us','#0f5bff'],['wa','wa','WhatsApp Us','#16a34a']];
+    hl.insertAdjacentHTML('beforeend','<div class="exg"><h3>Explore</h3><div class="exg-l">'+T.map(t=>t[0]=='wa'?`<a class="exg-t" href="${wa}" target="_blank" rel="noopener" style="--tc:${t[3]}"><span>${I(t[1])}</span>${t[2]}</a>`:`<button type="button" class="exg-t" data-go="${t[0]}" style="--tc:${t[3]}"><span>${I(t[1])}</span>${t[2]}</button>`).join('')+'</div></div>')})();
 
   /* ---------- swipe indicator + first-time hint ---------- */
   B.insertAdjacentHTML('beforeend','<div id="swi" class="swi" aria-hidden="true"><div class="swi-d"></div><b></b></div>');
