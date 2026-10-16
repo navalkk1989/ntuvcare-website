@@ -589,6 +589,39 @@ header .nav .nb:focus-visible{outline:3px solid #0f5bff66;outline-offset:2px}
 @media(min-width:769px) and (max-width:1180px){header .ph{display:none}header .cb span{display:none}header .cb{padding:9px}}
 @media(min-width:769px) and (max-width:960px){header .nav .nb{font-size:13px;padding:7px 7px;margin:0 1px}header .logo{height:40px}}
 
+/* ===== v4.2 app home polish ===== */
+/* dots under sliding cards */
+.cdots{display:none}
+@media(max-width:959px){body.shell .cdots{display:flex;justify-content:center;gap:6px;margin:-4px 0 6px}
+ body.shell .cdots i{width:7px;height:7px;border-radius:7px;background:#0f5bff33;transition:width .3s,background .3s}
+ body.shell .cdots i.on{width:22px;background:var(--grad)}}
+/* scroll-in animation */
+body.shell .shr{opacity:0;transform:translateY(26px) scale(.98);transition:opacity .6s cubic-bezier(.2,.8,.2,1) var(--d,0ms),transform .6s cubic-bezier(.2,.8,.2,1) var(--d,0ms)}
+body.shell .shr.shr-in{opacity:1;transform:none}
+/* quick tiles: glowing in turn */
+.qa-t{position:relative;overflow:hidden}
+.qa-t::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 35%,#ffffff40 50%,transparent 65%);transform:translateX(-120%);pointer-events:none}
+.qa-t.glow{background:#0f5bff99!important;border-color:#7fd3ff!important;box-shadow:0 0 0 1px #7fd3ff66,0 10px 24px #0f5bff66!important;transform:translateY(-2px)}
+.qa-t.glow::after{animation:qsh .9s ease}
+.qa-t.glow .ic{animation:qpop .6s ease}
+@keyframes qsh{to{transform:translateX(120%)}}
+@keyframes qpop{40%{transform:scale(1.25) rotate(-6deg)}}
+/* swipe indicator */
+.swi{position:fixed;z-index:65;left:50%;bottom:calc(var(--bnh,0px) + 14px + env(safe-area-inset-bottom));transform:translate(-50%,16px);opacity:0;pointer-events:none;display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 16px 9px;border-radius:16px;background:#061433e6;color:#fff;box-shadow:0 12px 30px #04102f55;transition:opacity .25s,transform .25s;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.swi.on{opacity:1;transform:translate(-50%,0)}
+.swi b{font-size:13px;font-weight:700;letter-spacing:.02em;white-space:nowrap}
+.swi-d{display:flex;gap:5px}.swi-d i{width:6px;height:6px;border-radius:6px;background:#ffffff4d;transition:width .25s}.swi-d i.on{width:18px;background:#5fc8ff}
+/* first-time hint */
+.swh{position:fixed;z-index:66;left:50%;bottom:calc(var(--bnh,64px) + 16px);transform:translateX(-50%);padding:10px 16px;border-radius:999px;background:var(--grad);color:#fff;font-size:13px;font-weight:700;white-space:nowrap;box-shadow:0 12px 30px #0f5bff66;animation:swhIn .4s cubic-bezier(.2,.8,.2,1)}
+.swh span{display:inline-block;animation:swhA 1.2s ease-in-out infinite}.swh span:last-child{animation-direction:reverse}
+.swh.out{opacity:0;transform:translate(-50%,10px);transition:.4s}
+@keyframes swhIn{from{opacity:0;transform:translate(-50%,14px)}}
+@keyframes swhA{50%{transform:translateX(-4px)}}
+@media(min-width:960px){.swh{display:none}}
+/* top bar logo a bit bigger on the app home */
+@media(max-width:959px){body.shell .tb2-logo{height:38px;padding:3px 8px}}
+@media(prefers-reduced-motion:reduce){body.shell .shr{opacity:1;transform:none;transition:none}.qa-t.glow::after,.qa-t.glow .ic,.swh span{animation:none}}
+
 /* header: smaller menu text, staff login moved to the footer */
 header .nav .nb{font-size:14.5px;padding:8px 12px}
 @media(min-width:769px) and (max-width:1320px){header .nav .nb{font-size:13.5px;padding:7px 9px}}
@@ -787,6 +820,66 @@ body.shell .srb{display:none!important}
 @media(min-width:960px){body.shell .hx h1{font-size:clamp(36px,3.9vw,58px)}body.shell .hx{padding:26px 0 22px}body.shell .vh-p{margin-bottom:16px}body.shell .vh-n{margin-top:18px}}
 @media(min-width:960px) and (max-height:820px){body.shell .vh-p{display:none}body.shell .vh-b{margin-bottom:12px}}
 body.shell #home[data-sub=contact]>footer .fi{padding:30px 26px}
+
+/* ===== v4.2: app home = scrolling feed, logo in top bar, swipe transitions ===== */
+.tb2-logo{display:none;height:34px;width:auto;background:#fff;border-radius:9px;padding:2px 7px;box-shadow:0 2px 8px #0b2a7822;flex:0 0 auto}
+@media(max-width:959px){
+ .tb2-logo{display:block}
+ .tb2-t{padding-left:10px;border-left:1px solid var(--line)}
+ .tb2-t small{display:none}
+ .tb2-t b{font-size:18px}
+}
+@keyframes vInR{from{opacity:0;transform:translateX(46px)}to{opacity:1;transform:none}}
+@keyframes vInL{from{opacity:0;transform:translateX(-46px)}to{opacity:1;transform:none}}
+.vin-r{animation:vInR .34s cubic-bezier(.2,.8,.2,1)}.vin-l{animation:vInL .34s cubic-bezier(.2,.8,.2,1)}
+/* home feed: hero + all sections one below the other */
+body.shell #home[data-sub=main] .hero>.hl{display:block;padding-top:6px}
+body.shell #home[data-sub=main]>.rb,body.shell #home[data-sub=main]>.wn,body.shell #home[data-sub=main]>.act,body.shell #home[data-sub=main]>.gal,body.shell #home[data-sub=main]>footer{display:block}
+body.shell #home[data-sub=main]>.dcl{display:grid}
+body.shell #home[data-sub=main]>.wn,body.shell #home[data-sub=main]>.dcl,body.shell #home[data-sub=main]>.act,body.shell #home[data-sub=main]>.gal,body.shell #home[data-sub=main]>footer{margin-top:calc(var(--mp) + 10px)}
+body.shell #home[data-sub=main]>.rb{margin:calc(var(--mp) + 6px) calc(-1*var(--mp)) 0;width:auto;border-radius:0}
+body.shell #home[data-sub=main]>footer{border-radius:20px;overflow:hidden}
+body.shell #home[data-sub=main] .hx{min-height:calc(100dvh - var(--tbh) - var(--bnh) - 36px)}
+/* "scroll for more" cue under the hero */
+body.shell #home[data-sub=main] .hx::after{content:"Scroll for more";display:flex;align-items:center;gap:8px;align-self:center;margin-top:16px;padding:6px 14px;border-radius:999px;background:#ffffff1f;border:1px solid #ffffff38;color:#e6eeff;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;animation:cue 1.8s ease-in-out infinite}
+@keyframes cue{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+/* section headings in the feed */
+body.shell #home .act>h2,body.shell #home .gal>h2,body.shell #home .shd h2{font-size:26px}
+body.shell #home .act>.acs{margin-top:-2px}
+@media(max-width:959px){
+ body.shell #home .hl .shd{align-items:center}
+ body.shell #home .hl .shd::after,body.shell #home .act>h2::before{content:"Swipe \2192";font-family:var(--bf);font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:none;color:var(--acc);background:#0f5bff14;border:1px solid #0f5bff33;padding:4px 10px;border-radius:999px;white-space:nowrap}
+ body.shell #home .act>h2{display:flex;flex-direction:row-reverse;justify-content:space-between;align-items:center;gap:10px}
+ body.shell #home .act>h2::after{display:none}
+ /* services: swipeable cards */
+ body.shell #home .svs{display:flex!important;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin:12px calc(-1*var(--mp)) 0;padding:4px var(--mp) 14px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+ body.shell #home .svs::-webkit-scrollbar,body.shell #home .acg::-webkit-scrollbar{display:none}
+ body.shell #home .svs>.sc{flex:0 0 76%;scroll-snap-align:center;margin:0}
+ body.shell #home .svs>.sc img{height:170px}
+ /* AC types: swipeable */
+ body.shell #home .acg{display:flex!important;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin:10px calc(-1*var(--mp)) 0;padding:4px var(--mp) 14px;scrollbar-width:none}
+ body.shell #home .acg>figure{flex:0 0 70%;scroll-snap-align:center;margin:0}
+ /* gallery: tidy 2-column grid */
+ body.shell #home .gal{display:grid!important;grid-template-columns:1fr 1fr;gap:10px}
+ body.shell #home .gal>h2{grid-column:1/-1}
+ body.shell #home .gal figure{grid-column:auto!important;margin:0}
+ body.shell #home .gal figure:first-of-type{grid-column:1/-1!important}
+ /* why NTUV: compact 2x2 */
+ body.shell #home .wn ul{grid-template-columns:1fr 1fr!important;gap:10px}
+ body.shell #home .wn li{padding:14px 12px}
+ body.shell #home .wn li b{font-size:16px}
+ body.shell #home .wn li span{font-size:12.5px}
+ /* deep cleaning points as chips */
+ body.shell #home .dclp{grid-template-columns:1fr 1fr!important;gap:8px}
+ body.shell #home .dclp li{font-size:13px;padding:10px;line-height:1.25}
+ body.shell #home .dclp svg{width:18px;height:18px}
+ body.shell #home .shw{margin-top:18px}
+}
+/* service cards: glossy app style */
+body.shell #home .sc{border-radius:18px;overflow:hidden;background:var(--card);box-shadow:0 10px 26px #0b2a7814;border:1px solid var(--line)}
+body.shell #home .sc>div{padding:14px 16px 16px}
+body.shell #home .acg>figure{border-radius:18px;overflow:hidden;background:var(--card);box-shadow:0 10px 26px #0b2a7814}
+@media(prefers-reduced-motion:reduce){.vin-r,.vin-l{animation:none!important}body.shell #home[data-sub=main] .hx::after{animation:none}}
 
 /* admin settings */
 .cfgw{max-width:860px}
@@ -3375,7 +3468,7 @@ ${S.adm?'':'<div class="note"><b>You are using the default login</b> &ndash; ID:
 <div class="sb-f"><div class="sb-u" id="sbu"></div></div></aside>
 <div id="sbo" class="sbo" hidden></div>
 <div id="tb2" class="tb2"><button type="button" class="tb2-m" id="tb2m" aria-label="Open menu">${ico('menu')}</button><button type="button" class="tb2-b" id="tb2b" aria-label="Back" hidden>${ico('chev','back')}</button>
-<div class="tb2-t"><small id="tb2s"></small><b id="tb2h">Home</b></div>
+<img class="tb2-logo" src="${logo}" alt="NTUV We Care"><div class="tb2-t"><small id="tb2s"></small><b id="tb2h">Home</b></div>
 <label class="tb2-q" id="tb2q" hidden>${ico('search')}<input id="tb2qi" type="search" placeholder="Search bookings, customers, ID..." autocomplete="off"></label>
 <div class="tb2-a"><a class="tb2-i tb2-call" id="tb2c" href="tel:+91${esc(CO.ph||'')}" aria-label="Call">${ico('phone')}</a><button type="button" class="tb2-i" onclick="toggleTheme()" aria-label="Dark / Light theme">${ico('moon')}</button>
 <div class="dd" id="tb2u"><button type="button" class="tb2-u" aria-haspopup="true" aria-expanded="false"><span class="av2" id="tb2av">G</span><span class="tb2-un" id="tb2un">Guest</span>${ico('chev','sm')}</button><div class="dd-m" id="tb2dd" role="menu"></div></div></div></div>
@@ -3400,7 +3493,8 @@ ${S.adm?'':'<div class="note"><b>You are using the default login</b> &ndash; ID:
   function setSub(x){sub=x||'main';if(home)home.dataset.sub=sub;if(on()){main.scrollTop=0;anim(subEl())}sync();schedulePush()}
   window.shellSub=setSub;
   const subEl=()=>({main:'.hero',book:'#bf',svc:'.hl',why:'.wn',dcl:'.dcl',act:'.act',gal:'.gal',contact:'footer'})[sub]&&document.querySelector('#home '+({main:'.hx',book:'#bf',svc:'.hl',why:'.wn',dcl:'.dcl',act:'.act',gal:'.gal',contact:'footer'})[sub]);
-  function anim(el){if(!el||RM)return;el.classList.remove('vin');void el.offsetWidth;el.classList.add('vin')}
+  let swDir=0;
+  function anim(el){if(!el||RM)return;el.classList.remove('vin','vin-l','vin-r');void el.offsetWidth;el.classList.add(swDir>0?'vin-r':swDir<0?'vin-l':'vin');swDir=0}
 
   /* ---------- menu ---------- */
   const PUB=[['home:main','home','Home'],['home:book','cal','Book Service'],['home:svc','grid','Our Services'],['home:dcl','spark','Deep Cleaning'],['home:act','ac','AC Types'],['home:gal','img','Our Work'],['home:why','shield','Why NTUV'],['home:contact','phone','Contact Us']];
@@ -3460,6 +3554,21 @@ ${S.adm?'':'<div class="note"><b>You are using the default login</b> &ndash; ID:
     show(k);
   }
   window.shellGo=go;
+
+  /* ---------- swipe left / right to move to the next / previous screen ---------- */
+  function seq(){const v=curView();
+    if(v=='panel'&&me){const t=[...document.querySelectorAll('#panel .tabs button')];return{l:t.map((b,i)=>'tab:'+i),i:t.findIndex(b=>b.classList.contains('on'))}}
+    if(v=='cust'&&cu)return{l:['ct:b','ct:p'],i:ct=='p'?1:0};
+    if(v=='home'){const l=PUB.map(p=>p[0]);return{l,i:l.indexOf('home:'+sub)}}
+    return null}
+  let sx=0,sy=0,st0=0,sOk=false;
+  const NOSW='input,textarea,select,button.vh-d,.svs,.acg,.rb,.shw,.tw,table,.leaflet-container,dialog,iframe,[data-noswipe],.dclp';
+  main.addEventListener('touchstart',e=>{if(!on()||e.touches.length!==1){sOk=false;return}const t=e.touches[0];sx=t.clientX;sy=t.clientY;st0=Date.now();
+    sOk=!(e.target.closest&&e.target.closest(NOSW))&&sx>24&&sx<innerWidth-24},{passive:true});
+  main.addEventListener('touchend',e=>{if(!sOk)return;sOk=false;const t=e.changedTouches[0],dx=t.clientX-sx,dy=t.clientY-sy,dt=Date.now()-st0;
+    if(Math.abs(dx)<70||Math.abs(dy)>Math.abs(dx)*.55||dt>700)return;
+    const q=seq();if(!q||q.i<0)return;const n=q.i+(dx<0?1:-1);if(n<0||n>=q.l.length)return;
+    swDir=dx<0?1:-1;go(q.l[n]);if(navigator.vibrate)try{navigator.vibrate(8)}catch(_){}},{passive:true});
   function act(a){closeDd();closeSb();if(a=='logout'){me=null;show('home');toast('Logged out')}else if(a=='clogout'){if(typeof cLogout=='function')cLogout()}else if(a=='theme')toggleTheme()}
   document.addEventListener('click',e=>{const g=e.target.closest&&e.target.closest('[data-go]');if(g&&(g.closest('#sb,#bn2,#tb2,.qa'))){e.preventDefault();go(g.dataset.go);return}
     const a=e.target.closest&&e.target.closest('[data-act]');if(a&&a.closest('#sb,#tb2')){e.preventDefault();act(a.dataset.act);return}
@@ -3497,7 +3606,7 @@ ${S.adm?'':'<div class="note"><b>You are using the default login</b> &ndash; ID:
   const _show=show;show=function(v){const was=curView();_show.apply(this,arguments);const now=curView();
     if(on()){if(was!==now){main.scrollTop=0;anim($(now))}if(now=='home'&&was!=='home'&&!restoring&&sub=='book'){} }
     sync();schedulePush()};
-  const _render=render;render=function(){const r=_render.apply(this,arguments);if(on()&&curView()=='panel'){if(lastPtab!==null&&lastPtab!==ptab&&!restoring){main.scrollTop=0;anim(document.querySelector('#panel .box'))}lastPtab=ptab}sync();schedulePush();return r};
+  const _render=render;render=function(){const r=_render.apply(this,arguments);if(on()&&curView()=='panel'){if(lastPtab!==null&&lastPtab!==ptab&&!restoring){main.scrollTop=0;anim(document.querySelector('#panel .box'))}else swDir=0;lastPtab=ptab}sync();schedulePush();return r};
   if(typeof renderCust=='function'){const _rc=renderCust;renderCust=function(){const r=_rc.apply(this,arguments);sync();schedulePush();return r}}
   if(typeof ctab=='function'){const _ct=ctab;ctab=function(){const r=_ct.apply(this,arguments);if(on()){main.scrollTop=0;anim($('cdash'))}sync();schedulePush();return r}}
   const _book=book;book=function(){const r=_book.apply(this,arguments);if(on())setTimeout(()=>{setSub('book')},0);return r};
@@ -3636,6 +3745,68 @@ ${S.adm?'':'<div class="note"><b>You are using the default login</b> &ndash; ID:
 
   /* ---------- restore a remembered login ---------- */
   if(meRestore(!GAS_URL)==='wait'&&GAS_URL&&typeof initP!='undefined'&&initP&&initP.then)initP.then(()=>meRestore(true));
+})();
+
+</script><script>
+/* ===== v4.2 app home: auto-sliding cards, scroll animations, swipe indicator ===== */
+(function(){
+  const RM=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const main=document.querySelector('main'),B=document.body,home=$('home');
+  const isShell=()=>B.classList.contains('shell'),phone=()=>innerWidth<960;
+  const homeOn=()=>isShell()&&home&&!home.hidden&&/^(main|svc|act)$/.test(home.dataset.sub||'main');
+
+  /* ---------- auto-sliding carousels (services, AC types) with dots ---------- */
+  function carousel(box){
+    if(!box||box._car)return;box._car=1;
+    const items=()=>[...box.children].filter(c=>c.offsetParent!==null);
+    const dots=document.createElement('div');dots.className='cdots';dots.setAttribute('aria-hidden','true');box.after(dots);
+    let idx=0,hold=0,vis=false;
+    const draw=()=>{const n=items().length;if(dots.children.length!==n)dots.innerHTML=Array.from({length:n},()=>'<i></i>').join('');[...dots.children].forEach((d,i)=>d.classList.toggle('on',i===idx))};
+    const cur=()=>{const it=items(),c=box.scrollLeft+box.clientWidth/2;let best=0,bd=1e9;it.forEach((e,i)=>{const m=e.offsetLeft+e.offsetWidth/2,d=Math.abs(m-c);if(d<bd){bd=d;best=i}});return best};
+    box.addEventListener('scroll',()=>{clearTimeout(box._st);box._st=setTimeout(()=>{idx=cur();draw()},80)},{passive:true});
+    ['touchstart','pointerdown','wheel'].forEach(ev=>box.addEventListener(ev,()=>{hold=Date.now()+7000},{passive:true}));
+    if(window.IntersectionObserver)new IntersectionObserver(e=>{vis=e[0].isIntersecting},{root:null,threshold:.4}).observe(box);
+    setInterval(()=>{
+      if(RM||!vis||!homeOn()||!phone()||document.hidden||Date.now()<hold)return;
+      const it=items();if(it.length<2)return;
+      idx=(cur()+1)%it.length;const e=it[idx];
+      box.scrollTo({left:idx===0?0:e.offsetLeft-(box.clientWidth-e.offsetWidth)/2,behavior:'smooth'});draw()},3200);
+    draw();
+  }
+  carousel(document.querySelector('#home .svs'));
+  carousel(document.querySelector('#home .acg'));
+
+  /* ---------- sections slide in while scrolling the app home ---------- */
+  if(window.IntersectionObserver&&!RM){
+    const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('shr-in');io.unobserve(e.target)}}),{root:main,rootMargin:'0px 0px -6% 0px',threshold:.08});
+    const sel='#home .hl .shd,#home .svs,#home .shw,#home>.rb,#home .wn,#home .wn li,#home>.dcl,#home .dclp li,#home .act>h2,#home .acg,#home .gal>h2,#home .gal figure,#home>footer';
+    const arm=()=>{if(!isShell())return;document.querySelectorAll(sel).forEach((el,i)=>{if(el._shr)return;el._shr=1;el.classList.add('shr');el.style.setProperty('--d',((i%4)*70)+'ms');io.observe(el)})};
+    arm();new MutationObserver(arm).observe(B,{attributes:true,attributeFilter:['class']});
+  }
+
+  /* ---------- quick tiles take turns to glow ---------- */
+  let qi=0;
+  setInterval(()=>{if(RM||!homeOn()||document.hidden)return;const t=[...document.querySelectorAll('.qa .qa-t')];if(!t.length)return;t.forEach(x=>x.classList.remove('glow'));t[qi%t.length].classList.add('glow');qi++},2200);
+
+  /* ---------- swipe indicator + first-time hint ---------- */
+  B.insertAdjacentHTML('beforeend','<div id="swi" class="swi" aria-hidden="true"><div class="swi-d"></div><b></b></div>');
+  const swi=$('swi');let swT=0,lastKey='';
+  function showIndicator(){
+    if(!isShell())return;
+    const v=document.querySelector('main>.v:not([hidden])');if(!v)return;
+    let list=[],i=-1,label='';
+    if(v.id=='home'){list=[...document.querySelectorAll('#sbn .sbg')].map(g=>[...g.querySelectorAll('.sbi')]).find(l=>l.some(b=>/^home:/.test(b.dataset.go)))||[];list=list.filter(b=>/^home:/.test(b.dataset.go))}
+    else if(v.id=='panel')list=[...document.querySelectorAll('#sbn .sbi')].filter(b=>/^tab:/.test(b.dataset.go));
+    if(list.length<2)return;
+    i=list.findIndex(b=>b.classList.contains('on'));if(i<0)return;label=list[i].textContent.trim();
+    const k=v.id+i;if(k===lastKey)return;lastKey=k;
+    swi.querySelector('.swi-d').innerHTML=list.map((_,j)=>`<i class="${j===i?'on':''}"></i>`).join('');
+    swi.querySelector('b').textContent=label;swi.classList.add('on');clearTimeout(swT);swT=setTimeout(()=>swi.classList.remove('on'),1400)}
+  /* the indicator appears after a swipe (shell marks the moved screen with vin-l / vin-r) */
+  new MutationObserver(ms=>{if(ms.some(m=>m.target.classList&&(m.target.classList.contains('vin-l')||m.target.classList.contains('vin-r'))))setTimeout(showIndicator,30)}).observe(main,{subtree:true,attributes:true,attributeFilter:['class']});
+  if(isShell()&&phone()){let seen=false;try{seen=localStorage.ntuvSwipeHint==='1'}catch(e){}
+    if(!seen)setTimeout(()=>{if(!homeOn())return;const h=document.createElement('div');h.className='swh';h.innerHTML='<span>&#8592;</span> Swipe left or right to change screens <span>&#8594;</span>';B.appendChild(h);
+      setTimeout(()=>h.classList.add('out'),4200);setTimeout(()=>h.remove(),4700);try{localStorage.ntuvSwipeHint='1'}catch(e){}},2200)}
 })();
 
 </script>
