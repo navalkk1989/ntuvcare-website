@@ -3385,6 +3385,7 @@ window.NTM={"s1":"data:image/webp;base64,UklGRvB7AABXRUJQVlA4IOR7AAAwKQKdASqEA44
 /* ===== Admin > Settings: company details, GST on/off, bank details on/off, GST on home page ===== */
 (function(){
   if(!SC.includes('set'))SC.push('set');
+  try{if((!db.set||!db.set.length)&&localStorage.ntuvSet)db.set=JSON.parse(localStorage.ntuvSet)}catch(e){}
   NK.set='id';db.set=Array.isArray(db.set)?db.set:[];
   /* keep settings on this device if the Google script is an older version without the "set" list */
   const _adS=adopt;adopt=function(srv){const keep=srv&&!Array.isArray(srv.set)?(db.set||[]):null;_adS(srv);if(keep)db.set=keep;applySet()};
@@ -3508,10 +3509,10 @@ ${S.adm?'':'<div class="note"><b>You are using the default login</b> &ndash; ID:
     if(!v('cfg_nm'))return alert('Please enter the company name');
     if(ph&&ph.length!=10)return alert('Phone number must be 10 digits');
     if(wa&&wa.length!=10)return alert('WhatsApp number must be 10 digits');
-    if(gs&&!/^[0-9A-Z]{15}$/.test(gs)&&!confirm('GSTIN is normally 15 characters. Save anyway?'))return;
-    if(ifsc&&!/^[A-Z]{4}0[A-Z0-9]{6}$/.test(ifsc)&&!confirm('IFSC code looks unusual (format: ABCD0123456). Save anyway?'))return;
-    const rk=v('cfg_rk'),rsec=v('cfg_rs'),aid=v('cfg_aid')||'admin',pw=$('cfg_pw').value,pw2=$('cfg_pw2').value,rec=v('cfg_rec');
-    if(rk&&!/^rzp_(live|test)_[A-Za-z0-9]{6,}$/.test(rk))return alert('Razorpay Key ID looks wrong. It starts with rzp_live_ or rzp_test_');
+    const warn=[];if(gs&&!/^[0-9A-Z]{15}$/.test(gs))warn.push('GSTIN is normally 15 characters');
+    if(ifsc&&!/^[A-Z]{4}0[A-Z0-9]{6}$/.test(ifsc))warn.push('IFSC code looks unusual (format: ABCD0123456)');
+    const rk=v('cfg_rk').replace(/\s+/g,''),rsec=v('cfg_rs').replace(/\s+/g,''),aid=v('cfg_aid')||'admin',pw=$('cfg_pw').value,pw2=$('cfg_pw2').value,rec=v('cfg_rec');
+    if(rk&&!/^rzp_(live|test)_[A-Za-z0-9]{6,}$/.test(rk))return alert('Razorpay Key ID looks wrong. It must start with rzp_live_ or rzp_test_ (copy the Key ID, not the Key Secret).');
     if(rec&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(rec))return alert('Please enter a valid recovery email');
     if(pw||pw2){if(pw.length<6)return alert('Password must be at least 6 characters');if(pw!==pw2)return alert('New Password and Confirm Password do not match')}
     if($('cfg_live').checked&&!rk)return alert('Add your Razorpay Key ID before turning on Live payments');
@@ -3524,8 +3525,9 @@ ${S.adm?'':'<div class="note"><b>You are using the default login</b> &ndash; ID:
     if(pw&&window.meKeep)meKeep();
     save();applySet();setForce=true;render();
     const m=$('cfg_msg');if(m){m.hidden=false;m.textContent='Settings saved'+(GAS_URL?' and sent to Google Sheet.':' on this device.')}
-    toast('Settings saved'+(pw?' - new admin password is active':''));
-    if(rsec){if(!GAS_URL)return toast('Key Secret needs Google Sheet connection (GAS_URL)');(async()=>{try{if(window.flushNow)await flushNow();const q=await gcall({action:'rzpsecret',secret:rsec,key:rk,auth:adm?adm.h:''});if(!q||!q.ok)throw new Error(q&&q.err||'not saved');const rr=db.set.find(x=>x.id=='co');rr.rzpSec=true;save();toast('Razorpay Key Secret saved in Google Apps Script');setForce=true;render()}catch(e){toast('Could not save the Key Secret: '+e.message+'. Re-deploy the latest Code.gs and try again.')}})()}
+    toast('Settings saved'+(pw?' - new admin password is active':''),'ok');if(warn.length)setTimeout(()=>toast('Please check: '+warn.join(' and ')+'.','info'),400);
+    try{localStorage.ntuvSet=JSON.stringify(db.set)}catch(e){}
+    if(rsec){if(!GAS_URL)return toast('Key Secret needs Google Sheet connection (GAS_URL)');(async()=>{try{if(window.flushNow)await flushNow();const q=await gcall({action:'rzpsecret',secret:rsec,key:rk,auth:adm?adm.h:''});if(!q||!q.ok)throw new Error(q&&q.err||'not saved');const rr=db.set.find(x=>x.id=='co');rr.rzpSec=true;save();toast('Razorpay Key Secret saved in Google Apps Script');setForce=true;render()}catch(e){toast(/unknown action/i.test(e.message)?'Key Secret NOT saved: your Google Apps Script is the old version. Paste the new Code.gs and Deploy > Manage deployments > New version, then save again.':/not allowed/i.test(e.message)?'Key Secret NOT saved: admin password check failed. Log out, log in again and save once more.':'Key Secret NOT saved: '+e.message,'bad')}})()}
   };
   window.cfgEye=function(id,b){const e=$(id);if(!e)return;const sh=e.type=='password';e.type=sh?'text':'password';b.textContent=sh?'Hide':'Show'};
   window.setPrev=function(){const S=setGet(),fake={id:'SAMPLE',invNo:'INV-SAMPLE',name:'Sample Customer',mob:'9876543210',ad:'Sample address',ci:'Gurgaon',pin:'122001',at:'Split AC',is:'AC General Service',sd:new Date().toISOString().slice(0,10),gstn:'06ABCDE1234F1Z5',bill:{part:500,lab:800,gst:18,parts:[{n:'Capacitor',q:1,r:500}]}};
@@ -3549,7 +3551,7 @@ ${S.adm?'':'<div class="note"><b>You are using the default login</b> &ndash; ID:
     tabs.insertAdjacentHTML('afterend',setHtml());
   };
   applySet();
-  if(typeof initP!='undefined'&&initP&&initP.then)initP.then(applySet);
+  if(typeof initP!='undefined'&&initP&&initP.then)initP.then(()=>{try{if((!db.set||!db.set.length)&&localStorage.ntuvSet){db.set=JSON.parse(localStorage.ntuvSet);save()}else if(db.set&&db.set.length)localStorage.ntuvSet=JSON.stringify(db.set)}catch(e){}applySet()});
 })();
 
 </script><script>
