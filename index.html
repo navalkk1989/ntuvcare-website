@@ -711,6 +711,158 @@ body.shell #home[data-sub=main] .exg{display:block;margin:6px 0 4px}
 @media(min-width:960px){.exg-l{grid-template-columns:repeat(6,minmax(0,1fr))}}
 @media(prefers-reduced-motion:reduce){.tb2-ci::after,.tb2-ci .ic,.bni.fab .bni-i{animation:none}}
 
+/* ===== v4.6 ===== */
+/* --- save buttons: bright only when something changed --- */
+.sv-btn{transition:background .2s,box-shadow .2s,opacity .2s}
+.sv-btn:disabled{background:color-mix(in srgb,var(--okc,#16a34a) 12%,transparent)!important;color:var(--okc,#16a34a)!important;border:1px solid color-mix(in srgb,var(--okc,#16a34a) 35%,transparent)!important;box-shadow:none!important;cursor:default;opacity:1}
+.sv-btn.dirty{background:var(--grad)!important;color:#fff!important;border:0!important;box-shadow:0 6px 18px #0f5bff55!important;animation:svp 1.6s ease-in-out infinite}
+@keyframes svp{0%,100%{box-shadow:0 6px 18px #0f5bff44}50%{box-shadow:0 6px 22px #0f5bff99,0 0 0 4px #0f5bff22}}
+.cfg-ft{display:flex;justify-content:flex-end;margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}
+.cfg-ft .sv-btn{min-width:150px}
+
+/* --- technician commission --- */
+.tpc{display:grid;gap:6px;margin:0 0 8px;padding:10px;border:1px solid var(--line);border-radius:12px;background:var(--note);min-width:220px;text-align:left}
+.tpc b{font-size:12.5px;color:var(--ink)}
+.tpc-r{display:flex;gap:8px}
+.tpc label{flex:1;font-size:11.5px;font-weight:700;color:var(--mut);margin:0;text-transform:none;letter-spacing:0}
+.tpc input{width:100%;padding:6px 8px;margin-top:3px}
+.tpc small{font-size:11px;color:var(--mut);line-height:1.35}
+.tpc .sv-btn{padding:7px 10px;font-size:13px}
+
+/* --- technician page: Login | New Registration --- */
+.tlg{max-width:760px;margin:0 auto 14px}
+.tlg-s{display:flex;gap:6px;padding:5px;border-radius:14px;background:var(--card);border:1px solid var(--line);box-shadow:var(--shd);margin-bottom:14px}
+.tlg-s button{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;background:transparent!important;color:var(--ink)!important;border:0!important;box-shadow:none!important;border-radius:10px;padding:11px 10px;font-family:'Arial Rounded MT Bold','Nunito',Arial,sans-serif;font-size:15px;text-transform:none;letter-spacing:0}
+.tlg-s button .ic{width:18px;height:18px}
+.tlg-s button.on{background:var(--grad)!important;color:#fff!important;box-shadow:0 6px 16px #0f5bff44!important}
+.tlg-c{animation:vhup .45s cubic-bezier(.2,.8,.2,1) both}
+.tlg-c h2{margin-top:0}
+
+/* --- back to my panel (website) --- */
+.mypb{display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:999px;background:linear-gradient(135deg,#7c3aed,#0f5bff)!important;color:#fff!important;border:0;font-weight:800;font-size:13.5px;white-space:nowrap;box-shadow:0 6px 16px #6d28d955;animation:fabp 2.6s ease-in-out infinite}
+.mypb .ic{width:16px;height:16px}
+.mypb[hidden]{display:none!important}
+.mypb{position:fixed;z-index:60;left:16px;bottom:calc(18px + env(safe-area-inset-bottom));padding:11px 16px;font-size:14px}
+
+/* --- OTP integration --- */
+.otpc h4,.otpg h4{display:flex;align-items:center;gap:8px}
+.otpc h4 .ic,.otpg h4 .ic{width:20px;height:20px;color:var(--acc)}
+.otp-ks{font-weight:600;color:var(--okc,#16a34a);font-size:11.5px;text-transform:none;letter-spacing:0}
+.otp-adv{margin:10px 0;padding:8px 12px;border:1px dashed var(--line);border-radius:12px}
+.otp-adv summary{cursor:pointer;font-weight:700;color:var(--acc);font-size:14px}
+.otp-adv textarea{font-family:ui-monospace,Consolas,monospace;font-size:12.5px}
+.otp-t{align-items:flex-end}.otp-t button{white-space:nowrap}
+.otp-m{margin:6px 0 0;font-size:13.5px;font-weight:700;min-height:1em}
+.otp-m.ok{color:var(--okc,#16a34a)}.otp-m.bad{color:var(--bad,#dc2626)}
+
+/* --- Home Details editor --- */
+.blke-h{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.blke-a{display:flex;gap:6px}.blke-a button{padding:6px 10px;font-size:13px}
+.blke-del{color:var(--bad,#dc2626)!important;border-color:color-mix(in srgb,var(--bad,#dc2626) 40%,transparent)!important}
+.blke-items{display:grid;gap:8px;margin-top:6px}
+.blke-it{display:grid;grid-template-columns:1fr auto;gap:6px;padding:10px;border-radius:12px;background:var(--note)}
+.blke-it input{grid-column:1}.blke-it textarea{grid-column:1;margin:0}
+.blke-it button{grid-column:2;grid-row:1/3;align-self:center;padding:6px 11px;font-size:18px;line-height:1}
+
+/* --- Home Details boxes on the home page --- */
+.cblk{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px;margin:26px 0 8px}
+.cblk[hidden]{display:none}
+.cbk{position:relative;overflow:hidden;padding:20px 20px 16px;border-radius:20px;background:var(--card);border:1px solid var(--line);box-shadow:0 14px 34px #0b2a7814;opacity:0;transform:translateY(26px) scale(.98);transition:opacity .7s var(--d,0ms),transform .7s cubic-bezier(.2,.8,.2,1) var(--d,0ms),box-shadow .25s}
+.cbk::before{content:"";position:absolute;inset:0 0 auto;height:4px;background:linear-gradient(90deg,var(--bc),color-mix(in srgb,var(--bc) 40%,#fff))}
+.cbk::after{content:"";position:absolute;width:180px;height:180px;right:-60px;top:-70px;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--bc) 18%,transparent),transparent 70%);animation:cbkf 7s ease-in-out infinite;pointer-events:none}
+.cbk.in{opacity:1;transform:none}
+.cbk:hover{box-shadow:0 18px 40px color-mix(in srgb,var(--bc) 25%,transparent);transform:translateY(-3px)}
+.cbk header{position:relative;display:flex;align-items:center;gap:12px;margin:0 0 12px;padding:0;background:none!important;border:0!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+.cbk-i{display:grid;place-items:center;flex:0 0 46px;height:46px;border-radius:14px;background:linear-gradient(135deg,var(--bc),color-mix(in srgb,var(--bc) 60%,#fff));color:#fff;box-shadow:0 8px 18px color-mix(in srgb,var(--bc) 40%,transparent)}
+.cbk-i .ic{width:24px;height:24px}
+.cbk h3{margin:0;font-family:var(--hf);font-size:22px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink);line-height:1.1}
+.cbk ul{position:relative;list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.cbk li{display:flex;gap:10px;align-items:flex-start;opacity:0;transform:translateX(-10px);transition:opacity .5s calc(var(--d,0ms) + 250ms + var(--j)*90ms),transform .5s calc(var(--d,0ms) + 250ms + var(--j)*90ms)}
+.cbk.in li{opacity:1;transform:none}
+.cbk-c{display:grid;place-items:center;flex:0 0 22px;height:22px;margin-top:1px;border-radius:50%;background:color-mix(in srgb,var(--bc) 15%,transparent);color:var(--bc)}
+.cbk-c .ic{width:13px;height:13px}
+.cbk li b{display:block;font-size:15px;color:var(--ink)}
+.cbk li p{margin:2px 0 0;font-size:14px;line-height:1.5;color:var(--mut)}
+@keyframes cbkf{0%,100%{transform:translate(0,0)}50%{transform:translate(-18px,14px)}}
+body.shell #home[data-sub=main] .cblk{margin:18px 0 6px;gap:12px}
+body.shell .cbk{padding:16px 16px 14px;border-radius:18px}
+body.shell .cbk h3{font-size:19px}
+body.shell #home:not([data-sub=main]) .cblk{display:none}
+
+/* --- 24/7 support --- */
+.s247{display:inline-flex;align-items:center;gap:8px;padding:8px 14px 8px 8px;border-radius:999px;border:0!important;background:linear-gradient(135deg,#15803d,#22c55e)!important;color:#fff!important;box-shadow:0 8px 20px #16a34a44;font-family:'Arial Rounded MT Bold','Nunito',Arial,sans-serif;font-size:15px;text-transform:none;letter-spacing:0;cursor:pointer}
+.s247 .ic{width:30px;height:30px;padding:6px;border-radius:50%;background:#ffffff33;animation:cshake 2s ease-in-out infinite}
+.s247 b{font-size:17px}
+.supf{position:fixed;z-index:58;right:16px;bottom:calc(18px + env(safe-area-inset-bottom));display:flex;align-items:center;gap:8px;padding:6px 14px 6px 6px;border-radius:999px;border:0!important;background:linear-gradient(135deg,#15803d,#22c55e)!important;color:#fff!important;box-shadow:0 10px 26px #16a34a66;font-family:'Arial Rounded MT Bold','Nunito',Arial,sans-serif;text-transform:none;letter-spacing:0;cursor:pointer}
+.supf-i{position:relative;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:#ffffff2e}
+.supf-i::after{content:"";position:absolute;inset:0;border-radius:50%;animation:cring 1.8s ease-out infinite}
+.supf-i .ic{width:20px;height:20px;animation:cshake 1.8s ease-in-out infinite}
+.supf-t{display:flex;flex-direction:column;line-height:1.05;font-size:12px;font-weight:700;text-align:left}
+.supf-t b{font-size:17px}
+body.shell .supf{bottom:calc(var(--bnh) + 14px + env(safe-area-inset-bottom));right:12px;padding:5px;}
+body.shell .supf .supf-t{display:none}
+body.shell .supf .supf-i{width:44px;height:44px}
+body.shell.v46h .supf::before{content:"24/7";position:absolute;top:-8px;right:-4px;padding:1px 6px;border-radius:999px;background:#fff;color:#15803d;font-size:10.5px;font-weight:900;box-shadow:0 2px 8px #0003}
+body:not(.shell) #panel:not([hidden])~.supf{display:none}
+.supc{position:fixed;z-index:61;right:16px;bottom:calc(84px + env(safe-area-inset-bottom));width:min(320px,calc(100vw - 32px));padding:18px;border-radius:20px;background:var(--card);border:1px solid var(--line);box-shadow:0 24px 60px #0b2a7840;opacity:0;transform:translateY(14px) scale(.96);transform-origin:bottom right;transition:opacity .22s,transform .22s}
+.supc.on{opacity:1;transform:none}
+.supc[hidden]{display:none}
+body.shell .supc{bottom:calc(var(--bnh) + 76px + env(safe-area-inset-bottom))}
+.supc-h{display:block;font-family:var(--hf);font-size:21px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink);padding-right:28px}
+.supc p{margin:4px 0 12px;font-size:14px;color:var(--mut)}
+.supc-x{position:absolute;top:10px;right:10px;width:32px;height:32px;padding:0;border-radius:50%;background:var(--note)!important;color:var(--ink)!important;border:0!important;font-size:20px;line-height:1}
+.supc-a{display:flex;align-items:center;gap:12px;padding:11px 12px;margin-top:8px;border-radius:14px;text-decoration:none;color:#fff!important;font-weight:700;font-size:15px}
+.supc-a .ic{width:20px;height:20px}
+.supc-a.sc1{background:linear-gradient(135deg,#0b3fe0,#0f5bff)}.supc-a.sc2{background:linear-gradient(135deg,#15803d,#22c55e)}.supc-a.sc3{background:linear-gradient(135deg,#7c3aed,#a855f7)}
+.supc-a span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* --- grievance line in the footer --- */
+.fgv{margin:10px auto 0;padding:10px 14px;max-width:900px;border-radius:12px;background:var(--note);font-size:13.5px;line-height:1.5;color:var(--ink);text-align:center}
+.fgv a{color:var(--acc)}
+
+/* ---------- hero: video band on top, text below ---------- */
+body.v46h{--vb:clamp(320px,40vw,540px)}
+@media(max-width:860px){body.v46h{--vb:clamp(220px,58vw,420px)}}
+body.v46h.shell{--vb:clamp(230px,34vw,460px)}
+@media(max-width:959px){body.v46h.shell{--vb:clamp(210px,56vw,360px)}}
+body.v46h #home .hero>.vh{height:var(--vb)!important;border-radius:0 0 28px 28px}
+body.v46h .vh-sh{background:linear-gradient(0deg,#04102f8c 0%,#04102f00 40%),linear-gradient(90deg,#04102f33,#04102f00 60%)!important}
+body.v46h .hx,body.v46h.shell .hx,body.v46h.shell #home[data-sub=main] .hx{position:relative;min-height:0!important;justify-content:flex-start;padding:calc(var(--vb) + 24px) 0 8px!important;color:var(--ink)}
+body.v46h .hx::after{display:none!important}
+body.v46h .vbo{position:absolute;left:0;right:0;top:0;height:var(--vb);max-width:none;display:flex;align-items:flex-end;justify-content:space-between;gap:12px;padding:0 0 18px;pointer-events:none}
+body.v46h .vbo>*{pointer-events:auto}
+body.v46h .vbo .vh-n{margin:0 0 0 auto;display:flex!important}
+body.v46h .vbo .osk{margin:0;filter:drop-shadow(0 8px 20px #0007)}
+body.v46h .hx .vh-k{background:var(--note);border-color:var(--line);color:var(--ink);-webkit-backdrop-filter:none;backdrop-filter:none}
+body.v46h .hx h1{color:var(--ink);text-shadow:none}
+body.v46h .hx h1 em{background:linear-gradient(90deg,#0b3fe0,#0f5bff 50%,#19a3ff);-webkit-background-clip:text;background-clip:text;filter:none}
+body.v46h .hx .vh-r{display:flex!important;color:var(--ink);text-shadow:none}
+body.v46h .hx .vh-w{color:var(--acc)}
+body.v46h .hx .vh-p{color:var(--mut);text-shadow:none}
+body.v46h .hx .vh-c .gl{color:var(--ink);border-color:var(--line);background:var(--card)}
+body.v46h .hx .vh-c .go{background:var(--grad);color:#fff;box-shadow:0 12px 26px #0f5bff44}
+body.v46h .hx .vh-c .go:hover{color:#fff;filter:brightness(1.06)}
+body.v46h .hx .vh-row{align-items:center;gap:10px 14px}
+body.v46h .hx .vh-b{margin:0}
+:root[data-theme=dark] body.v46h .hx h1 em{background:linear-gradient(90deg,#8fdcff,#4aa8ff 55%,#a6deff);-webkit-background-clip:text;background-clip:text}
+@media(min-width:861px){body.v46h #home .hero>form{margin-top:calc(var(--vb) * .18)}}
+@media(max-width:860px){
+ body.v46h .vbo{padding-bottom:12px}
+ body.v46h .vbo .vh-n{width:auto}
+ body.v46h .vbo .vh-d{min-width:46px;padding:6px 8px}
+ body.v46h .vbo .vh-pp{width:36px;height:36px}
+ body.v46h .vbo .osk{transform:rotate(-4deg) scale(.86);transform-origin:left bottom}
+ body.v46h .hx h1{font-size:clamp(26px,7.4vw,34px)}
+ body.v46h .hx .vh-r{font-size:18px}
+ body.v46h .hx .vh-p{display:block;font-size:14.5px}
+}
+@media(prefers-reduced-motion:reduce){.sv-btn.dirty,.mypb,.cbk::after,.s247 .ic,.supf-i::after,.supf-i .ic{animation:none}.cbk,.cbk li{opacity:1;transform:none;transition:none}}
+body.v46h .hx .vh-b{color:#fff}
+body.v46h.shell #home[data-sub=main] .hx .vh-r{display:flex!important;font-size:17px;margin-bottom:12px}
+@media(max-width:768px){body:not(.shell) .supf{bottom:calc(96px + env(safe-area-inset-bottom))}body:not(.shell) .supc{bottom:calc(160px + env(safe-area-inset-bottom))}.mypb{bottom:calc(96px + env(safe-area-inset-bottom))}}
+
+body.v46p .supf,body.v46p .supc{display:none!important}
+
 /* ===== v4.2 app home polish ===== */
 /* dots under sliding cards */
 .cdots{display:none}
@@ -1636,10 +1788,10 @@ const tot=x.bill?`<br><small><b>Total:</b> ${rs(blc(x.bill).tot)}</small>`:'',rf
 return `<td>${esc(x.id)}<br><small>${esc(x.date)}</small></td><td>${sdCell(x)}</td><td>${clCell(x)}</td><td>${esc(x.name)}</td><td>${esc(x.mob)}</td><td class="w">${esc(cxAddr(x))}${gmRow(x)}</td><td class="w">${sv}<br><small>${esc(x.br)}${x.qty?' | Qty: '+esc(x.qty):''}</small>${x.isx?'<br><small>'+esc(x.isx)+'</small>':''}</td><td><b>${esc(x.status)}</b>${tot}${rf}${fb}</td><td>${techCell(x)}</td>`}
 
 /* ---- billing (Excel logic) ---- */
-function blc(b){const p=+b.part||0,l=+b.lab||0,g=(+b.gst||0)/100,pp=+b.pp||0,t=b.by=='Technician',pg=p*g /* Part GST = Part x GST% (Com_Calculation.xlsx) */,lg=l*g,tg=pg+lg,pr=p-pp;
-return{pg:m2(pg),lg:m2(lg),tg:m2(tg),tot:m2(p+l+tg),pr:m2(pr),co:m2(t?tg+pr*.3+l*.3:p+tg+l*.3),te:m2(t?l*.7+pr*.7+pp:l*.7)}}
+function blc(b){const p=+b.part||0,l=+b.lab||0,g=(+b.gst||0)/100,pp=+b.pp||0,t=b.by=='Technician',pg=p*g /* Part GST = Part x GST% (Com_Calculation.xlsx) */,lg=l*g,tg=pg+lg,pr=p-pp,LC=(b.lc!=null&&b.lc!==''?+b.lc:70)/100,PC=(b.pc!=null&&b.pc!==''?+b.pc:70)/100;
+return{pg:m2(pg),lg:m2(lg),tg:m2(tg),tot:m2(p+l+tg),pr:m2(pr),co:m2(t?tg+pr*(1-PC)+l*(1-LC):p+tg+l*(1-LC)),te:m2(t?l*LC+pr*PC+pp:l*LC)}}
 let blId='',blInv=null,rfId='',cmT='';
-function blRead(){return{part:$('bl_p').value,lab:$('bl_l').value,gst:+$('bl_g').value,pp:$('bl_pp').value,by:$('bl_b').value}}
+function blRead(){return Object.assign({part:$('bl_p').value,lab:$('bl_l').value,gst:+$('bl_g').value,pp:$('bl_pp').value,by:$('bl_b').value},techPct((db.b.find(x=>x.id==blId)||{}).tm))}
 function blPrev(){const b=blRead(),c=blc(b),T=me.role=='technician';const R=[['Part Amount',b.part||0],['Labour Charge',b.lab||0],['Part GST ('+b.gst+'%)',c.pg],['Labour GST ('+b.gst+'%)',c.lg],['Total GST',c.tg],['Total Invoice Amount',c.tot],['Part Profit Amt',c.pr]];
 if(!T)R.push(['Company Amount',c.co]);R.push([T?'My Commission':'Technician Amount (Commission)',c.te]);
 $('bl_pv').innerHTML='<table class="hz">'+R.map(r=>`<tr><th>${r[0]}</th><td>${rs(r[1])}</td></tr>`).join('')+'</table>'}
@@ -1647,11 +1799,11 @@ function blFile(i){const f=i.files[0];if(!f)return;const r=new FileReader();r.on
 function blHist(b){if(me.role=='technician'||!b.bill||!b.bill.edits.length)return'';return `<h3 class="sh">Edit History</h3><div class="tw"><table class="hz"><tr><th>When</th><th>By</th><th>Field</th><th>Previous</th><th>Edited</th></tr>${b.bill.edits.map(e=>e.ch.map(z=>`<tr class="edt"><td>${esc(e.at)}</td><td>${esc(e.by)}</td><td>${z.k}</td><td>${esc(z.a)}</td><td><span class="chg">${esc(z.b)}</span></td></tr>`).join('')+`<tr class="edt"><td colspan="3"><b>Total Invoice</b></td><td>${rs(e.oldTot)}</td><td><span class="chg">${rs(e.newTot)}</span></td></tr>`+(e.inv?'<tr class="edt"><td colspan="5">Invoice image replaced</td></tr>':'')).join('')}</table></div>`}
 function openBill(id){const b=db.b.find(x=>x.id==id);if(!b)return;const R=me.role,B=b.bill;
 if(R=='technician'&&!B&&b.status!='Closed')return alert('Part / Labour / GST details can be filled only after the complaint is Closed. First set the status to Closed and Save.');
-blId=id;blInv=null;const ed=R!='technician'||!B,v=B||{part:'',lab:'',gst:18,pp:'',by:'Company'},d=ed?'':'disabled';
+blId=id;blInv=null;const ed=R!='technician'||!B,v=B||{part:'',lab:'',gst:18,pp:'',by:'Technician'},d=ed?'':'disabled';
 const inp=(i,l,val)=>`<label>${l}<input id="${i}" type="number" min="0" step="0.01" class="yl" value="${esc(val)}" ${d} oninput="blPrev()"></label>`;
 $('dbl').innerHTML=`<h3>Billing &amp; Parts - ${esc(id)}</h3>${ed?'':'<div class="note">Details are already saved. Only an Office Employee or Admin can edit them.</div>'}<small>Fill in the yellow fields; everything else is calculated automatically.</small>
 <div class="row">${inp('bl_p','Part Amount (Rs)',v.part)}${inp('bl_l','Labour Charge (Rs)',v.lab)}<label>GST %<select id="bl_g" class="yl" ${d} onchange="blPrev()">${GP.map(g=>`<option ${g==v.gst?'selected':''}>${g}</option>`).join('')}</select></label></div>
-<div class="row">${inp('bl_pp','Part Purchase Price (Rs)',v.pp)}<label>Part Paid By<select id="bl_b" class="yl" ${d} onchange="blPrev()">${['Company','Technician'].map(z=>`<option ${z==v.by?'selected':''}>${z}</option>`).join('')}</select></label></div>
+<div class="row">${inp('bl_pp','Part Purchase Price (Rs)',v.pp)}<label>Part Paid By<select id="bl_b" class="yl" ${d} onchange="blPrev()">${['Company','Technician'].map(z=>`<option ${z==(v.by||'Technician')?'selected':''}>${z}</option>`).join('')}</select></label></div>
 <label>Purchase Invoice Image (optional - not shown to the customer)<input id="bl_f" type="file" accept="image/*" ${d} onchange="blFile(this)"></label><div id="bl_im">${v.inv?`<img src="${v.inv}" style="max-width:220px;margin:6px 0;border:1px solid var(--line)"><br>${docBtns(v.inv,'Purchase-Invoice-'+id+'.jpg')}`:''}</div>
 <div id="bl_pv"></div>${blHist(b)}<div class="row" style="margin-top:12px">${ed?'<button type="button" onclick="blSave()">Save Billing</button>':''}<button type="button" class="alt" onclick="$('dbl').close()">Close</button></div>`;
 blPrev();$('dbl').showModal()}
@@ -3087,7 +3239,7 @@ setInterval(()=>{ntfSync();ntfCheck()},60000);setTimeout(ntfSync,4000);
 /* ===== NTUV update: complaint billing (separate from the first service), visiting charge, commission ===== */
 const CB_GST=[0,5,12,18,28];
 /* complaint bill -> same formula as booking billing; visiting charge counts with labour */
-const cbB=c=>c&&c.bill?{part:+c.bill.part||0,lab:(+c.bill.lab||0)+(c.bill.visAmt||0),gst:+c.bill.gst||0,pp:+c.bill.pp||0,by:c.bill.by||'Company'}:null;
+const cbB=c=>c&&c.bill?{part:+c.bill.part||0,lab:(+c.bill.lab||0)+(c.bill.visAmt||0),gst:+c.bill.gst||0,pp:+c.bill.pp||0,by:c.bill.by||'Company',lc:c.bill.lc,pc:c.bill.pc}:null;
 const cbK=c=>{const B=cbB(c);return B?blc(B):null};
 const cbCash=c=>c&&c.bill&&c.bill.mode=='Cash'?m2(+c.bill.recv||0):0;
 const cbOnline=c=>c&&c.bill?m2((c.paid?+c.amt||CMP_FEE:0)+(c.bill.mode&&c.bill.mode!='Cash'&&c.bill.mode!='Not received'?+c.bill.recv||0:0)):0;
@@ -3111,7 +3263,7 @@ $('dcb').innerHTML=`<h3>Complaint Billing - ${esc(a.id)} <small style="font-weig
 ${lock?'<div class="note">Billing is saved. Only Office / Manager / Admin can edit it.</div>':''}
 <h3 class="sh" style="font-size:16px">Parts used</h3><div id="cb_parts"></div>${lock?'':'<div class="row" style="align-items:end;flex-wrap:wrap"><label>Part Name<input id="cbn_n" placeholder="e.g. Capacitor"></label><label style="max-width:100px">Qty<input id="cbn_q" type="number" min="1" value="1"></label><label style="max-width:130px">Rate (Rs)<input id="cbn_r" type="number" min="0" step="0.01"></label><button type="button" onclick="cbAdd()">+ Add Part</button></div>'}
 <div class="row" style="flex-wrap:wrap"><label>Part Amount (Rs)<input id="cb_p" type="number" min="0" step="0.01" value="${esc(B.part||'')}" ${d} oninput="cbPrev()"></label><label>Labour Charge (Rs)<input id="cb_l" type="number" min="0" step="0.01" value="${esc(B.lab||'')}" ${d} oninput="cbPrev()"></label><label>GST %<select id="cb_g" ${d} onchange="cbPrev()">${CB_GST.map(g=>`<option ${(+B.gst||18)==g?'selected':''}>${g}</option>`).join('')}</select></label></div>
-<div class="row" style="flex-wrap:wrap"><label>Part Purchase Price (Rs)<input id="cb_pp" type="number" min="0" step="0.01" value="${esc(B.pp||'')}" ${d} oninput="cbPrev()"></label><label>Part Paid By<select id="cb_by" ${d} onchange="cbPrev()"><option ${B.by!='Technician'?'selected':''}>Company</option><option ${B.by=='Technician'?'selected':''}>Technician</option></select></label></div>
+<div class="row" style="flex-wrap:wrap"><label>Part Purchase Price (Rs)<input id="cb_pp" type="number" min="0" step="0.01" value="${esc(B.pp||'')}" ${d} oninput="cbPrev()"></label><label>Part Paid By<select id="cb_by" ${d} onchange="cbPrev()"><option ${B.by=='Company'?'selected':''}>Company</option><option ${B.by!='Company'?'selected':''}>Technician</option></select></label></div>
 <div class="cbvis"><b>Visiting charge:</b> ${vis.taken===false?`<span class="netr">Not taken</span> <small>${esc(vis.rem||'')}</small>`:`Rs ${va}${a.paid?' <small class="ok">(paid online by customer)</small>':''}`} <small>(change it in the complaint status: "Visiting Charge Taken / Not Taken")</small></div>
 <div class="row" style="flex-wrap:wrap"><label>Customer paid by<select id="cb_m" ${d} onchange="cbPrev()">${['Cash','UPI','Account Transfer (IMPS)','Online Payment','Not received'].map(m=>`<option ${(B.mode||'Cash')==m?'selected':''}>${m}</option>`).join('')}</select></label></div>
 <div id="cb_pv" class="cbpv"></div>
@@ -3120,11 +3272,11 @@ cbDraw(!lock);$('dcb').showModal();cbPrev()}
 function cbDraw(ed){const w=$('cb_parts');if(!w)return;w.innerHTML=cbParts.length?`<div class="tw"><table class="hz"><tr><th>Part</th><th>Qty</th><th>Rate</th><th>Amount</th>${ed?'<th></th>':''}</tr>${cbParts.map((p,i)=>`<tr><td>${esc(p.n)}</td><td>${esc(p.q)}</td><td>${rs(p.r)}</td><td>${rs(m2(p.q*p.r))}</td>${ed?`<td><button type="button" class="alt pbtn" onclick="cbParts.splice(${i},1);cbDraw(1);cbPrev()">&times;</button></td>`:''}</tr>`).join('')}</table></div>`:'<small>No parts added.</small>';
 if(ed&&cbParts.length){$('cb_p').value=m2(cbParts.reduce((a,p)=>a+p.q*p.r,0));$('cb_p').readOnly=true}else if($('cb_p'))$('cb_p').readOnly=false}
 function cbAdd(){const n=$('cbn_n').value.trim(),q=+$('cbn_q').value,r=+$('cbn_r').value;if(!n)return alert('Enter the part name');if(!(q>0))return alert('Enter quantity');if(!(r>=0)||$('cbn_r').value==='')return alert('Enter the rate');cbParts.push({n,q,r});$('cbn_n').value='';$('cbn_r').value='';cbDraw(1);cbPrev()}
-function cbVals(){const x=db.b.find(b=>b.id==cbId),a=cmpLast(x),vis=a.vis||{taken:true};return{x,a,bill:{part:m2($('cb_p').value),lab:m2($('cb_l').value),gst:+$('cb_g').value,pp:m2($('cb_pp').value),by:$('cb_by').value,parts:cbParts,visAmt:vis.taken===false?0:(+a.amt||CMP_FEE),mode:$('cb_m').value}}}
-function cbPrev(){if(!$('cb_pv'))return;const{a,bill}=cbVals(),k=blc({part:bill.part,lab:bill.lab+bill.visAmt,gst:bill.gst,pp:bill.pp,by:bill.by}),pre=a.paid?(+a.amt||CMP_FEE):0,due=m2(Math.max(0,k.tot-pre));
+function cbVals(){const x=db.b.find(b=>b.id==cbId),a=cmpLast(x),vis=a.vis||{taken:true};return{x,a,bill:{part:m2($('cb_p').value),lab:m2($('cb_l').value),gst:+$('cb_g').value,pp:m2($('cb_pp').value),by:$('cb_by').value,parts:cbParts,visAmt:vis.taken===false?0:(+a.amt||CMP_FEE),mode:$('cb_m').value,...techPct(a&&a.tech||x&&x.tm)}}}
+function cbPrev(){if(!$('cb_pv'))return;const{a,bill}=cbVals(),k=blc({part:bill.part,lab:bill.lab+bill.visAmt,gst:bill.gst,pp:bill.pp,by:bill.by,lc:bill.lc,pc:bill.pc}),pre=a.paid?(+a.amt||CMP_FEE):0,due=m2(Math.max(0,k.tot-pre));
 $('cb_pv').innerHTML=`<div class="wal"><div><small>Parts</small><b>${rs(bill.part)}</b></div><div><small>Labour + Visiting</small><b>${rs(m2(bill.lab+bill.visAmt))}</b></div><div><small>GST ${bill.gst}%</small><b>${rs(k.tg)}</b></div><div><small>Complaint invoice</small><b>${rs(k.tot)}</b></div>${pre?`<div><small>Paid online (visit)</small><b class="ok">- ${rs(pre)}</b></div>`:''}<div><small>To collect</small><b>${rs(due)}</b></div>${me.role=='technician'?'':`<div><small>Company amount</small><b>${rs(k.co)}</b></div>`}<div><small>Technician commission</small><b>${rs(k.te)}</b></div></div>`}
 function cbSave(){const{x,a,bill}=cbVals();if(!(bill.part||bill.lab||bill.visAmt))return alert('Enter part amount, labour or keep the visiting charge');
-const k=blc({part:bill.part,lab:bill.lab+bill.visAmt,gst:bill.gst,pp:bill.pp,by:bill.by}),pre=a.paid?(+a.amt||CMP_FEE):0;bill.recv=bill.mode=='Not received'?0:m2(Math.max(0,k.tot-pre));
+const k=blc({part:bill.part,lab:bill.lab+bill.visAmt,gst:bill.gst,pp:bill.pp,by:bill.by,lc:bill.lc,pc:bill.pc}),pre=a.paid?(+a.amt||CMP_FEE):0;bill.recv=bill.mode=='Not received'?0:m2(Math.max(0,k.tot-pre));
 const old=a.bill;bill.cp=old&&old.cp||'Unpaid';if(old&&old.cpd)bill.cpd=old.cpd;bill.at=new Date().toLocaleString();bill.ts=Date.now();bill.by2=who();bill.edits=(old&&old.edits||[]).concat(old?[{at:bill.at,by:who(),oldTot:cbK(a).tot}]:[]);
 a.bill=bill;hlog(x,who(),(old?'Complaint billing edited':'Complaint billing saved')+' ('+a.id+')',x.status,'Invoice Rs '+k.tot+' | '+bill.mode,k.tot);save();$('dcb').close();render();toast('Complaint billing saved: '+rs(k.tot))}
 /* ---- commission & settlement include complaint bills ---- */
@@ -3390,7 +3542,7 @@ window.NTM={"s1":"data:image/webp;base64,UklGRvB7AABXRUJQVlA4IOR7AAAwKQKdASqEA44
   /* keep settings on this device if the Google script is an older version without the "set" list */
   const _adS=adopt;adopt=function(srv){const keep=srv&&!Array.isArray(srv.set)?(db.set||[]):null;_adS(srv);if(keep)db.set=keep;applySet()};
 
-  const DEF={id:'co',name:CO.name,addr:CO.addr,ph:CO.ph,wa:CO.ph,em:CO.em,gstin:CO.gstin||'',gstOn:false,gstHome:false,bankOn:false,rzpKey:'',live:false,appUrl:'NTUV-Care.apk',ofrOn:true,ofrTitle:'AC SERVICE',ofrPrice:'600',ofrTag:'Cooler Home, Happier You!',ofrSvc:'AC General Service',recEmail:'',adm:null,
+  const DEF={id:'co',name:CO.name,addr:CO.addr,ph:CO.ph,wa:CO.ph,em:CO.em,gstin:CO.gstin||'',gstOn:false,gstHome:false,bankOn:false,rzpKey:'',live:false,appUrl:'NTUV-Care.apk',ofrOn:true,ofrTitle:'AC SERVICE',ofrPrice:'600',ofrTag:'Cooler Home, Happier You!',ofrSvc:'AC General Service',siteUrl:'https://ntuvcare.in/',griev:{name:'',desig:'Grievance Officer',em:'',ph:'',addr:'',hours:'Monday to Saturday, 10 AM to 6 PM'},otp:{on:false,pref:'wa',fallback:true,wa:{},sms:{}},blocks:[],recEmail:'',adm:null,
     bank:{name:CO.name,bank:(CO.bank&&CO.bank.name)||'',acc:(CO.bank&&CO.bank.acc)||'',ifsc:(CO.bank&&CO.bank.ifsc)||'',upi:'',qr64:''}};
   const qrOf=S=>S.bank&&S.bank.qr64?'data:'+S.bank.qr64:'';
   window.coQR=()=>qrOf(setGet());
@@ -3492,7 +3644,14 @@ ${tg('cfg_live',S.live,'Live payments','ON: customers must verify OTP and pay on
 </div>
 <div class="cfgc"><h4>Mobile App Download</h4>
 ${fi('cfg_app','App download link (APK)',S.appUrl,'placeholder="NTUV-Care.apk or https://..."')}
-<small>Used by the "Download App" button in the website header. Keep <b>NTUV-Care.apk</b> to use the APK file uploaded next to index.html, or paste a full link (GitHub Release, Google Drive).</small>
+${fi('cfg_site','Website address',S.siteUrl,'placeholder="https://ntuvcare.in/"')}
+<small>Used by the "Download App" button in the website header and by the app to check for a newer version. Keep <b>NTUV-Care.apk</b> to use the APK file uploaded next to index.html, or paste a full link (GitHub Release, Google Drive).</small>
+</div>
+<div class="cfgc"><h4>Grievance Officer</h4>
+<div class="row">${fi('cfg_gvn','Name',(S.griev||{}).name,'maxlength="60"')}${fi('cfg_gvd','Designation',(S.griev||{}).desig,'maxlength="60"')}</div>
+<div class="row">${fi('cfg_gve','Email',(S.griev||{}).em,'type="email" maxlength="80"')}${fi('cfg_gvp','Phone',(S.griev||{}).ph,'inputmode="tel"')}</div>
+${fi('cfg_gva','Address',(S.griev||{}).addr,'maxlength="200"')}${fi('cfg_gvh','Working hours',(S.griev||{}).hours,'maxlength="80"')}
+<small>Shown in the website footer and in the Privacy &amp; Refund Policy, so customers know whom to contact for complaints.</small>
 </div>
 <div class="cfgc"><h4>Admin Login &amp; Recovery</h4>
 ${S.adm?'':'<div class="note"><b>You are using the default login</b> &ndash; ID: <b>admin</b> &middot; Password: <b>admin123</b>. Please set your own password below.</div>'}
@@ -3521,7 +3680,7 @@ ${S.adm?'':'<div class="note"><b>You are using the default login</b> &ndash; ID:
     if(pw){const salt=Math.random().toString(36).slice(2,12);adm={id:aid,salt:salt,h:sha256(salt+':'+pw),at:new Date().toLocaleString()}}
     else if(aid!==(adm?adm.id:'admin')){if(!adm)return alert('To change the Admin ID, also set a new password');adm=Object.assign({},adm,{id:aid,at:new Date().toLocaleString()})}
     Object.assign(r,{name:v('cfg_nm'),addr:v('cfg_ad'),ph:ph,wa:wa||ph,em:v('cfg_em'),gstin:gs,gstOn:$('cfg_gon').checked,bankOn:$('cfg_bon').checked,gstHome:$('cfg_gh').checked,
-      bank:{name:v('cfg_bh'),bank:v('cfg_bb'),acc:v('cfg_ba'),ifsc:ifsc,upi:v('cfg_bu'),qr64:cfgQR},rzpKey:rk,live:$('cfg_live').checked,ofrOn:$('cfg_oon').checked,ofrTitle:v('cfg_ot')||'AC SERVICE',ofrPrice:(v('cfg_op').replace(/\D/g,'')||'600'),ofrTag:v('cfg_og'),ofrSvc:$('cfg_os')?$('cfg_os').value:'AC General Service',appUrl:v('cfg_app')||'NTUV-Care.apk',recEmail:rec,adm:adm,by:me.id||aid,at:new Date().toLocaleString()});
+      bank:{name:v('cfg_bh'),bank:v('cfg_bb'),acc:v('cfg_ba'),ifsc:ifsc,upi:v('cfg_bu'),qr64:cfgQR},rzpKey:rk,live:$('cfg_live').checked,ofrOn:$('cfg_oon').checked,ofrTitle:v('cfg_ot')||'AC SERVICE',ofrPrice:(v('cfg_op').replace(/\D/g,'')||'600'),ofrTag:v('cfg_og'),ofrSvc:$('cfg_os')?$('cfg_os').value:'AC General Service',siteUrl:(v('cfg_site')||'https://ntuvcare.in/').replace(/\/?$/,'/'),griev:{name:v('cfg_gvn'),desig:v('cfg_gvd'),em:v('cfg_gve'),ph:v('cfg_gvp'),addr:v('cfg_gva'),hours:v('cfg_gvh')},appUrl:v('cfg_app')||'NTUV-Care.apk',recEmail:rec,adm:adm,by:me.id||aid,at:new Date().toLocaleString()});
     if(pw&&window.meKeep)meKeep();
     save();applySet();setForce=true;render();
     const m=$('cfg_msg');if(m){m.hidden=false;m.textContent='Settings saved'+(GAS_URL?' and sent to Google Sheet.':' on this device.')}
@@ -3960,6 +4119,270 @@ ${S.adm?'':'<div class="note"><b>You are using the default login</b> &ndash; ID:
   if(isShell()&&phone()){let seen=false;try{seen=localStorage.ntuvSwipeHint==='1'}catch(e){}
     if(!seen)setTimeout(()=>{if(!homeOn())return;const h=document.createElement('div');h.className='swh';h.innerHTML='<span>&#8592;</span> Swipe left or right to change screens <span>&#8594;</span>';B.appendChild(h);
       setTimeout(()=>h.classList.add('out'),4200);setTimeout(()=>h.remove(),4700);try{localStorage.ntuvSwipeHint='1'}catch(e){}},2200)}
+})();
+
+</script><script>
+/* ===== NTUV v4.6 ===== */
+(function(){
+  const APP=/NTUVCareApp/.test(navigator.userAgent);
+  const I=n=>window.shIco?shIco(n):'';
+  const B=document.body;
+  const isShell=()=>B.classList.contains('shell');
+  const stx=()=>{const r=db.set.find(x=>x.id=='co');if(r)return r;const n={id:'co'};db.set.push(n);return n};
+  const auth=()=>{const S=setGet();return S.adm?S.adm.h:''};
+
+  /* ---------- 1. technician commission % (Admin / Manager > Technicians) ---------- */
+  window.techPct=function(id){const t=(db.t||[]).find(x=>x.id==id)||{},n=v=>v!=null&&v!==''&&!isNaN(+v)?Math.max(0,Math.min(100,+v)):70;return{lc:n(t.lc),pc:n(t.pc)}};
+  function tpcInject(){
+    if(!me||ptab!='t'||!$('panel')||$('panel').hidden)return;
+    const mgr=me.role=='admin'||me.role=='manager';
+    document.querySelectorAll('#panel button[onclick^="rp(\'t\'"]').forEach(btn=>{
+      const id=(btn.getAttribute('onclick').match(/rp\('t','([^']+)'\)/)||[])[1];if(!id)return;const td=btn.closest('td');if(!td||td.querySelector('.tpc'))return;
+      const p=techPct(id);
+      td.insertAdjacentHTML('afterbegin',`<div class="tpc" data-id="${esc(id)}"><b>Commission to technician</b><div class="tpc-r"><label>Part profit %<input type="number" min="0" max="100" step="0.5" value="${p.pc}" ${mgr?'':'disabled'} data-k="pc"></label><label>Labour %<input type="number" min="0" max="100" step="0.5" value="${p.lc}" ${mgr?'':'disabled'} data-k="lc"></label></div>${mgr?'<button type="button" class="sv-btn" disabled>Saved &#10003;</button>':''}<small>Company gets the rest (${100-p.pc}% / ${100-p.lc}%).</small></div>`)});
+  }
+  document.addEventListener('input',e=>{const box=e.target.closest&&e.target.closest('.tpc');if(!box)return;const b=box.querySelector('.sv-btn');if(b){b.disabled=false;b.classList.add('dirty');b.textContent='Save'}});
+  document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('.tpc .sv-btn');if(!b)return;const box=b.closest('.tpc'),t=db.t.find(x=>x.id==box.dataset.id);if(!t)return;
+    const v={};for(const i of box.querySelectorAll('input')){const n=+i.value;if(i.value===''||isNaN(n)||n<0||n>100)return alert('Commission must be between 0 and 100');v[i.dataset.k]=n}
+    t.pc=v.pc;t.lc=v.lc;save();b.disabled=true;b.classList.remove('dirty');b.innerHTML='Saved &#10003;';box.querySelector('small').textContent='Company gets the rest ('+(100-v.pc)+'% / '+(100-v.lc)+'%). New bills of '+t.name+' use these rates.';toast('Commission for '+t.name+' saved: Part '+v.pc+'%, Labour '+v.lc+'%','ok')});
+
+  /* ---------- 2. after billing is saved: open Collect Payment automatically ---------- */
+  if(typeof blSave=='function'){const _bs=blSave;blSave=function(inv){const id=blId;_bs.apply(this,arguments);
+    const b=db.b.find(x=>x.id==id);if(!me||me.role!='technician'||!b||!b.bill||b.cpay||$('dbl').open||typeof cpOpen!='function')return;
+    const go=()=>{if(!$('dcp').open&&!b.cpay)cpOpen(id)};
+    if(inv){let n=0;const w=setInterval(()=>{const d=$('dinv');n++;if(d&&d.open){clearInterval(w);d.addEventListener('close',()=>setTimeout(go,300),{once:true})}else if(n>12){clearInterval(w);go()}},250)}else setTimeout(go,350)}}
+
+  /* ---------- 3. Technician Login on the technician page ---------- */
+  const tf=$('tf');
+  if(tf&&!$('tlg')){
+    tf.insertAdjacentHTML('beforebegin',`<div id="tlg" class="tlg"><div class="tlg-s" role="tablist"><button type="button" class="on" data-t="login">${I('lock')}Technician Login</button><button type="button" data-t="reg">${I('uplus')}New Registration</button></div>
+<div class="box tlg-c" id="tlgc"><h2>Technician Login</h2><p>Already working with NTUV Care? Log in with the ID and password given by the office.</p>
+<label>Technician ID<input id="tl_u" autocomplete="username"></label><label>Password<div class="pwf"><input id="tl_p" type="password" autocomplete="current-password"><button type="button" class="alt pwe" onclick="cfgEye('tl_p',this)">Show</button></div></label>
+<p class="row" style="justify-content:flex-start;gap:10px;margin-top:14px"><button type="button" onclick="techLogin()">Login</button></p><small id="tl_h"></small></div></div>`);
+    const seg=(t)=>{document.querySelectorAll('#tlg .tlg-s button').forEach(b=>b.classList.toggle('on',b.dataset.t==t));$('tlgc').hidden=t!='login';tf.hidden=t=='login';if(window.shellSync)shellSync()};
+    $('tlg').addEventListener('click',e=>{const b=e.target.closest('.tlg-s button');if(b)seg(b.dataset.t)});
+    $('tl_p').addEventListener('keydown',e=>{if(e.key=='Enter')techLogin()});
+    window.techSeg=seg;seg('login');
+  }
+  window.techLogin=function(){const u=$('tl_u').value.trim(),p=$('tl_p').value;if(!u||!p)return alert('Enter your Technician ID and password');$('lr').value='technician';$('lu').value=u;$('lp').value=p;try{login()}finally{$('lr').value='admin';$('lu').value='';$('lp').value=''}if(me){$('tl_p').value=''}};
+  function techPage(){const t=$('tlg');if(!t)return;const adm=typeof tAdm!='undefined'&&tAdm;t.hidden=!!adm;if(adm){tf.hidden=false}else if(!$('tlgc').hidden)tf.hidden=true;
+    const S=setGet();$('tl_h').textContent='Forgot your password? Call the office: '+(S.ph||'');}
+
+  /* ---------- 4. /admin opens the Admin & Office login; technicians use their own page ---------- */
+  const lr=$('lr');if(lr){const o=[...lr.options].find(x=>x.value=='technician');if(o){o.hidden=true;o.disabled=false}if(lr.value=='technician')lr.value='admin'}
+  const lb=document.querySelector('#login .box h2');if(lb)lb.textContent='Admin & Office Login';
+  function adminRoute(){return /[?&]admin(=1)?(&|$)/.test(location.search)||/^#admin$/i.test(location.hash)||/\/admin\/?$/i.test(location.pathname)}
+
+  /* ---------- 5. logged-in staff on the website: way back to the panel ---------- */
+  const hnav=document.querySelector('header .nav');
+  if(!$('mypb')){B.insertAdjacentHTML('beforeend','<button type="button" id="mypb" class="mypb" hidden onclick="show(\'panel\')"></button>')}
+  function myPanelBtn(){const b=$('mypb');if(!b)return;const v=document.querySelector('.v:not([hidden])');const on=!!me&&!isShell()&&v&&v.id!='panel';b.hidden=!on;if(on)b.innerHTML=I('dash')+'<span>'+esc((RN[me.role]||'My')+' Panel')+'</span>'}
+
+  /* ---------- 6. OTP by WhatsApp / SMS through your provider ---------- */
+  const srvOtp={};
+  const otpLive=()=>{const O=setGet().otp||{};return !!(GAS_URL&&O.on&&((O.wa||{}).on||(O.sms||{}).on))};
+  if(typeof sendOtp=='function'){const _so=sendOtp;sendOtp=async function(m,box){if(!otpLive())return _so.apply(this,arguments);
+    if(!/^\d{10}$/.test(m))return alert('Enter a valid 10 digit mobile number');toast('Sending OTP to '+m+'...');
+    try{const r=await gcall({action:'motp',mob:m});if(!r||!r.ok)throw new Error(r&&r.err||'not sent');srvOtp[m]=1;$(box).hidden=false;['otp','lotp'].forEach(i=>{const e=$(i);if(e){e.maxLength=6;e.value=''}});
+      toast('OTP sent on '+(r.ch=='wa'?'WhatsApp':'SMS')+' to '+m+'. It is valid for 10 minutes.','ok')}catch(e){toast('Could not send OTP: '+e.message,'bad')}}}
+  async function srvCheck(m,v){const r=await gcall({action:'motpv',mob:m,otp:v});if(!r||!r.ok)throw new Error(r&&r.err||'Wrong OTP');otp[m]=v}
+  if(typeof chk=='function'){const _ck=chk;chk=async function(){const m=$('cm').value;if(!srvOtp[m])return _ck();try{await srvCheck(m,$('otp').value.trim());_ck()}catch(e){alert(e.message)}}}
+  if(typeof clogin=='function'){const _cl=clogin;clogin=async function(){const m=$('lm').value;if(!srvOtp[m])return _cl.apply(this,arguments);try{await srvCheck(m,$('lotp').value.trim());return _cl.apply(this,arguments)}catch(e){alert(e.message)}}}
+
+  const OTP_P={
+    wa:{
+      meta:{n:'Meta WhatsApp Cloud API (official)',url:'https://graph.facebook.com/v21.0/{account}/messages',method:'POST',ctype:'json',headers:'{"Authorization":"Bearer {apikey}"}',body:'{"messaging_product":"whatsapp","to":"{mobile91}","type":"template","template":{"name":"{template}","language":{"code":"{lang}"},"components":[{"type":"body","parameters":[{"type":"text","text":"{otp}"}]},{"type":"button","sub_type":"url","index":"0","parameters":[{"type":"text","text":"{otp}"}]}]}}',ok:'messages',f:{apikey:'Permanent Access Token',account:'Phone Number ID',template:'Template name (Authentication)',lang:'Language code (e.g. en)'}},
+      interakt:{n:'Interakt',url:'https://api.interakt.ai/v1/public/message/',method:'POST',ctype:'json',headers:'{"Authorization":"Basic {apikey}"}',body:'{"countryCode":"+91","phoneNumber":"{mobile}","type":"Template","template":{"name":"{template}","languageCode":"{lang}","bodyValues":["{otp}"],"buttonValues":{"0":["{otp}"]}}}',ok:'true',f:{apikey:'Secret Key',template:'Template name',lang:'Language code (e.g. en)'}},
+      aisensy:{n:'AiSensy',url:'https://backend.aisensy.com/campaign/t1/api/v2',method:'POST',ctype:'json',headers:'{}',body:'{"apiKey":"{apikey}","campaignName":"{template}","destination":"{mobile91}","userName":"{brand}","templateParams":["{otp}"],"buttons":[{"type":"button","sub_type":"url","index":0,"parameters":[{"type":"text","text":"{otp}"}]}]}',ok:'',f:{apikey:'API Key',template:'Campaign name'}},
+      gupshup:{n:'Gupshup',url:'https://api.gupshup.io/wa/api/v1/template/msg',method:'POST',ctype:'form',headers:'{"apikey":"{apikey}"}',body:'channel=whatsapp&source={sender}&destination={mobile91}&src.name={account}&template={"id":"{template}","params":["{otp}"]}',ok:'submitted',f:{apikey:'API Key',account:'App name',sender:'Source WhatsApp number (with 91)',template:'Template ID'}},
+      wati:{n:'WATI',url:'{account}/api/v1/sendTemplateMessage?whatsappNumber={mobile91}',method:'POST',ctype:'json',headers:'{"Authorization":"Bearer {apikey}"}',body:'{"template_name":"{template}","broadcast_name":"otp","parameters":[{"name":"1","value":"{otp}"}]}',ok:'true',f:{apikey:'Access Token',account:'API endpoint (e.g. https://live-server-123.wati.io)',template:'Template name'}},
+      twilio:{n:'Twilio WhatsApp',url:'https://api.twilio.com/2010-04-01/Accounts/{account}/Messages.json',method:'POST',ctype:'form',headers:'{"Authorization":"Basic {basic_auth}"}',body:'To=whatsapp:{plus91}&From=whatsapp:{sender}&Body={msg}',ok:'',f:{account:'Account SID',apikey:'Auth Token',sender:'WhatsApp sender (e.g. +14155238886)'}},
+      custom:{n:'Other provider (custom API)',url:'',method:'POST',ctype:'json',headers:'{}',body:'',ok:'',f:{apikey:'API Key / Token',account:'Account / Instance ID (optional)',sender:'Sender (optional)',template:'Template (optional)'}}},
+    sms:{
+      fast2sms:{n:'Fast2SMS (OTP route)',url:'https://www.fast2sms.com/dev/bulkV2?authorization={apikey}&route=otp&variables_values={otp}&flash=0&numbers={mobile}',method:'GET',ctype:'json',headers:'{}',body:'',ok:'true',f:{apikey:'API Key (Dev API)'}},
+      fast2dlt:{n:'Fast2SMS (DLT route)',url:'https://www.fast2sms.com/dev/bulkV2?authorization={apikey}&route=dlt&sender_id={sender}&message={template}&variables_values={otp}&flash=0&numbers={mobile}',method:'GET',ctype:'json',headers:'{}',body:'',ok:'true',f:{apikey:'API Key',sender:'DLT Sender ID (6 letters)',template:'DLT Message ID'}},
+      msg91:{n:'MSG91',url:'https://control.msg91.com/api/v5/otp?template_id={template}&mobile={mobile91}&otp={otp}',method:'POST',ctype:'json',headers:'{"authkey":"{apikey}"}',body:'{}',ok:'success',f:{apikey:'Auth Key',template:'OTP Template ID'}},
+      twofactor:{n:'2Factor.in',url:'https://2factor.in/API/V1/{apikey}/SMS/{mobile}/{otp}/{template}',method:'GET',ctype:'json',headers:'{}',body:'',ok:'Success',f:{apikey:'API Key',template:'Template name (OTP1 etc.)'}},
+      textlocal:{n:'Textlocal',url:'https://api.textlocal.in/send/',method:'POST',ctype:'form',headers:'{}',body:'apikey={apikey}&numbers={mobile91}&sender={sender}&message={msg}',ok:'success',f:{apikey:'API Key',sender:'Sender (TXTLCL or your DLT ID)'}},
+      twilio:{n:'Twilio SMS',url:'https://api.twilio.com/2010-04-01/Accounts/{account}/Messages.json',method:'POST',ctype:'form',headers:'{"Authorization":"Basic {basic_auth}"}',body:'To={plus91}&From={sender}&Body={msg}',ok:'',f:{account:'Account SID',apikey:'Auth Token',sender:'Twilio number'}},
+      custom:{n:'Other provider (custom API)',url:'',method:'GET',ctype:'json',headers:'{}',body:'',ok:'',f:{apikey:'API Key / Token',account:'Account ID (optional)',sender:'Sender ID (optional)',template:'Template / DLT ID (optional)'}}}};
+  function otpCard(ch){const S=setGet(),O=(S.otp||{})[ch]||{},P=OTP_P[ch],pv=O.provider||(ch=='wa'?'meta':'fast2sms'),pr=P[pv]||P.custom,F=pr.f,nm=ch=='wa'?'WhatsApp OTP':'SMS OTP';
+    const fld=(k,lab,val,ex)=>`<label>${lab}<input data-f="${k}" value="${esc(val||'')}" ${ex||''}></label>`;
+    return `<div class="cfgc otpc" data-ch="${ch}"><h4>${ch=='wa'?I('wa'):I('phone')} ${nm}</h4>
+<label class="cfgt"><input type="checkbox" data-f="on" ${O.on?'checked':''}><span class="cfg-s"></span><span class="cfg-t"><b>${nm} active</b><small>Send login / booking OTPs by ${ch=='wa'?'WhatsApp':'SMS'} through your provider.</small></span></label>
+<label>Provider<select data-f="provider">${Object.keys(P).map(k=>`<option value="${k}" ${k==pv?'selected':''}>${esc(P[k].n)}</option>`).join('')}</select></label>
+<div class="row"><label>${esc(F.apikey||'API Key / Token')} <small class="otp-ks">${O.keyOk?'saved &#10003; - type to replace':'kept secret in Apps Script'}</small><input data-f="apikey" type="password" autocomplete="new-password" placeholder="${O.keyOk?'&#9679;&#9679;&#9679;&#9679;&#9679;&#9679; saved':'Paste key'}"></label>
+${F.account?`<label>${esc(F.account)} <small class="otp-ks">${O.accOk?'saved &#10003;':''}</small><input data-f="account" type="password" autocomplete="off" placeholder="${O.accOk?'&#9679;&#9679;&#9679;&#9679; saved':''}"></label>`:''}</div>
+<div class="row">${F.sender?fld('sender',esc(F.sender),O.sender):''}${F.template?fld('template',esc(F.template),O.template):''}${F.lang?fld('lang',esc(F.lang),O.lang||'en'):''}</div>
+${fld('msg','Message text (used by providers that send plain text)',O.msg||'Your {brand} OTP is {otp}. It is valid for 10 minutes. Do not share it with anyone.')}
+<details class="otp-adv"><summary>Advanced: API request (filled automatically for the provider)</summary>
+<div class="row"><label>Method<select data-f="method">${['GET','POST'].map(m=>`<option ${m==(O.method||pr.method)?'selected':''}>${m}</option>`).join('')}</select></label><label>Body type<select data-f="ctype">${[['json','JSON'],['form','Form (x-www-form-urlencoded)']].map(m=>`<option value="${m[0]}" ${m[0]==(O.ctype||pr.ctype)?'selected':''}>${m[1]}</option>`).join('')}</select></label></div>
+${fld('url','API URL',O.url||pr.url)}<label>Headers (JSON)<textarea data-f="headers" rows="2">${esc(O.headers||pr.headers)}</textarea></label><label>Body<textarea data-f="body" rows="3">${esc(O.body!=null&&O.provider==pv?O.body:pr.body)}</textarea></label>${fld('okText','Success check (text in the reply, optional)',O.okText!=null&&O.provider==pv?O.okText:pr.ok)}
+<small>Placeholders: {otp} {mobile} {mobile91} {plus91} {apikey} {account} {sender} {template} {lang} {msg} {brand} {basic_auth}</small></details>
+<div class="row otp-t"><label>Test mobile number<input data-f="test" inputmode="tel" maxlength="10" placeholder="10 digit number"></label><button type="button" class="alt" data-otp-test="${ch}">Send Test OTP</button></div><p class="otp-m"></p>
+<div class="cfg-ft"><button type="button" class="sv-btn" data-otp-save="${ch}" disabled>Saved &#10003;</button></div></div>`}
+  function otpHtml(){const S=setGet(),O=S.otp||{};
+    return `<div class="cfgw otpw"><h3 class="sh">Mobile OTP Integration</h3><p><small>Connect any WhatsApp or SMS OTP provider: choose it, paste the API key and template, save, and press <b>Send Test OTP</b>. API keys are stored only in your Google Apps Script, never on the website. ${GAS_URL?'':'<b>Google Sheet is not connected - OTP integration needs it.</b>'}</small></p>
+<div class="cfgc otpg"><h4>${I('gear')} OTP Service</h4>
+<label class="cfgt"><input type="checkbox" data-f="on" ${O.on?'checked':''}><span class="cfg-s"></span><span class="cfg-t"><b>Real OTP active</b><small>ON: customers get a real 6-digit OTP. OFF: demo OTP is shown on screen (testing).</small></span></label>
+<div class="row"><label>Send first by<select data-f="pref"><option value="wa" ${O.pref!='sms'?'selected':''}>WhatsApp</option><option value="sms" ${O.pref=='sms'?'selected':''}>SMS</option></select></label><label class="cfgt" style="margin-top:22px"><input type="checkbox" data-f="fallback" ${O.fallback!==false?'checked':''}><span class="cfg-s"></span><span class="cfg-t"><b>If it fails, try the other</b></span></label></div>
+<div class="cfg-ft"><button type="button" class="sv-btn" data-otp-save="g" disabled>Saved &#10003;</button></div></div>
+${otpCard('wa')}${otpCard('sms')}</div>`}
+  ['input','change'].forEach(ev=>document.addEventListener(ev,e=>{const c=e.target.closest&&e.target.closest('.otpw .cfgc');if(!c||e.target.dataset.f=='test'||e.target.dataset.f=='provider')return;const b=c.querySelector('[data-otp-save]');if(b){b.disabled=false;b.classList.add('dirty');b.textContent='Save changes'}}));
+  function otpRead(card){const o={};card.querySelectorAll('[data-f]').forEach(e=>{o[e.dataset.f]=e.type=='checkbox'?e.checked:e.value.trim()});return o}
+  document.addEventListener('change',e=>{const s=e.target.closest&&e.target.closest('.otpc select[data-f=provider]');if(!s)return;const card=s.closest('.otpc'),ch=card.dataset.ch,pr=OTP_P[ch][s.value];
+    const r=stx();r.otp=r.otp||{};const keep=Object.assign({},(r.otp[ch]||{}),otpRead(card),{provider:s.value,url:pr.url,method:pr.method,ctype:pr.ctype,headers:pr.headers,body:pr.body,okText:pr.ok});delete keep.apikey;delete keep.account;delete keep.test;
+    const tmp=r.otp[ch];r.otp[ch]=keep;const html=otpCard(ch);r.otp[ch]=tmp;card.outerHTML=html;const nc=document.querySelector('.otpc[data-ch='+ch+']'),b=nc.querySelector('.sv-btn');b.disabled=false;b.classList.add('dirty');b.textContent='Save changes'});
+  document.addEventListener('click',async e=>{
+    const sb=e.target.closest&&e.target.closest('[data-otp-save]');
+    if(sb){if(!me||me.role!='admin')return alert('Only Admin can change OTP settings');const k=sb.dataset.otpSave,card=sb.closest('.cfgc'),v=otpRead(card),r=stx();r.otp=Object.assign({on:false,pref:'wa',fallback:true,wa:{},sms:{}},r.otp||{});
+      if(k=='g'){r.otp.on=v.on;r.otp.pref=v.pref;r.otp.fallback=v.fallback;if(v.on&&!(r.otp.wa.on||r.otp.sms.on))toast('Turn on and save WhatsApp OTP or SMS OTP below as well','info')}
+      else{if(v.on&&!v.url)return alert('API URL is empty. Choose a provider or fill the Advanced section.');
+        try{if(v.headers)JSON.parse(v.headers)}catch(_){return alert('Headers must be valid JSON, e.g. {"authkey":"..."}')}
+        const old=r.otp[k]||{},sec={key:v.apikey,acc:v.account};delete v.apikey;delete v.account;delete v.test;r.otp[k]=Object.assign({},old,v);
+        if(sec.key||sec.acc){if(!GAS_URL)return alert('Google Sheet connection (Apps Script) is needed to keep API keys safely.');
+          try{if(window.flushNow)await flushNow();const q=await gcall({action:'otpkey',ch:k,key:sec.key||'',acc:sec.acc||'',auth:auth()});if(!q||!q.ok)throw new Error(q&&q.err||'not saved');if(sec.key)r.otp[k].keyOk=true;if(sec.acc)r.otp[k].accOk=true}
+          catch(err){return toast(/unknown action/i.test(err.message)?'API key NOT saved: your Google Apps Script is old. Deploy the new Code.gs (Deploy > Manage deployments > New version) and save again.':'API key NOT saved: '+err.message,'bad')}}}
+      r.at=new Date().toLocaleString();save();applySet();sb.disabled=true;sb.classList.remove('dirty');sb.innerHTML='Saved &#10003;';card.querySelectorAll('input[type=password]').forEach(i=>i.value='');card.querySelectorAll('.otp-ks').forEach((s,i)=>{});toast((k=='g'?'OTP service':k=='wa'?'WhatsApp OTP':'SMS OTP')+' settings saved','ok');return}
+    const tb=e.target.closest&&e.target.closest('[data-otp-test]');
+    if(tb){const card=tb.closest('.otpc'),m=(card.querySelector('[data-f=test]').value||'').replace(/\D/g,''),msg=card.querySelector('.otp-m');if(!/^\d{10}$/.test(m))return alert('Enter a 10 digit test mobile number');
+      if(!card.querySelector('.sv-btn').disabled)return alert('Save the changes first, then send the test OTP');
+      msg.className='otp-m';msg.textContent='Sending test OTP 123456 to '+m+'...';
+      try{const q=await gcall({action:'otptest',ch:tb.dataset.otpTest,mob:m,auth:auth()});if(!q||!q.ok)throw new Error(q&&q.err||'failed');msg.className='otp-m ok';msg.textContent='Test OTP sent. Check '+m+' for the code 123456.'}
+      catch(err){msg.className='otp-m bad';msg.textContent=/unknown action/i.test(err.message)?'Deploy the new Code.gs first (Apps Script > Deploy > Manage deployments > New version).':'Not sent: '+err.message}}});
+
+  /* ---------- 7. Home page details boxes (Admin > Home Details) ---------- */
+  const BI=['shield','spark','phone','cash','tool','ac','list','users','dash','info','ok','gear'],BC=[['blue','#0f5bff'],['teal','#0ea5a4'],['orange','#f97316'],['purple','#8b5cf6'],['green','#16a34a'],['pink','#e11d74']];
+  const nid=()=>'b'+Date.now().toString(36)+Math.random().toString(36).slice(2,5);
+  function blkEditor(b,i,n){return `<div class="cfgc blke" data-id="${b.id}"><div class="blke-h"><h4>Box ${i+1}</h4><div class="blke-a"><button type="button" class="alt" data-bk="up" ${i==0?'disabled':''} aria-label="Move up">&#8593;</button><button type="button" class="alt" data-bk="down" ${i==n-1?'disabled':''} aria-label="Move down">&#8595;</button><button type="button" class="alt blke-del" data-bk="del">Delete</button></div></div>
+<label class="cfgt"><input type="checkbox" data-b="on" ${b.on!==false?'checked':''}><span class="cfg-s"></span><span class="cfg-t"><b>Show on home page</b><small>Website and app</small></span></label>
+<label>Heading<input data-b="title" value="${esc(b.title||'')}" maxlength="60" placeholder="e.g. Our Promise"></label>
+<div class="row"><label>Icon<select data-b="icon">${BI.map(x=>`<option ${x==b.icon?'selected':''}>${x}</option>`).join('')}</select></label><label>Colour<select data-b="color">${BC.map(c=>`<option value="${c[0]}" ${c[0]==b.color?'selected':''}>${c[0]}</option>`).join('')}</select></label></div>
+<div class="blke-items">${(b.items||[]).map((it,j)=>`<div class="blke-it"><input data-i="t" value="${esc(it.t||'')}" placeholder="Detail heading" maxlength="70"><textarea data-i="d" rows="2" placeholder="Detail text (optional)" maxlength="300">${esc(it.d||'')}</textarea><button type="button" class="alt" data-bk="rmi" data-j="${j}" aria-label="Remove line">&times;</button></div>`).join('')}</div>
+<p><button type="button" class="alt" data-bk="addi">+ Add detail line</button></p>
+<div class="cfg-ft"><button type="button" class="sv-btn" data-bk="save" ${b._new?'':'disabled'}>${b._new?'Save box':'Saved &#10003;'}</button></div></div>`}
+  function blkHtml(){const L=(setGet().blocks||[]);return `<div class="cfgw blkw"><h3 class="sh">Home Page Details</h3><p><small>Create your own boxes (e.g. "Our Promise", "AMC Plans", "Why choose us"). Add a heading and as many detail lines as you like. After <b>Save</b> they appear on the website and app home page with animation.</small></p>
+<div id="blkl">${L.map((b,i)=>blkEditor(b,i,L.length)).join('')||'<div class="note">No boxes yet. Click <b>+ New Details Box</b>.</div>'}</div>
+<p><button type="button" id="blkadd">+ New Details Box</button></p></div>`}
+  function blkRead(card){const o={id:card.dataset.id,items:[]};card.querySelectorAll('[data-b]').forEach(e=>{o[e.dataset.b]=e.type=='checkbox'?e.checked:e.value.trim()});card.querySelectorAll('.blke-it').forEach(r=>{const t=r.querySelector('[data-i=t]').value.trim(),d=r.querySelector('[data-i=d]').value.trim();if(t||d)o.items.push({t,d})});return o}
+  function blkDirty(card){const b=card.querySelector('[data-bk=save]');b.disabled=false;b.classList.add('dirty');b.textContent='Save changes'}
+  document.addEventListener('input',e=>{const c=e.target.closest&&e.target.closest('.blke');if(c)blkDirty(c)});
+  document.addEventListener('change',e=>{const c=e.target.closest&&e.target.closest('.blke');if(c)blkDirty(c)});
+  document.addEventListener('click',e=>{
+    if(e.target.id=='blkadd'){const l=$('blkl');if(l.querySelector('.note'))l.innerHTML='';const n=l.querySelectorAll('.blke').length;l.insertAdjacentHTML('beforeend',blkEditor({id:nid(),title:'',icon:'shield',color:BC[n%BC.length][0],on:true,items:[{t:'',d:''}],_new:1},n,n+1));l.lastElementChild.scrollIntoView({behavior:'smooth',block:'center'});l.lastElementChild.querySelector('[data-b=title]').focus();return}
+    const bt=e.target.closest&&e.target.closest('.blke [data-bk]');if(!bt)return;const card=bt.closest('.blke'),k=bt.dataset.bk,r=stx();r.blocks=Array.isArray(r.blocks)?r.blocks:[];
+    if(k=='addi'){card.querySelector('.blke-items').insertAdjacentHTML('beforeend','<div class="blke-it"><input data-i="t" placeholder="Detail heading" maxlength="70"><textarea data-i="d" rows="2" placeholder="Detail text (optional)" maxlength="300"></textarea><button type="button" class="alt" data-bk="rmi" aria-label="Remove line">&times;</button></div>');blkDirty(card);card.querySelector('.blke-it:last-child input').focus();return}
+    if(k=='rmi'){bt.closest('.blke-it').remove();blkDirty(card);return}
+    if(!me||me.role!='admin'&&me.role!='manager')return alert('Only Admin or Office Manager can change home page details');
+    const i=r.blocks.findIndex(x=>x.id==card.dataset.id);
+    if(k=='save'){const o=blkRead(card);if(!o.title)return alert('Please enter a heading for this box');if(!o.items.length)return alert('Add at least one detail line');
+      if(i>=0)r.blocks[i]=o;else r.blocks.push(o);r.at=new Date().toLocaleString();save();applySet();bt.disabled=true;bt.classList.remove('dirty');bt.innerHTML='Saved &#10003;';toast('"'+o.title+'" saved - it is now on the home page','ok');return}
+    if(k=='del'){if(!confirm('Delete this details box?'))return;if(i>=0){r.blocks.splice(i,1);save();applySet()}card.remove();blkReindex();toast('Box deleted');return}
+    if(k=='up'||k=='down'){if(i<0)return alert('Save this box first');const j=k=='up'?i-1:i+1;if(j<0||j>=r.blocks.length)return;const t=r.blocks[i];r.blocks[i]=r.blocks[j];r.blocks[j]=t;save();applySet();setTab('blk');return}});
+  function blkReindex(){document.querySelectorAll('#blkl .blke').forEach((c,i)=>{const h=c.querySelector('h4');if(h)h.textContent='Box '+(i+1)})}
+
+  /* render the boxes on the home page */
+  const home=$('home'),vtop=$('vtop');
+  if(home&&vtop&&!$('cblk')){vtop.insertAdjacentHTML('afterend','<section id="cblk" class="cblk" aria-label="More about NTUV Care"></section>')}
+  let blkIO=null;
+  window.renderBlocks=function(){const c=$('cblk');if(!c)return;const L=(setGet().blocks||[]).filter(b=>b.on!==false&&b.title&&(b.items||[]).length);
+    c.hidden=!L.length;c.innerHTML=L.map((b,i)=>{const col=(BC.find(x=>x[0]==b.color)||BC[i%BC.length])[1];return `<article class="cbk" style="--bc:${col};--d:${(i%3)*90}ms"><header><span class="cbk-i">${I(b.icon||'shield')}</span><h3>${esc(b.title)}</h3></header><ul>${(b.items||[]).map((it,j)=>`<li style="--j:${j}"><span class="cbk-c">${I('ok')}</span><div>${it.t?'<b>'+esc(it.t)+'</b>':''}${it.d?'<p>'+esc(it.d)+'</p>':''}</div></li>`).join('')}</ul></article>`}).join('');
+    if(window.IntersectionObserver){if(blkIO)blkIO.disconnect();blkIO=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');blkIO.unobserve(e.target)}}),{threshold:.12});c.querySelectorAll('.cbk').forEach(x=>blkIO.observe(x))}else c.querySelectorAll('.cbk').forEach(x=>x.classList.add('in'))};
+
+  /* ---------- hero: the text sits below the video; offer sticker + scene buttons stay on the video ---------- */
+  const hx=document.querySelector('#home .hx');
+  if(hx&&!hx.querySelector('.vbo')){hx.insertAdjacentHTML('afterbegin','<div class="vbo"></div>');const o=hx.querySelector('.vbo'),k=$('osk'),n=hx.querySelector('.vh-n');if(k)o.appendChild(k);if(n)o.appendChild(n);B.classList.add('v46h')}
+
+  /* ---------- 8. 24/7 support ---------- */
+  const row=document.querySelector('.hx .vh-row');
+  if(row&&!document.querySelector('.s247')){row.insertAdjacentHTML('beforeend',`<button type="button" class="s247" onclick="supOpen()">${I('phone')}<span><b>24/7</b> Support</span></button>`)}
+  B.insertAdjacentHTML('beforeend',`<button type="button" id="supf" class="supf" onclick="supOpen()" aria-label="24/7 Support"><span class="supf-i">${I('phone')}</span><span class="supf-t"><b>24/7</b>Support</span></button>
+<div id="supc" class="supc" hidden role="dialog" aria-label="24/7 Support"><button type="button" class="supc-x" onclick="supClose()" aria-label="Close">&times;</button><b class="supc-h">24/7 Customer Support</b><p>We are here day and night for bookings, service and complaints.</p><a id="sup_c" class="supc-a sc1" href="#">${I('phone')}<span>Call <b id="sup_cn"></b></span></a><a id="sup_w" class="supc-a sc2" href="#" target="_blank" rel="noopener">${I('wa')}<span>WhatsApp us</span></a><a id="sup_e" class="supc-a sc3" href="#">${I('file')}<span id="sup_en">Email</span></a></div>`);
+  window.supOpen=function(){const S=setGet(),n=String(S.ph||'').replace(/\D/g,'').slice(-10),w=String(S.wa||S.ph||'').replace(/\D/g,'').slice(-10);$('sup_c').href='tel:+91'+n;$('sup_cn').textContent=n;$('sup_w').href='https://wa.me/91'+w+'?text='+encodeURIComponent('Hello '+(S.name||'NTUV Care')+', I need help');$('sup_e').href='mailto:'+(S.em||'');$('sup_en').textContent=S.em||'Email';$('supc').hidden=false;requestAnimationFrame(()=>$('supc').classList.add('on'))};
+  window.supClose=function(){const c=$('supc');c.classList.remove('on');setTimeout(()=>c.hidden=true,220)};
+  document.addEventListener('click',e=>{const c=$('supc');if(c&&!c.hidden&&!e.target.closest('#supc,#supf,.s247'))supClose()});
+
+  /* ---------- 9. grievance details on the website ---------- */
+  const fl=document.querySelector('.flinks');
+  if(fl&&!$('fgv'))fl.insertAdjacentHTML('beforebegin','<div id="fgv" class="fgv" hidden></div>');
+  function grievPaint(){const g=setGet().griev||{},e=$('fgv');if(!e)return;const has=g.name||g.em||g.ph;e.hidden=!has;if(has)e.innerHTML=`<b>${esc(g.desig||'Grievance Officer')}:</b> ${esc(g.name||'')}${g.ph?' &middot; <a href="tel:+91'+esc(String(g.ph).replace(/\D/g,'').slice(-10))+'">'+esc(g.ph)+'</a>':''}${g.em?' &middot; <a href="mailto:'+esc(g.em)+'">'+esc(g.em)+'</a>':''}${g.hours?' &middot; '+esc(g.hours):''}`}
+  if(window.POLX)0;
+  /* add grievance officer to the privacy / refund windows */
+  if(typeof polOpen=='function'){const _po=polOpen;polOpen=function(k){_po.apply(this,arguments);const d=$('dpol'),g=setGet().griev||{};if(!d||k=='terms'||!(g.name||g.em||g.ph))return;d.lastElementChild.insertAdjacentHTML('beforebegin',`<h4>Grievance Officer</h4><p>${esc(g.name||'')}${g.desig?', '+esc(g.desig):''}<br>${g.addr?esc(g.addr)+'<br>':''}${g.ph?'Phone: '+esc(g.ph)+'<br>':''}${g.em?'Email: <a href="mailto:'+esc(g.em)+'">'+esc(g.em)+'</a><br>':''}${g.hours?'Hours: '+esc(g.hours):''}</p>`)}}
+
+  /* ---------- 10. Settings: a Save button under every box, highlighted only when something changed ---------- */
+  const SECS={'Invoice & Website Options':['gstOn','bankOn','gstHome'],'Company Details':['name','addr','ph','wa','em','gstin'],'Company Bank Account':['bank'],'Offer Banner (Home page)':['ofrOn','ofrTitle','ofrPrice','ofrTag','ofrSvc'],'Online Payments (Razorpay)':['rzpKey','live','rzpSec'],'Mobile App Download':['appUrl','siteUrl'],'Grievance Officer':['griev'],'Admin Login & Recovery':['adm','recEmail']};
+  const ALLK=[].concat(...Object.values(SECS));
+  function decorateSettings(){const w=document.querySelector('#panel .cfgw:not(.otpw):not(.blkw)');if(!w||w._dec)return;w._dec=1;
+    w.querySelectorAll('.cfgc').forEach(c=>{const h=c.querySelector('h4');if(!h||!SECS[h.textContent.trim()])return;c.dataset.sec=h.textContent.trim();if(!c.querySelector('.cfg-ft'))c.insertAdjacentHTML('beforeend','<div class="cfg-ft"><button type="button" class="sv-btn" data-sec-save disabled>Saved &#10003;</button></div>')});
+    const all=[...w.querySelectorAll('button')].find(b=>/Save Settings/.test(b.textContent));if(all){all.classList.add('sv-btn','sv-all');all.disabled=true;all.innerHTML='All saved &#10003;';all.removeAttribute('onclick');all.onclick=()=>secSave(null)}}
+  function markDirty(c){const b=c.querySelector('[data-sec-save]');if(b){b.disabled=false;b.classList.add('dirty');b.textContent='Save changes'}const a=document.querySelector('.sv-all');if(a){a.disabled=false;a.classList.add('dirty');a.textContent='Save all changes'}}
+  ['input','change'].forEach(ev=>document.addEventListener(ev,e=>{const c=e.target.closest&&e.target.closest('#panel .cfgw .cfgc[data-sec]');if(c)markDirty(c)}));
+  document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-sec-save]');if(b){secSave(b.closest('.cfgc').dataset.sec)}});
+  /* QR upload / remove also count as a change */
+  ['cfgQrPick','cfgQrDel'].forEach(f=>{if(typeof window[f]=='function'){const o=window[f];window[f]=function(){const r=o.apply(this,arguments);const c=document.querySelector('.cfgqr');if(c)markDirty(c.closest('.cfgc'));return r}}});
+  function secSave(sec){
+    const w=document.querySelector('#panel .cfgw');if(!w)return;
+    const keep={};w.querySelectorAll('input,textarea,select').forEach(x=>{if(x.id)keep[x.id]=x.type=='checkbox'?x.checked:x.value});
+    const dirty=[...w.querySelectorAll('.cfgc[data-sec]')].filter(c=>{const b=c.querySelector('[data-sec-save]');return b&&!b.disabled}).map(c=>c.dataset.sec);
+    const r0=JSON.parse(JSON.stringify(db.set.find(x=>x.id=='co')||{}));
+    const blank=sec?['cfg_rs','cfg_pw','cfg_pw2'].filter(id=>sec!=({cfg_rs:'Online Payments (Razorpay)',cfg_pw:'Admin Login & Recovery',cfg_pw2:'Admin Login & Recovery'})[id]):[];
+    const held={};blank.forEach(id=>{const x=$(id);if(x){held[id]=x.value;x.value=''}});
+    let failed=false;const oa=window.alert;window.alert=m=>{failed=true;oa(m)};
+    try{setSave()}finally{window.alert=oa;blank.forEach(id=>{const x=$(id);if(x)x.value=held[id]})}
+    if(failed){restore(keep,dirty);return}
+    const r=db.set.find(x=>x.id=='co');
+    if(sec&&r){ALLK.filter(k=>SECS[sec].indexOf(k)<0).forEach(k=>{if(k=='rzpSec')return;if(k in r0)r[k]=r0[k];else delete r[k]});save();applySet()}
+    try{localStorage.ntuvSet=JSON.stringify(db.set)}catch(_){}
+    restore(keep,sec?dirty.filter(d=>d!=sec):[]);
+  }
+  function restore(keep,dirty){setTimeout(()=>{decorateSettings();const w=document.querySelector('#panel .cfgw');if(!w)return;
+    dirty.forEach(d=>{const c=w.querySelector('.cfgc[data-sec="'+d+'"]');if(!c)return;c.querySelectorAll('input,textarea,select').forEach(x=>{if(x.id&&x.id in keep&&x.type!='file'){if(x.type=='checkbox')x.checked=keep[x.id];else x.value=keep[x.id]}});markDirty(c)})},30)}
+
+  /* ---------- admin tabs: OTP Integration + Home Details ---------- */
+  let force='';
+  function setTab(t){force=t;ptab=t;render()}
+  window.setTab=setTab;
+  const _rn=render;render=function(){
+    const tpk={};document.querySelectorAll('#panel .tpc').forEach(x=>{const b=x.querySelector('.sv-btn');if(b&&!b.disabled)tpk[x.dataset.id]=[...x.querySelectorAll('input')].map(i=>i.value)});
+    const want=me&&(ptab=='otp'||ptab=='blk')?ptab:'';
+    if(want&&!force&&document.querySelector('#panel .'+(want=='otp'?'otpw':'blkw'))&&!$('panel').hidden){return}
+    force='';
+    if(want)ptab='d';
+    try{_rn.apply(this,arguments)}finally{if(want)ptab=want}
+    if(me){const tabs=document.querySelector('#panel .tabs');
+      if(tabs){const add=(k,lab,ok)=>{if(!ok||tabs.querySelector('.tb-'+k))return;const b=document.createElement('button');b.type='button';b.className='tb-'+k;b.innerHTML=lab;b.onclick=()=>setTab(k);tabs.appendChild(b)};
+        add('blk','&#129513; Home Details',me.role=='admin'||me.role=='manager');add('otp','&#128241; OTP Integration',me.role=='admin');
+        if(want){tabs.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.classList.contains('tb-'+want)));let n=tabs.nextSibling;while(n){const x=n.nextSibling;n.remove();n=x}tabs.insertAdjacentHTML('afterend',want=='otp'?otpHtml():blkHtml())}}}
+    if(ptab=='set')setTimeout(decorateSettings,0);
+    tpcInject();
+    Object.keys(tpk).forEach(id=>{const x=document.querySelector('#panel .tpc[data-id="'+id+'"]');if(!x)return;x.querySelectorAll('input').forEach((i,j)=>i.value=tpk[id][j]);const b=x.querySelector('.sv-btn');b.disabled=false;b.classList.add('dirty');b.textContent='Save'});
+    if(window.shellSync)shellSync();
+  };
+
+  /* ---------- 11. live updates: settings & home details from Google Sheet ---------- */
+  let lastSet=JSON.stringify(db.set||[]);
+  async function pubPull(){if(!GAS_URL||document.hidden)return;try{if(sq.length||inflight)return}catch(_){}if(me&&(ptab=='set'||ptab=='otp'||ptab=='blk')&&!$('panel').hidden)return;
+    try{const r=await gcall({action:'pubset'});if(!r||!r.ok||!Array.isArray(r.set))return;const j=JSON.stringify(r.set);if(j===lastSet||!r.set.length)return;
+      lastSet=j;db.set=r.set;try{if(typeof snapOf=='function'&&snap)snap.set=snapOf().set}catch(_){}try{localStorage.ntuv=JSON.stringify(db);localStorage.ntuvSet=j}catch(_){}applySet()}catch(_){}}
+  setInterval(pubPull,45000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)setTimeout(pubPull,800)});
+
+  /* ---------- 12. always the latest app ---------- */
+  const site=()=>{const S=setGet();let u=S.siteUrl||'https://ntuvcare.in/';if(!/\/$/.test(u))u+='/';return u};
+  const apkUrl=()=>{const S=setGet(),a=S.appUrl||'NTUV-Care.apk';return /^https?:/i.test(a)?a:site()+a.replace(/^\//,'')};
+  const dl=$('dlapp');if(dl)dl.addEventListener('click',()=>{const h=(dl.getAttribute('href')||'NTUV-Care.apk').split('?')[0];dl.setAttribute('href',h+'?v='+Date.now())},true);
+  async function appUpdate(){if(!APP||!window.AndroidApp)return;let mine=0;try{mine=+(AndroidApp.versionCode?AndroidApp.versionCode():0)}catch(_){}if(!mine)return;
+    try{const r=await fetch(site()+'app-version.json?t='+Date.now(),{cache:'no-store'});if(!r.ok)return;const j=await r.json();if(!(+j.code>mine))return;
+      if(sessionStorage.ntuvUpd==j.code)return;sessionStorage.ntuvUpd=j.code;
+      let d=$('dupd');if(!d){d=document.createElement('dialog');d.id='dupd';B.appendChild(d)}
+      d.innerHTML=`<h3>New app version available</h3><p>Version <b>${esc(j.name||'')}</b> of the NTUV Care app is ready${j.note?': '+esc(j.note):''}.</p><p>Tap <b>Update now</b>, wait for the download and open the file to install. Your login and data stay safe.</p><p class="row" style="gap:10px;justify-content:flex-end"><button type="button" class="alt" onclick="this.closest('dialog').close()">Later</button><button type="button" onclick="location.href='${esc(j.url||apkUrl())}'">Update now</button></p>`;d.showModal()}catch(_){}}
+  setTimeout(appUpdate,4000);setInterval(appUpdate,6*3600*1000);
+
+  /* ---------- hooks ---------- */
+  const _ap=applySet;applySet=function(){_ap.apply(this,arguments);try{renderBlocks();grievPaint();lastSet=JSON.stringify(db.set||[])}catch(_){}};
+  const _sh=show;show=function(v){const r=_sh.apply(this,arguments);B.classList.toggle('v46p',v=='panel'||v=='login');myPanelBtn();if(v=='tech')techPage();return r};
+  applySet();myPanelBtn();techPage();
+  if(adminRoute()&&!me){show('login');try{history.replaceState(history.state,'',location.pathname.replace(/admin\/?$/i,'')+location.search.replace(/[?&]admin(=1)?/,'').replace(/^&/,'?'))}catch(_){}}
 })();
 
 </script>
