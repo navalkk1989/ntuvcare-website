@@ -953,6 +953,46 @@ body.v46h .hx .vh-row .osk{order:3;flex-basis:auto;margin:6px 0 2px 4px}
 body.v46h .hx .osk-g{color:#0b3fe0!important;text-shadow:none!important}
 @media(max-width:860px){body.v46h .hx .vh-row .osk{transform:rotate(-4deg) scale(.86);transform-origin:left center;margin:0 0 -8px}}
 
+/* ===== v5.0: payment switches, payment proof, update bar ===== */
+.cfgpt{margin:6px 0 10px;padding:10px 12px;border-radius:12px;background:var(--note)}
+.cfgpt>b{display:block;font-size:14px;color:var(--ink)}.cfgpt>small{color:var(--mut)}
+.cfgpt .cfgt{margin:6px 0;padding:8px 0}
+.cfgpay.noq{grid-template-columns:1fr!important}
+.cfgpay-upi{font-size:15px;letter-spacing:.01em}
+.cfgpay-cp{padding:3px 9px!important;font-size:11.5px!important;margin-left:4px;vertical-align:middle}
+.cfgpay-go{display:inline-flex!important;align-items:center;gap:6px;margin:6px 0 4px;padding:8px 14px!important;border-radius:10px;background:linear-gradient(135deg,#15803d,#22c55e)!important;color:#fff!important;text-decoration:none;font-weight:800;font-size:13px}
+/* proof */
+.ppcard{margin:0 0 14px;padding:12px;border:1px solid var(--line);border-radius:16px;background:var(--card);box-shadow:var(--shd)}
+.ppcard .cfgpay{margin:0 0 10px}
+.ppf{display:grid;gap:8px;padding:12px;border-radius:12px;background:var(--note)}
+.ppf>b{font-size:15px;color:var(--ink)}
+.ppf .row{gap:10px;flex-wrap:wrap}.ppf label{flex:1 1 200px;margin:0}
+.ppf .ppsend{justify-self:start}
+.ppup{position:relative}
+.ppup-b{display:block;margin:4px 0;font-size:12.5px;text-transform:none;letter-spacing:0}
+.ppup-b i{color:var(--mut);font-style:normal}
+.ppup input[type=file]{font-size:12.5px;padding:6px}
+.ppw{margin:0 0 8px;padding:10px 12px;border-radius:12px;background:color-mix(in srgb,#f59e0b 10%,transparent);border:1px solid color-mix(in srgb,#f59e0b 35%,transparent);font-size:14px}
+.ppst{display:inline-flex;align-items:center;gap:4px;padding:2px 9px;border-radius:999px;font-weight:800;font-size:12.5px;white-space:nowrap}
+.ppst.ok{background:color-mix(in srgb,var(--okc,#16a34a) 14%,transparent);color:var(--okc,#16a34a)}
+.ppst.bad{background:color-mix(in srgb,var(--bad,#dc2626) 12%,transparent);color:var(--bad,#dc2626)}
+.ppst.wait{background:color-mix(in srgb,#f59e0b 16%,transparent);color:#b45309}
+.ppst-l{flex-basis:100%;margin-top:2px}
+.pphist{margin:6px 0 16px}.pphist h4{margin:0 0 6px;font-family:var(--hf);font-size:19px;text-transform:uppercase;letter-spacing:.03em}
+.ppaw h4{margin:18px 0 8px;font-family:var(--hf);font-size:19px;text-transform:uppercase;letter-spacing:.03em}
+.tb-ppa.pp-hot:not(.on){border-color:#f59e0b!important;color:#b45309!important;background:color-mix(in srgb,#f59e0b 12%,transparent)!important}
+.ppl{display:inline-block;margin-top:2px}
+/* update bar (app) */
+.updb{position:fixed;z-index:70;left:10px;right:10px;top:calc(var(--tbh,58px) + 8px);display:flex;align-items:center;gap:10px;padding:10px 10px 10px 12px;border-radius:16px;background:linear-gradient(135deg,#0b3fe0,#0f5bff 55%,#19b0ff);color:#fff;box-shadow:0 14px 34px #0f5bff66;animation:updin .45s cubic-bezier(.2,.8,.2,1)}
+.updb-i{display:grid;place-items:center;flex:0 0 36px;height:36px;border-radius:12px;background:#ffffff2e}.updb-i .ic{width:20px;height:20px}
+.updb-t{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.2}.updb-t b{font-size:14.5px}.updb-t small{font-size:12px;color:#dbe8ff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.updb-go{flex:0 0 auto;padding:9px 14px;border-radius:11px;background:#fff;color:#0a2a8a!important;font-weight:900;font-size:13.5px;text-decoration:none;animation:updp 1.8s ease-in-out infinite}
+.updb-x{flex:0 0 30px;height:30px;padding:0!important;border-radius:50%;background:#ffffff26!important;border:0!important;color:#fff!important;font-size:18px;line-height:1}
+.updb.min{left:auto;right:12px;width:auto;padding:6px}.updb.min .updb-t,.updb.min .updb-x{display:none}.updb.min .updb-i{display:none}
+@keyframes updin{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
+@keyframes updp{0%,100%{box-shadow:0 0 0 0 #ffffffaa}60%{box-shadow:0 0 0 7px #ffffff00}}
+@media(prefers-reduced-motion:reduce){.updb,.updb-go{animation:none}}
+
 /* ===== v4.2 app home polish ===== */
 /* dots under sliding cards */
 .cdots{display:none}
@@ -3630,11 +3670,11 @@ window.NTUV_MP='static/m/';window.NTM={"s1": "static/m/s1.webp", "s2": "static/m
   /* keep settings on this device if the Google script is an older version without the "set" list */
   const _adS=adopt;adopt=function(srv){const keep=srv&&!Array.isArray(srv.set)?(db.set||[]):null;_adS(srv);if(keep)db.set=keep;applySet()};
 
-  const DEF={id:'co',name:CO.name,addr:CO.addr,ph:CO.ph,wa:CO.ph,em:CO.em,gstin:CO.gstin||'',gstOn:false,gstHome:false,bankOn:false,rzpKey:'',live:false,appUrl:'NTUV-Care.apk',ofrOn:true,ofrTitle:'AC SERVICE',ofrPrice:'600',ofrTag:'Cooler Home, Happier You!',ofrSvc:'AC General Service',siteUrl:'https://ntuvcare.in/',griev:{name:'',desig:'Grievance Officer',em:'',ph:'',addr:'',hours:'Monday to Saturday, 10 AM to 6 PM'},otp:{on:false,pref:'wa',fallback:true,wa:{},sms:{}},blocks:[],recEmail:'',adm:null,
-    bank:{name:CO.name,bank:(CO.bank&&CO.bank.name)||'',acc:(CO.bank&&CO.bank.acc)||'',ifsc:(CO.bank&&CO.bank.ifsc)||'',upi:'',qr64:''}};
+  const DEF={id:'co',name:CO.name,addr:CO.addr,ph:CO.ph,wa:CO.ph,em:CO.em,gstin:CO.gstin||'',gstOn:false,gstHome:false,bankOn:false,rzpKey:'',live:false,appUrl:'NTUV-Care.apk',ofrOn:true,ofrTitle:'AC SERVICE',ofrPrice:'600',ofrTag:'Cooler Home, Happier You!',ofrSvc:'AC General Service',siteUrl:'https://ntuvcare.in/',griev:{name:'',desig:'Grievance Officer',em:'',ph:'',addr:'',hours:'Monday to Saturday, 10 AM to 6 PM'},otp:{on:false,pref:'wa',fallback:true,wa:{},sms:{}},blocks:[],recEmail:'',adm:null,payBank:true,payQr:true,payUpi:true,
+    bank:{name:CO.name,bank:(CO.bank&&CO.bank.name)||'',acc:(CO.bank&&CO.bank.acc)||'',ifsc:(CO.bank&&CO.bank.ifsc)||'',upi:'navalk1989-2@okaxis',qr64:''}};
   const qrOf=S=>S.bank&&S.bank.qr64?'data:'+S.bank.qr64:'';
   window.coQR=()=>qrOf(setGet());
-  window.setGet=function(){const r=(db.set||[]).find(x=>x.id=='co')||{};const o=Object.assign({},DEF,r);o.bank=Object.assign({},DEF.bank,r.bank||{});return o};
+  window.setGet=function(){const r=(db.set||[]).find(x=>x.id=='co')||{};const o=Object.assign({},DEF,r);o.bank=Object.assign({},DEF.bank,r.bank||{});if(!o.bank.upi&&!r.upiCleared)o.bank.upi=DEF.bank.upi;['payBank','payQr','payUpi'].forEach(k=>{if(o[k]==null)o[k]=true});return o};
   const cur={ph:CO.ph,wa:CO.ph,em:CO.em};
   const digits=v=>String(v||'').replace(/\D/g,'').replace(/^91(?=\d{10}$)/,'');
 
@@ -3677,11 +3717,13 @@ window.NTUV_MP='static/m/';window.NTM={"s1": "static/m/s1.webp", "s2": "static/m
   let qrN=0;
   function upiLink(S,amt){return 'upi://pay?pa='+encodeURIComponent(S.bank.upi)+'&pn='+encodeURIComponent(S.bank.name||S.name)+(amt>0?'&am='+(+amt).toFixed(2):'')+'&cu=INR'}
   function qrLib(cb){if(window.QRCode)return cb();if(!window._qrL){window._qrL=1;const sc=document.createElement('script');sc.src='https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';sc.onload=cb;document.head.appendChild(sc)}else setTimeout(()=>window.QRCode&&cb(),900)}
-  window.payBox=function(amt,title){const S=setGet(),B=S.bank,img=qrOf(S);if(!img&&!B.upi&&!B.acc)return'';
+  window.payBox=function(amt,title){const S=setGet(),B=S.bank,showQ=S.payQr!==false,showU=S.payUpi!==false&&!!B.upi,showB=S.payBank!==false&&!!B.acc,img=showQ?qrOf(S):'',autoQ=showQ&&!img&&!!B.upi;
+    if(!img&&!autoQ&&!showU&&!showB)return'';
     const id='cfgq'+(++qrN);
-    if(!img&&B.upi)setTimeout(()=>qrLib(()=>{const e=$(id);if(e){e.innerHTML='';new QRCode(e,{text:upiLink(S,amt),width:150,height:150,correctLevel:QRCode.CorrectLevel.M})}}),30);
-    return `<div class="cfgpay"><div class="cfgpay-q" id="${id}">${img?`<img src="${img}" alt="Scan to pay">`:B.upi?'<small>Loading QR...</small>':''}</div><div class="cfgpay-t"><strong class="cfgpay-h">${esc(title||'Scan & Pay to '+(S.name||'company'))}</strong>${amt>0?`<span class="cfgpay-a">Rs ${(+amt).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})}</span>`:''}<div class="cfgpay-d">
-${B.upi?`UPI ID: <b>${esc(B.upi)}</b><br>`:''}${B.acc?`A/C Name: <b>${esc(B.name||S.name)}</b><br>${B.bank?'Bank: <b>'+esc(B.bank)+'</b><br>':''}A/C No: <b>${esc(B.acc)}</b>${B.ifsc?' &middot; IFSC <b>'+esc(B.ifsc)+'</b>':''}<br>`:''}<small>${img||B.upi?'Scan with any UPI app (Google Pay, PhonePe, Paytm, BHIM). ':''}Share the payment screenshot / UTR with the technician.</small></div></div></div>`};
+    if(autoQ)setTimeout(()=>qrLib(()=>{const e=$(id);if(e){e.innerHTML='';new QRCode(e,{text:upiLink(S,amt),width:150,height:150,correctLevel:QRCode.CorrectLevel.M})}}),30);
+    const q=img||autoQ;
+    return `<div class="cfgpay${q?'':' noq'}">${q?`<div class="cfgpay-q" id="${id}">${img?`<img src="${img}" alt="Scan to pay">`:'<small>Loading QR...</small>'}</div>`:''}<div class="cfgpay-t"><strong class="cfgpay-h">${esc(title||'Pay to '+(S.name||'company'))}</strong>${amt>0?`<span class="cfgpay-a">Rs ${(+amt).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})}</span>`:''}<div class="cfgpay-d">
+${showU?`UPI ID: <b class="cfgpay-upi">${esc(B.upi)}</b> <button type="button" class="alt cfgpay-cp" onclick="navigator.clipboard&&navigator.clipboard.writeText('${esc(B.upi)}');toast('UPI ID copied','ok')">Copy</button><br><a class="btn cfgpay-go" href="${esc(upiLink(S,amt))}">Pay by UPI app</a><br>`:''}${showB?`A/C Name: <b>${esc(B.name||S.name)}</b><br>${B.bank?'Bank: <b>'+esc(B.bank)+'</b><br>':''}A/C No: <b>${esc(B.acc)}</b>${B.ifsc?' &middot; IFSC <b>'+esc(B.ifsc)+'</b>':''}<br>`:''}<small>${q?'Scan with any UPI app (Google Pay, PhonePe, Paytm, BHIM). ':''}After paying, attach the payment screenshot and the UTR number.</small></div></div></div>`};
 
   /* technician / office "Customer Payment" screen: show QR for UPI, account transfer and online modes */
   if(typeof cpDraw=='function'){const _cpd=cpDraw;cpDraw=function(id,lock){_cpd.apply(this,arguments);try{
@@ -3716,7 +3758,11 @@ ${fi('cfg_nm','Company Name',S.name,'maxlength="80"')}
 <div class="cfgc"><h4>Company Bank Account</h4>
 <div class="row">${fi('cfg_bh','Account Holder Name',B.name,'maxlength="80"')}${fi('cfg_bb','Bank Name',B.bank,'maxlength="80"')}</div>
 <div class="row">${fi('cfg_ba','Account Number',B.acc,'inputmode="numeric" maxlength="20"')}${fi('cfg_bi','IFSC Code',B.ifsc,'maxlength="11" style="text-transform:uppercase"')}</div>
-${fi('cfg_bu','UPI ID (optional)',B.upi,'maxlength="60"')}
+<div class="cfgpt"><b>Show at payment time</b><small>Turn OFF what customers and technicians should not see when they pay.</small>
+${tg('cfg_pb',S.payBank,'Bank account details','Account name, number and IFSC on the payment screen.')}
+${tg('cfg_pq',S.payQr,'Payment QR Code / Barcode','The QR code (uploaded below, or made from the UPI ID).')}
+${tg('cfg_pu',S.payUpi,'UPI ID','The UPI ID and a "Pay by UPI app" button.')}</div>
+${fi('cfg_bu','UPI ID',B.upi,'maxlength="60" placeholder="'+'navalk1989-2@okaxis'+'"')}
 <div class="cfgqr"><div class="cfgqr-p" id="cfg_qrp">${B.qr64?'<img src="data:'+B.qr64+'" alt="Payment QR code">':'<span>No QR code</span>'}</div><div><b>Payment QR Code / Barcode</b><small>Upload the QR code of your UPI / bank account (photo or screenshot). Customers see it when they pay by UPI, account transfer or online, in their account when a payment is pending, and on invoices.${B.upi?' If no image is uploaded, a QR code is made automatically from your UPI ID.':''}</small>
 <p class="row" style="justify-content:flex-start;gap:8px;margin:8px 0 0"><label class="btn alt cfgup" style="margin:0">&#128247; Upload QR Code<input type="file" accept="image/*" id="cfg_qrf" hidden onchange="cfgQrPick(this)"></label><button type="button" class="alt" onclick="cfgQrDel()" ${B.qr64?'':'hidden'} id="cfg_qrd">Remove</button></p></div></div>
 </div>
@@ -3768,7 +3814,7 @@ ${S.adm?'':'<div class="note"><b>You are using the default login</b> &ndash; ID:
     if(pw){const salt=Math.random().toString(36).slice(2,12);adm={id:aid,salt:salt,h:sha256(salt+':'+pw),at:new Date().toLocaleString()}}
     else if(aid!==(adm?adm.id:'admin')){if(!adm)return alert('To change the Admin ID, also set a new password');adm=Object.assign({},adm,{id:aid,at:new Date().toLocaleString()})}
     Object.assign(r,{name:v('cfg_nm'),addr:v('cfg_ad'),ph:ph,wa:wa||ph,em:v('cfg_em'),gstin:gs,gstOn:$('cfg_gon').checked,bankOn:$('cfg_bon').checked,gstHome:$('cfg_gh').checked,
-      bank:{name:v('cfg_bh'),bank:v('cfg_bb'),acc:v('cfg_ba'),ifsc:ifsc,upi:v('cfg_bu'),qr64:cfgQR},rzpKey:rk,live:$('cfg_live').checked,ofrOn:$('cfg_oon').checked,ofrTitle:v('cfg_ot')||'AC SERVICE',ofrPrice:(v('cfg_op').replace(/\D/g,'')||'600'),ofrTag:v('cfg_og'),ofrSvc:$('cfg_os')?$('cfg_os').value:'AC General Service',siteUrl:(v('cfg_site')||'https://ntuvcare.in/').replace(/\/?$/,'/'),griev:{name:v('cfg_gvn'),desig:v('cfg_gvd'),em:v('cfg_gve'),ph:v('cfg_gvp'),addr:v('cfg_gva'),hours:v('cfg_gvh')},appUrl:v('cfg_app')||'NTUV-Care.apk',recEmail:rec,adm:adm,by:me.id||aid,at:new Date().toLocaleString()});
+      bank:{name:v('cfg_bh'),bank:v('cfg_bb'),acc:v('cfg_ba'),ifsc:ifsc,upi:v('cfg_bu'),qr64:cfgQR},upiCleared:!v('cfg_bu'),payBank:$('cfg_pb').checked,payQr:$('cfg_pq').checked,payUpi:$('cfg_pu').checked,rzpKey:rk,live:$('cfg_live').checked,ofrOn:$('cfg_oon').checked,ofrTitle:v('cfg_ot')||'AC SERVICE',ofrPrice:(v('cfg_op').replace(/\D/g,'')||'600'),ofrTag:v('cfg_og'),ofrSvc:$('cfg_os')?$('cfg_os').value:'AC General Service',siteUrl:(v('cfg_site')||'https://ntuvcare.in/').replace(/\/?$/,'/'),griev:{name:v('cfg_gvn'),desig:v('cfg_gvd'),em:v('cfg_gve'),ph:v('cfg_gvp'),addr:v('cfg_gva'),hours:v('cfg_gvh')},appUrl:v('cfg_app')||'NTUV-Care.apk',recEmail:rec,adm:adm,by:me.id||aid,at:new Date().toLocaleString()});
     if(pw&&window.meKeep)meKeep();
     save();applySet();setForce=true;render();
     const m=$('cfg_msg');if(m){m.hidden=false;m.textContent='Settings saved'+(GAS_URL?' and sent to Google Sheet.':' on this device.')}
@@ -4399,7 +4445,7 @@ ${otpCard('wa')}${otpCard('sms')}</div>`}
   if(typeof polOpen=='function'){const _po=polOpen;polOpen=function(k){_po.apply(this,arguments);const d=$('dpol'),g=setGet().griev||{};if(!d||k=='terms'||!(g.name||g.em||g.ph))return;d.lastElementChild.insertAdjacentHTML('beforebegin',`<h4>Grievance Officer</h4><p>${esc(g.name||'')}${g.desig?', '+esc(g.desig):''}<br>${g.addr?esc(g.addr)+'<br>':''}${g.ph?'Phone: '+esc(g.ph)+'<br>':''}${g.em?'Email: <a href="mailto:'+esc(g.em)+'">'+esc(g.em)+'</a><br>':''}${g.hours?'Hours: '+esc(g.hours):''}</p>`)}}
 
   /* ---------- 10. Settings: a Save button under every box, highlighted only when something changed ---------- */
-  const SECS={'Invoice & Website Options':['gstOn','bankOn','gstHome'],'Company Details':['name','addr','ph','wa','em','gstin'],'Company Bank Account':['bank'],'Offer Banner (Home page)':['ofrOn','ofrTitle','ofrPrice','ofrTag','ofrSvc'],'Online Payments (Razorpay)':['rzpKey','live','rzpSec'],'Mobile App Download':['appUrl','siteUrl','playUrl'],'Grievance Officer':['griev'],'Admin Login & Recovery':['adm','recEmail']};
+  const SECS={'Invoice & Website Options':['gstOn','bankOn','gstHome'],'Company Details':['name','addr','ph','wa','em','gstin'],'Company Bank Account':['bank','payBank','payQr','payUpi','upiCleared'],'Offer Banner (Home page)':['ofrOn','ofrTitle','ofrPrice','ofrTag','ofrSvc'],'Online Payments (Razorpay)':['rzpKey','live','rzpSec'],'Mobile App Download':['appUrl','siteUrl','playUrl'],'Grievance Officer':['griev'],'Admin Login & Recovery':['adm','recEmail']};
   const ALLK=[].concat(...Object.values(SECS));
   function decorateSettings(){const w=document.querySelector('#panel .cfgw:not(.otpw):not(.blkw)');if(!w||w._dec)return;w._dec=1;
     w.querySelectorAll('.cfgc').forEach(c=>{const h=c.querySelector('h4');if(!h||!SECS[h.textContent.trim()])return;c.dataset.sec=h.textContent.trim();if(!c.querySelector('.cfg-ft'))c.insertAdjacentHTML('beforeend','<div class="cfg-ft"><button type="button" class="sv-btn" data-sec-save disabled>Saved &#10003;</button></div>')});
@@ -4464,7 +4510,7 @@ ${otpCard('wa')}${otpCard('sms')}</div>`}
       if(sessionStorage.ntuvUpd==j.code)return;sessionStorage.ntuvUpd=j.code;
       let d=$('dupd');if(!d){d=document.createElement('dialog');d.id='dupd';B.appendChild(d)}
       d.innerHTML=`<h3>New app version available</h3><p>Version <b>${esc(j.name||'')}</b> of the NTUV Care app is ready${j.note?': '+esc(j.note):''}.</p><p>Tap <b>Update now</b>, wait for the download and open the file to install. Your login and data stay safe.</p><p class="row" style="gap:10px;justify-content:flex-end"><button type="button" class="alt" onclick="this.closest('dialog').close()">Later</button><button type="button" onclick="location.href='${esc(j.url||apkUrl())}'">Update now</button></p>`;d.showModal()}catch(_){}}
-  setTimeout(appUpdate,4000);setInterval(appUpdate,6*3600*1000);
+  /* update prompt moved to the update bar (v49) */
 
   /* ---------- hooks ---------- */
   const _ap=applySet;applySet=function(){_ap.apply(this,arguments);try{renderBlocks();grievPaint();lastSet=JSON.stringify(db.set||[])}catch(_){}};
@@ -4556,6 +4602,138 @@ ${otpCard('wa')}${otpCard('sms')}</div>`}
   const go=()=>{reelBuild();galApp()};
   go();setTimeout(go,600);
   if(window.MutationObserver)new MutationObserver(go).observe(B,{attributes:true,attributeFilter:['class']});
+})();
+
+</script><script>
+/* ===== NTUV v5.0: payment proof (screenshot + UTR) with Admin / Manager approval, app update banner ===== */
+(function(){
+  const APP=/NTUVCareApp/.test(navigator.userAgent),B=document.body;
+  const I=n=>window.shIco?shIco(n):'';
+  const NOW=()=>new Date().toLocaleString();
+  const MODES=['UPI','Account Transfer (IMPS)','Online Payment'];
+  const okUtr=u=>/^[A-Za-z0-9]{6,30}$/.test(String(u||'').trim());
+  const isMgr=()=>!!me&&(me.role=='admin'||me.role=='manager');
+  const nk=()=>'pp'+Date.now().toString(36)+Math.random().toString(36).slice(2,5);
+  const PP=x=>Array.isArray(x.pp)?x.pp:(x.pp=[]);
+  const stHtml=p=>p.st=='Approved'?'<span class="ppst ok">&#10003; Approved</span>':p.st=='Rejected'?'<span class="ppst bad">&#10007; Rejected</span>'+(p.why?' <small>('+esc(p.why)+')</small>':''):'<span class="ppst wait">&#9203; Waiting for approval</span>';
+  const ssBtn=(p,x)=>p.ss?docBtns(p.ss,'Payment-'+x.id+'-'+(p.utr||p.k)+'.jpg','Payment screenshot - '+x.id):'<small>-</small>';
+  function cpayTot(x){if(!x.cpay)return;x.cpay.tot=m2((x.cpay.rows||[]).reduce((a,r)=>a+(+r.a||0),0))}
+  async function pickShot(inp){const f=inp.files&&inp.files[0];if(!f)return '';if(!/^image\//.test(f.type)&&f.type!='application/pdf'){alert('Please attach a photo / screenshot of the payment');inp.value='';return ''}if(f.size>15e6){alert('File is too big (max 15 MB)');inp.value='';return ''}return await fileData(f)}
+
+  /* ---------- 1. technician / office "Collect Payment": UTR + screenshot for every non-cash payment ---------- */
+  if(typeof cpDraw=='function'){const _d=cpDraw;cpDraw=function(id,lock){const x=db.b.find(b=>b.id==id);
+    (cpRows||[]).forEach(r=>{if(!r.ss&&r.pk&&x){const p=PP(x).find(q=>q.k==r.pk);if(p)r.ss=p.ss}});
+    _d.apply(this,arguments);
+    document.querySelectorAll('#dcp .cprow').forEach((row,i)=>{const r=cpRows[i];if(!r||r.m=='Cash')return;
+      const ref=[...row.querySelectorAll('label')].find(l=>/UTR/i.test(l.textContent));
+      if(ref){ref.firstChild.textContent='UTR / Transaction ID *';const inp=ref.querySelector('input');if(inp)inp.placeholder='12 digit UTR from the payment app'}
+      const p=x&&r.pk?PP(x).find(q=>q.k==r.pk):null;
+      row.insertAdjacentHTML('beforeend',`<label class="ppup" style="max-width:260px">Payment screenshot *<span class="ppup-b">${r.ss?'<b class="ok">&#10003; Attached</b>':'<i>No file</i>'}</span>${lock?'':`<input type="file" accept="image/*,application/pdf" data-i="${i}">`}</label>${p?'<div class="ppst-l">'+stHtml(p)+'</div>':''}`)});
+    document.querySelectorAll('#dcp .ppup input[type=file]').forEach(inp=>inp.onchange=async()=>{const i=+inp.dataset.i,d=await pickShot(inp);if(!d)return;cpRows[i].ss=d;inp.closest('.ppup').querySelector('.ppup-b').innerHTML='<b class="ok">&#10003; Attached</b>'});
+    const n=$('dcp').querySelector('.wal');if(n&&!lock&&!$('ppnote'))n.insertAdjacentHTML('afterend','<div class="note" id="ppnote">For UPI, account transfer or online payment: enter the <b>UTR number</b> and attach the <b>payment screenshot</b>. Admin / Office Manager approves the payment after checking it.</div>')}}
+  if(typeof cpSave=='function'){const _s=cpSave;cpSave=function(id){const x=db.b.find(b=>b.id==id);if(!x)return;
+    const nc=(cpRows||[]).filter(r=>r.m!='Cash'&&+r.a>0);
+    for(const r of nc){if(!okUtr(r.r))return alert('Enter the UTR / Transaction ID for the '+r.m+' payment (6 to 30 letters or numbers, no spaces)');if(!r.ss&&!isMgr())return alert('Attach the payment screenshot for the '+r.m+' payment')}
+    const u=nc.map(r=>String(r.r).trim()),dup=u.find((v,i)=>u.indexOf(v)!=i);if(dup)return alert('The same UTR '+dup+' is entered twice');
+    for(const b of db.b){if(b.id==id)continue;for(const p of PP(b))if(p.st!='Rejected'&&u.includes(p.utr))return alert('UTR '+p.utr+' is already used for booking '+b.id+'. Please check the UTR.')}
+    const keep=nc.map(r=>({m:r.m,a:m2(r.a),r:String(r.r).trim(),ss:r.ss,pk:r.pk}));const ts0=x.cpay&&x.cpay.ts;
+    _s.apply(this,arguments);
+    if(!x.cpay||x.cpay.ts===ts0)return;
+    const L=PP(x),used=new Set();
+    (x.cpay.rows||[]).forEach(row=>{if(row.m=='Cash')return;const k0=keep.find(q=>q.r==row.r&&q.m==row.m);if(!k0)return;
+      let p=k0.pk?L.find(q=>q.k==k0.pk):L.find(q=>q.src=='collect'&&q.utr==row.r&&q.st!='Rejected');
+      if(!p){p={k:nk(),src:'collect',by:who(),role:me.role,ts:Date.now()};L.push(p)}
+      const ch=p.utr!=row.r||p.amt!=row.a||p.mode!=row.m||(k0.ss&&p.ss!==k0.ss);
+      Object.assign(p,{mode:row.m,amt:row.a,utr:row.r,ss:k0.ss||p.ss||'',at:p.at||NOW()});
+      if(isMgr()){p.st='Approved';p.vby=p.vby||who()+' - '+NOW()}else if(ch||!p.st)p.st='Pending';
+      row.pk=p.k;used.add(p.k)});
+    x.pp=L.filter(p=>!(p.src=='collect'&&p.st=='Pending'&&!used.has(p.k)));
+    save();render();
+    if(!isMgr()&&used.size)toast('Payment saved. It will be approved by Admin / Office Manager after checking the UTR and screenshot.','info')}}
+
+  /* ---------- 2. customer account: pay, then submit UTR + screenshot ---------- */
+  function custCards(){const c=$('cpb');if(!c||!cu)return;c.querySelectorAll('.cfgpay,.ppcard,.pphist').forEach(e=>e.remove());
+    const mine=db.b.filter(x=>x.mob==cu);
+    const pend=mine.filter(x=>x.bill&&x.status=='Closed').map(x=>({x,d:m2(dueOf(x)-colOf(x))})).filter(o=>o.d>0);
+    let h=pend.map(o=>{const x=o.x,wait=PP(x).filter(p=>p.src=='customer'&&p.st=='Pending'),wsum=m2(wait.reduce((a,p)=>a+(+p.amt||0),0)),left=m2(o.d-wsum);
+      return `<div class="ppcard">${left>0?payBox(left,'Payment pending for booking '+x.id):''}
+${wait.map(p=>`<div class="ppw">${stHtml(p)} &middot; ${esc(p.mode)} <b>${rs(p.amt)}</b> &middot; UTR <b>${esc(p.utr)}</b><br><small>Submitted on ${esc(p.at)}. You will see the status here.</small></div>`).join('')}
+${left>0?`<form class="ppf" data-id="${esc(x.id)}" onsubmit="return false"><b>Paid? Send the payment details</b>
+<div class="row"><label>Amount paid (Rs)<input type="number" min="1" step="0.01" name="a" value="${left}"></label><label>Paid by<select name="m">${MODES.map(m=>`<option>${m}</option>`).join('')}</select></label></div>
+<div class="row"><label>UTR / Transaction ID *<input name="u" maxlength="30" placeholder="12 digit UTR from the payment app" autocomplete="off"></label><label class="ppup">Payment screenshot *<span class="ppup-b"><i>No file</i></span><input type="file" name="f" accept="image/*,application/pdf"></label></div>
+<button type="button" class="ppsend">Submit for approval</button><small class="ppm"></small></form>`:''}</div>`}).join('');
+    const hist=[];mine.forEach(x=>PP(x).forEach(p=>{if(p.src=='customer'||p.st!='Pending')hist.push({x,p})}));
+    hist.sort((a,b)=>(b.p.ts||0)-(a.p.ts||0));
+    if(hist.length)h+=`<div class="pphist"><h4>My payments</h4><div class="tw"><table><tr><th>Booking</th><th>Mode</th><th>Amount</th><th>UTR</th><th>Status</th></tr>${hist.slice(0,20).map(o=>`<tr><td>${esc(o.x.id)}</td><td>${esc(o.p.mode)}</td><td>${rs(o.p.amt)}</td><td>${esc(o.p.utr)}</td><td>${stHtml(o.p)}</td></tr>`).join('')}</table></div></div>`;
+    if(h)c.insertAdjacentHTML('afterbegin',h);
+    c.querySelectorAll('.ppf').forEach(f=>{const fi=f.querySelector('input[type=file]');fi.onchange=async()=>{const d=await pickShot(fi);f._ss=d;f.querySelector('.ppup-b').innerHTML=d?'<b class="ok">&#10003; Attached</b>':'<i>No file</i>'};
+      f.querySelector('.ppsend').onclick=()=>custSend(f)})}
+  function custSend(f){const x=db.b.find(b=>b.id==f.dataset.id);if(!x)return;const a=m2(f.a.value),m=f.m.value,u=f.u.value.trim();
+    const due=m2(dueOf(x)-colOf(x));
+    if(!(a>0))return alert('Enter the amount you paid');if(a>due+0.01)return alert('Amount is more than the pending amount ('+rs(due)+')');
+    if(!okUtr(u))return alert('Enter the UTR / Transaction ID (6 to 30 letters or numbers, no spaces). You can find it in your UPI / bank app under the payment details.');
+    if(!f._ss)return alert('Please attach the payment screenshot');
+    for(const b of db.b)for(const p of PP(b))if(p.st!='Rejected'&&p.utr==u)return alert('This UTR is already submitted.');
+    const c=(cprof&&cprof(cu))||{};
+    PP(x).push({k:nk(),src:'customer',by:'Customer - '+(c.name||x.name||cu),role:'customer',mode:m,amt:a,utr:u,ss:f._ss,at:NOW(),ts:Date.now(),st:'Pending'});
+    if(typeof hlh=='function')hlh(x,'Customer','Payment proof submitted',x.status,m+' '+rs(a)+' UTR '+u,a);
+    save();toast('Thank you! Your payment details are sent. NTUV Care will confirm it soon.','ok');custCards()}
+  if(typeof chist=='function'){const _c=chist;chist=function(){_c.apply(this,arguments);try{custCards()}catch(e){console.log(e)}}}
+
+  /* ---------- 3. Admin / Office Manager: Payment Approvals tab ---------- */
+  function allPP(){const L=[];db.b.forEach(x=>PP(x).forEach(p=>L.push({x,p})));return L.sort((a,b)=>(b.p.ts||0)-(a.p.ts||0))}
+  const pendN=()=>allPP().filter(o=>o.p.st=='Pending').length;
+  function ppaHtml(){const L=allPP(),P=L.filter(o=>o.p.st=='Pending'),D=L.filter(o=>o.p.st!='Pending').slice(0,60);
+    const row=(o,act)=>`<tr><td><b>${esc(o.x.id)}</b><br><small>${esc(o.x.name||'')} &middot; ${esc(o.x.mob||'')}</small></td><td>${esc(o.p.by||'')}<br><small>${o.p.src=='customer'?'Paid by customer (online)':'Collected by technician / office'}</small></td><td>${esc(o.p.mode)}</td><td><b>${rs(o.p.amt)}</b></td><td><b>${esc(o.p.utr)}</b></td><td>${ssBtn(o.p,o.x)}</td><td><small>${esc(o.p.at||'')}</small></td><td>${act?`<button type="button" data-ppa="ok" data-b="${esc(o.x.id)}" data-k="${o.p.k}">&#10003; Approve</button> <button type="button" class="alt" data-ppa="no" data-b="${esc(o.x.id)}" data-k="${o.p.k}">Reject</button>`:stHtml(o.p)+(o.p.vby?'<br><small>'+esc(o.p.vby)+'</small>':'')}</td></tr>`;
+    const head='<tr><th>Booking</th><th>Submitted by</th><th>Mode</th><th>Amount</th><th>UTR</th><th>Screenshot</th><th>Time</th><th>Action</th></tr>';
+    return `<div class="ppaw"><h3 class="sh">Payment Approvals</h3><p><small>Check the UTR and the screenshot in your bank / UPI app, then approve. Approved payments are shown to the customer and the technician. A rejected payment collected by a technician is removed from the booking, so the amount shows as pending again.</small></p>
+<h4>Waiting for approval (${P.length})</h4>${P.length?`<div class="tw"><table>${head}${P.map(o=>row(o,1)).join('')}</table></div>`:'<p class="note">No payment is waiting for approval.</p>'}
+<h4>Recently checked</h4>${D.length?`<div class="tw"><table>${head}${D.map(o=>row(o,0)).join('')}</table></div>`:'<p><small>Nothing yet.</small></p>'}</div>`}
+  document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-ppa]');if(!b)return;if(!isMgr())return alert('Only Admin or Office Manager can approve payments');
+    const x=db.b.find(q=>q.id==b.dataset.b),p=x&&PP(x).find(q=>q.k==b.dataset.k);if(!p||p.st!='Pending')return;
+    if(b.dataset.ppa=='ok'){
+      if(p.src=='customer'){const due=m2(dueOf(x)-colOf(x));if(p.amt>due+0.01&&!confirm('This amount ('+rs(p.amt)+') is more than the pending amount ('+rs(due)+'). Approve anyway?'))return;
+        if(!x.cpay)x.cpay={rows:[],tot:0,due:dueOf(x),by:'Customer (online)',at:NOW(),ts:Date.now()};x.cpay.rows.push({m:p.mode,a:p.amt,r:p.utr,pk:p.k});cpayTot(x)}
+      p.st='Approved';p.vby=who()+' - '+NOW();if(typeof hlh=='function')hlh(x,who(),'Payment approved',x.status,p.mode+' '+rs(p.amt)+' UTR '+p.utr,p.amt);toast('Payment '+rs(p.amt)+' approved','ok')}
+    else{const why=prompt('Reason for rejecting this payment (the customer / technician will see it):');if(why===null)return;
+      p.st='Rejected';p.why=why.trim()||'Payment not found';p.vby=who()+' - '+NOW();
+      if(p.src=='collect'&&x.cpay){x.cpay.rows=(x.cpay.rows||[]).filter(r=>r.pk!=p.k);cpayTot(x);if(!x.cpay.rows.length)x.cpay=null}
+      if(typeof hlh=='function')hlh(x,who(),'Payment rejected',x.status,p.mode+' '+rs(p.amt)+' UTR '+p.utr+' - '+p.why,p.amt);toast('Payment rejected','info')}
+    save();ppaForce=1;render()});
+  let ppaForce=0;
+  const _rn=render;render=function(){
+    const want=me&&isMgr()&&ptab=='ppa';
+    if(want&&!ppaForce&&document.querySelector('#panel .ppaw')&&!$('panel').hidden){const t=document.querySelector('#panel .tb-ppa');if(t)t.innerHTML='&#9989; Payment Approvals ('+pendN()+')';return}
+    ppaForce=0;if(want)ptab='d';
+    try{_rn.apply(this,arguments)}finally{if(want)ptab='ppa'}
+    if(!me||!isMgr())return;const tabs=document.querySelector('#panel .tabs');if(!tabs)return;
+    let t=tabs.querySelector('.tb-ppa');if(!t){t=document.createElement('button');t.type='button';t.className='tb-ppa';t.onclick=()=>{ppaForce=1;ptab='ppa';render()};tabs.insertBefore(t,tabs.children[2]||null)}
+    const n=pendN();t.innerHTML='&#9989; Payment Approvals ('+n+')';t.classList.toggle('pp-hot',n>0);
+    if(want){tabs.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b==t));let s=tabs.nextSibling;while(s){const z=s.nextSibling;s.remove();s=z}tabs.insertAdjacentHTML('afterend',ppaHtml());if(window.shellSync)shellSync()}};
+
+  /* ---------- 4. technician / office booking list: payment status ---------- */
+  if(typeof bcell=='function'){const _b=bcell;bcell=function(x,R){const h=_b.apply(this,arguments);const L=PP(x);if(!L.length)return h;
+    return h+'<br><small class="ppl"><b>Payment check:</b> '+L.slice(-3).map(p=>esc(p.mode)+' '+rs(p.amt)+' &middot; '+stHtml(p)).join('<br>')+'</small>'}}
+
+  /* ---------- 5. technician cash deposit: UTR and receipt both needed for online deposits ---------- */
+  if(typeof cdSave=='function'){const _cd=cdSave;cdSave=function(){const m=$('cd_m')&&$('cd_m').value,r=($('cd_r')&&$('cd_r').value||'').trim(),f=$('cd_f')&&$('cd_f').files[0];
+    if(m&&m!='Cash at Office'){if(!okUtr(r))return alert('Enter the UTR / Transaction ID of the deposit (6 to 30 letters or numbers)');if(!f)return alert('Attach the payment screenshot / receipt')}
+    return _cd.apply(this,arguments)}}
+
+  /* ---------- 6. app: "Update available" bar whenever a newer version is published ---------- */
+  const site=()=>{let u=(setGet().siteUrl||'https://ntuvcare.in/');return /\/$/.test(u)?u:u+'/'};
+  let updBusy=false,updShown=0;
+  async function updCheck(){if(!APP||!window.AndroidApp||updBusy||document.hidden)return;let mine=0;try{mine=+(AndroidApp.versionCode?AndroidApp.versionCode():0)}catch(_){}if(!mine)return;updBusy=true;
+    try{const r=await fetch(site()+'app-version.json?t='+Date.now(),{cache:'no-store'});if(!r.ok)return;const j=await r.json();
+      if(!(+j.code>mine)){const b=$('updb');if(b)b.remove();B.classList.remove('has-upd');return}
+      const url=(j.url||site()+'NTUV-Care.apk')+(/\?/.test(j.url||'')?'&':'?')+'v='+j.code;
+      let b=$('updb');if(!b){B.insertAdjacentHTML('beforeend','<div id="updb" class="updb" role="status"></div>');b=$('updb')}
+      b.innerHTML=`<span class="updb-i">${I('spark')}</span><span class="updb-t"><b>New version ${esc(j.name||'')} available</b><small>${esc(j.note||'Tap Update to get the latest app')}</small></span><a class="updb-go" href="${esc(url)}">Update</a><button type="button" class="updb-x" aria-label="Later" onclick="this.parentNode.classList.add('min')">&times;</button>`;
+      b.classList.remove('min');B.classList.add('has-upd');updShown=+j.code}catch(_){}finally{updBusy=false}}
+  setTimeout(updCheck,2500);setInterval(updCheck,15*60*1000);
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)setTimeout(updCheck,600)});
+  addEventListener('online',()=>setTimeout(updCheck,1500));
+  window.updCheck=updCheck;
 })();
 
 </script>
