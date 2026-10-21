@@ -1012,6 +1012,21 @@ body.v46h .hx .osk-g{color:#0b3fe0!important;text-shadow:none!important}
 .cfgg-b .row{margin:0}
 .cfgg-b .cfgqr{margin:0;border:0;padding:0}
 
+/* ===== v5.2 ===== */
+/* messages always visible on phones (website and app) */
+@media(max-width:959px){#toasts{top:auto!important;bottom:calc(var(--bnh,0px) + 12px + env(safe-area-inset-bottom))!important;left:50%!important;right:auto!important;transform:translateX(-50%)!important}}
+@media(max-width:959px){body:not(.shell) #toasts{bottom:calc(96px + env(safe-area-inset-bottom))!important}}
+.dotp{margin:0 0 8px;padding:10px 12px;border-radius:12px;background:color-mix(in srgb,#f59e0b 14%,transparent);border:1px dashed #f59e0b;color:var(--ink);font-size:14px}
+.dotp b{font-size:20px;letter-spacing:.18em;color:#b45309;margin-left:4px}
+input.need,select.need,textarea.need{border-color:var(--bad,#dc2626)!important;box-shadow:0 0 0 3px color-mix(in srgb,var(--bad,#dc2626) 20%,transparent)!important}
+#pay.paybig{flex:1 1 auto;font-size:17px;padding:14px 18px;background:linear-gradient(135deg,#15803d,#22c55e)!important;border:0!important;box-shadow:0 10px 24px #16a34a55}
+#bk[hidden]{display:none!important}
+.brsel{width:100%}
+.brsel+input:not([hidden]){margin-top:8px}
+.rqline{display:inline-block;margin-top:3px}
+.rqb{margin-top:4px}
+#drq{width:min(560px,94vw)}
+
 /* ===== v4.2 app home polish ===== */
 /* dots under sliding cards */
 .cdots{display:none}
@@ -1372,7 +1387,7 @@ body.shell #home .acg>figure{border-radius:18px;overflow:hidden;background:var(-
 <div id="ix" hidden><label>Describe the problem<textarea id="isx" rows="2"></textarea></label></div>
 <div id="updw" hidden><label style="display:flex;gap:8px;align-items:center;font-weight:400"><input id="updc" type="checkbox" style="width:auto" checked> Save these details to my profile for next time</label></div>
 <label style="display:flex;gap:8px;align-items:center;font-weight:400"><input id="agree" type="checkbox" style="width:auto"> I agree to the <a href="#" onclick="$('dc').showModal();return false">Terms &amp; Conditions</a></label>
-<div class="note">Rs 100 advance payment will be adjusted in your billing. The advance is not refundable. A refund is given only if you were charged twice for the same booking (see <a href="#" onclick="polOpen('refund');return false">Refund Policy</a>). If you decline service after the technician's visit, Rs 300 visiting charge applies (Rs 100 advance is deducted).</div>
+<div class="note">Rs 100 advance payment will be adjusted in your billing. The advance is refunded if the technician does not come on the booked date, if NTUV Care cancels the booking, or if you were charged twice. It is not refunded if you cancel the booking yourself (see <a href="#" onclick="polOpen('refund');return false">Refund Policy</a>). If you decline service after the technician's visit, Rs 300 visiting charge applies (Rs 100 advance is deducted).</div>
 <div class="note" id="tmode">Testing mode ON: OTP and payment are optional, so you can test Book Now directly.</div>
 <div class="row"><button type="button" id="pay" onclick="startRzp()">Pay Now Rs 100</button><button id="bk">Book Now</button></div>
 <p id="done" class="ok" hidden></p></form></div><section class="rb" id="rb" aria-label="Our work"><div class="rb-t"><figure><img loading="lazy" decoding="async" data-m="s1" alt="Filter &amp; Coil Cleaning" width="640" height="400"><figcaption>Filter &amp; Coil Cleaning</figcaption></figure><figure><img loading="lazy" decoding="async" data-m="s5" alt="Foam Jet Deep Cleaning" width="640" height="400"><figcaption>Foam Jet Deep Cleaning</figcaption></figure><figure><img loading="lazy" decoding="async" data-m="s2" alt="PCB &amp; Electrical Diagnosis" width="640" height="400"><figcaption>PCB &amp; Electrical Diagnosis</figcaption></figure><figure><img loading="lazy" decoding="async" data-m="s3" alt="Copper Piping Work" width="640" height="400"><figcaption>Copper Piping Work</figcaption></figure><figure><img loading="lazy" decoding="async" data-m="s4" alt="Outdoor Unit &amp; Pressure Check" width="640" height="400"><figcaption>Outdoor Unit &amp; Pressure Check</figcaption></figure><figure><img loading="lazy" decoding="async" data-m="s6" alt="Gas Charging" width="640" height="400"><figcaption>Gas Charging</figcaption></figure><figure><img loading="lazy" decoding="async" data-m="s8" alt="Precise Installation" width="640" height="400"><figcaption>Precise Installation</figcaption></figure><figure><img loading="lazy" decoding="async" data-m="s7" alt="Cassette &amp; Commercial AC" width="640" height="400"><figcaption>Cassette &amp; Commercial AC</figcaption></figure><figure><img loading="lazy" decoding="async" data-m="s10" alt="Trained NTUV Technicians" width="640" height="400"><figcaption>Trained NTUV Technicians</figcaption></figure></div></section><section class="wn"><span class="eyb">Why NTUV Care</span><h2>Cooling you can <span>count on</span></h2><ul>
@@ -1504,7 +1519,7 @@ const CT=[
 ["<b>Quotation Validity:</b> Quotation की validity quotation में दी गई अवधि तक ही होगी और उसके बाद prices बदल सकते हैं।","<b>Quotation Validity:</b> The quotation will remain valid only for the period specified in it, after which prices may change."],
 ["<b>Taxes:</b> GST या अन्य applicable government taxes, यदि लागू हों, तो quotation में अलग से या निर्धारित तरीके से charge किए जा सकते हैं।","<b>Taxes:</b> GST or other applicable government taxes, if applicable, may be charged separately or as specified in the quotation."],
 ["<b>Final Charges:</b> अंतिम बिल वास्तविक work, material quantity और approved additional work के आधार पर quotation से अलग हो सकता है।","<b>Final Charges:</b> The final invoice may differ from the quotation based on actual work performed, material quantity, and approved additional work."],
-["<b>Refund - only for double payment (रिफंड - केवल दोहरे भुगतान पर):</b> ग्राहक द्वारा किया गया कोई भी भुगतान (advance, visiting charge, service charge) वापस नहीं किया जाता। केवल उसी स्थिति में refund होगा जब एक ही booking / bill के लिए ग्राहक से दो बार payment कट गई हो; अतिरिक्त राशि 5-7 कार्य दिवस में उसी payment mode में वापस की जाएगी।","<b>Refund - only for double payment:</b> Payments (advance, visiting charge, service charges) are not refundable. A refund is made only if the customer was charged twice for the same booking or bill; the extra amount is returned to the same payment method within 5-7 working days after verification. See the Refund Policy."]];
+["<b>Refund (रिफंड):</b> Rs 100 advance तभी वापस होगा जब technician booking की तारीख पर नहीं आया, NTUV Care ने booking cancel की, या एक ही payment दो बार कट गई। ग्राहक द्वारा स्वयं booking cancel करने पर, technician के visit के बाद service मना करने पर, और काम हो जाने के बाद के charges वापस नहीं होंगे। Refund ग्राहक अपने account से reason चुनकर माँग सकते हैं; verification के बाद 5-7 कार्य दिवस में उसी payment mode में वापस किया जाएगा।","<b>Refund:</b> The Rs 100 advance is refunded only if the technician did not come on the booked date, NTUV Care cancelled the booking, or the same payment was charged twice. It is not refunded if the customer cancels the booking, declines service after the technician visits, or for charges after the work is done. Customers can request a refund from their account by choosing the reason; after verification it is returned to the same payment method within 5-7 working days."]];
 const TT=[
 ["<b>कंपनी द्वारा दी गई Customer Lead का उपयोग:</b> कंपनी द्वारा Technician को दी गई प्रत्येक Customer Lead कंपनी की business lead मानी जाएगी। Technician उस ग्राहक से कंपनी के बाहर व्यक्तिगत रूप से कोई काम या business नहीं करेगा।","<b>Use of Company Customer Leads:</b> Every customer lead provided by the Company to the Technician shall be considered a Company business lead. The Technician shall not directly undertake any personal business or service with such customer outside the Company."],
 ["<b>Customer को Directly Service देने पर रोक:</b> Technician कंपनी से प्राप्त किसी भी ग्राहक को सीधे अपने व्यक्तिगत business के लिए service नहीं देगा और न ही भविष्य में उस ग्राहक से कंपनी को bypass करके काम लेगा।","<b>Restriction on Direct Dealing with Customers:</b> The Technician shall not provide services directly to any customer received through the Company for personal business or obtain future work from such customer by bypassing the Company."],
@@ -1732,7 +1747,7 @@ $('cpb').hidden=ct!='b';$('cpf').hidden=ct!='p';$('p_ok').textContent='';
 if(ct=='b')chist();else{fillP(c);setSv($('p_sv'),'clean')}}
 const cxAddr=x=>[x.ad,x.ci,x.st].filter(Boolean).join(', ')+(x.pin?' - '+x.pin:'');
 const cxCan=x=>x.status!='Closed'&&x.status!='Cancelled';
-const cxRef=x=>x.cxBy=='Customer'?'Advance not refundable (cancelled by customer)':(x.paid?'Advance not refundable (refund only for double payment)':'No advance paid');
+const cxRef=x=>x.cxBy=='Customer'?'Advance not refundable (cancelled by customer)':(x.paid?'Advance not refundable when you cancel yourself':'No advance paid');
 const BKH='<th>Booking Id</th><th>Service Date</th><th>Closed On</th><th>Customer Name</th><th>Customer Number</th><th>Address (with Pincode)</th><th>Service</th><th>Current Status</th><th>Assigned Technician</th><th>Details</th>';
 function bkCells(x){return `<td>${esc(x.id)}<br><small>${esc(x.date)}</small></td><td>${sdCell(x)}</td><td>${clCell(x)}</td><td>${esc(x.name)}</td><td>${esc(x.mob)}</td><td class="w">${esc(cxAddr(x))}</td><td class="w">${esc(x.at)} ${esc(x.br)}<br>${esc(x.is)}${x.isx?'<br><small>'+esc(x.isx)+'</small>':''}</td><td><b>${esc(x.status)}</b></td><td>${techCell(x)}</td>`}
 function chist(){const l=db.b.filter(x=>x.mob==cu).reverse();
@@ -1749,7 +1764,7 @@ A=()=>f('Address (with Pincode)',cxAddr(x),1),
 S=()=>{f('Service',[x.at,x.br,x.is].filter(Boolean).join(' - '),1);if(x.isx)f('Problem Description',x.isx,1)},
 T=()=>{f('Current Status',x.status);f('Assigned Technician',tnp(x.tm),1);f('Advance (Rs '+(x.adv||100)+')',x.paid?'Paid':'Not paid');
 if(!vbCu){f('Remarks',x.rem,1);f('Total Amount',x.amt?'Rs '+x.amt:'')}
-if(x.status=='Cancelled'){f('Cancelled By',x.cxBy);f('Cancellation Reason',x.cxR,1);if(x.cxRem)f(vbCu?'Your Remarks':'Customer Remarks',x.cxRem,1);f('Refund',x.cxBy=='Customer'?'Advance not refundable (cancelled by customer)':(x.paid?'Advance not refundable (refund only for double payment)':'No advance paid'),1)}};
+if(x.status=='Cancelled'){f('Cancelled By',x.cxBy);f('Cancellation Reason',x.cxR,1);if(x.cxRem)f(vbCu?'Your Remarks':'Customer Remarks',x.cxRem,1);f('Refund',x.cxBy=='Customer'?'Advance not refundable (cancelled by customer)':(x.paid?(vbCu?'Advance Rs '+(x.adv||100)+' will be refunded':'Advance Rs '+(x.adv||100)+' to be refunded to customer'):'No advance paid'),1)}};
 if(tab=='all'){B();C();A();S();T()}if(tab=='b')B();if(tab=='c')C();if(tab=='a')A();if(tab=='s')S();if(tab=='t')T();
 const H=(tab=='all'||tab=='t')?histHtml(x):'';$('dbk').innerHTML=`<h3>Booking ${esc(x.id)}</h3><div class="tabs">${TB.map(t=>`<button type="button" class="${tab==t[0]?'on':''}" onclick="vb('${esc(x.id)}','${t[0]}')">${t[1]}</button>`).join('')}</div><div class="tw"><table class="hz"><tr>${c.map(z=>`<th>${z[0]}</th>`).join('')}</tr><tr>${c.map(z=>`<td${z[2]?' class="w"':''}>${z[1]}</td>`).join('')}</tr></table></div>${H}<p><button type="button" onclick="$('dbk').close()">Close</button></p>`;if(!$('dbk').open)$('dbk').showModal()}
 let cxId='';
@@ -1849,7 +1864,7 @@ if(r=='technician'&&x.ta=='pending')c=`<b>New job assigned</b>${offLeft(x)!=null
 else c=`<button type="button" onclick="nearT('${x.id}')">&#128205; Nearby Technicians</button>${x.ta=='pending'?'<br><small>Awaiting technician reply</small>':''}<br>Assign: <select onchange="asg('${x.id}',this.value)"><option value="">Unassigned</option>${[...db.t].sort((a,b)=>sv(b)-sv(a)).map(t=>`<option value="${esc(t.id)}" ${t.id==x.tm?'selected':''}>${sv(t)?'\u2713 ':''}${esc(t.name)} ${t.mob}</option>`).join('')}</select><br><small>\u2713 = serves pincode ${esc(x.pin)}</small><br>`+(cxCan(x)?`<button class="alt" onclick="cxStaff('${x.id}')">Cancel Booking</button> `:'')+(r=='admin'?`<button class="alt" onclick="del('${x.id}')">Delete</button>`:'');
 return`<tr>${bkCells(x)}<td><button onclick="vb('${esc(x.id)}','all',0)">View Details</button></td><td class="w">${c}</td></tr>`}).join('')||'<tr><td colspan="9">No bookings yet.</td></tr>';
 return h+'</table></div>'}
-function cxStaff(id){const x=db.b.find(b=>b.id==id);if(!x||!cxCan(x))return;const why=prompt('Cancel booking '+id+'?\nAs per the Refund Policy the advance is not refunded (refund only for double payment).\n\nReason for cancellation (optional):','');if(why===null)return;
+function cxStaff(id){const x=db.b.find(b=>b.id==id);if(!x||!cxCan(x))return;const why=prompt('Cancel booking '+id+'?\nThe customer\'s advance payment will be refunded.\n\nReason for cancellation (optional):','');if(why===null)return;
 x.status='Cancelled';x.cxBy=me&&me.role=='technician'?'Technician':'Company';x.cxR=why.trim()||('Cancelled by '+x.cxBy);x.cxDt=new Date().toLocaleString();save();render();toast('Booking '+id+' cancelled')}
 function usrHtml(k){const l=k=='t'?db.t:db.o,t=k=='t'?'Technician':'Office Employee';
 return`<p style="margin:12px 0"><button onclick="${k=='t'?'addTech()':"openU('o')"}">+ Add ${t} (ID &amp; Password)</button> <button class=\"alt\" onclick=\"xlK('${k}')\">&#11015; Download ${t}s (Excel)</button></p><div class="tw"><table><tr><th>Name</th><th>Mobile</th><th>Login ID</th><th>Password</th>${k=='t'?'<th>Service Pincodes</th><th>Bank Details</th><th>Documents</th>':''}<th>Action</th></tr>`+(l.map(u=>`<tr><td>${k=='t'?av(u)+' ':''}${esc(u.name)}</td><td>${esc(u.mob||'-')}</td><td>${esc(u.id)}</td><td>${esc(u.pw)}</td>${k=='t'?'<td>'+pinCell(u.pins)+'<button type="button" class="alt" onclick="mp(\''+esc(u.id)+'\')">Manage</button></td><td>'+(u.bank?bankTxt(u.bank):'<small>No bank</small>')+upiTxt(u)+'</td><td>'+((u.docs||[]).length||u.photo?'<details><summary>'+((u.docs||[]).length+(u.photo?1:0))+' file(s)</summary>'+docList(u)+'</details>':'<small>Not uploaded</small>')+'</td>':''}<td><button class="alt" onclick="rp('${k}','${esc(u.id)}')">New Password</button> ${me&&me.role=='admin'?`<button class="alt" onclick="${k=='t'?'delT':'delO'}('${esc(u.id)}')">Delete</button>`:''}</td></tr>`).join('')||`<tr><td colspan="${k=='t'?8:5}">None yet.</td></tr>`)+'</table></div>'}
@@ -1981,7 +1996,7 @@ const hlh=(...a)=>{hlog(...a);b_last(a[0])};const b_last=b=>{b.hist[b.hist.lengt
 const _hh=histHtml;histHtml=function(x){return vbCu?_hh({...x,hist:(x.hist||[]).filter(z=>!z.hid)}):_hh(x)};
 /* ---- refund ---- */
 function openRf(id){const b=db.b.find(x=>x.id==id);if(!b)return;const ad=isMgr(),f=b.rf||{};rfId=id;
-$('drf').innerHTML=`<h3>Refund - ${esc(id)}</h3><div class="note">Advance paid: <b>${b.paid?'Rs '+(b.adv||100):'Not paid online'}</b>. The customer will see this same status in their login.<br><b>Refund Policy:</b> refund only when the customer was charged twice for the same booking.</div>
+$('drf').innerHTML=`<h3>Refund - ${esc(id)}</h3><div class="note">Advance paid: <b>${b.paid?'Rs '+(b.adv||100):'Not paid online'}</b>. The customer will see this same status in their login.<br><b>Refund Policy:</b> advance is refunded when the technician did not come on the booked date, NTUV Care cancelled the booking, or the customer was charged twice.</div>
 <label>Refund Amount (Rs)<input id="rf_a" type="number" min="0" step="0.01" value="${esc(f.amt!=null?f.amt:(b.paid?(b.adv||100):''))}"></label>
 <label>Refund Status<select id="rf_s"><option>Processed For Refund</option>${ad?`<option ${f.st=='Refunded'?'selected':''}>Refunded</option>`:''}</select></label>
 <label>Remarks / Reason<textarea id="rf_r" rows="2">${esc(f.rem||'')}</textarea></label>
@@ -2709,13 +2724,13 @@ case'month':return[d0(new Date(now.getFullYear(),now.getMonth(),1)),T+D];case'lm
 case'year':{const fy=now.getMonth()>=3?now.getFullYear():now.getFullYear()-1;return[d0(new Date(fy,3,1)),T+D]}case'custom':return[DR.f?d0(DR.f+'T00:00'):0,DR.t?d0(DR.t+'T00:00')+D:Infinity];default:return null}}
 const inR=ts=>{const r=drRange();if(!r)return true;if(!ts)return false;return ts>=r[0]&&ts<r[1]};
 const drTag=()=>DR.p=='all'?'All':DR.p=='custom'?(DR.f||'start')+'_to_'+(DR.t||'today'):DR.p;
-function setDR(p){DR.p=p;if(p=='custom'){DR.f=$('drf').value;DR.t=$('drt').value}try{sessionStorage.ntuvDR=JSON.stringify(DR)}catch(e){}render()}
+function setDR(p){DR.p=p;if(p=='custom'){DR.f=$('drfd').value;DR.t=$('drt').value}try{sessionStorage.ntuvDR=JSON.stringify(DR)}catch(e){}render()}
 /* run fn with db.b limited to the selected date range (saving is blocked meanwhile) */
 function dRun(fn){if(window._dsw||!drRange())return fn();const all=db.b;window._dAll=all;window._dsw=1;db.b=all.filter(x=>inR(bts(x)));try{return fn()}finally{db.b=all;window._dsw=0;window._dAll=null}}
 const _rn9=render;render=function(){if(!me)return _rn9();const tot=db.b.length;dRun(()=>{_rn9();const bx=$('panel').firstElementChild,h2=bx&&bx.querySelector('h2');if(!h2)return;const r=drRange(),n=db.b.length,mine=me.role=='technician'?db.b.filter(x=>x.tm==me.id).length:n;
 const fmt=t=>new Date(t).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
 h2.insertAdjacentHTML('afterend',`<div class="drb"><label>Date Range<select onchange="this.value=='custom'?($('drc').hidden=false):setDR(this.value)">${[['all','All Time'],['today','Today'],['yday','Yesterday'],['week','This Week'],['7','Last 7 Days'],['month','This Month'],['lmonth','Last Month'],['30','Last 30 Days'],['year','This Financial Year'],['custom','Custom Range...']].map(o=>`<option value="${o[0]}" ${DR.p==o[0]?'selected':''}>${o[1]}</option>`).join('')}</select></label>
-<span id="drc" ${DR.p=='custom'?'':'hidden'} class="drc"><label>From<input type="date" id="drf" value="${esc(DR.f)}"></label><label>To<input type="date" id="drt" value="${esc(DR.t)}"></label><button type="button" onclick="setDR('custom')">Apply</button></span>
+<span id="drc" ${DR.p=='custom'?'':'hidden'} class="drc"><label>From<input type="date" id="drfd" value="${esc(DR.f)}"></label><label>To<input type="date" id="drt" value="${esc(DR.t)}"></label><button type="button" onclick="setDR('custom')">Apply</button></span>
 <small>${r?`Showing <b>${me.role=='technician'?mine:n}</b> booking(s) ${DR.p=='custom'?'from '+(DR.f?fmt(r[0]):'start')+' to '+(DR.t?fmt(r[1]-1):'today'):'('+fmt(r[0])+' - '+fmt(Math.min(r[1],Date.now()+864e5)-1)+')'}. Dashboard, bookings, wallet, commission and Excel downloads use this range.`:`Showing all ${me.role=='technician'?'':tot+' '}bookings.`}</small></div>`)})};
 ['xlK','xlAll','xlBC','xlTR','dashXl'].forEach(k=>{const f=window[k];if(typeof f=='function')window[k]=function(...a){return dRun(()=>f.apply(this,a))}});
 /* keep a fixed booking date on old records so filtering never depends on the device's date format */
@@ -2985,7 +3000,7 @@ const lab=!r?'All time':DR.p=='custom'?(DR.f?fmt(r[0]):'Start')+' to '+(DR.t?fmt
 const line=(x,cls)=>`<tr class="${cls||''}"><td>${x.t?av(x.t)+' '+tLink(x.t,'<b>'+esc(x.name)+'</b>'):'<b>'+esc(x.name)+'</b>'}</td>${ST.map(s=>`<td class="n${x.k[s]?'':' z'}">${x.k[s]||0}</td>`).join('')}<td class="n"><b>${x.n}</b></td><td class="n">${rs(x.inv)}</td><td class="n pent">${x.pen?rs(x.pen):'-'}</td><td class="n">${rs(x.te)}</td><td class="n">${rs(x.co)}</td><td class="n rpay">${x.pay?rs(x.pay):'-'}</td><td class="n rrec">${x.rec?rs(x.rec):'-'}</td></tr>`;
 return`<div class="rep" id="trep"><div class="dsh-top"><div><h3 class="sh" style="margin:0">Technician-wise Report</h3><small>${esc(lab)}</small></div>
 <div class="repc"><label>Date Range<select onchange="this.value=='custom'?($('rpc').hidden=false):setDR(this.value)">${DRO.map(o=>`<option value="${o[0]}" ${DR.p==o[0]?'selected':''}>${o[1]}</option>`).join('')}</select></label>
-<span id="rpc" class="drc" ${DR.p=='custom'?'':'hidden'}><label>From<input type="date" id="rpf" value="${esc(DR.f)}"></label><label>To<input type="date" id="rpt" value="${esc(DR.t)}"></label><button type="button" onclick="DR.f=$('rpf').value;DR.t=$('rpt').value;$('drf')&&($('drf').value=DR.f);$('drt')&&($('drt').value=DR.t);DR.p='custom';try{sessionStorage.ntuvDR=JSON.stringify(DR)}catch(e){}render()">Apply</button></span>
+<span id="rpc" class="drc" ${DR.p=='custom'?'':'hidden'}><label>From<input type="date" id="rpf" value="${esc(DR.f)}"></label><label>To<input type="date" id="rpt" value="${esc(DR.t)}"></label><button type="button" onclick="DR.f=$('rpf').value;DR.t=$('rpt').value;$('drfd')&&($('drfd').value=DR.f);$('drt')&&($('drt').value=DR.t);DR.p='custom';try{sessionStorage.ntuvDR=JSON.stringify(DR)}catch(e){}render()">Apply</button></span>
 <button type="button" onclick="repXl()">&#11015; Download Report (Excel)</button></div></div>
 <div class="tw"><table class="hz rept"><tr>${RSH.map(h=>`<th>${h}</th>`).join('')}</tr>${line(tot,'rtot')}${rows.map(x=>line(x)).join('')||`<tr><td colspan="${RSH.length}"><small>No bookings in this date range.</small></td></tr>`}</table></div>
 ${rows.length?repCharts(rows,tot):''}</div>`}
@@ -4158,10 +4173,10 @@ ${S.adm?'':'<div class="note"><b>You are using the default login</b> &ndash; ID:
 <h4>8. Changes</h4><p>We may update this policy. The latest version is always available on this page.</p>
 <h4>9. Contact / Grievance</h4><p>${n}<br>${esc(S.addr||'')}<br>Phone: ${esc(S.ph||'')}<br>Email: <a href="mailto:${esc(S.em||'')}">${esc(S.em||'')}</a></p>`},
     refund:()=>{const S=setGet(),n=esc(S.name||'NTUV Care');return `<h3>Refund Policy</h3><p class="pol-d">Last updated: ${new Date().toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'})}</p>
-<div class="pol-k"><b>In short:</b> payments made to ${n} are <b>not refundable</b>. A refund is given <b>only when the same payment was charged twice</b> (double payment).</div>
-<h4>1. When you get a refund</h4><p>If you were charged more than once for the same booking, complaint or invoice &ndash; for example the booking advance was deducted twice, or you paid the same bill both online and to the technician &ndash; we refund the <b>extra (duplicate) amount</b> in full.</p>
-<h4>2. When there is no refund</h4><ul><li>The booking advance (adjusted in your final bill) and complaint visiting charges.</li><li>Cancellation of a booking by the customer, or a change of plan.</li><li>The visiting charge when service is declined after the technician's visit.</li><li>Service charges, parts and material once the work is done. If you are not satisfied with the work, raise a complaint from <b>My Account</b> within 30 days and we will check it.</li><li>A payment that failed but was not deducted from your account.</li></ul>
-<h4>3. How to ask for a refund</h4><ol><li>Contact us within <b>7 days</b> of the payment at <a href="mailto:${esc(S.em||'')}">${esc(S.em||'')}</a> or ${esc(S.ph||'')}.</li><li>Share your booking ID, both payment IDs / UTR numbers and a screenshot of the payments.</li><li>We verify the duplicate payment within 2 working days.</li></ol>
+<div class="pol-k"><b>In short:</b> the Rs 100 booking advance is refunded if <b>the technician does not come on the booked date</b>, if <b>${n} cancels your booking</b>, or if <b>you were charged twice</b>. Other payments are not refundable.</div>
+<h4>1. When you get a refund</h4><ul><li><b>Technician did not come:</b> the technician did not reach you on the booked service date (or the agreed new date).</li><li><b>Cancelled by us:</b> ${n} or the technician cancelled your booking.</li><li><b>Double payment:</b> the same booking, complaint or invoice was charged more than once &ndash; the extra (duplicate) amount is refunded in full.</li></ul>
+<h4>2. When there is no refund</h4><ul><li>Cancellation of a booking by the customer, or a change of plan.</li><li>The visiting charge when service is declined after the technician's visit.</li><li>Service charges, parts and material once the work is done. If you are not satisfied with the work, raise a complaint from <b>My Account</b> within 30 days and we will check it.</li><li>A payment that failed but was not deducted from your account.</li></ul>
+<h4>3. How to ask for a refund</h4><ol><li>Log in to <b>My Account</b> on our website or app, open <b>My Bookings</b> and press <b>Request Refund</b> on that booking.</li><li>Choose the reason from the list and add your remarks.</li><li>We check the request within 2 working days. You can see the status in My Account. You can also contact us at <a href="mailto:${esc(S.em||'')}">${esc(S.em||'')}</a> or ${esc(S.ph||'')}.</li></ol>
 <h4>4. Refund timeline and mode</h4><p>After verification, the duplicate amount is refunded to the <b>same payment method</b> (card, UPI, wallet or bank account) through Razorpay. It usually reaches you in <b>5&ndash;7 working days</b>, depending on your bank. A duplicate payment made in cash or directly to our account is returned by bank transfer / UPI after verification.</p>
 <h4>5. Contact</h4><p>${n}<br>Phone: ${esc(S.ph||'')}<br>Email: <a href="mailto:${esc(S.em||'')}">${esc(S.em||'')}</a></p>`}};
   window.polOpen=function(k){if(k=='terms'){const t=$('dc');if(t)t.showModal();return}let d=$('dpol');if(!d){d=document.createElement('dialog');d.id='dpol';d.className='dpol';document.body.appendChild(d)}
@@ -4680,8 +4695,8 @@ ${otpCard('wa')}${otpCard('sms')}</div>`}
     let h=pend.map(o=>{const x=o.x,wait=PP(x).filter(p=>p.src=='customer'&&p.st=='Pending'),wsum=m2(wait.reduce((a,p)=>a+(+p.amt||0),0)),left=m2(o.d-wsum);
       return `<div class="ppcard">${left>0?payBox(left,'Payment pending for booking '+x.id):''}
 ${wait.map(p=>`<div class="ppw">${stHtml(p)} &middot; ${esc(p.mode)} <b>${rs(p.amt)}</b> &middot; UTR <b>${esc(p.utr)}</b><br><small>Submitted on ${esc(p.at)}. You will see the status here.</small></div>`).join('')}
-${left>0?`<form class="ppf" data-id="${esc(x.id)}" onsubmit="return false"><b>Paid? Send the payment details</b>
-<div class="row"><label>Amount paid (Rs)<input type="number" min="1" step="0.01" name="a" value="${left}"></label><label>Paid by<select name="m">${MODES.map(m=>`<option>${m}</option>`).join('')}</select></label></div>
+${left>0&&(!window.payModes||payModes().some(m=>m!='Cash'))?`<form class="ppf" data-id="${esc(x.id)}" onsubmit="return false"><b>Paid? Send the payment details</b>
+<div class="row"><label>Amount paid (Rs)<input type="number" min="1" step="0.01" name="a" value="${left}"></label><label>Paid by<select name="m">${(window.payModes?payModes().filter(m=>m!='Cash'):MODES).map(m=>`<option>${m}</option>`).join('')}</select></label></div>
 <div class="row"><label>UTR / Transaction ID *<input name="u" maxlength="30" placeholder="12 digit UTR from the payment app" autocomplete="off"></label><label class="ppup">Payment screenshot *<span class="ppup-b"><i>No file</i></span><input type="file" name="f" accept="image/*,application/pdf"></label></div>
 <button type="button" class="ppsend">Submit for approval</button><small class="ppm"></small></form>`:''}</div>`}).join('');
     const hist=[];mine.forEach(x=>PP(x).forEach(p=>{if(p.src=='customer'||p.st!='Pending')hist.push({x,p})}));
@@ -4704,13 +4719,13 @@ ${left>0?`<form class="ppf" data-id="${esc(x.id)}" onsubmit="return false"><b>Pa
 
   /* ---------- 3. Admin / Office Manager: Payment Approvals tab ---------- */
   function allPP(){const L=[];db.b.forEach(x=>PP(x).forEach(p=>L.push({x,p})));return L.sort((a,b)=>(b.p.ts||0)-(a.p.ts||0))}
-  const pendN=()=>allPP().filter(o=>o.p.st=='Pending').length;
+  const pendN=()=>allPP().filter(o=>o.p.st=='Pending').length+(window.rfqN?rfqN():0);
   function ppaHtml(){const L=allPP(),P=L.filter(o=>o.p.st=='Pending'),D=L.filter(o=>o.p.st!='Pending').slice(0,60);
     const row=(o,act)=>`<tr><td><b>${esc(o.x.id)}</b><br><small>${esc(o.x.name||'')} &middot; ${esc(o.x.mob||'')}</small></td><td>${esc(o.p.by||'')}<br><small>${o.p.src=='customer'?'Paid by customer (online)':'Collected by technician / office'}</small></td><td>${esc(o.p.mode)}</td><td><b>${rs(o.p.amt)}</b></td><td><b>${esc(o.p.utr)}</b></td><td>${ssBtn(o.p,o.x)}</td><td><small>${esc(o.p.at||'')}</small></td><td>${act?`<button type="button" data-ppa="ok" data-b="${esc(o.x.id)}" data-k="${o.p.k}">&#10003; Approve</button> <button type="button" class="alt" data-ppa="no" data-b="${esc(o.x.id)}" data-k="${o.p.k}">Reject</button>`:stHtml(o.p)+(o.p.vby?'<br><small>'+esc(o.p.vby)+'</small>':'')}</td></tr>`;
     const head='<tr><th>Booking</th><th>Submitted by</th><th>Mode</th><th>Amount</th><th>UTR</th><th>Screenshot</th><th>Time</th><th>Action</th></tr>';
     return `<div class="ppaw"><h3 class="sh">Payment Approvals</h3><p><small>Check the UTR and the screenshot in your bank / UPI app, then approve. Approved payments are shown to the customer and the technician. A rejected payment collected by a technician is removed from the booking, so the amount shows as pending again.</small></p>
 <h4>Waiting for approval (${P.length})</h4>${P.length?`<div class="tw"><table>${head}${P.map(o=>row(o,1)).join('')}</table></div>`:'<p class="note">No payment is waiting for approval.</p>'}
-<h4>Recently checked</h4>${D.length?`<div class="tw"><table>${head}${D.map(o=>row(o,0)).join('')}</table></div>`:'<p><small>Nothing yet.</small></p>'}</div>`}
+${window.ppaExtra?ppaExtra():''}<h4>Recently checked</h4>${D.length?`<div class="tw"><table>${head}${D.map(o=>row(o,0)).join('')}</table></div>`:'<p><small>Nothing yet.</small></p>'}</div>`}
   document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-ppa]');if(!b)return;if(!isMgr())return alert('Only Admin or Office Manager can approve payments');
     const x=db.b.find(q=>q.id==b.dataset.b),p=x&&PP(x).find(q=>q.k==b.dataset.k);if(!p||p.st!='Pending')return;
     if(b.dataset.ppa=='ok'){
@@ -4757,6 +4772,89 @@ ${left>0?`<form class="ppf" data-id="${esc(x.id)}" onsubmit="return false"><b>Pa
   document.addEventListener('visibilitychange',()=>{if(!document.hidden)setTimeout(updCheck,600)});
   addEventListener('online',()=>setTimeout(updCheck,1500));
   window.updCheck=updCheck;
+})();
+
+</script><script>
+/* ===== NTUV v5.2: mobile booking fixes, payment options follow the switches, Razorpay first, refund requests, AC brands ===== */
+(function(){
+  const NOW=()=>new Date().toLocaleString();
+
+  /* ---------- 1. booking on phones: OTP shown next to the field, missing fields shown clearly ---------- */
+  if(typeof sendOtp=='function'){const _so=sendOtp;sendOtp=async function(m,box){const r=await _so.apply(this,arguments);try{const b=$(box);if(!b)return r;let d=b.querySelector('.dotp');
+      const code=otp&&otp[m];if(code&&/^\d{4}$/.test(String(code))){if(!d){b.insertAdjacentHTML('afterbegin','<div class="dotp"></div>');d=b.querySelector('.dotp')}d.innerHTML='Testing mode - your OTP is <b>'+esc(code)+'</b>';const i=b.querySelector('input');if(i){i.focus({preventScroll:true});b.scrollIntoView({block:'center',behavior:'smooth'})}}else if(d)d.remove()}catch(_){}return r}}
+  let invT=0;
+  document.addEventListener('invalid',e=>{const el=e.target;if(!el.closest||!el.closest('#bf,#cpf,#tf'))return;const t=Date.now();if(t-invT<800)return;invT=t;
+    const l=el.closest('label'),nm=l?(l.childNodes[0].textContent||'').replace(/\*/g,'').trim():'this field';
+    setTimeout(()=>{el.scrollIntoView({block:'center',behavior:'smooth'});toast('Please fill: '+(nm||'required field'),'bad');el.classList.add('need');el.addEventListener('input',()=>el.classList.remove('need'),{once:true});el.addEventListener('change',()=>el.classList.remove('need'),{once:true})},30)},true);
+  /* state + city from our own pincode list when the internet pincode service is slow */
+  function pinFill(p,s,c){if(!/^\d{6}$/.test(p)||typeof pinDB!='function')return;pinDB().then(D=>{const o=D&&D.get(p);if(!o)return;if(s&&$(s)&&!$(s).value)$(s).value=o.s||'';if(c&&$(c)&&!$(c).value)$(c).value=o.d||''}).catch(()=>{})}
+  [['pin','st','ci'],['p_pin','p_st','p_ci']].forEach(([p,s,c])=>{const e=$(p);if(e)e.addEventListener('input',()=>{const v=e.value;if(v.length==6){$(s)&&($(s).value='');$(c)&&($(c).value='');setTimeout(()=>pinFill(v,s,c),1200)}})});
+
+  /* ---------- 2. payment options: only the ones switched ON in Settings ---------- */
+  window.payModes=function(){const S=setGet(),L=[];if(S.payUpi!==false&&S.bank.upi||S.payQr!==false&&(qrOf(S)||S.bank.upi))L.push('UPI');L.push('Cash');if(S.payBank!==false&&S.bank.acc)L.push('Account Transfer (IMPS)');if(S.live&&S.rzpKey)L.push('Online Payment');return L};
+  if(typeof cpDraw=='function'){const _d=cpDraw;cpDraw=function(id,lock){_d.apply(this,arguments);if(lock)return;const ok=payModes();
+    document.querySelectorAll('#dcp .cprow select').forEach(sel=>{[...sel.options].forEach(o=>{if(!ok.includes(o.value)&&!o.selected)o.remove()})});
+    const n=$('ppnote');if(n&&!ok.some(m=>m!='Cash'))n.remove()}}
+  if(typeof cpAdd=='function'){const _a=cpAdd;cpAdd=function(id,due){_a.apply(this,arguments);const ok=payModes(),r=cpRows[cpRows.length-1];if(r&&!ok.includes(r.m)){const used=cpRows.slice(0,-1).map(x=>x.m);r.m=ok.find(m=>!used.includes(m))||'Cash';cpDraw(id,false)}}}
+  /* technician deposit to the company */
+  if(typeof cdHtml=='function'){const _c=cdHtml;cdHtml=function(){let h=_c.apply(this,arguments);try{const S=setGet(),B=S.bank,ub=S.payBank!==false,uu=S.payUpi!==false&&B.upi;
+      h=h.replace(/<div class="note"><b>Pay to company:<\/b>[\s\S]*?<\/div>/,()=>{const p=[];if(ub&&B.acc)p.push((B.name?'Account Name: <b>'+esc(B.name)+'</b> &middot; ':'')+(B.bank?'Bank: <b>'+esc(B.bank)+'</b> &middot; ':'')+'A/C <b>'+esc(B.acc)+'</b>'+(B.ifsc?' &middot; IFSC <b>'+esc(B.ifsc)+'</b>':''));if(uu)p.push('UPI <b>'+esc(B.upi)+'</b>');return p.length?'<div class="note"><b>Pay to company:</b> '+p.join(' &middot; ')+'</div>':''});
+      const ok=payModes();h=h.replace(/<option>UPI<\/option>/,ok.includes('UPI')?'<option>UPI</option>':'').replace(/<option>Bank Transfer \(IMPS \/ NEFT\)<\/option>/,ok.includes('Account Transfer (IMPS)')?'<option>Bank Transfer (IMPS / NEFT)</option>':'')}catch(_){}return h}}
+  /* invoices: QR and UPI follow the same switches */
+  if(typeof invHtml=='function'){const _i=invHtml;invHtml=function(){const S=setGet(),b0=CO.bank;if(b0){CO.bank=Object.assign({},b0);if(S.payQr===false)CO.bank.qr='';if(S.payUpi===false)CO.bank.upi=''}try{return _i.apply(this,arguments)}finally{CO.bank=b0}}}
+
+  /* ---------- 3. Razorpay ON and linked: Rs 100 first, booking saved only after payment ---------- */
+  const rzpOn=()=>{const S=setGet();return !!(S.live&&S.rzpKey)};
+  function bookBtns(){const pay=$('pay'),bk=$('bk');if(!pay||!bk)return;const on=rzpOn();
+    if(on){bk.hidden=!paid;if(!paid){pay.textContent='Pay Rs 100 & Book';pay.classList.add('paybig')}let n=$('payreq');if(!n){pay.closest('.row').insertAdjacentHTML('beforebegin','<div class="note" id="payreq"></div>');n=$('payreq')}n.innerHTML=paid?'<b class="ok">&#10003; Rs 100 paid.</b> Your booking is being confirmed.':'<b>Pay Rs 100 advance to confirm your booking.</b> It is adjusted in your final bill. Your booking is accepted only after the payment.'}
+    else{bk.hidden=false;pay.classList.remove('paybig');const n=$('payreq');if(n)n.remove()}}
+  if(typeof startRzp=='function'){const _r=startRzp;startRzp=async function(){if(!rzpOn())return _r.apply(this,arguments);
+    const f=$('bf');if(!f.reportValidity())return;if(!ver)return alert('Verify your mobile number with OTP first');
+    if(typeof covered=='function'&&!covered($('pin').value))return noTech($('pin').value);
+    const q=$('qty');if(q&&!(+q.value>=1))return alert('Total AC Quantity is required (minimum 1)');if(!$('agree').checked)return alert('Please agree to the Terms & Conditions');
+    const before=db.b.length;const r=await _r.apply(this,arguments);let n=0;
+    const w=setInterval(()=>{n++;if(paid){clearInterval(w);bookBtns();setTimeout(()=>{if(db.b.length==before){$('bk').hidden=false;f.requestSubmit($('bk'))}},300)}else if(n>1200)clearInterval(w)},500);return r}}
+  if(typeof clearF=='function'){const _cf=clearF;clearF=function(){_cf.apply(this,arguments);bookBtns()}}
+
+  /* ---------- 4. refund request by the customer ---------- */
+  const RFR=['Technician did not come on the booked date','Technician came very late','Booking was cancelled by NTUV Care / technician','I was charged twice (double payment)','Service could not be done','Other'];
+  const rfqOk=x=>!!(x&&x.paid&&typeof advOf=='function'&&advOf(x)>0&&!x.rf&&!x.bill&&x.status!='Closed'&&x.cxBy!='Customer'&&!(x.rfq&&x.rfq.st!='Rejected'));
+  const rfqSt=q=>q.st=='Requested'?'<span class="ppst wait">&#9203; Requested - under review</span>':q.st=='Rejected'?'<span class="ppst bad">&#10007; Not approved</span>'+(q.why?' <small>('+esc(q.why)+')</small>':''):'<span class="ppst ok">'+esc(q.st)+'</span>';
+  window.rfqOpen=function(id){const x=db.b.find(b=>b.id==id&&b.mob==cu);if(!rfqOk(x))return;let d=$('drq');if(!d){d=document.createElement('dialog');d.id='drq';document.body.appendChild(d)}
+    d.innerHTML=`<h3>Request Refund - ${esc(id)}</h3><div class="note">Advance paid: <b>${rs(advOf(x))}</b>${x.payId?' (Payment ID '+esc(x.payId)+')':''}. As per our <a href="#" onclick="polOpen('refund');return false">Refund Policy</a>, the advance is refunded if the technician did not come on the booked date, if NTUV Care cancelled the booking, or if you were charged twice.</div>
+<label>Reason *<select id="rq_r"><option value="">-- Select reason --</option>${RFR.map(r=>`<option>${esc(r)}</option>`).join('')}</select></label>
+<label>Remarks<textarea id="rq_m" rows="3" maxlength="500" placeholder="Tell us what happened (date, time, any details)"></textarea></label>
+<div class="row"><button type="button" onclick="rfqSave('${esc(id)}')">Submit Refund Request</button><button type="button" class="alt" onclick="$('drq').close()">Close</button></div>`;d.showModal()};
+  window.rfqSave=function(id){const x=db.b.find(b=>b.id==id&&b.mob==cu);if(!rfqOk(x))return;const r=$('rq_r').value,m=$('rq_m').value.trim();
+    if(!r)return alert('Please select the reason');if(r=='Other'&&!m)return alert('Please write the reason in Remarks');
+    x.rfq={reason:r,rem:m,amt:advOf(x),at:NOW(),ts:Date.now(),st:'Requested'};if(typeof hlh=='function')hlh(x,'Customer','Refund requested',x.status,r+(m?' - '+m:''),advOf(x));
+    save();$('drq').close();toast('Refund request sent. We will check it within 2 working days.','ok');chist()};
+  if(typeof chist=='function'){const _ch=chist;chist=function(){_ch.apply(this,arguments);try{document.querySelectorAll('#cpb button[onclick^="vb("]').forEach(b=>{const id=(b.getAttribute('onclick').match(/vb\('([^']+)'/)||[])[1],x=db.b.find(q=>q.id==id);if(rfqOk(x)&&!b.parentNode.querySelector('.rqb'))b.insertAdjacentHTML('afterend',` <button type="button" class="alt rqb" onclick="rfqOpen('${esc(id)}')">Request Refund</button>`)})}catch(_){}}}
+  if(typeof bkCells=='function'){const _bk=bkCells;bkCells=function(x){let h=_bk.apply(this,arguments);if(!x.rfq)return h;
+    const line=`<br><small class="rqline"><b>Refund request:</b> ${esc(x.rfq.reason)}${x.rfq.rem?' - '+esc(x.rfq.rem):''}<br>${rfqSt(x.rfq)}${me&&me.role!='technician'&&x.rfq.st=='Requested'?` <button type="button" class="alt pbtn" onclick="openRf('${esc(x.id)}')">Process Refund</button>`:''}</small>`;
+    const i=h.lastIndexOf('</td><td>');return i>0?h.slice(0,i)+line+h.slice(i):h+line}}
+  if(typeof openRf=='function'){const _o=openRf;openRf=function(id){_o.apply(this,arguments);const b=db.b.find(x=>x.id==id),r=$('rf_r');if(b&&b.rfq&&r&&!r.value)r.value='Customer request: '+b.rfq.reason+(b.rfq.rem?' - '+b.rfq.rem:'');
+    if(b&&b.rfq&&b.rfq.st=='Requested'&&isMgr()){const row=$('drf').querySelector('.row:last-child');if(row&&!$('rfqno'))row.insertAdjacentHTML('afterbegin',`<button type="button" class="alt" id="rfqno" onclick="rfqReject('${esc(id)}')">Reject Request</button>`)}}}
+  if(typeof rfSave=='function'){const _s=rfSave;rfSave=function(){const b=db.b.find(x=>x.id==rfId),had=b&&b.rf&&JSON.stringify(b.rf);_s.apply(this,arguments);if(b&&b.rfq&&b.rf&&JSON.stringify(b.rf)!==had){b.rfq.st=b.rf.st;b.rfq.vby=who()+' - '+NOW();save();render()}}}
+  window.rfqReject=function(id){if(!isMgr())return;const b=db.b.find(x=>x.id==id);if(!b||!b.rfq)return;const why=prompt('Reason for not approving this refund (the customer will see it):');if(why===null)return;
+    b.rfq.st='Rejected';b.rfq.why=why.trim()||'Not as per refund policy';b.rfq.vby=who()+' - '+NOW();if(typeof hlh=='function')hlh(b,who(),'Refund request rejected',b.status,b.rfq.why,b.rfq.amt);save();$('drf').close();render();toast('Refund request rejected','info')};
+  /* refund requests inside Payment Approvals */
+  window.rfqN=()=>db.b.filter(x=>x.rfq&&x.rfq.st=='Requested').length;
+  window.ppaExtra=function(){const L=db.b.filter(x=>x.rfq&&x.rfq.st=='Requested');
+    return `<h4>Refund requests (${L.length})</h4>${L.length?`<div class="tw"><table><tr><th>Booking</th><th>Customer</th><th>Advance</th><th>Reason</th><th>Remarks</th><th>Requested on</th><th>Action</th></tr>${L.map(x=>`<tr><td><b>${esc(x.id)}</b><br><small>${esc(x.status)}${x.sd?' &middot; '+esc(x.sd):''}</small></td><td>${esc(x.name||'')}<br><small>${esc(x.mob||'')}</small></td><td><b>${rs(x.rfq.amt||advOf(x))}</b>${x.payId?'<br><small>'+esc(x.payId)+'</small>':''}</td><td>${esc(x.rfq.reason)}</td><td>${esc(x.rfq.rem||'-')}</td><td><small>${esc(x.rfq.at)}</small></td><td><button type="button" onclick="openRf('${esc(x.id)}')">Process Refund</button></td></tr>`).join('')}</table></div>`:'<p class="note">No refund request.</p>'}`};
+
+  /* ---------- 5. AC brand: choose from the list ---------- */
+  const BRANDS=['Daikin','LG','Voltas','Samsung','Blue Star','Hitachi','Carrier','Panasonic','Lloyd','Whirlpool','Godrej','Haier','Mitsubishi Electric','Mitsubishi Heavy','O General','Toshiba','IFB','Sansui','Onida','Kelvinator','Hisense','TCL','Midea','Croma','Amstrad','Cruise','Electrolux','Videocon','Sharp','Bosch','Media','Koryo','Marq (Flipkart)','Sanyo','Gree','Trane','York','Yuron','Acson','Other'];
+  function brandify(id){const inp=$(id);if(!inp||inp._bs)return;inp._bs=1;const sel=document.createElement('select');sel.className='brsel';sel.id=id+'_s';sel.required=inp.required;
+    sel.innerHTML='<option value="">Select AC brand</option>'+BRANDS.map(b=>`<option>${b}</option>`).join('');inp.required=false;inp.hidden=true;inp.placeholder='Type the brand name';inp.parentNode.insertBefore(sel,inp);
+    sel.onchange=()=>{const v=sel.value;if(v=='Other'){inp.hidden=false;inp.required=sel.required;if(BRANDS.includes(inp.value))inp.value='';inp.focus()}else{inp.hidden=true;inp.required=false;inp.value=v}inp.dispatchEvent(new Event('input',{bubbles:true}))};
+    const sync=()=>{const v=inp.value.trim();if(document.activeElement===inp)return;const want=!v?'':BRANDS.find(b=>b.toLowerCase()==v.toLowerCase())||'Other';if(sel.value!==want){sel.value=want;inp.hidden=want!='Other';inp.required=want=='Other'&&sel.required}};
+    setInterval(sync,700);sync()}
+  brandify('br');brandify('p_br');
+
+  /* ---------- hooks ---------- */
+  const _ap=applySet;applySet=function(){_ap.apply(this,arguments);try{bookBtns()}catch(_){}};
+  bookBtns();
 })();
 
 </script>
