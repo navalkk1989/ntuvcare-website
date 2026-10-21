@@ -992,6 +992,25 @@ body.v46h .hx .osk-g{color:#0b3fe0!important;text-shadow:none!important}
 @keyframes updin{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
 @keyframes updp{0%,100%{box-shadow:0 0 0 0 #ffffffaa}60%{box-shadow:0 0 0 7px #ffffff00}}
 @media(prefers-reduced-motion:reduce){.updb,.updb-go{animation:none}}
+/* bank card: each switch next to its own details */
+.cfgg-n{display:block;margin:0 0 6px;color:var(--mut)}
+.cfgg{margin:10px 0;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--card);transition:background .2s,border-color .2s}
+.cfgg-h{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
+.cfgg-t{display:flex;flex-direction:column;line-height:1.25}.cfgg-t b{font-size:15px;color:var(--ink)}.cfgg-t small{color:var(--mut);font-size:12.5px}
+.cfgsw{display:inline-flex;align-items:center;gap:8px;margin:0;cursor:pointer;text-transform:none;letter-spacing:0;flex:0 0 auto}
+.cfgsw input{position:absolute;opacity:0;width:1px;height:1px}
+.cfgsw .cfg-s{position:relative;display:inline-block;width:48px;height:26px;border-radius:999px;background:#c5cee0;transition:background .2s}
+.cfgsw .cfg-s::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 2px 6px #0003;transition:transform .2s}
+.cfgsw input:checked+.cfg-s{background:var(--grad)}
+.cfgsw input:checked+.cfg-s::after{transform:translateX(22px)}
+.cfgsw input:focus-visible+.cfg-s{outline:3px solid #0f5bff55;outline-offset:2px}
+.cfgsw em{font-style:normal;font-weight:800;font-size:12.5px;min-width:46px;color:var(--okc,#16a34a)}
+.cfgg.off{background:var(--bg2);border-style:dashed}
+.cfgg.off .cfgsw em{color:var(--mut)}
+.cfgg.off .cfgg-t b{color:var(--mut)}
+.cfgg.off .cfgg-b{opacity:.42;filter:grayscale(1)}
+.cfgg-b .row{margin:0}
+.cfgg-b .cfgqr{margin:0;border:0;padding:0}
 
 /* ===== v4.2 app home polish ===== */
 /* dots under sliding cards */
@@ -3740,6 +3759,7 @@ ${showU?`UPI ID: <b class="cfgpay-upi">${esc(B.upi)}</b> <button type="button" c
 
   /* ---------- Settings tab (Admin only) ---------- */
   const tg=(id,on,t,sub)=>`<label class="cfgt"><input type="checkbox" id="${id}" ${on?'checked':''}><span class="cfg-s"></span><span class="cfg-t"><b>${t}</b><small>${sub}</small></span></label>`;
+  const gh=(id,on,t,sub)=>`<div class="cfgg${on?'':' off'}"><div class="cfgg-h"><span class="cfgg-t"><b>${t}</b><small>${sub}</small></span><label class="cfgsw" title="Show at payment time"><input type="checkbox" id="${id}" ${on?'checked':''} onchange="this.closest('.cfgg').classList.toggle('off',!this.checked);this.closest('label').querySelector('em').textContent=this.checked?'Shown':'Hidden'"><span class="cfg-s"></span><em>${on?'Shown':'Hidden'}</em></label></div>`;
   const fi=(id,t,v,ex)=>`<label>${t}<input id="${id}" value="${esc(v||'')}" ${ex||''}></label>`;
   let cfgQR='';
   window.setHtml=function(){const S=setGet(),B=S.bank;cfgQR=B.qr64||'';
@@ -3756,15 +3776,15 @@ ${fi('cfg_nm','Company Name',S.name,'maxlength="80"')}
 <div class="row">${fi('cfg_em','Email',S.em,'type="email" maxlength="80"')}${fi('cfg_gs','GSTIN',S.gstin,'maxlength="15" style="text-transform:uppercase"')}</div>
 </div>
 <div class="cfgc"><h4>Company Bank Account</h4>
-<div class="row">${fi('cfg_bh','Account Holder Name',B.name,'maxlength="80"')}${fi('cfg_bb','Bank Name',B.bank,'maxlength="80"')}</div>
-<div class="row">${fi('cfg_ba','Account Number',B.acc,'inputmode="numeric" maxlength="20"')}${fi('cfg_bi','IFSC Code',B.ifsc,'maxlength="11" style="text-transform:uppercase"')}</div>
-<div class="cfgpt"><b>Show at payment time</b><small>Turn OFF what customers and technicians should not see when they pay.</small>
-${tg('cfg_pb',S.payBank,'Bank account details','Account name, number and IFSC on the payment screen.')}
-${tg('cfg_pq',S.payQr,'Payment QR Code / Barcode','The QR code (uploaded below, or made from the UPI ID).')}
-${tg('cfg_pu',S.payUpi,'UPI ID','The UPI ID and a "Pay by UPI app" button.')}</div>
-${fi('cfg_bu','UPI ID',B.upi,'maxlength="60" placeholder="'+'navalk1989-2@okaxis'+'"')}
-<div class="cfgqr"><div class="cfgqr-p" id="cfg_qrp">${B.qr64?'<img src="data:'+B.qr64+'" alt="Payment QR code">':'<span>No QR code</span>'}</div><div><b>Payment QR Code / Barcode</b><small>Upload the QR code of your UPI / bank account (photo or screenshot). Customers see it when they pay by UPI, account transfer or online, in their account when a payment is pending, and on invoices.${B.upi?' If no image is uploaded, a QR code is made automatically from your UPI ID.':''}</small>
-<p class="row" style="justify-content:flex-start;gap:8px;margin:8px 0 0"><label class="btn alt cfgup" style="margin:0">&#128247; Upload QR Code<input type="file" accept="image/*" id="cfg_qrf" hidden onchange="cfgQrPick(this)"></label><button type="button" class="alt" onclick="cfgQrDel()" ${B.qr64?'':'hidden'} id="cfg_qrd">Remove</button></p></div></div>
+<small class="cfgg-n">Use the switch next to each part to show it or hide it when customers and technicians pay. Switched-off parts are greyed out here.</small>
+${gh('cfg_pb',S.payBank,'Bank account details','Account name, bank, number and IFSC')}
+<div class="cfgg-b"><div class="row">${fi('cfg_bh','Account Holder Name',B.name,'maxlength="80"')}${fi('cfg_bb','Bank Name',B.bank,'maxlength="80"')}</div>
+<div class="row">${fi('cfg_ba','Account Number',B.acc,'inputmode="numeric" maxlength="20"')}${fi('cfg_bi','IFSC Code',B.ifsc,'maxlength="11" style="text-transform:uppercase"')}</div></div></div>
+${gh('cfg_pu',S.payUpi,'UPI ID','UPI ID with Copy and "Pay by UPI app" buttons')}
+<div class="cfgg-b">${fi('cfg_bu','UPI ID',B.upi,'maxlength="60" placeholder="navalk1989-2@okaxis"')}</div></div>
+${gh('cfg_pq',S.payQr,'Payment QR Code / Barcode','Scan-to-pay QR code')}
+<div class="cfgg-b"><div class="cfgqr"><div class="cfgqr-p" id="cfg_qrp">${B.qr64?'<img src="data:'+B.qr64+'" alt="Payment QR code">':'<span>No QR code</span>'}</div><div><small>Upload the QR code of your UPI / bank account (photo or screenshot). Customers see it when they pay by UPI, account transfer or online, and in their account when a payment is pending.${B.upi?' If no image is uploaded, a QR code is made automatically from your UPI ID.':''}</small>
+<p class="row" style="justify-content:flex-start;gap:8px;margin:8px 0 0"><label class="btn alt cfgup" style="margin:0">&#128247; Upload QR Code<input type="file" accept="image/*" id="cfg_qrf" hidden onchange="cfgQrPick(this)"></label><button type="button" class="alt" onclick="cfgQrDel()" ${B.qr64?'':'hidden'} id="cfg_qrd">Remove</button></p></div></div></div></div>
 </div>
 <div class="cfgc"><h4>Offer Banner (Home page)</h4>
 ${tg('cfg_oon',S.ofrOn,'Show offer banner','The "AC SERVICE @ Rs 600 only" sticker on the home page. Tapping it opens the booking form with the service below selected.')}
@@ -3937,7 +3957,7 @@ ${S.adm?'':'<div class="note"><b>You are using the default login</b> &ndash; ID:
   function items(){
     const v=curView(),g=[];
     if(me){const tabs=[...document.querySelectorAll('#panel .tabs button')];
-      if(tabs.length&&v=='panel')g.push({h:RN[me.role]+' Workspace',l:tabs.map((b,i)=>({k:'tab:'+i,i:tabIcon(b.textContent),t:b.textContent.replace(/^\W+/,'').trim(),a:b.classList.contains('on')}))});
+      if(tabs.length&&v=='panel')g.push({h:RN[me.role]+' Workspace',l:tabs.map((b,i)=>({k:tabKey(b),i:tabIcon(b.textContent),t:b.textContent.replace(/^\W+/,'').trim(),a:b.classList.contains('on')}))});
       else g.push({h:'Workspace',l:[{k:'panel',i:'dash',t:'Open My Panel'}]});
     }
     if(cu&&v=='cust')g.push({h:'My Account',l:[{k:'ct:b',i:'list',t:'My Bookings',a:ct=='b'},{k:'ct:p',i:'user',t:'My Profile',a:ct=='p'},{k:'home:book',i:'cal',t:'Book New Service'}]});
@@ -3965,7 +3985,7 @@ ${S.adm?'':'<div class="note"><b>You are using the default login</b> &ndash; ID:
     $('sbu').innerHTML=`<span class="av2">${esc((nm||'G').charAt(0).toUpperCase())}</span><div><b>${esc(nm)}</b><small>${esc(rl)}</small></div>`+(me?`<button type="button" class="sb-lo" data-act="logout" aria-label="Logout" title="Logout">${ico('out')}</button>`:cu?`<button type="button" class="sb-lo" data-act="clogout" aria-label="Logout" title="Logout">${ico('out')}</button>`:'');
     /* bottom bar (phones) */
     let bn;
-    if(me&&v=='panel'){const t=[...document.querySelectorAll('#panel .tabs button')].slice(0,3);bn=t.map((b,i)=>({k:'tab:'+i,i:tabIcon(b.textContent),t:b.textContent.replace(/\s*\(\d+\)\s*$/,'').replace(/^\W+/,'').trim().split(' ').slice(0,2).join(' '),a:b.classList.contains('on')}))}
+    if(me&&v=='panel'){const t=[...document.querySelectorAll('#panel .tabs button')].slice(0,3);bn=t.map((b,i)=>({k:tabKey(b),i:tabIcon(b.textContent),t:b.textContent.replace(/\s*\(\d+\)\s*$/,'').replace(/^\W+/,'').trim().split(' ').slice(0,2).join(' '),a:b.classList.contains('on')}))}
     else bn=[{k:'home:main',i:'home',t:'Home',a:v=='home'&&sub=='main',c:'c1'},{k:'tech',i:'tool',t:'Technician',a:v=='tech',c:'c2'},{k:'home:book',i:'cal',t:'Book Now',a:v=='home'&&sub=='book',c:'c3 fab'},{k:me?'panel':'cust',i:me?'dash':'user',t:me?'Panel':'Account',a:v=='cust'||v=='panel',c:'c4'}];
     bn.push({k:'menu',i:'menu',t:'Menu',c:'c5'});
     bn.forEach((b,i)=>{if(!b.c)b.c='c'+(i+1)});
@@ -3980,11 +4000,13 @@ ${S.adm?'':'<div class="note"><b>You are using the default login</b> &ndash; ID:
   $('tb2qi').addEventListener('input',e=>{const s=e.target._src;if(!s)return;s.value=e.target.value;s.dispatchEvent(new Event('input',{bubbles:true}));s.dispatchEvent(new KeyboardEvent('keyup',{bubbles:true}))});
 
   /* ---------- navigation ---------- */
+  function tabKey(b){const c=(b.className.match(/\b(st-tab|tb-[\w-]+)\b/)||[])[0];return 'tab:'+(c||b.textContent.replace(/\(\d+\)/g,'').replace(/[^A-Za-z ]/g,'').trim().toLowerCase())}
+  window.tabKey=tabKey;
   function go(k){
     closeSb();closeDd();
     if(k=='menu')return openSb();
     if(k.startsWith('home:')){if(curView()!='home')show('home');setSub(k.slice(5));return}
-    if(k.startsWith('tab:')){if(curView()!='panel'&&me)show('panel');const b=document.querySelectorAll('#panel .tabs button')[+k.slice(4)];if(b)b.click();main.scrollTop=0;return}
+    if(k.startsWith('tab:')){if(curView()!='panel'&&me)show('panel');const L=[...document.querySelectorAll('#panel .tabs button')],q=k.slice(4),b=L.find(x=>tabKey(x)==k)||(/^\d+$/.test(q)?L[+q]:null);if(b)b.click();main.scrollTop=0;return}
     if(k.startsWith('ct:')){if(curView()!='cust')show('cust');if(cu&&typeof ctab=='function')ctab(k.slice(3));main.scrollTop=0;sync();schedulePush();return}
     if(k=='login'&&me)k='panel';
     if(k=='panel'&&!me)k='login';
@@ -3994,7 +4016,7 @@ ${S.adm?'':'<div class="note"><b>You are using the default login</b> &ndash; ID:
 
   /* ---------- swipe left / right to move to the next / previous screen ---------- */
   function seq(){const v=curView();
-    if(v=='panel'&&me){const t=[...document.querySelectorAll('#panel .tabs button')];return{l:t.map((b,i)=>'tab:'+i),i:t.findIndex(b=>b.classList.contains('on'))}}
+    if(v=='panel'&&me){const t=[...document.querySelectorAll('#panel .tabs button')];return{l:t.map(b=>tabKey(b)),i:t.findIndex(b=>b.classList.contains('on'))}}
     if(v=='cust'&&cu)return{l:['ct:b','ct:p'],i:ct=='p'?1:0};
     if(v=='home'){const l=PUB.map(p=>p[0]);return{l,i:l.indexOf('home:'+sub)}}
     return null}
@@ -4709,7 +4731,8 @@ ${left>0?`<form class="ppf" data-id="${esc(x.id)}" onsubmit="return false"><b>Pa
     if(!me||!isMgr())return;const tabs=document.querySelector('#panel .tabs');if(!tabs)return;
     let t=tabs.querySelector('.tb-ppa');if(!t){t=document.createElement('button');t.type='button';t.className='tb-ppa';t.onclick=()=>{ppaForce=1;ptab='ppa';render()};tabs.insertBefore(t,tabs.children[2]||null)}
     const n=pendN();t.innerHTML='&#9989; Payment Approvals ('+n+')';t.classList.toggle('pp-hot',n>0);
-    if(want){tabs.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b==t));let s=tabs.nextSibling;while(s){const z=s.nextSibling;s.remove();s=z}tabs.insertAdjacentHTML('afterend',ppaHtml());if(window.shellSync)shellSync()}};
+    if(want){tabs.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b==t));let s=tabs.nextSibling;while(s){const z=s.nextSibling;s.remove();s=z}tabs.insertAdjacentHTML('afterend',ppaHtml())}
+    if(window.shellSync)shellSync()};
 
   /* ---------- 4. technician / office booking list: payment status ---------- */
   if(typeof bcell=='function'){const _b=bcell;bcell=function(x,R){const h=_b.apply(this,arguments);const L=PP(x);if(!L.length)return h;
