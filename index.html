@@ -1823,7 +1823,7 @@ db.r.push({name:$('tn').value,mob:$('tm').value,alt:$('ta').value,email:$('te').
 save();$('tf').reset();$('xdocs').innerHTML='';spin=[];homeLL=null;pend=null;pendLL=null;nTok++;$('tsa').hidden=true;$('tsel').hidden=true;$('bk_im').textContent='';drawPins();setPS(PS0);$('tnear').textContent='';$('tarea').textContent='';
 if(tAdm){tAdm=false;ptab='t';show('panel');openU('t',nm0,mb0,db.r.length-1);return}
 toast('Registration saved');$('tdone').textContent='Registration received. We will verify your documents within 24 hours and inform you by call or message.'};
-function login(){const r=$('lr').value,u=$('lu').value.trim(),p=$('lp').value;me=null;
+function login(){const r=$('lr').value,u=$('lu').value.trim(),p=$('lp').value;me=null;if(window._srvAuth){me=window._srvAuth;ptab='d';dashF='';show('panel');return}
 if(r=='admin'){if(u=='admin'&&p=='admin123')me={role:r}}
 else{const t=(r=='office'||r=='manager'?db.o:db.t).find(x=>x.id==u&&x.pw==p&&(r=='technician'||!!x.mgr==(r=='manager')));if(t)me={role:r,id:t.id,name:t.name}}
 if(!me)return alert('Wrong ID or password');ptab='d';dashF='';show('panel')}
@@ -1917,7 +1917,7 @@ t.bank={holder:hn,bank:nm,acc:ac,ifsc:ifs,branch:(t.bank&&t.bank.ifsc==ifs&&t.ba
 t.docs=t.docs||[];document.querySelectorAll('.pdf2').forEach(i=>{if(i.files[0]){const l=i.dataset.l;t.docs=t.docs.filter(z=>!z.startsWith(l+': '));t.docs.push(l+': '+i.files[0].name)}});
 save();render();toast('Payment details & documents saved')}
 function render(){if(!me)return;const r=me.role,l=db.b.filter(x=>r!='technician'||x.tm==me.id);
-let h=`<div class="box"><h2>${r=='technician'?'Technician '+esc(me.name):RN[r]+(me.name?' - '+esc(me.name):'')} Panel <button class="alt" onclick="me=null;show('home')">Logout</button></h2>`;
+let h=`<div class="box"><h2>${r=='technician'?'Technician '+esc(me.name):RN[r]+(me.name?' - '+esc(me.name):'')} Panel <button class="alt" onclick="staffLogout()">Logout</button></h2>`;
 if(r!='technician'){h+='<p style="margin:8px 0"><button onclick="xlAll()">&#11015; Download Everything (Excel)</button> <button class="alt" onclick="xlK(\'c\')">&#11015; Customers (Excel)</button> <small>Bookings, Billing &amp; Commission, Technicians, Office Staff, Registrations &amp; Customers - each in a separate sheet.</small></p><div class="tabs">'+[['d','Dashboard',''],['b','Bookings',db.b.length],['tr','Technician Bookings',''],['t','Technicians',db.t.length],['o','Office Staff',db.o.length],['r','Registrations',db.r.filter(x=>!x.rej).length],['cm','Commission','']].concat(isMgr()?[['w','Wallet','']]:[]).map(t=>`<button class="${ptab==t[0]?'on':''}" onclick="ptab='${t[0]}';render()">${t[1]}${t[2]===''?'':' ('+t[2]+')'}</button>`).join('')+'</div>'}else if(r=='technician'){if(ptab!='p'&&ptab!='d'&&ptab!='cd')ptab='b';h+='<div class="tabs">'+[['d','Dashboard'],['b','My Bookings'],['cd','Cash Deposit'],['p','My Profile']].map(t=>`<button class="${ptab==t[0]?'on':''}" onclick="ptab='${t[0]}';render()">${t[1]}</button>`).join('')+'</div>'}else{if(ptab!='cm'&&ptab!='d')ptab='b';h+='<div class="tabs">'+[['b','Bookings'],['cm','Commission']].map(t=>`<button class="${ptab==t[0]?'on':''}" onclick="ptab='${t[0]}';render()">${t[1]}</button>`).join('')+'</div>'}
 h+=ptab=='cd'?cdHtml():ptab=='w'?walHtml():ptab=='tr'?trHtml():ptab=='d'?dashHtml():ptab=='b'?bkHtml(l,r):ptab=='p'?tprofHtml():ptab=='r'?regHtml():ptab=='cm'?cmHtml():usrHtml(ptab);
 $('panel').innerHTML=h+'</div>';svPaint()}
@@ -2094,7 +2094,7 @@ const persistQ=()=>{try{localStorage.ntuvQ=sj(sq)}catch(e){}};
 const rawSave=()=>{try{localStorage.ntuv=sj(db)}catch(e){}};
 function setSync(s){syncSt=s;const e=$('syncst');if(e)e.innerHTML=syncTxt()}
 const syncTxt=()=>!GAS_URL?'<span style="color:var(--bad)">&#9679; Google Sheet sync is OFF (GAS_URL not set) - data is only on this device and SMS dispatch is not running</span>':syncSt=='ok'?'<span class="ok">&#9679; Live - synced with Google Sheet &amp; Drive</span>':syncSt=='err'?'<span style="color:var(--bad)">&#9679; Offline - changes are kept and will sync automatically</span>':'<span>&#9679; Connecting to Google Sheet...</span>';
-async function gcall(body){const r=await fetch(GAS_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:sj(body)});return r.json()}
+async function gcall(body){body=Object.assign({},body);try{const t=localStorage.ntuvTok;if(t&&!body.tok)body.tok=t;if(body.action=='push'||body.action=='pull'){let a=localStorage.ntuvAk;if(!a||!/^[a-f0-9]{32}$/.test(a)){a=Array.from(crypto.getRandomValues(new Uint8Array(16))).map(b=>b.toString(16).padStart(2,'0')).join('');localStorage.ntuvAk=a}body.ak=a}}catch(e){}const r=await fetch(GAS_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:sj(body)});return r.json()}
 function adopt(srv){if(!srv)return;SC.forEach(c=>{db[c]=Array.isArray(srv[c])?srv[c]:[]});sq.forEach(applyLocal);snap=snapOf();rawSave();setSync('ok');refreshUI()}
 window.onSave=function(){if(!GAS_URL||!synced)return;const ops=diffOps();snap=snapOf();if(!ops.length)return;sq.push(...ops);persistQ();clearTimeout(flT);flT=setTimeout(flush,600)};
 /* big images / PDFs are stored in Google Drive, only the link is kept in the sheet */
@@ -4082,7 +4082,7 @@ ${S.adm?'':'<div class="note"><b>You are using the default login</b> &ndash; ID:
     if(Math.abs(dx)<70||Math.abs(dy)>Math.abs(dx)*.55||dt>700)return;
     const q=seq();if(!q||q.i<0)return;const n=q.i+(dx<0?1:-1);if(n<0||n>=q.l.length)return;
     swDir=dx<0?1:-1;go(q.l[n]);if(navigator.vibrate)try{navigator.vibrate(8)}catch(_){}},{passive:true});
-  function act(a){closeDd();closeSb();if(a=='logout'){me=null;show('home');toast('Logged out')}else if(a=='clogout'){if(typeof cLogout=='function')cLogout()}else if(a=='theme')toggleTheme()}
+  function act(a){closeDd();closeSb();if(a=='logout'){if(window.staffLogout)staffLogout();else{me=null;show('home');toast('Logged out')}}else if(a=='clogout'){if(typeof cLogout=='function')cLogout()}else if(a=='theme')toggleTheme()}
   document.addEventListener('click',e=>{const g=e.target.closest&&e.target.closest('[data-go]');if(g&&(g.closest('#sb,#bn2,#tb2,.qa,.exg'))){e.preventDefault();go(g.dataset.go);return}
     const a=e.target.closest&&e.target.closest('[data-act]');if(a&&a.closest('#sb,#tb2')){e.preventDefault();act(a.dataset.act);return}
     const u=e.target.closest&&e.target.closest('.tb2-u');if(u){const o=$('tb2u').classList.toggle('open');u.setAttribute('aria-expanded',o);return}
@@ -4156,6 +4156,7 @@ ${S.adm?'':'<div class="note"><b>You are using the default login</b> &ndash; ID:
   window.meKeep=function(){const st=store();if(!st||!me)return;const S=setGet();try{st.ntuvMe=JSON.stringify({role:me.role,id:me.id||'',name:me.name||'',adm:me.role=='admin'&&S.adm?S.adm.at:''})}catch(e){}};
   const meClear=()=>{const st=store();try{st&&st.removeItem('ntuvMe')}catch(e){}};
   function meValid(o){
+    if(GAS_URL){try{return !!localStorage.ntuvTok&&localStorage.ntuvTokR===o.role}catch(e){return false}}
     if(o.role=='admin'){const S=setGet();return S.adm?S.adm.at===o.adm:!o.adm}
     const L=o.role=='technician'?db.t:db.o;return !!(L||[]).find(x=>x.id==o.id&&(o.role=='technician'||!!x.mgr==(o.role=='manager')))}
   function meRestore(final){
@@ -4168,7 +4169,7 @@ ${S.adm?'':'<div class="note"><b>You are using the default login</b> &ndash; ID:
   /* ---------- admin login with the password set in Settings ---------- */
   const _login=login;login=function(){
     const r=$('lr').value,S=setGet();
-    if(r=='admin'&&S.adm){const u=$('lu').value.trim(),p=$('lp').value;me=null;
+    if(r=='admin'&&S.adm&&S.adm.h&&!window._srvAuth){const u=$('lu').value.trim(),p=$('lp').value;me=null;
       if(u===S.adm.id&&sha256(S.adm.salt+':'+p)===S.adm.h){me={role:'admin',id:S.adm.id};ptab='d';try{dashF=''}catch(e){}$('lp').value='';show('panel');meKeep();return}
       return alert('Wrong ID or password')}
     _login.apply(this,arguments);if(me){$('lp').value='';meKeep()}};
@@ -4390,12 +4391,13 @@ ${S.adm?'':'<div class="note"><b>You are using the default login</b> &ndash; ID:
 
   /* ---------- 6. OTP by WhatsApp / SMS through your provider ---------- */
   const srvOtp={};
-  const otpLive=()=>{const O=setGet().otp||{};return !!(GAS_URL&&O.on&&((O.wa||{}).on||(O.sms||{}).on))};
+  const otpLive=()=>!!GAS_URL;
   if(typeof sendOtp=='function'){const _so=sendOtp;sendOtp=async function(m,box){if(!otpLive())return _so.apply(this,arguments);
     if(!/^\d{10}$/.test(m))return alert('Enter a valid 10 digit mobile number');toast('Sending OTP to '+m+'...');
-    try{const r=await gcall({action:'motp',mob:m});if(!r||!r.ok)throw new Error(r&&r.err||'not sent');srvOtp[m]=1;$(box).hidden=false;['otp','lotp'].forEach(i=>{const e=$(i);if(e){e.maxLength=6;e.value=''}});
-      toast('OTP sent on '+(r.ch=='wa'?'WhatsApp':'SMS')+' to '+m+'. It is valid for 10 minutes.','ok')}catch(e){toast('Could not send OTP: '+e.message,'bad')}}}
-  async function srvCheck(m,v){const r=await gcall({action:'motpv',mob:m,otp:v});if(!r||!r.ok)throw new Error(r&&r.err||'Wrong OTP');otp[m]=v}
+    try{const r=await gcall({action:'motp',mob:m});if(r&&!r.ok&&/OTP service is off|unknown action/i.test(r.err||''))return _so.apply(this,arguments);if(!r||!r.ok)throw new Error(r&&r.err||'not sent');srvOtp[m]=1;$(box).hidden=false;['otp','lotp'].forEach(i=>{const e=$(i);if(e){e.maxLength=6;e.value=''}});
+      if(r.demo){(window._demoOtp=window._demoOtp||{})[m]=r.demo;toast('Testing mode: your OTP is '+r.demo,'info')}else toast('OTP sent on '+(r.ch=='wa'?'WhatsApp':'SMS')+' to '+m+'. It is valid for 10 minutes.','ok')}catch(e){toast('Could not send OTP: '+e.message,'bad')}}}
+  async function srvCheck(m,v){const r=await gcall({action:'motpv',mob:m,otp:v});if(!r||!r.ok)throw new Error(r&&r.err||'Wrong OTP');otp[m]=v;
+    if(r.tok&&!me){try{localStorage.ntuvTok=r.tok;localStorage.ntuvTokR='cust'}catch(_){}try{if(window.flushNow)await flushNow();const p=await gcall({action:'pull'});if(p&&p.ok&&p.db)adopt(p.db)}catch(_){}}}
   if(typeof chk=='function'){const _ck=chk;chk=async function(){const m=$('cm').value;if(!srvOtp[m])return _ck();try{await srvCheck(m,$('otp').value.trim());_ck()}catch(e){alert(e.message)}}}
   if(typeof clogin=='function'){const _cl=clogin;clogin=async function(){const m=$('lm').value;if(!srvOtp[m])return _cl.apply(this,arguments);try{await srvCheck(m,$('lotp').value.trim());return _cl.apply(this,arguments)}catch(e){alert(e.message)}}}
 
@@ -4820,7 +4822,7 @@ ${window.ppaExtra?ppaExtra():''}<h4>Recently checked</h4>${D.length?`<div class=
 
   /* ---------- 1. booking on phones: OTP shown next to the field, missing fields shown clearly ---------- */
   if(typeof sendOtp=='function'){const _so=sendOtp;sendOtp=async function(m,box){const r=await _so.apply(this,arguments);try{const b=$(box);if(!b)return r;let d=b.querySelector('.dotp');
-      const code=otp&&otp[m];if(code&&/^\d{4}$/.test(String(code))){if(!d){b.insertAdjacentHTML('afterbegin','<div class="dotp"></div>');d=b.querySelector('.dotp')}d.innerHTML='Testing mode - your OTP is <b>'+esc(code)+'</b>';const i=b.querySelector('input');if(i){i.focus({preventScroll:true});b.scrollIntoView({block:'center',behavior:'smooth'})}}else if(d)d.remove()}catch(_){}return r}}
+      const code=(window._demoOtp||{})[m]||(otp&&/^\d{4}$/.test(String(otp[m]||''))?otp[m]:'');if(code){if(!d){b.insertAdjacentHTML('afterbegin','<div class="dotp"></div>');d=b.querySelector('.dotp')}d.innerHTML='Testing mode - your OTP is <b>'+esc(code)+'</b>';const i=b.querySelector('input');if(i){i.focus({preventScroll:true});b.scrollIntoView({block:'center',behavior:'smooth'})}}else if(d)d.remove()}catch(_){}return r}}
   let invT=0;
   document.addEventListener('invalid',e=>{const el=e.target;if(!el.closest||!el.closest('#bf,#cpf,#tf'))return;const t=Date.now();if(t-invT<800)return;invT=t;
     const l=el.closest('label'),nm=l?(l.childNodes[0].textContent||'').replace(/\*/g,'').trim():'this field';
@@ -4998,6 +5000,58 @@ ${V.length?`<div class="tw"><table class="hz"><tr><th>Complaint</th><th>Booking<
   /* ---------- hooks ---------- */
   const _r2=render;render=function(){_r2.apply(this,arguments);try{staffPw();pwLabels()}catch(_){}};
   money();applySet();
+})();
+
+</script><script>
+/* ===== NTUV v5.5: secure login - the server decides who sees what ===== */
+(function(){
+  /* staff logout works the same with or without the Google Sheet */
+  const meClearAll=()=>{try{localStorage.removeItem('ntuvMe');sessionStorage.removeItem('ntuvMe')}catch(_){}};
+  if(!GAS_URL){window.staffLogout=function(){me=null;meClearAll();show('home');toast('Logged out')};return}
+
+  const TK='ntuvTok',TR='ntuvTokR';
+  const tokGet=()=>{try{return localStorage[TK]||''}catch(_){return ''}};
+  const tokSet=(t,r)=>{try{if(t){localStorage[TK]=t;localStorage[TR]=r||''}else{localStorage.removeItem(TK);localStorage.removeItem(TR)}}catch(_){}};
+  const akGet=()=>{try{let a=localStorage.ntuvAk;if(!a||!/^[a-f0-9]{32}$/.test(a)){a=Array.from(crypto.getRandomValues(new Uint8Array(16))).map(b=>b.toString(16).padStart(2,'0')).join('');localStorage.ntuvAk=a}return a}catch(_){return ''}};
+  let expT=0;
+  function expired(){if(Date.now()-expT<4000)return;expT=Date.now();const wasMe=!!me,wasCu=!!cu;tokSet('');
+    if(wasMe){me=null;meClearAll();try{localStorage.removeItem('ntuv')}catch(_){}show('login');alert('Your login has expired or your password was changed. Please log in again.')}
+    if(wasCu){cu=null;try{localStorage.removeItem('ntuvcu')}catch(_){}try{applyCu();if(!$('cust').hidden)renderCust()}catch(_){}}}
+  /* every call to the server carries the login key */
+  const _g=gcall;
+  gcall=async function(body){const b=Object.assign({},body),t=tokGet();if(t&&!b.tok)b.tok=t;if(b.action=='push'||b.action=='pull')b.ak=akGet();
+    const r=await _g(b);
+    try{if(r&&r.expired&&t)expired();
+      else if(r&&r.db&&r.db._who===null&&t&&(me||cu))expired();
+      if(r&&r.rej&&me)toast('Some changes were not allowed for your login and were not saved.','bad');
+      if(b.action=='aotpv'&&r&&r.ok&&r.tok){tokSet(r.tok,'admin');const p=await _g({action:'pull',tok:r.tok,ak:akGet()});if(p&&p.ok&&p.db)adopt(p.db)}}catch(_){}
+    return r};
+  /* the phone app's background notifications use the same login key */
+  if(typeof ntfWho=='function'){const _w=ntfWho;ntfWho=function(){const w=_w.apply(this,arguments);if(w){const t=tokGet();if(t)w.tok=t}return w}}
+
+  /* ---------- staff login: checked by the server, then only the allowed data comes down ---------- */
+  const _login=login;
+  login=async function(){const r=$('lr').value,u=$('lu').value.trim(),p=$('lp').value,args=arguments,self=this;
+    if(!u||!p)return alert('Enter your ID and password');
+    let res;try{toast('Logging in...');if(!synced&&typeof initP!='undefined')await initP;if(window.flushNow)await flushNow();res=await _g({action:'auth',role:r,id:u,pw:p})}catch(e){return alert('No internet connection. Please try again.')}
+    if(res&&!res.ok&&/unknown action/i.test(res.err||''))return _login.apply(self,args);   /* old Code.gs still deployed */
+    if(!res||!res.ok)return alert(res&&res.err||'Wrong ID or password');
+    tokSet(res.tok,res.me.role);if(cu){cu=null;try{localStorage.removeItem('ntuvcu')}catch(_){}}
+    if(res.db){synced=true;adopt(res.db)}
+    window._srvAuth={role:res.me.role,id:res.me.id,name:res.me.name||''};
+    try{return await _login.apply(self,args)}finally{window._srvAuth=null;$('lp').value=''}};
+
+  /* ---------- logout: forget the key and every private record on this device ---------- */
+  async function wipe(){try{if(window.flushNow)await Promise.race([flushNow(),new Promise(r=>setTimeout(r,6000))])}catch(_){}
+    const t=tokGet();if(t)try{_g({action:'logout',tok:t}).catch(()=>{})}catch(_){}
+    tokSet('');meClearAll();try{localStorage.removeItem('ntuv');localStorage.removeItem('ntuvQ');localStorage.removeItem('ntuvcu')}catch(_){}}
+  window.staffLogout=async function(){toast('Logging out...');await wipe();me=null;setTimeout(()=>{location.href=location.pathname+(location.search.replace(/[?&]admin(=1)?/,'')||'')},150)};
+  if(typeof cLogout=='function'){const _cl=cLogout;cLogout=async function(){await wipe();_cl.apply(this,arguments);setTimeout(()=>location.reload(),150)}}
+
+  /* a customer login on this device needs a customer key */
+  try{if(cu&&localStorage[TR]!=='cust'){cu=null;localStorage.removeItem('ntuvcu');applyCu()}}catch(_){}
+  /* the testing OTP input takes the 6-digit server OTP */
+  ['otp','lotp'].forEach(i=>{const e=$(i);if(e)e.maxLength=6});
 })();
 
 </script>
