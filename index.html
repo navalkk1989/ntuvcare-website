@@ -2075,7 +2075,7 @@ function cpSet(id,v){if(!me||me.role=='technician')return;const b=db.b.find(x=>x
 <script>
 /* ===== NTUV update: Google Sheet + Drive sync, automatic nearest-technician SMS dispatch,
    technician profile photo (camera), photo shown to customer, 30-minute pending popup ===== */
-const GAS_URL='https://script.google.com/macros/s/AKfycbyRHEk76_UU2juVhn420dOCOCenH3YBY4T43WMQcfctR8u48ufp9i16LQ6ZwQuggpkV/exec'; // <-- paste your Google Apps Script Web App URL here (ends with /exec). See SETUP-GUIDE.md
+const GAS_URL='https://script.google.com/macros/s/AKfycbxOKqxgb7CkrdhNterqwb3ZuyVdljE_fy3YOMQYtrK6V53589__vTFWs0mbeJ_ruEDc/exec'; // <-- paste your Google Apps Script Web App URL here (ends with /exec). See SETUP-GUIDE.md
 const AUTO_KM=10,OFFER_MIN=10,PEND_MIN=30;
 const SC=['b','t','r','o','c','n','sms'],NK={b:'id',t:'id',o:'id',c:'mob'};
 let snap={},sq=[],inflight=false,flT=null,synced=false,syncSt='';
