@@ -1045,6 +1045,15 @@ body.shell-app.has-upd .tb2-call .tb2-cn{display:none}
 body.shell-app.has-upd .tb2-call{padding:0 4px!important}
 @keyframes upblink{0%,100%{opacity:1;box-shadow:0 0 0 0 #f9731699}50%{opacity:.55;box-shadow:0 0 0 7px #f9731600}}
 @media(prefers-reduced-motion:reduce){body.shell-app .tb2-up.hot{animation:none}}
+#pay[hidden]{display:none!important}
+.cmpm{display:grid;gap:8px;margin:10px 0;padding:12px;border-radius:12px;background:var(--note)}
+.cmpm>b{font-size:14.5px}
+.cmpm label{display:flex;align-items:center;gap:10px;margin:0;padding:10px 12px;border-radius:12px;border:1.5px solid var(--line);background:var(--card);cursor:pointer;text-transform:none;letter-spacing:0;font-size:14px}
+.cmpm label.on{border-color:var(--acc);box-shadow:0 0 0 3px #0f5bff22}
+.cmpm label small{color:var(--mut)}
+.cmpm input{width:auto;margin:0}
+.cmpv{color:#b45309}
+#dcmp .cmpagree{display:flex!important;align-items:flex-start;gap:10px;text-transform:none;letter-spacing:0;font-size:14px;margin:10px 0}#dcmp .cmpagree input{width:18px!important;height:18px;flex:0 0 18px;margin:2px 0 0}
 
 /* ===== v4.2 app home polish ===== */
 /* dots under sliding cards */
@@ -3365,7 +3374,7 @@ try{const rz=new Razorpay({key:RZP_KEY,amount:CMP_FEE*100,currency:'INR',name:'N
 handler:function(r){cmpPaid=true;cmpPayId=r.razorpay_payment_id||'';$('cmp_pay').textContent='Rs '+CMP_FEE+' Paid';$('cmp_pay').disabled=true;$('cmp_go').disabled=false;toast('Payment successful: '+cmpPayId)}});
 rz.on('payment.failed',function(r){alert('Payment failed: '+((r.error&&r.error.description)||'please try again'))});rz.open()}catch(e){alert('Payment could not be started: '+e.message)}}
 function cmpSave(id){const x=db.b.find(b=>b.id==id);if(!x)return;const t=$('cmp_t').value.trim();if(t.length<5)return alert('Please describe the issue');if(!$('cmp_a').checked)return alert('Please agree to the Rs '+CMP_FEE+' visiting charge');
-if(!TEST&&!cmpPaid&&CMP_FEE>0)return alert('Please pay the Rs '+CMP_FEE+' visiting charge first');
+if(!TEST&&!cmpPaid&&CMP_FEE>0&&!window._cmpVisit)return alert('Please pay the Rs '+CMP_FEE+' visiting charge first');
 const ts=Date.now(),c={id:'CMP'+String(ts).slice(-7),ts,at:new Date().toLocaleString(),text:t,st:'Open',rem:'',tech:x.tm||'',amt:CMP_FEE,paid:cmpPaid,payId:cmpPayId,by:'Customer',log:[{at:new Date().toLocaleString(),ts,by:'Customer',st:'Open',rem:t}]};
 (x.cmps=x.cmps||[]).push(c);hlog(x,'Customer','Complaint raised ('+c.id+')',x.status,t,cmpPaid?CMP_FEE:'');save();$('dcmp').close();try{chist()}catch(e){}
 const tech=db.t.find(q=>q.id==x.tm);if(tech&&GAS_URL)gcall({action:'sms',to:tech.mob,label:'Technician '+tech.name,text:'NTUV Care COMPLAINT '+c.id+' on booking '+x.id+'\nCustomer: '+x.name+' '+x.mob+'\nAddress: '+cxAddr(x)+'\nIssue: '+t+'\nPlease visit and update the complaint status in your login.'}).catch(()=>{});
@@ -3723,7 +3732,7 @@ window.NTUV_MP='static/m/';window.NTM={"s1": "static/m/s1.webp", "s2": "static/m
   /* keep settings on this device if the Google script is an older version without the "set" list */
   const _adS=adopt;adopt=function(srv){const keep=srv&&!Array.isArray(srv.set)?(db.set||[]):null;_adS(srv);if(keep)db.set=keep;applySet()};
 
-  const DEF={id:'co',name:CO.name,addr:CO.addr,ph:CO.ph,wa:CO.ph,em:CO.em,gstin:CO.gstin||'',gstOn:false,gstHome:false,bankOn:false,rzpKey:'',live:false,appUrl:'NTUV-Care.apk',ofrOn:true,ofrTitle:'AC SERVICE',ofrPrice:'600',ofrTag:'Cooler Home, Happier You!',ofrSvc:'AC General Service',siteUrl:'https://ntuvcare.in/',griev:{name:'',desig:'Grievance Officer',em:'',ph:'',addr:'',hours:'Monday to Saturday, 10 AM to 6 PM'},otp:{on:false,pref:'wa',fallback:true,wa:{},sms:{}},blocks:[],recEmail:'',adm:null,payBank:true,payQr:true,payUpi:true,advReq:true,advAmt:100,cmpOn:true,cmpAmt:200,
+  const DEF={id:'co',name:CO.name,addr:CO.addr,ph:CO.ph,wa:CO.ph,em:CO.em,gstin:CO.gstin||'',gstOn:false,gstHome:false,bankOn:false,rzpKey:'',live:false,appUrl:'NTUV-Care.apk',ofrOn:true,ofrTitle:'AC SERVICE',ofrPrice:'600',ofrTag:'Cooler Home, Happier You!',ofrSvc:'AC General Service',siteUrl:'https://ntuvcare.in/',griev:{name:'',desig:'Grievance Officer',em:'',ph:'',addr:'',hours:'Monday to Saturday, 10 AM to 6 PM'},otp:{on:false,pref:'wa',fallback:true,wa:{},sms:{}},blocks:[],recEmail:'',adm:null,payBank:true,payQr:true,payUpi:true,advReq:true,advAmt:100,cmpOn:true,cmpAmt:200,cmpNow:true,cmpVisit:true,
     bank:{name:CO.name,bank:(CO.bank&&CO.bank.name)||'',acc:(CO.bank&&CO.bank.acc)||'',ifsc:(CO.bank&&CO.bank.ifsc)||'',upi:'navalk1989-2@okaxis',qr64:''}};
   const qrOf=S=>S.bank&&S.bank.qr64?'data:'+S.bank.qr64:'';
   window.coQR=()=>qrOf(setGet());
@@ -3830,7 +3839,10 @@ ${tg('cfg_oon',S.ofrOn,'Show offer banner','The "AC SERVICE @ Rs 600 only" stick
 ${gh('cfg_advon',S.advReq,'Advance payment is compulsory for booking','ON: the customer must pay the advance before the booking is accepted. OFF: paying the advance is optional.')}
 <div class="cfgg-b"><div class="row">${fi('cfg_adva','Booking advance amount (Rs)',S.advAmt,'type="number" min="1" max="10000" step="1" inputmode="numeric"')}</div><small>Adjusted in the customer's final bill.</small></div></div>
 ${gh('cfg_cmpon',S.cmpOn,'Complaint visiting charge','ON: the customer pays this charge when raising a complaint. OFF: complaints are free.')}
-<div class="cfgg-b"><div class="row">${fi('cfg_cmpa','Complaint visiting charge (Rs)',S.cmpAmt,'type="number" min="1" max="10000" step="1" inputmode="numeric"')}</div></div></div>
+<div class="cfgg-b"><div class="row">${fi('cfg_cmpa','Complaint visiting charge (Rs)',S.cmpAmt,'type="number" min="1" max="10000" step="1" inputmode="numeric"')}</div>
+<small>How the customer can pay this charge (switch OFF an option to hide it):</small>
+${gh('cfg_cmpnow',S.cmpNow!==false,'Pay Now','The customer pays online while raising the complaint.')}</div>
+${gh('cfg_cmpvis',S.cmpVisit!==false,'Pay at Visit','The customer pays the technician at the complaint visit.')}</div></div></div>
 </div>
 <div class="cfgc"><h4>Online Payments (Razorpay)</h4>
 ${tg('cfg_live',S.live,'Live payments','ON: customers must verify OTP and pay online before booking. OFF: testing mode (OTP and payment are optional).')}
@@ -3869,13 +3881,14 @@ ${S.adm?'':'<div class="note"><b>You are using the default login</b> &ndash; ID:
     if(rk&&!/^rzp_(live|test)_[A-Za-z0-9]{6,}$/.test(rk))return alert('Razorpay Key ID looks wrong. It must start with rzp_live_ or rzp_test_ (copy the Key ID, not the Key Secret).');
     if(rec&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(rec))return alert('Please enter a valid recovery email');
     if(pw||pw2){if(pw.length<6)return alert('Password must be at least 6 characters');if(pw!==pw2)return alert('New Password and Confirm Password do not match')}
+    if($('cfg_cmpon')&&$('cfg_cmpon').checked&&!$('cfg_cmpnow').checked&&!$('cfg_cmpvis').checked)return alert('Complaint visiting charge is ON: keep at least one of Pay Now / Pay at Visit ON');
     if($('cfg_live').checked&&!rk)return alert('Add your Razorpay Key ID before turning on Live payments');
     let r=db.set.find(x=>x.id=='co');if(!r){r={id:'co'};db.set.push(r)}
     const S0=setGet();let adm=S0.adm;
     if(pw){const salt=Math.random().toString(36).slice(2,12);adm={id:aid,salt:salt,h:sha256(salt+':'+pw),at:new Date().toLocaleString()}}
     else if(aid!==(adm?adm.id:'admin')){if(!adm)return alert('To change the Admin ID, also set a new password');adm=Object.assign({},adm,{id:aid,at:new Date().toLocaleString()})}
     Object.assign(r,{name:v('cfg_nm'),addr:v('cfg_ad'),ph:ph,wa:wa||ph,em:v('cfg_em'),gstin:gs,gstOn:$('cfg_gon').checked,bankOn:$('cfg_bon').checked,gstHome:$('cfg_gh').checked,
-      bank:{name:v('cfg_bh'),bank:v('cfg_bb'),acc:v('cfg_ba'),ifsc:ifsc,upi:v('cfg_bu'),qr64:cfgQR},upiCleared:!v('cfg_bu'),payBank:$('cfg_pb').checked,advReq:$('cfg_advon').checked,advAmt:Math.max(1,Math.round(+$('cfg_adva').value||100)),cmpOn:$('cfg_cmpon').checked,cmpAmt:Math.max(1,Math.round(+$('cfg_cmpa').value||200)),payQr:$('cfg_pq').checked,payUpi:$('cfg_pu').checked,rzpKey:rk,live:$('cfg_live').checked,ofrOn:$('cfg_oon').checked,ofrTitle:v('cfg_ot')||'AC SERVICE',ofrPrice:(v('cfg_op').replace(/\D/g,'')||'600'),ofrTag:v('cfg_og'),ofrSvc:$('cfg_os')?$('cfg_os').value:'AC General Service',siteUrl:(v('cfg_site')||'https://ntuvcare.in/').replace(/\/?$/,'/'),griev:{name:v('cfg_gvn'),desig:v('cfg_gvd'),em:v('cfg_gve'),ph:v('cfg_gvp'),addr:v('cfg_gva'),hours:v('cfg_gvh')},appUrl:v('cfg_app')||'NTUV-Care.apk',recEmail:rec,adm:adm,by:me.id||aid,at:new Date().toLocaleString()});
+      bank:{name:v('cfg_bh'),bank:v('cfg_bb'),acc:v('cfg_ba'),ifsc:ifsc,upi:v('cfg_bu'),qr64:cfgQR},upiCleared:!v('cfg_bu'),payBank:$('cfg_pb').checked,advReq:$('cfg_advon').checked,advAmt:Math.max(1,Math.round(+$('cfg_adva').value||100)),cmpOn:$('cfg_cmpon').checked,cmpNow:$('cfg_cmpnow').checked,cmpVisit:$('cfg_cmpvis').checked,cmpAmt:Math.max(1,Math.round(+$('cfg_cmpa').value||200)),payQr:$('cfg_pq').checked,payUpi:$('cfg_pu').checked,rzpKey:rk,live:$('cfg_live').checked,ofrOn:$('cfg_oon').checked,ofrTitle:v('cfg_ot')||'AC SERVICE',ofrPrice:(v('cfg_op').replace(/\D/g,'')||'600'),ofrTag:v('cfg_og'),ofrSvc:$('cfg_os')?$('cfg_os').value:'AC General Service',siteUrl:(v('cfg_site')||'https://ntuvcare.in/').replace(/\/?$/,'/'),griev:{name:v('cfg_gvn'),desig:v('cfg_gvd'),em:v('cfg_gve'),ph:v('cfg_gvp'),addr:v('cfg_gva'),hours:v('cfg_gvh')},appUrl:v('cfg_app')||'NTUV-Care.apk',recEmail:rec,adm:adm,by:me.id||aid,at:new Date().toLocaleString()});
     if(pw&&window.meKeep)meKeep();
     save();applySet();setForce=true;render();
     const m=$('cfg_msg');if(m){m.hidden=false;m.textContent='Settings saved'+(GAS_URL?' and sent to Google Sheet.':' on this device.')}
@@ -4508,7 +4521,7 @@ ${otpCard('wa')}${otpCard('sms')}</div>`}
   if(typeof polOpen=='function'){const _po=polOpen;polOpen=function(k){_po.apply(this,arguments);const d=$('dpol'),g=setGet().griev||{};if(!d||k=='terms'||!(g.name||g.em||g.ph))return;d.lastElementChild.insertAdjacentHTML('beforebegin',`<h4>Grievance Officer</h4><p>${esc(g.name||'')}${g.desig?', '+esc(g.desig):''}<br>${g.addr?esc(g.addr)+'<br>':''}${g.ph?'Phone: '+esc(g.ph)+'<br>':''}${g.em?'Email: <a href="mailto:'+esc(g.em)+'">'+esc(g.em)+'</a><br>':''}${g.hours?'Hours: '+esc(g.hours):''}</p>`)}}
 
   /* ---------- 10. Settings: a Save button under every box, highlighted only when something changed ---------- */
-  const SECS={'Invoice & Website Options':['gstOn','bankOn','gstHome'],'Company Details':['name','addr','ph','wa','em','gstin'],'Company Bank Account':['bank','payBank','payQr','payUpi','upiCleared'],'Offer Banner (Home page)':['ofrOn','ofrTitle','ofrPrice','ofrTag','ofrSvc'],'Booking Advance & Complaint Charge':['advReq','advAmt','cmpOn','cmpAmt'],'Online Payments (Razorpay)':['rzpKey','live','rzpSec'],'Mobile App Download':['appUrl','siteUrl','playUrl'],'Grievance Officer':['griev'],'Admin Login & Recovery':['adm','recEmail']};
+  const SECS={'Invoice & Website Options':['gstOn','bankOn','gstHome'],'Company Details':['name','addr','ph','wa','em','gstin'],'Company Bank Account':['bank','payBank','payQr','payUpi','upiCleared'],'Offer Banner (Home page)':['ofrOn','ofrTitle','ofrPrice','ofrTag','ofrSvc'],'Booking Advance & Complaint Charge':['advReq','advAmt','cmpOn','cmpAmt','cmpNow','cmpVisit'],'Online Payments (Razorpay)':['rzpKey','live','rzpSec'],'Mobile App Download':['appUrl','siteUrl','playUrl'],'Grievance Officer':['griev'],'Admin Login & Recovery':['adm','recEmail']};
   const ALLK=[].concat(...Object.values(SECS));
   function decorateSettings(){const w=document.querySelector('#panel .cfgw:not(.otpw):not(.blkw)');if(!w||w._dec)return;w._dec=1;
     w.querySelectorAll('.cfgc').forEach(c=>{const h=c.querySelector('h4');if(!h||!SECS[h.textContent.trim()])return;c.dataset.sec=h.textContent.trim();if(!c.querySelector('.cfg-ft'))c.insertAdjacentHTML('beforeend','<div class="cfg-ft"><button type="button" class="sv-btn" data-sec-save disabled>Saved &#10003;</button></div>')});
@@ -4893,16 +4906,35 @@ ${window.ppaExtra?ppaExtra():''}<h4>Recently checked</h4>${D.length?`<div class=
   function money(){const S=setGet();ADV_AMT=Math.max(1,Math.round(+S.advAmt||100));ADV_REQ=S.advReq!==false;CMP_FEE=S.cmpOn===false?0:Math.max(1,Math.round(+S.cmpAmt||200))}
   /* "Rs 100" written in the page follows the advance amount */
   const RS_EL=['.vh-p','#bf .note','.wn li span'];
-  function moneyText(){document.querySelectorAll(RS_EL.join(',')).forEach(e=>{if(e.id=='payreq'||e.id=='tmode')return;if(e.dataset.o==null){if(!/Rs\s?100\b/.test(e.innerHTML))return;e.dataset.o=e.innerHTML}e.innerHTML=e.dataset.o.replace(/Rs\s?100\b/g,'Rs '+ADV_AMT)});
-    const p=$('pay');if(p&&!paid&&!p.disabled)p.textContent=(window.rzpReq&&rzpReq()?'Pay Rs '+ADV_AMT+' & Book':'Pay Now Rs '+ADV_AMT);
-    const n=$('payreq');if(n&&!paid)n.innerHTML='<b>Pay Rs '+ADV_AMT+' advance to confirm your booking.</b> It is adjusted in your final bill. Your booking is accepted only after the payment.'}
+  function moneyText(){const on=ADV_REQ;
+    document.querySelectorAll(RS_EL.join(',')+',#tmode').forEach(e=>{if(e.id=='payreq')return;if(e.dataset.o==null){if(!/Rs\s?100\b|payment are optional/.test(e.innerHTML))return;e.dataset.o=e.innerHTML}let h=e.dataset.o;
+      if(on)h=h.replace(/Rs\s?100\b/g,'Rs '+ADV_AMT);
+      else if(e.classList.contains('vh-p'))h=h.replace(/\s*Pay only Rs\s?100 in advance[^.]*\./,'');
+      else if(e.id=='tmode')h=h.replace('OTP and payment are optional','OTP is optional');
+      else if(e.closest('.wn'))h=h.replace(/Only Rs\s?100 advance, adjusted in your bill\.\s*/,'No hidden charges. ');
+      else if(/advance payment will be adjusted/.test(h))h="If you decline service after the technician's visit, a Rs 300 visiting charge applies.";
+      e.innerHTML=h});
+    const p=$('pay');if(p){p.hidden=!on;if(on&&!paid&&!p.disabled)p.textContent=(window.rzpReq&&rzpReq()?'Pay Rs '+ADV_AMT+' & Book':'Pay Now Rs '+ADV_AMT)}
+    const n=$('payreq');if(n){if(!on)n.remove();else if(!paid)n.innerHTML='<b>Pay Rs '+ADV_AMT+' advance to confirm your booking.</b> It is adjusted in your final bill. Your booking is accepted only after the payment.'}
+    if(!on){const bk=$('bk');if(bk)bk.hidden=false}}
   /* Razorpay ON + advance compulsory -> pay first (v5.2 logic), advance optional -> normal Book Now */
   window.rzpReq=()=>{const S=setGet();return !!(S.live&&S.rzpKey&&S.advReq!==false)};
   /* the v5.2 "pay first" check now also needs the advance to be compulsory */
   const _ap0=applySet;applySet=function(){money();_ap0.apply(this,arguments);try{moneyText()}catch(_){}};
   if(typeof clearF=='function'){const _cf=clearF;clearF=function(){_cf.apply(this,arguments);try{moneyText()}catch(_){}}}
   /* complaint window without a charge */
-  if(typeof cmpOpen=='function'){const _c=cmpOpen;cmpOpen=function(id){_c.apply(this,arguments);if(CMP_FEE>0)return;const d=$('dcmp');if(!d||!d.open)return;
+  function cmpModes(){const S=setGet(),L=[];if(S.cmpNow!==false)L.push('now');if(S.cmpVisit!==false)L.push('visit');return L.length?L:['visit']}
+  function cmpMode(m){window._cmpVisit=m=='visit';const pay=$('cmp_pay'),go=$('cmp_go'),ag=document.querySelector('#dcmp .cmpagree');
+    if(pay)pay.hidden=m=='visit';if(go)go.disabled=m=='visit'?false:!(TEST||cmpPaid);
+    if(ag)ag.lastChild.textContent=m=='visit'?' I agree to pay the Rs '+CMP_FEE+' visiting charge to the technician at the visit':' I agree to pay the Rs '+CMP_FEE+' visiting charge now';
+    document.querySelectorAll('#dcmp .cmpm label').forEach(l=>l.classList.toggle('on',l.querySelector('input').value==m))}
+  window.cmpMode=cmpMode;
+  if(typeof cmpSave=='function'){const _cs0=cmpSave;cmpSave=function(id){const x=db.b.find(b=>b.id==id),n=x&&(x.cmps||[]).length,vis=!!window._cmpVisit;const r=_cs0.apply(this,arguments);
+    if(x&&(x.cmps||[]).length>n){const c=x.cmps[x.cmps.length-1];c.pay=CMP_FEE<=0?'Free':vis?'At visit':'Online';if(CMP_FEE<=0){c.amt=0}save()}window._cmpVisit=false;return r}}
+  if(typeof cmpOpen=='function'){const _c=cmpOpen;cmpOpen=function(id){window._cmpVisit=false;_c.apply(this,arguments);
+    if(CMP_FEE>0){const d=$('dcmp'),M=cmpModes();if(!d||!d.open)return;const f=d.querySelector('.cmpfee');
+      if(f&&!d.querySelector('.cmpm'))f.insertAdjacentHTML('afterend',`<div class="cmpm"><b>How will you pay the Rs ${CMP_FEE} visiting charge?</b>${M.map(m=>`<label><input type="radio" name="cmpm" value="${m}" onchange="cmpMode('${m}')"> ${m=='now'?'<b>Pay Now</b> <small>online, while raising the complaint</small>':'<b>Pay at Visit</b> <small>pay the technician when he comes</small>'}</label>`).join('')}</div>`);
+      const r=d.querySelector('.cmpm input[value="'+M[0]+'"]');if(r)r.checked=true;cmpMode(M[0]);return}const d=$('dcmp');if(!d||!d.open)return;
     d.querySelectorAll('.cmpfee,.cmpagree,#cmp_pay').forEach(e=>e.hidden=true);const a=$('cmp_a');if(a)a.checked=true;const g=$('cmp_go');if(g)g.disabled=false;
     d.querySelectorAll('.note').forEach(n=>{if(/Testing mode/.test(n.textContent))n.hidden=true});
     if(!d.querySelector('.cmpfree'))d.querySelector('h3').insertAdjacentHTML('afterend','<div class="note cmpfree">No visiting charge for complaints. Describe the issue and submit - our technician will visit again.</div>')}}
@@ -4927,7 +4959,7 @@ ${window.ppaExtra?ppaExtra():''}<h4>Recently checked</h4>${D.length?`<div class=
     return `<div class="cmw"><h3 class="sh">Complaints</h3><p><small>${T?'All complaints on your bookings.':'All customer complaints in one place.'} Update the status after the visit. The customer sees the status and remarks in their account.</small></p>
 <div class="cmw-f"><button type="button" class="${cmF=='open'?'on':''}" data-cmf="open">Open (${O.length})</button><button type="button" class="${cmF=='all'?'on':''}" data-cmf="all">All (${L.length})</button></div>
 ${V.length?`<div class="tw"><table class="hz"><tr><th>Complaint</th><th>Booking</th><th>Customer</th>${T?'':'<th>Technician</th>'}<th>Issue</th><th>Status</th><th>Visiting charge</th><th>Update</th></tr>${V.map(o=>{const x=o.x,c=o.c,t=db.t.find(q=>q.id==o.tid);
-  return `<tr class="${c.st!='Resolved'?'cmprow':''}"><td><b>${esc(c.id)}</b><br><small>${esc(c.at)}</small></td><td><b>${esc(x.id)}</b><br><small>${esc((x.items&&x.items.length?x.items.map(r=>r.at+' - '+r.is).join(', '):x.at+' - '+x.is)||'')}</small></td><td>${esc(x.name||'')}<br><a href="tel:+91${esc(x.mob||'')}">${esc(x.mob||'')}</a><br><small>${esc([x.ad,x.ci,x.pin].filter(Boolean).join(', '))}</small></td>${T?'':`<td>${t?esc(t.name):'<small>-</small>'}</td>`}<td class="w">${esc(c.text)}${c.rem?`<br><small><b>Remarks:</b> ${esc(c.rem)}</small>`:''}</td><td>${typeof cmpBadge=='function'?cmpBadge(c.st):esc(c.st)}</td><td>${c.amt?'Rs '+esc(c.amt)+' '+(c.paid?'<span class="ok">paid</span>':'<small>unpaid</small>'):'<small>Free</small>'}</td>
+  return `<tr class="${c.st!='Resolved'?'cmprow':''}"><td><b>${esc(c.id)}</b><br><small>${esc(c.at)}</small></td><td><b>${esc(x.id)}</b><br><small>${esc((x.items&&x.items.length?x.items.map(r=>r.at+' - '+r.is).join(', '):x.at+' - '+x.is)||'')}</small></td><td>${esc(x.name||'')}<br><a href="tel:+91${esc(x.mob||'')}">${esc(x.mob||'')}</a><br><small>${esc([x.ad,x.ci,x.pin].filter(Boolean).join(', '))}</small></td>${T?'':`<td>${t?esc(t.name):'<small>-</small>'}</td>`}<td class="w">${esc(c.text)}${c.rem?`<br><small><b>Remarks:</b> ${esc(c.rem)}</small>`:''}</td><td>${typeof cmpBadge=='function'?cmpBadge(c.st):esc(c.st)}</td><td>${c.amt?'Rs '+esc(c.amt)+' '+(c.paid?'<span class="ok">paid online</span>':c.pay=='At visit'?'<b class="cmpv">collect at visit</b>':'<small>unpaid</small>'):'<small>Free</small>'}</td>
 <td>${o.last?`<div class="cmpset"><select id="cs_${esc(x.id)}" onchange="$('cr_${esc(x.id)}').hidden=this.value!='Other'&&this.value!='Resolved'">${CMPST.map(s=>`<option ${c.st==s?'selected':''}>${s}</option>`).join('')}</select><input id="cr_${esc(x.id)}" placeholder="Remarks" value="${esc(c.rem||'')}" ${c.st=='Open'?'hidden':''}><button type="button" class="pbtn" onclick="cmpSet('${esc(x.id)}')">Save</button></div>`:'<small>Older complaint</small>'}<button type="button" class="alt pbtn" onclick="vb('${esc(x.id)}','all',0)">View booking</button></td></tr>`}).join('')}</table></div>`:`<p class="note">${cmF=='open'?'No open complaint.':'No complaint yet.'}</p>`}</div>`}
   document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-cmf]');if(!b)return;cmF=b.dataset.cmf;cmForce=1;render()});
   let cmForce=0;
