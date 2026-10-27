@@ -4424,8 +4424,12 @@ ${S.adm?'':'<div class="note"><b>You are using the default login</b> &ndash; ID:
       if(r.demo){(window._demoOtp=window._demoOtp||{})[m]=r.demo;toast('Testing mode: your OTP is '+r.demo,'info')}else toast('OTP sent on '+(r.ch=='wa'?'WhatsApp':'SMS')+' to '+m+'. It is valid for 10 minutes.','ok')}catch(e){toast('Could not send OTP: '+e.message,'bad')}}}
   async function srvCheck(m,v){const r=await gcall({action:'motpv',mob:m,otp:v});if(!r||!r.ok)throw new Error(r&&r.err||'Wrong OTP');otp[m]=v;
     if(r.tok&&!me){try{localStorage.ntuvTok=r.tok;localStorage.ntuvTokR='cust'}catch(_){}try{if(window.flushNow)await flushNow();const p=await gcall({action:'pull'});if(p&&p.ok&&p.db)adopt(p.db)}catch(_){}}}
-  if(typeof chk=='function'){const _ck=chk;chk=async function(){const m=$('cm').value;if(!srvOtp[m])return _ck();try{await srvCheck(m,$('otp').value.trim());_ck()}catch(e){alert(e.message)}}}
-  if(typeof clogin=='function'){const _cl=clogin;clogin=async function(){const m=$('lm').value;if(!srvOtp[m])return _cl.apply(this,arguments);try{await srvCheck(m,$('lotp').value.trim());return _cl.apply(this,arguments)}catch(e){alert(e.message)}}}
+  /* one check at a time: a second tap while the server is still checking used to show "OTP expired" (the first tap had already used the OTP) */
+  let vBusy=0;const vBtn=(id,on)=>{const b=$(id)&&$(id).closest('.row')&&$(id).closest('.row').querySelector('button');if(b){b.disabled=on;if(on){b.dataset.t=b.textContent;b.textContent='Checking...'}else if(b.dataset.t)b.textContent=b.dataset.t}};
+  if(typeof chk=='function'){const _ck=chk;chk=async function(){const m=$('cm').value,v=$('otp').value.trim();if(!srvOtp[m])return _ck();if(vBusy)return;if(ver&&otp[m]==v)return;
+    vBusy=1;vBtn('otp',1);try{await srvCheck(m,v);_ck()}catch(e){if(!(ver&&otp[m]==v))alert(e.message)}finally{vBusy=0;vBtn('otp',0)}}}
+  if(typeof clogin=='function'){const _cl=clogin;clogin=async function(){const m=$('lm').value;if(!srvOtp[m])return _cl.apply(this,arguments);if(vBusy)return;
+    vBusy=1;vBtn('lotp',1);try{await srvCheck(m,$('lotp').value.trim());vBusy=0;vBtn('lotp',0);return _cl.apply(this,arguments)}catch(e){if(!cu)alert(e.message)}finally{vBusy=0;vBtn('lotp',0)}}}
 
   const OTP_P={
     wa:{
@@ -4480,10 +4484,13 @@ ${otpCard('wa')}${otpCard('sms')}</div>`}
       else{if(v.on&&!v.url)return alert('API URL is empty. Choose a provider or fill the Advanced section.');
         try{if(v.headers)JSON.parse(v.headers)}catch(_){return alert('Headers must be valid JSON, e.g. {"authkey":"..."}')}
         const old=r.otp[k]||{},sec={key:v.apikey,acc:v.account};delete v.apikey;delete v.account;delete v.test;r.otp[k]=Object.assign({},old,v);
+        if(v.on&&!r.otp.on){r.otp.on=true;const g=document.querySelector('.otpg input[data-f=on]');if(g)g.checked=true;setTimeout(()=>toast('Real OTP is now ON - customers will get the OTP by '+(k=='wa'?'WhatsApp':'SMS')+'. Testing OTP will not show.','info'),400)}
         if(sec.key||sec.acc){if(!GAS_URL)return alert('Google Sheet connection (Apps Script) is needed to keep API keys safely.');
           try{if(window.flushNow)await flushNow();const q=await gcall({action:'otpkey',ch:k,key:sec.key||'',acc:sec.acc||'',auth:auth()});if(!q||!q.ok)throw new Error(q&&q.err||'not saved');if(sec.key)r.otp[k].keyOk=true;if(sec.acc)r.otp[k].accOk=true}
           catch(err){return toast(/unknown action/i.test(err.message)?'API key NOT saved: your Google Apps Script is old. Deploy the new Code.gs (Deploy > Manage deployments > New version) and save again.':'API key NOT saved: '+err.message,'bad')}}}
-      r.at=new Date().toLocaleString();save();applySet();sb.disabled=true;sb.classList.remove('dirty');sb.innerHTML='Saved &#10003;';card.querySelectorAll('input[type=password]').forEach(i=>i.value='');card.querySelectorAll('.otp-ks').forEach((s,i)=>{});toast((k=='g'?'OTP service':k=='wa'?'WhatsApp OTP':'SMS OTP')+' settings saved','ok');return}
+      r.at=new Date().toLocaleString();save();applySet();sb.disabled=true;sb.classList.remove('dirty');sb.innerHTML='Saved &#10003;';card.querySelectorAll('input[type=password]').forEach(i=>i.value='');if(k!='g'){const ko=r.otp[k]||{},ki=card.querySelector('input[data-f=apikey]'),ai=card.querySelector('input[data-f=account]');
+        if(ki&&ko.keyOk){ki.placeholder='●●●●●● saved';const s=ki.parentElement.querySelector('.otp-ks');if(s)s.innerHTML='saved &#10003; - type to replace'}
+        if(ai&&ko.accOk){ai.placeholder='●●●● saved';const s=ai.parentElement.querySelector('.otp-ks');if(s)s.innerHTML='saved &#10003;'}}toast((k=='g'?'OTP service':k=='wa'?'WhatsApp OTP':'SMS OTP')+' settings saved','ok');return}
     const tb=e.target.closest&&e.target.closest('[data-otp-test]');
     if(tb){const card=tb.closest('.otpc'),m=(card.querySelector('[data-f=test]').value||'').replace(/\D/g,''),msg=card.querySelector('.otp-m');if(!/^\d{10}$/.test(m))return alert('Enter a 10 digit test mobile number');
       if(!card.querySelector('.sv-btn').disabled)return alert('Save the changes first, then send the test OTP');
