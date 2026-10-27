@@ -1071,6 +1071,15 @@ body.shell-app.has-upd .tb2-call{padding:0 4px!important}
 .cxl{display:inline-block;margin-top:4px}
 .cxh{display:inline-block;margin-left:6px;color:var(--mut)}.cxh.ok{color:var(--okc,#16a34a);font-weight:700}
 
+/* ===== v5.8 technician commission card ===== */
+.tcm{margin:10px 0 14px;padding:14px 16px;border-radius:16px;background:linear-gradient(135deg,color-mix(in srgb,#16a34a 10%,var(--card)),var(--card));border:1px solid color-mix(in srgb,#16a34a 30%,var(--line))}
+.tcm-h{display:flex;align-items:center;gap:8px;margin-bottom:10px}.tcm-h .ic{width:20px;height:20px;color:#16a34a}.tcm-h b{font-family:var(--hf);font-size:19px;text-transform:uppercase;letter-spacing:.03em}.tcm-h small{color:var(--mut)}
+.tcm-r{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.tcm-r>div{padding:10px 12px;border-radius:12px;background:var(--card);border:1px solid var(--line);display:flex;flex-direction:column}
+.tcm-r small{color:var(--mut);font-size:12px}.tcm-r b{font-size:28px;font-family:var(--hf);color:#16a34a;line-height:1.1}.tcm-r span{font-size:12px;color:var(--mut)}
+.tcm-n{display:block;margin-top:8px;color:var(--mut);font-size:12.5px}
+.otp-lim{margin:10px 0 0;padding:10px 12px;border-radius:12px;background:var(--note)}.otp-lim>b{display:block}.otp-lim>small{color:var(--mut)}.otp-lim .row{gap:10px;margin-top:6px}
+
 /* ===== v4.2 app home polish ===== */
 /* dots under sliding cards */
 .cdots{display:none}
@@ -4455,6 +4464,8 @@ ${fld('url','API URL',O.url||pr.url)}<label>Headers (JSON)<textarea data-f="head
 <div class="cfgc otpg"><h4>${I('gear')} OTP Service</h4>
 <label class="cfgt"><input type="checkbox" data-f="on" ${O.on?'checked':''}><span class="cfg-s"></span><span class="cfg-t"><b>Real OTP active</b><small>ON: customers get a real 6-digit OTP. OFF: demo OTP is shown on screen (testing).</small></span></label>
 <div class="row"><label>Send first by<select data-f="pref"><option value="wa" ${O.pref!='sms'?'selected':''}>WhatsApp</option><option value="sms" ${O.pref=='sms'?'selected':''}>SMS</option></select></label><label class="cfgt" style="margin-top:22px"><input type="checkbox" data-f="fallback" ${O.fallback!==false?'checked':''}><span class="cfg-s"></span><span class="cfg-t"><b>If it fails, try the other</b></span></label></div>
+<div class="otp-lim"><b>OTP limit for one mobile number</b><small>Stops misuse: after the limit, that number gets no new OTP until the time is over. Admin test OTPs are not counted.</small>
+<div class="row"><label>Max OTPs in 15 minutes<select data-f="lim15">${(()=>{const v=+(O.lim15)||5;let o='';for(let n=1;n<=100;n++)o+=`<option value="${n}" ${n==v?'selected':''}>${n}</option>`;return o})()}</select></label><label>Max OTPs in one day<select data-f="limDay">${(()=>{const v=+(O.limDay)||20;let o='';for(let n=1;n<=100;n++)o+=`<option value="${n}" ${n==v?'selected':''}>${n}</option>`;return o})()}</select></label></div></div>
 <div class="cfg-ft"><button type="button" class="sv-btn" data-otp-save="g" disabled>Saved &#10003;</button></div></div>
 ${otpCard('wa')}${otpCard('sms')}</div>`}
   ['input','change'].forEach(ev=>document.addEventListener(ev,e=>{const c=e.target.closest&&e.target.closest('.otpw .cfgc');if(!c||e.target.dataset.f=='test'||e.target.dataset.f=='provider')return;const b=c.querySelector('[data-otp-save]');if(b){b.disabled=false;b.classList.add('dirty');b.textContent='Save changes'}}));
@@ -4465,7 +4476,7 @@ ${otpCard('wa')}${otpCard('sms')}</div>`}
   document.addEventListener('click',async e=>{
     const sb=e.target.closest&&e.target.closest('[data-otp-save]');
     if(sb){if(!me||me.role!='admin')return alert('Only Admin can change OTP settings');const k=sb.dataset.otpSave,card=sb.closest('.cfgc'),v=otpRead(card),r=stx();r.otp=Object.assign({on:false,pref:'wa',fallback:true,wa:{},sms:{}},r.otp||{});
-      if(k=='g'){r.otp.on=v.on;r.otp.pref=v.pref;r.otp.fallback=v.fallback;if(v.on&&!(r.otp.wa.on||r.otp.sms.on))toast('Turn on and save WhatsApp OTP or SMS OTP below as well','info')}
+      if(k=='g'){r.otp.on=v.on;r.otp.pref=v.pref;r.otp.fallback=v.fallback;r.otp.lim15=Math.max(1,Math.min(100,+v.lim15||5));r.otp.limDay=Math.max(1,Math.min(100,+v.limDay||20));if(r.otp.limDay<r.otp.lim15)return alert('The daily limit cannot be less than the 15-minute limit');if(v.on&&!(r.otp.wa.on||r.otp.sms.on))toast('Turn on and save WhatsApp OTP or SMS OTP below as well','info')}
       else{if(v.on&&!v.url)return alert('API URL is empty. Choose a provider or fill the Advanced section.');
         try{if(v.headers)JSON.parse(v.headers)}catch(_){return alert('Headers must be valid JSON, e.g. {"authkey":"..."}')}
         const old=r.otp[k]||{},sec={key:v.apikey,acc:v.account};delete v.apikey;delete v.account;delete v.test;r.otp[k]=Object.assign({},old,v);
@@ -5147,6 +5158,16 @@ ${V.length?`<div class="tw"><table class="hz"><tr><th>Complaint</th><th>Booking<
     const l=left(x);s.textContent=l>0?' Free cancellation: '+Math.ceil(l/60000)+' min left':' Advance not refundable on cancel';s.classList.toggle('ok',l>0)})}
   if(typeof chist=='function'){const _c=chist;chist=function(){_c.apply(this,arguments);try{cxHints()}catch(_){}}}
   setInterval(()=>{try{if(!$('cust').hidden&&cu)cxHints()}catch(_){}},30000);
+})();
+
+</script><script>
+/* ===== NTUV v5.8: technician sees his own commission rates ===== */
+(function(){
+  function tcm(){if(!me||me.role!='technician'||$('panel').hidden)return;const box=document.querySelector('#panel .box');if(!box)return;const h=box.querySelector('h2');if(!h)return;
+    const p=typeof techPct=='function'?techPct(me.id):{pc:70,lc:70};let e=$('tcm');
+    const html=`<div class="tcm-h">${window.shIco?shIco('cash'):''}<b>My Commission</b><small>set by the office</small></div><div class="tcm-r"><div><small>Part profit</small><b>${esc(p.pc)}%</b><span>Company ${esc(100-p.pc)}%</span></div><div><small>Labour charge</small><b>${esc(p.lc)}%</b><span>Company ${esc(100-p.lc)}%</span></div></div><small class="tcm-n">Your commission on each bill is worked out with these rates. Part profit = part amount minus the purchase price when you buy the part.</small>`;
+    if(!e){h.insertAdjacentHTML('afterend','<div id="tcm" class="tcm"></div>');e=$('tcm')}if(e.innerHTML!==html)e.innerHTML=html}
+  const _r=render;render=function(){_r.apply(this,arguments);try{tcm()}catch(_){}};
 })();
 
 </script>
