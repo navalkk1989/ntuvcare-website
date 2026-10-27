@@ -1055,6 +1055,18 @@ body.shell-app.has-upd .tb2-call{padding:0 4px!important}
 .cmpv{color:#b45309}
 #dcmp .cmpagree{display:flex!important;align-items:flex-start;gap:10px;text-transform:none;letter-spacing:0;font-size:14px;margin:10px 0}#dcmp .cmpagree input{width:18px!important;height:18px;flex:0 0 18px;margin:2px 0 0}
 
+/* ===== v5.6 customer password ===== */
+.bpw{margin:8px 0;padding:10px 12px;border:1px dashed var(--line);border-radius:12px;background:var(--note)}
+.bpw-t{display:flex!important;align-items:flex-start;gap:8px;margin:0;text-transform:none;letter-spacing:0;font-size:14px;cursor:pointer}
+.bpw-t input{width:18px!important;height:18px;flex:0 0 18px;margin:2px 0 0}
+.bpw-t small{color:var(--mut);font-weight:400}
+#bpw_f{margin-top:8px}#bpw_f .row{gap:10px;flex-wrap:wrap}#bpw_f label{flex:1 1 180px}
+.bpw-n{color:var(--mut)}
+.cpl-or{display:flex;align-items:center;gap:10px;margin:14px 0 6px;color:var(--mut);font-size:13px}
+.cpl-or::before,.cpl-or::after{content:"";flex:1;height:1px;background:var(--line)}
+#cpl small{color:var(--mut)}
+.ppw{margin-top:14px}.ppw .row{gap:10px;flex-wrap:wrap}.ppw label{flex:1 1 200px}
+
 /* ===== v4.2 app home polish ===== */
 /* dots under sliding cards */
 .cdots{display:none}
@@ -5052,6 +5064,56 @@ ${V.length?`<div class="tw"><table class="hz"><tr><th>Complaint</th><th>Booking<
   try{if(cu&&localStorage[TR]!=='cust'){cu=null;localStorage.removeItem('ntuvcu');applyCu()}}catch(_){}
   /* the testing OTP input takes the 6-digit server OTP */
   ['otp','lotp'].forEach(i=>{const e=$(i);if(e)e.maxLength=6});
+})();
+
+</script><script>
+/* ===== NTUV v5.6: customer password (create at first booking, log in with mobile + password) ===== */
+(function(){
+  if(!GAS_URL)return;
+  const tokSet=(t)=>{try{localStorage.ntuvTok=t;localStorage.ntuvTokR='cust'}catch(_){}};
+  const eye=(id)=>`<button type="button" class="alt pwe" onclick="cfgEye('${id}',this)">Show</button>`;
+  const hasPw=m=>{const c=typeof cprof=='function'&&cprof(m);return !!(c&&c.hasPw)};
+  function pwCheck(a,b){if(!a&&!b)return '';if(a.length<6)return 'Password must be at least 6 characters';if(/\s/.test(a))return 'Password cannot have spaces';if(a!==b)return 'Password and Confirm Password do not match';return 'ok'}
+  async function pwSave(pw,name){const r=await gcall({action:'cpwset',pw,name:name||''});if(!r||!r.ok)throw new Error(r&&r.err||'not saved');if(r.db)adopt(r.db);return r}
+  async function logged(m,r){tokSet(r.tok);if(r.db){synced=true;adopt(r.db)}cu=m;try{localStorage.ntuvcu=m}catch(_){}const lo=$('lo');if(lo)lo.hidden=true;ct='b';applyCu();renderCust();try{if(typeof ntfSync=='function')ntfSync()}catch(_){}}
+
+  /* ---------- 1. booking form: create a password (first booking) ---------- */
+  const ov=$('ov');
+  if(ov&&!$('bpw')){const vs=$('vs');(vs||ov).insertAdjacentHTML('afterend',`<div id="bpw" class="bpw"><label class="bpw-t"><input type="checkbox" id="bpw_on"><span><b>Create a password</b> <small>(optional) - next time log in with mobile + password, no OTP needed</small></span></label>
+<div id="bpw_f" hidden><div class="row"><label>Password<div class="pwf"><input id="bpw_1" type="password" autocomplete="new-password" maxlength="40" placeholder="At least 6 characters">${eye('bpw_1')}</div></label><label>Confirm Password<input id="bpw_2" type="password" autocomplete="new-password" maxlength="40"></label></div><small class="bpw-n">Your password is saved after your mobile number is verified with OTP.</small></div></div>`);
+    $('bpw_on').onchange=()=>{$('bpw_f').hidden=!$('bpw_on').checked;if($('bpw_on').checked)$('bpw_1').focus()}}
+  function bpwPaint(){const b=$('bpw');if(!b)return;const m=($('cm')&&$('cm').value)||'';b.hidden=!!(cu&&hasPw(cu))||!!me}
+  const bf=$('bf');
+  if(bf&&bf.onsubmit){const _s=bf.onsubmit;bf.onsubmit=function(e){const on=$('bpw_on')&&$('bpw_on').checked&&!$('bpw').hidden,a=on?$('bpw_1').value:'',b2=on?$('bpw_2').value:'';
+    if(on){const c=pwCheck(a,b2);if(c&&c!='ok'){e.preventDefault();alert(c);$('bpw_1').focus();return false}}
+    const n=db.b.length,m=$('cm').value,nm=$('cn').value,v=typeof ver!='undefined'&&ver;const r=_s.call(this,e);
+    if(on&&a&&db.b.length>n){if(v&&localStorage.ntuvTokR==='cust'){setTimeout(async()=>{try{if(window.flushNow)await flushNow();await pwSave(a,nm);toast('Password created. Next time log in with mobile + password.','ok');bpwPaint()}catch(err){toast('Password not saved: '+err.message,'bad')}},900)}
+      else toast('Password not saved: please verify your mobile with OTP, then set the password in My Account > My Profile.','info')}
+    return r}}
+
+  /* ---------- 2. Customer Login: mobile + password ---------- */
+  const cl=$('clog');
+  if(cl&&!$('cpl')){const note=cl.querySelector('.note');note.insertAdjacentHTML('beforebegin',`<div class="cpl-or"><span>or</span></div><div id="cpl"><label>Password<div class="row"><div class="pwf" style="flex:1"><input id="cpl_p" type="password" autocomplete="current-password" maxlength="40" placeholder="Your password">${eye('cpl_p')}</div><button type="button" id="cpl_go">Login</button></div></label><small>Forgot your password? Log in with OTP above, then set a new password in My Profile.</small></div>`);
+    $('cpl_go').onclick=async()=>{const m=($('lm').value||'').replace(/\D/g,''),p=$('cpl_p').value;if(!/^\d{10}$/.test(m))return alert('Enter your 10 digit mobile number');if(!p)return alert('Enter your password');
+      let r;try{toast('Logging in...');if(window.flushNow)await flushNow();r=await gcall({action:'cpwlogin',mob:m,pw:p})}catch(e){return alert('No internet connection. Please try again.')}
+      if(!r||!r.ok)return alert(/unknown action/i.test(r&&r.err||'')?'Password login will work after the new Code.gs is deployed. Please log in with OTP.':(r&&r.err||'Wrong mobile number or password'));
+      $('cpl_p').value='';await logged(m,r);toast('Welcome back!','ok')};
+    $('cpl_p').addEventListener('keydown',e=>{if(e.key=='Enter')$('cpl_go').click()});
+    const h=cl.querySelector('p');if(h)h.textContent='Log in with your mobile number and OTP, or with your password. After logging in you can book a new service (all your details will be pre-filled), view your booking history and edit your details.'}
+
+  /* ---------- 3. My Profile: set / change password ---------- */
+  function profPw(){const f=$('cpf');if(!f||!cu)return;let b=$('ppw');const has=hasPw(cu);
+    if(!b){f.insertAdjacentHTML('afterend',`<div id="ppw" class="box ppw" hidden></div>`);b=$('ppw')}
+    b.hidden=f.hidden;b.innerHTML=`<h3 class="sh" style="font-size:19px">${has?'Change Password':'Create a Password'}</h3><p><small>${has?'You can log in with your mobile number and this password.':'Create a password to log in without OTP next time.'}</small></p>
+<div class="row"><label>New Password<div class="pwf"><input id="ppw_1" type="password" autocomplete="new-password" maxlength="40" placeholder="At least 6 characters">${eye('ppw_1')}</div></label><label>Confirm Password<input id="ppw_2" type="password" autocomplete="new-password" maxlength="40"></label></div>
+<p><button type="button" id="ppw_s">${has?'Change Password':'Save Password'}</button></p>`;
+    $('ppw_s').onclick=async()=>{const a=$('ppw_1').value,c=pwCheck(a,$('ppw_2').value);if(c!='ok')return alert(c||'Enter the new password');
+      if(localStorage.ntuvTokR!=='cust')return alert('Please log out and log in again with OTP, then set the password.');
+      try{await pwSave(a);toast('Password saved','ok');profPw()}catch(e){alert(/unknown action/i.test(e.message)?'This will work after the new Code.gs is deployed.':'Password not saved: '+e.message)}}}
+  if(typeof renderCust=='function'){const _r=renderCust;renderCust=function(){_r.apply(this,arguments);try{profPw();bpwPaint()}catch(_){}}}
+  if(typeof applyCu=='function'){const _a=applyCu;applyCu=function(){_a.apply(this,arguments);try{bpwPaint()}catch(_){}}}
+  if(typeof clearF=='function'){const _c=clearF;clearF=function(){_c.apply(this,arguments);try{const o=$('bpw_on');if(o){o.checked=false;$('bpw_f').hidden=true;$('bpw_1').value='';$('bpw_2').value=''}bpwPaint()}catch(_){}}}
+  bpwPaint();
 })();
 
 </script>
