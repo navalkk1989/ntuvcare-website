@@ -5286,16 +5286,22 @@ ${V.length?`<div class="tw"><table class="hz"><tr><th>Complaint</th><th>Booking<
     const b=document.querySelectorAll('.nbell');b.forEach(x=>{x.classList.remove('ring');void x.offsetWidth;x.classList.add('ring')})}
 
   /* website: ask the server; app: the phone asks (with sound) and this page reads the phone's list */
+  /* every few seconds a tiny "anything new?" check (nver); the full list is downloaded only when something changed */
+  let lv=-1,ls=-1,lf=0;
   async function poll(){if(!GAS_URL||busy)return;fresh();
-    if(NAPP()){try{AA().checkNow()}catch(_){}setTimeout(readApp,4000);return}
-    busy=1;try{const r=await gcall({action:'ntf',since,who:who()});if(r&&r.ok)take(r.items,true)}catch(_){}finally{busy=0}}
+    if(NAPP()){if(!(AA().getLive&&AA().getLive())){try{AA().checkNow()}catch(_){}}setTimeout(readApp,2500);return}
+    busy=1;try{let need=Date.now()-lf>10*60*1000;
+      if(!need){const q=await gcall({action:'nver'});if(!q||!q.ok)need=true;else if(q.v!==lv||q.s!==ls){need=true;lv=q.v;ls=q.s}}
+      if(need){const r=await gcall({action:'ntf',since,who:who()});if(r&&r.ok){take(r.items,true);lf=Date.now()}}}catch(_){}finally{busy=0}}
   async function backfill(){if(!GAS_URL)return;try{const r=await gcall({action:'ntf',since:Date.now()-2*864e5,who:who()});if(r&&r.ok){const a=alertFrom;take(r.items,false);alertFrom=a;LS.set('nAlert',a)}}catch(_){}}
   let appLast='';
   function readApp(){if(!NAPP())return;let s='';try{s=AA().inbox()||'[]'}catch(_){return}if(s===appLast)return;appLast=s;let L=[];try{L=JSON.parse(s)}catch(_){}take(L,true)}
   const staffish=()=>!!(typeof me!='undefined'&&me&&me.role);
-  let pT=0;function loop(){clearTimeout(pT);const ms=document.hidden?90000:(staffish()||(typeof cu!='undefined'&&cu)?20000:40000);pT=setTimeout(()=>{poll();loop()},ms)}
+  let pT=0;function loop(){clearTimeout(pT);const ms=NAPP()?(document.hidden?60000:15000):(document.hidden?30000:8000);pT=setTimeout(()=>{poll();loop()},ms)}
   document.addEventListener('visibilitychange',()=>{if(!document.hidden){setTimeout(poll,600);readApp()}loop()});
-  setInterval(readApp,3000);
+  setInterval(readApp,2000);
+  /* app: ask once to allow running in the background, so instant notifications are not stopped by battery saver */
+  setTimeout(()=>{try{if(NAPP()&&AA().batteryOk&&!AA().batteryOk()&&!LS.get('nBatAsk',0)){LS.set('nBatAsk',Date.now());toast('Allow NTUV Care in the background to get notifications instantly','info');setTimeout(()=>{try{AA().askBattery()}catch(_){}},1500)}}catch(_){}},12000);
   setTimeout(()=>{fresh();poll();loop();if(typeof ntfSync=='function')ntfSync()},2500);
   /* login / logout -> new list for the new user */
   ['login','clogin'].forEach(f=>{if(typeof window[f]=='function'){const _f=window[f];window[f]=async function(){const r=await _f.apply(this,arguments);setTimeout(()=>{fresh();poll();ntfSync()},1200);return r}}});
@@ -5316,10 +5322,12 @@ ${V.length?`<div class="tw"><table class="hz"><tr><th>Complaint</th><th>Booking<
   function fill(){const d=$('dntf');if(!d)return;const L=inbox.slice().reverse(),on=sndOn();
     const perm=!APP&&window.Notification?Notification.permission:'';
     d.querySelector('.ntf-b').innerHTML=`<label class="ntf-snd"><input type="checkbox" id="ntf_snd" ${on?'checked':''}><span class="ntf-sw"></span><span><b>Notification sound</b><small>${on?'ON - every notification plays a sound':'OFF - notifications come silently'}</small></span></label>
+${NAPP()&&AA().getLive?`<label class="ntf-snd"><input type="checkbox" id="ntf_live" ${AA().getLive()?'checked':''}><span class="ntf-sw"></span><span><b>Instant notifications</b><small>${AA().getLive()?'ON - updates come within seconds, even when the app is closed':'OFF - the phone checks every few minutes (saves battery)'}</small></span></label>`:''}
+${NAPP()&&AA().batteryOk&&!AA().batteryOk()?`<div class="ntf-perm"><button type="button" class="pbtn" id="ntf_bat">Allow in background</button><small>Your phone may stop notifications to save battery. Tap and choose <b>Allow</b> so they always come on time.</small></div>`:''}
 ${perm&&perm!='granted'?`<div class="ntf-perm">${perm=='denied'?'Pop-up alerts are blocked in this browser. Allow notifications for this site in the browser settings to get alerts in other tabs.':'<button type="button" class="pbtn" id="ntf_allow">Allow pop-up alerts</button><small>Get alerts with sound even when you are in another tab.</small>'}</div>`:''}
 ${L.length?`<ul class="ntf-l">${L.map(it=>{const k=KIND[it.kind]||KIND.act;return `<li class="${it.ts>seen?'nw':''}" data-nk="${E(it.k)}"><span class="ntf-k" style="--kc:${k[1]}">${E(k[0])}</span><b>${E(it.title)}</b>${it.body?`<p>${E(it.body)}</p>`:''}<small>${ago(it.ts)}</small></li>`}).join('')}</ul>`
   :'<p class="ntf-0">No notifications yet. Booking updates, offers and price news will appear here.</p>'}`;
-    const s=$('ntf_snd');if(s)s.onchange=()=>setSnd(s.checked);const al=$('ntf_allow');if(al)al.onclick=askPerm}
+    const s=$('ntf_snd');if(s)s.onchange=()=>setSnd(s.checked);const lv2=$('ntf_live');if(lv2)lv2.onchange=()=>{try{AA().setLive(lv2.checked)}catch(_){}toast(lv2.checked?'Instant notifications are ON':'Instant notifications are OFF - the phone checks every few minutes','info');fill()};const bt=$('ntf_bat');if(bt)bt.onclick=()=>{try{AA().askBattery()}catch(_){}setTimeout(fill,4000)};const al=$('ntf_allow');if(al)al.onclick=askPerm}
   function openList(){let d=$('dntf');if(!d){d=document.createElement('dialog');d.id='dntf';d.className='dntf';
       d.innerHTML=`<div class="ntf-h">${BELL}<h3>Notifications</h3><button type="button" class="alt ntf-x" aria-label="Close">&#10005;</button></div><div class="ntf-b"></div>
 <div class="ntf-f"><button type="button" class="alt" id="ntf_test">Test sound</button>${APP&&AA()&&AA().openNotifySettings?'<button type="button" class="alt" id="ntf_set">Phone settings</button>':''}<button type="button" class="alt" id="ntf_read">Mark all read</button></div>`;
