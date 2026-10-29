@@ -1462,6 +1462,18 @@ body.shell header .nbell-h{display:none!important}
 .rxo,.rxo b,.rxo small{text-transform:none!important;letter-spacing:normal!important}
 .rxo b{font-size:14.5px;color:var(--ink)}.rxo small{font-size:12.5px;display:block;margin-top:2px}
 
+/* ===== v6.2 bill payment ===== */
+.bpay{padding:14px 16px;border-radius:16px;border:1px solid var(--line);background:var(--card);margin:0 0 10px;box-shadow:var(--shd,none)}
+.bpay-h{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}.bpay-h b{font-size:15.5px}
+.bpay-g{display:grid;grid-template-columns:1fr auto;gap:4px 14px;font-size:14px}.bpay-g span{color:var(--mut)}.bpay-g b{text-align:right}
+.bpay-g .bpay-t{font-size:16px;color:var(--ink);font-weight:800;border-top:1px dashed var(--line);padding-top:6px;margin-top:2px}
+.bpay-go{width:100%;margin-top:12px;padding:13px 16px!important;font-size:16px!important;background:linear-gradient(135deg,#0b3fe0,#0f5bff)!important;color:#fff!important;border:0!important;border-radius:12px!important}
+.bpay-n{display:block;margin-top:6px;color:var(--mut);font-size:12.5px;text-align:center}
+.bpaid{border-color:color-mix(in srgb,#16a34a 40%,var(--line));background:color-mix(in srgb,#16a34a 5%,var(--card))}
+.cponl{background:color-mix(in srgb,#16a34a 7%,transparent);border-radius:12px;padding:6px 8px}
+.cponl-b{flex-basis:100%;color:#16a34a;font-weight:700;font-size:13px}
+.ppcam{margin:6px 0 0!important;padding:8px 12px!important;font-size:13px!important}
+
 /* admin settings */
 .cfgw{max-width:860px}
 .cfgc{border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin:14px 0;background:var(--card);box-shadow:var(--shd)}
@@ -2104,15 +2116,15 @@ function blFile(i){const f=i.files[0];if(!f)return;const r=new FileReader();r.on
 function blHist(b){if(me.role=='technician'||!b.bill||!b.bill.edits.length)return'';return `<h3 class="sh">Edit History</h3><div class="tw"><table class="hz"><tr><th>When</th><th>By</th><th>Field</th><th>Previous</th><th>Edited</th></tr>${b.bill.edits.map(e=>e.ch.map(z=>`<tr class="edt"><td>${esc(e.at)}</td><td>${esc(e.by)}</td><td>${z.k}</td><td>${esc(z.a)}</td><td><span class="chg">${esc(z.b)}</span></td></tr>`).join('')+`<tr class="edt"><td colspan="3"><b>Total Invoice</b></td><td>${rs(e.oldTot)}</td><td><span class="chg">${rs(e.newTot)}</span></td></tr>`+(e.inv?'<tr class="edt"><td colspan="5">Invoice image replaced</td></tr>':'')).join('')}</table></div>`}
 function openBill(id){const b=db.b.find(x=>x.id==id);if(!b)return;const R=me.role,B=b.bill;
 if(R=='technician'&&!B&&b.status!='Closed')return alert('Part / Labour / GST details can be filled only after the complaint is Closed. First set the status to Closed and Save.');
-blId=id;blInv=null;const ed=R!='technician'||!B,v=B||{part:'',lab:'',gst:18,pp:'',by:'Technician'},d=ed?'':'disabled';
+blId=id;blInv=null;const ed=R!='technician'||!B||(window.billOpenTech&&billOpenTech(b)),v=B||{part:'',lab:'',gst:18,pp:'',by:'Technician'},d=ed?'':'disabled';
 const inp=(i,l,val)=>`<label>${l}<input id="${i}" type="number" min="0" step="0.01" class="yl" value="${esc(val)}" ${d} oninput="blPrev()"></label>`;
-$('dbl').innerHTML=`<h3>Billing &amp; Parts - ${esc(id)}</h3>${ed?'':'<div class="note">Details are already saved. Only an Office Employee or Admin can edit them.</div>'}<small>Fill in the yellow fields; everything else is calculated automatically.</small>
+$('dbl').innerHTML=`<h3>Billing &amp; Parts - ${esc(id)}</h3>${ed?'':'<div class="note">The customer has already paid, so only an Office Employee or Admin can change the bill now.</div>'}<small>Fill in the yellow fields; everything else is calculated automatically.</small>
 <div class="row">${inp('bl_p','Part Amount (Rs)',v.part)}${inp('bl_l','Labour Charge (Rs)',v.lab)}<label>GST %<select id="bl_g" class="yl" ${d} onchange="blPrev()">${GP.map(g=>`<option ${g==v.gst?'selected':''}>${g}</option>`).join('')}</select></label></div>
 <div class="row">${inp('bl_pp','Part Purchase Price (Rs)',v.pp)}<label>Part Paid By<select id="bl_b" class="yl" ${d} onchange="blPrev()">${['Company','Technician'].map(z=>`<option ${z==(v.by||'Technician')?'selected':''}>${z}</option>`).join('')}</select></label></div>
 <label>Purchase Invoice Image (optional - not shown to the customer)<input id="bl_f" type="file" accept="image/*" ${d} onchange="blFile(this)"></label><div id="bl_im">${v.inv?`<img src="${v.inv}" style="max-width:220px;margin:6px 0;border:1px solid var(--line)"><br>${docBtns(v.inv,'Purchase-Invoice-'+id+'.jpg')}`:''}</div>
 <div id="bl_pv"></div>${blHist(b)}<div class="row" style="margin-top:12px">${ed?'<button type="button" onclick="blSave()">Save Billing</button>':''}<button type="button" class="alt" onclick="$('dbl').close()">Close</button></div>`;
 blPrev();$('dbl').showModal()}
-function blSave(){const b=db.b.find(x=>x.id==blId);if(!b||!me)return;const R=me.role,old=b.bill;if(R=='technician'&&old)return alert('Only an Office Employee or Admin can edit');
+function blSave(){const b=db.b.find(x=>x.id==blId);if(!b||!me)return;const R=me.role,old=b.bill;if(R=='technician'&&old&&!(window.billOpenTech&&billOpenTech(b)))return alert('The customer has already paid - only an Office Employee or Admin can change the bill now');
 const n=blRead();if(n.part===''&&n.lab==='')return alert('Enter Part Amount and/or Labour Charge');if(+n.part<0||+n.lab<0||+n.pp<0)return alert('Amount cannot be negative');
 n.part=+n.part||0;n.lab=+n.lab||0;n.pp=+n.pp||0;const c=blc(n);
 if(!old){b.bill={...n,inv:blInv||'',cp:'Unpaid',by2:who(),at:new Date().toLocaleString(),edits:[]};hlh(b,who(),'Billing saved',b.status,'Part '+n.part+', Labour '+n.lab+', GST '+n.gst+'%',c.tot)}
@@ -2121,7 +2133,7 @@ if(!ch.length&&!ic){$('dbl').close();return toast('No changes to save')}
 const oc=blc(old);b.bill.edits.push({at:new Date().toLocaleString(),by:who(),ch,oldTot:oc.tot,newTot:c.tot,inv:ic});Object.assign(b.bill,n);if(blInv)b.bill.inv=blInv;hlh(b,who(),'Billing edited',b.status,ch.map(z=>z.k+': '+z.a+' -> '+z.b).join('; '),c.tot)}
 b.amt=String(c.tot);save();$('dbl').close();render();toast('Billing saved')}
 function bcell(x,R){const B=x.bill,bt=`<button type="button" class="alt" onclick="openBill('${x.id}')">`;if(!B)return `<small>Billing pending</small><br>${bt}Billing &amp; Parts</button>`;const c=blc(B);
-if(R=='technician')return `Total Invoice: <b>${rs(c.tot)}</b><br>My Commission: <b>${rs(c.te)}</b> <small>(${B.cp||'Unpaid'})</small><br>${bt}View Billing</button>`;
+if(R=='technician')return `Total Invoice: <b>${rs(c.tot)}</b><br>My Commission: <b>${rs(c.te)}</b> <small>(${B.cp||'Unpaid'})</small><br>${bt}${window.billOpenTech&&billOpenTech(x)?'View / Edit Billing':'View Billing'}</button>`;
 return `<div class="bcg"><span>Part</span><b>${rs(B.part)}</b><span>Labour</span><b>${rs(B.lab)}</b><span>GST ${B.gst}%</span><b>${rs(c.tg)}</b><span>Total Inv</span><b>${rs(c.tot)}</b><span>Purchase</span><b>${rs(B.pp)}</b><span>Profit</span><b>${rs(c.pr)}</b><span>Company</span><b>${rs(c.co)}</b><span>Tech Comm.</span><b>${rs(c.te)}</b></div><small>Part paid by ${esc(B.by)} &middot; Commission ${B.cp||'Unpaid'}</small>${B.edits.length?' <span class="chg">Edited '+B.edits.length+'x</span>':''}${B.inv?'<br><small>Purchase invoice:</small> '+docBtns(B.inv,'Purchase-Invoice-'+x.id+'.jpg'):''}<br>${bt}View / Edit Billing</button>`}
 
 /* ---- bookings table (technician / office / admin) ---- */
@@ -2282,7 +2294,7 @@ $('dcam').addEventListener('close',camStop);
 const av=(x,cls)=>x&&x.photo?`<img class="${cls||'av'}" src="${esc(x.photo)}" alt="" loading="lazy" onerror="this.style.display='none'">`:`<span class="${cls||'av'} av0">${esc(((x&&x.name)||'?').trim().charAt(0).toUpperCase())}</span>`;
 
 /* registration: keep the photo + upload documents to Google Drive */
-const fileData=f=>new Promise(res=>{const r=new FileReader();r.onload=()=>{if(!/^image\//.test(f.type))return res(r.result);const im=new Image();im.onload=()=>{const s=Math.min(1,1600/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=im.width*s;c.height=im.height*s;c.getContext('2d').drawImage(im,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',.75))};im.onerror=()=>res(r.result);im.src=r.result};r.onerror=()=>res('');r.readAsDataURL(f)});
+const fileData=f=>new Promise(res=>{const r=new FileReader();r.onload=()=>{if(!/^image\//.test(f.type)||/gif|svg/.test(f.type))return res(r.result);const im=new Image();im.onload=()=>{const enc=(mx,q)=>{const s=Math.min(1,mx/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.max(1,Math.round(im.width*s));c.height=Math.max(1,Math.round(im.height*s));const g=c.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,c.width,c.height);g.drawImage(im,0,0,c.width,c.height);return c.toDataURL('image/jpeg',q)};let d=enc(1400,.6);if(d.length>300000)d=enc(1200,.55);if(d.length>300000)d=enc(1000,.5);res(d)};im.onerror=()=>res(r.result);im.src=r.result};r.onerror=()=>res('');r.readAsDataURL(f)});
 async function docsTo(rec,files){if(!files.length)return;rec.dl=rec.dl||{};for(const z of files){if(z.f.size>15e6)continue;const d=await fileData(z.f);if(d)rec.dl[z.l]=d}save()}
 const _tf0=$('tf').onsubmit;
 $('tf').onsubmit=e=>{const files=[...document.querySelectorAll('#tf .df')].filter(i=>i.files[0]).map(i=>({l:i.dataset.l||'Document',f:i.files[0]})),pic=tPic,gp=tgps,n=db.r.length;
@@ -2916,7 +2928,7 @@ const cashOf=x=>x.cpay?m2((x.cpay.rows||[]).filter(r=>r.m=='Cash').reduce((a,r)=
 const payTxt=x=>x.cpay?(x.cpay.rows||[]).map(r=>r.m+' '+rs(r.a)+(r.r?' ('+r.r+')':'')).join(' + '):'';
 let cpRows=[];
 function cpOpen(id){const x=db.b.find(b=>b.id==id);if(!x||!me)return;if(!x.bill)return alert('Save the billing first, then collect the payment');
-const T=me.role=='technician',lock=T&&x.cpay;cpRows=x.cpay?JSON.parse(JSON.stringify(x.cpay.rows)):[{m:'Cash',a:dueOf(x),r:''}];cpDraw(id,lock);$('dcp').showModal()}
+const T=me.role=='technician',lock=T&&x.cpay&&(x.cpay.rows||[]).some(r=>!r.auto&&!/^pay_/.test(String(r.r||'')));cpRows=x.cpay?JSON.parse(JSON.stringify(x.cpay.rows)):[{m:'Cash',a:dueOf(x),r:''}];cpDraw(id,lock);$('dcp').showModal()}
 function cpDraw(id,lock){const x=db.b.find(b=>b.id==id),k=blc(x.bill),adv=advOf(x),due=dueOf(x),d=lock?'disabled':'';
 $('dcp').innerHTML=`<h3>Customer Payment - ${esc(x.id)}</h3>
 <div class="wal"><div><small>Total Invoice</small><b>${rs(k.tot)}</b></div>${adv?`<div><small>Advance paid online</small><b class="ok">- ${rs(adv)}</b></div>`:''}<div><small>To collect from customer</small><b>${rs(due)}</b></div></div>
@@ -4833,7 +4845,7 @@ ${otpCard('wa')}${otpCard('sms')}</div>`}
   if(typeof cpDraw=='function'){const _d=cpDraw;cpDraw=function(id,lock){const x=db.b.find(b=>b.id==id);
     (cpRows||[]).forEach(r=>{if(!r.ss&&r.pk&&x){const p=PP(x).find(q=>q.k==r.pk);if(p)r.ss=p.ss}});
     _d.apply(this,arguments);
-    document.querySelectorAll('#dcp .cprow').forEach((row,i)=>{const r=cpRows[i];if(!r||r.m=='Cash')return;
+    document.querySelectorAll('#dcp .cprow').forEach((row,i)=>{const r=cpRows[i];if(!r||r.m=='Cash'||r.auto||/^pay_/.test(String(r.r||'')))return;
       const ref=[...row.querySelectorAll('label')].find(l=>/UTR/i.test(l.textContent));
       if(ref){ref.firstChild.textContent='UTR / Transaction ID *';const inp=ref.querySelector('input');if(inp)inp.placeholder='12 digit UTR from the payment app'}
       const p=x&&r.pk?PP(x).find(q=>q.k==r.pk):null;
@@ -4841,7 +4853,7 @@ ${otpCard('wa')}${otpCard('sms')}</div>`}
     document.querySelectorAll('#dcp .ppup input[type=file]').forEach(inp=>inp.onchange=async()=>{const i=+inp.dataset.i,d=await pickShot(inp);if(!d)return;cpRows[i].ss=d;inp.closest('.ppup').querySelector('.ppup-b').innerHTML='<b class="ok">&#10003; Attached</b>'});
     const n=$('dcp').querySelector('.wal');if(n&&!lock&&!$('ppnote'))n.insertAdjacentHTML('afterend','<div class="note" id="ppnote">For UPI, account transfer or online payment: enter the <b>UTR number</b> and attach the <b>payment screenshot</b>. Admin / Office Manager approves the payment after checking it.</div>')}}
   if(typeof cpSave=='function'){const _s=cpSave;cpSave=function(id){const x=db.b.find(b=>b.id==id);if(!x)return;
-    const nc=(cpRows||[]).filter(r=>r.m!='Cash'&&+r.a>0);
+    const nc=(cpRows||[]).filter(r=>r.m!='Cash'&&+r.a>0&&!r.auto&&!/^pay_/.test(String(r.r||'')));
     for(const r of nc){if(!okUtr(r.r))return alert('Enter the UTR / Transaction ID for the '+r.m+' payment (6 to 30 letters or numbers, no spaces)');if(!r.ss&&!isMgr())return alert('Attach the payment screenshot for the '+r.m+' payment')}
     const u=nc.map(r=>String(r.r).trim()),dup=u.find((v,i)=>u.indexOf(v)!=i);if(dup)return alert('The same UTR '+dup+' is entered twice');
     for(const b of db.b){if(b.id==id)continue;for(const p of PP(b))if(p.st!='Rejected'&&u.includes(p.utr))return alert('UTR '+p.utr+' is already used for booking '+b.id+'. Please check the UTR.')}
@@ -4863,9 +4875,9 @@ ${otpCard('wa')}${otpCard('sms')}</div>`}
   /* ---------- 2. customer account: pay, then submit UTR + screenshot ---------- */
   function custCards(){const c=$('cpb');if(!c||!cu)return;c.querySelectorAll('.cfgpay,.ppcard,.pphist').forEach(e=>e.remove());
     const mine=db.b.filter(x=>x.mob==cu);
-    const pend=mine.filter(x=>x.bill&&x.status=='Closed').map(x=>({x,d:m2(dueOf(x)-colOf(x))})).filter(o=>o.d>0);
+    const pend=mine.filter(x=>x.bill&&x.status!='Cancelled').map(x=>({x,d:m2(dueOf(x)-colOf(x))})).filter(o=>o.d>0);
     let h=pend.map(o=>{const x=o.x,wait=PP(x).filter(p=>p.src=='customer'&&p.st=='Pending'),wsum=m2(wait.reduce((a,p)=>a+(+p.amt||0),0)),left=m2(o.d-wsum);
-      return `<div class="ppcard">${left>0?payBox(left,'Payment pending for booking '+x.id):''}
+      return `<div class="ppcard">${window.billBox?billBox(x,left):''}${left>0?payBox(left,(window.billRzpOn&&billRzpOn()?'Or pay by UPI / bank and send the details - ':'Payment pending for booking ')+x.id):''}
 ${wait.map(p=>`<div class="ppw">${stHtml(p)} &middot; ${esc(p.mode)} <b>${rs(p.amt)}</b> &middot; UTR <b>${esc(p.utr)}</b><br><small>Submitted on ${esc(p.at)}. You will see the status here.</small></div>`).join('')}
 ${left>0&&(!window.payModes||payModes().some(m=>m!='Cash'))?`<form class="ppf" data-id="${esc(x.id)}" onsubmit="return false"><b>Paid? Send the payment details</b>
 <div class="row"><label>Amount paid (Rs)<input type="number" min="1" step="0.01" name="a" value="${left}"></label><label>Paid by<select name="m">${(window.payModes?payModes().filter(m=>m!='Cash'):MODES).map(m=>`<option>${m}</option>`).join('')}</select></label></div>
@@ -5619,6 +5631,75 @@ ${L.length?`<div class="tw"><table class="hz"><tr><th>Date &amp; time</th><th>Pa
       const ref=tabs.querySelector('.tb-ppa');tabs.insertBefore(t,ref?ref.nextSibling:null)}
     if(want){tabs.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b==t));let s=tabs.nextSibling;while(s){const z=s.nextSibling;s.remove();s=z}tabs.insertAdjacentHTML('afterend',payHtml());if(rzL)rzPaint()}
     if(window.shellSync)shellSync()};
+})();
+
+</script><script>
+/* ===== NTUV v6.2: pay the service bill online (Razorpay) from My Account, paid status everywhere,
+   camera for payment photos, technician can change the bill before payment, smaller images ===== */
+(function(){
+  const E=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const R=n=>'Rs '+(Math.round((+n||0)*100)/100).toLocaleString('en-IN');
+  const LS={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(_){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(_){}}};
+  window.billRzpOn=()=>{const S=setGet();return !!(S.live&&S.rzpKey)};
+  const billTot=x=>x.bill&&typeof blc=='function'?blc(x.bill).tot:0;
+
+  /* ---------- 1. My Account: bill amount, advance minus, Pay Now ---------- */
+  window.billBox=function(x,left){const tot=billTot(x),adv=typeof advOf=='function'?advOf(x):0,paid=typeof colOf=='function'?colOf(x):0,on=billRzpOn();
+    return `<div class="bpay"><div class="bpay-h"><b>Service bill - ${E(x.id)}</b><span class="ppst wait">Payment pending</span></div>
+<div class="bpay-g"><span>Total bill</span><b>${R(tot)}</b>${adv?`<span>Advance paid</span><b class="ok">- ${R(adv)}</b>`:''}${paid?`<span>Already paid</span><b class="ok">- ${R(paid)}</b>`:''}<span class="bpay-t">Amount to pay</span><b class="bpay-t">${R(left)}</b></div>
+${on&&left>0?`<button type="button" class="bpay-go" onclick="billPay('${E(x.id)}')">Pay ${R(left)} online</button><small class="bpay-n">UPI, card, net banking or wallet - secure payment by Razorpay. The bill is marked paid at once.</small>`:''}</div>`};
+  let busy=0;
+  window.billPay=async function(id){if(busy)return;const x=db.b.find(b=>b.id==id);if(!x)return;
+    const left=Math.round((dueOf(x)-colOf(x)-(x.pp||[]).filter(p=>p.src=='customer'&&p.st=='Pending').reduce((a,p)=>a+(+p.amt||0),0))*100)/100;
+    if(!(left>=1))return alert('Nothing is pending on this bill');
+    busy=1;try{if(window.rzpReady)await rzpReady()}catch(_){}busy=0;
+    if(typeof Razorpay=='undefined')return alert('Payment gateway did not load. Please check your internet and try again.');
+    const S=setGet();
+    const rz=new Razorpay({key:S.rzpKey,amount:Math.round(left*100),currency:'INR',name:S.name||'NTUV Care',description:'Service bill '+id,
+      prefill:{name:x.name||'',contact:x.mob||''},notes:{booking:id,type:'bill',mobile:x.mob||''},
+      handler:function(r){done(id,r.razorpay_payment_id||'',left)},modal:{ondismiss:function(){}}});
+    rz.on('payment.failed',function(r){alert('Payment failed: '+((r.error&&r.error.description)||'Please try again'))});
+    rz.open()};
+  async function done(id,payId,amt,quiet){if(!payId)return;const P=LS.get('billPend',{});P[payId]={id,amt,ts:Date.now()};LS.set('billPend',P);
+    if(!quiet)toast('Payment received - saving it to your bill...','info');
+    try{if(window.flushNow)await flushNow();const r=await gcall({action:'billpay',bid:id,payId,amt});
+      if(!r||!r.ok)throw new Error(r&&r.err||'not saved');
+      delete P[payId];LS.set('billPend',P);if(r.db)adopt(r.db);try{chist()}catch(_){}
+      if(!quiet)toast(r.paid?'Thank you! Your bill payment of '+R(r.amt||amt)+' is received. The bill now shows Paid.':(r.dup?'This payment is already saved.':'Thank you! Your payment is saved. NTUV Care will confirm it shortly.'),'ok')}
+    catch(err){if(!quiet)toast((/unknown action/i.test(err.message)?'Payment done. It will be added to your bill shortly.':'Payment done, but it could not be saved yet ('+err.message+'). We will try again automatically.'),'info')}}
+  /* a payment that could not be saved (no internet) is sent again later */
+  setInterval(()=>{const P=LS.get('billPend',{});Object.keys(P).forEach(k=>{if(Date.now()-P[k].ts>7*864e5){delete P[k];LS.set('billPend',P);return}done(P[k].id,k,P[k].amt,1)})},60000);
+
+  /* paid bills: show the paid status in My Account */
+  function paidCards(){const c=$('cpb');if(!c||typeof cu=='undefined'||!cu)return;c.querySelectorAll('.bpaid').forEach(e=>e.remove());
+    const L=db.b.filter(x=>x.mob==cu&&x.bill&&dueOf(x)>0&&colOf(x)>=dueOf(x)-0.01).slice(-5).reverse();if(!L.length)return;
+    const h=L.map(x=>{const rows=(x.cpay&&x.cpay.rows)||[];return `<div class="bpay bpaid"><div class="bpay-h"><b>Service bill - ${E(x.id)}</b><span class="ppst ok">&#10003; Paid</span></div>
+<div class="bpay-g"><span>Total bill</span><b>${R(billTot(x))}</b>${advOf(x)?`<span>Advance paid</span><b>- ${R(advOf(x))}</b>`:''}${rows.map(r=>`<span>${E(r.m)}${/^pay_/.test(r.r||'')?' <small>'+E(r.r)+'</small>':''}</span><b class="ok">${R(r.a)}</b>`).join('')}</div></div>`}).join('');
+    const after=c.querySelector('.ppcard:last-of-type');if(after)after.insertAdjacentHTML('afterend',h);else c.insertAdjacentHTML('afterbegin',h)}
+  if(typeof chist=='function'){const _c=chist;chist=function(){_c.apply(this,arguments);try{paidCards()}catch(e){console.log(e)}}}
+
+  /* ---------- 2. Collect Payment: online payments are filled automatically and locked ---------- */
+  const isOnl=r=>r&&(r.auto||/^pay_/.test(String(r.r||'')));
+  if(typeof cpOpen=='function'){const _o=cpOpen;cpOpen=function(id){const r=_o.apply(this,arguments);const x=db.b.find(b=>b.id==id);
+    try{if(x&&Array.isArray(cpRows)&&cpRows.length&&cpRows.every(isOnl)){const rest=Math.round((dueOf(x)-cpRows.reduce((a,q)=>a+(+q.a||0),0))*100)/100;if(rest>0){cpRows.push({m:'Cash',a:rest,r:''});cpDraw(id,false)}}}catch(_){}return r}}
+  if(typeof cpDraw=='function'){const _d=cpDraw;cpDraw=function(id,lock){_d.apply(this,arguments);
+    document.querySelectorAll('#dcp .cprow').forEach((row,i)=>{const r=cpRows[i];if(!isOnl(r))return;row.classList.add('cponl');
+      row.querySelectorAll('select,input').forEach(e=>e.disabled=true);const s=row.querySelector('select');if(s)s.innerHTML=`<option>${E(r.m||'Online (Razorpay)')}</option>`;
+      row.querySelectorAll('button[aria-label=Remove]').forEach(b=>b.remove());
+      if(!row.querySelector('.cponl-b'))row.insertAdjacentHTML('beforeend','<span class="cponl-b">&#10003; Paid online by the customer (Razorpay) - added automatically</span>')})
+    try{const x=db.b.find(b=>b.id==id),onl=(cpRows||[]).filter(isOnl).reduce((a,q)=>a+(+q.a||0),0),rest=Math.round((dueOf(x)-onl)*100)/100,d=$('dcp');
+      if(onl>0&&rest<=0.009){d.querySelectorAll('.cfgpay,#ppnote').forEach(e=>e.remove());d.querySelectorAll('button').forEach(b=>{if(/Add another payment/.test(b.textContent))b.closest('p')&&b.closest('p').remove()});
+        if(!d.querySelector('.cpfull'))d.querySelector('#cpr').insertAdjacentHTML('beforebegin','<div class="note cpfull">&#10003; <b>Fully paid online by the customer.</b> Nothing to collect.</div>')}
+      else if(onl>0){const pb=d.querySelector('.cfgpay');if(pb)pb.querySelectorAll('b,span').forEach(e=>{if(/^Rs\s?[\d,]+(\.\d+)?$/.test(e.textContent.trim()))e.textContent=R(rest)})}}catch(_){}}}
+  /* technician: the lock "already saved" does not apply when only online payments are there */
+  window.billOpenTech=x=>!!x&&!((x.cpay&&(x.cpay.rows||[]).some(r=>+r.a>0))||(x.pp||[]).some(p=>p.st!='Rejected'));
+
+  /* ---------- 3. camera for payment photos ---------- */
+  function camBtns(){document.querySelectorAll('label.ppup').forEach(l=>{const inp=l.querySelector('input[type=file]');if(!inp||l.nextElementSibling&&l.nextElementSibling.classList.contains('ppcam'))return;
+    l.insertAdjacentHTML('afterend','<button type="button" class="alt ppcam">&#128247; Take photo</button><input type="file" accept="image/*" capture="environment" class="ppcam-i" hidden>');
+    const b=l.nextElementSibling,ci=b.nextElementSibling;b.onclick=()=>ci.click();
+    ci.onchange=()=>{const f=ci.files&&ci.files[0];if(!f)return;try{const dt=new DataTransfer();dt.items.add(f);inp.files=dt.files;inp.dispatchEvent(new Event('change',{bubbles:true}))}catch(e){alert('Could not use the photo, please choose it with the file button')}ci.value=''}})}
+  if(window.MutationObserver)new MutationObserver(()=>{clearTimeout(camBtns._t);camBtns._t=setTimeout(camBtns,120)}).observe(document.body,{childList:true,subtree:true});
 })();
 
 </script>
