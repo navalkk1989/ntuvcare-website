@@ -1437,6 +1437,31 @@ body.shell header .nbell-h{display:none!important}
 }
 @media(max-width:340px){#tb2 .tb2-logo{display:none!important}}
 
+/* ===== v6.1 Payments tab + refunds ===== */
+.payq{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.payq button{padding:7px 12px!important;border-radius:999px!important;font-size:13px!important;background:var(--card)!important;color:var(--ink)!important;border:1px solid var(--line)!important;box-shadow:none!important}
+.payq button.on{background:var(--acc,#0f5bff)!important;color:#fff!important;border-color:var(--acc,#0f5bff)!important}
+.payf .row{gap:10px;flex-wrap:wrap}.payf .row label{flex:1 1 160px}
+.paysum{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:12px 0}
+.paysum>div{padding:12px 14px;border-radius:14px;background:var(--card);border:1px solid var(--line);display:flex;flex-direction:column;border-left:4px solid #16a34a}
+.paysum>div.r{border-left-color:#e31e24}.paysum>div.n{border-left-color:var(--acc,#0f5bff)}.paysum>div.w{border-left-color:#f59e0b}
+.paysum small{color:var(--mut);font-size:12px;text-transform:uppercase;letter-spacing:.05em}.paysum b{font-family:var(--hf);font-size:26px;line-height:1.15}.paysum span{color:var(--mut);font-size:12.5px}
+.payx{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+.payt td{vertical-align:top}.payid{word-break:break-all;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px}
+.payamt{white-space:nowrap}.payamt.neg b{color:#e31e24}.payr{background:color-mix(in srgb,#e31e24 5%,transparent)}
+.payrf{color:#e31e24}.payrfb{background:#e31e24!important;border-color:#e31e24!important;color:#fff!important}
+.rzc h4 .ppst{margin-left:8px;vertical-align:2px}.rzun{background:color-mix(in srgb,#f59e0b 12%,transparent)}.rzc .bad,.note.bad{color:#e31e24}
+.drx{width:min(560px,calc(100vw - 24px))}
+.rxhow{display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.rxo{display:flex!important;gap:10px;align-items:flex-start;padding:10px 12px;border:1px solid var(--line);border-radius:12px;cursor:pointer}
+.rxo input{margin-top:3px;width:auto!important}.rxo b{display:block}.rxo small{color:var(--mut)}
+.rxo:has(input:checked){border-color:var(--acc,#0f5bff);background:color-mix(in srgb,var(--acc,#0f5bff) 6%,transparent)}
+.rxo:has(input:disabled){opacity:.5;cursor:not-allowed}
+@media(max-width:760px){.paysum{grid-template-columns:repeat(2,minmax(0,1fr))}.paysum b{font-size:21px}}
+#rx_mn[hidden]{display:none!important}
+.rxo,.rxo b,.rxo small{text-transform:none!important;letter-spacing:normal!important}
+.rxo b{font-size:14.5px;color:var(--ink)}.rxo small{font-size:12.5px;display:block;margin-top:2px}
+
 /* admin settings */
 .cfgw{max-width:860px}
 .cfgc{border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin:14px 0;background:var(--card);box-shadow:var(--shd)}
@@ -5422,6 +5447,177 @@ ${A?'<div class="cfg-ft"><button type="button" class="alt" id="ne_def">Default m
     if(!isStaff())return;const tabs=document.querySelector('#panel .tabs');if(!tabs)return;
     let t=tabs.querySelector('.tb-ntx');if(!t){t=document.createElement('button');t.type='button';t.className='tb-ntx';t.innerHTML='&#128276; Notifications';t.onclick=()=>{nForce=1;ptab='ntx';render();loadList()};tabs.appendChild(t)}
     if(want){tabs.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b==t));let s=tabs.nextSibling;while(s){const z=s.nextSibling;s.remove();s=z}tabs.insertAdjacentHTML('afterend',nxHtml());pv()}
+    if(window.shellSync)shellSync()};
+})();
+
+</script><script>
+/* ===== NTUV v6.1: Admin > Payments (date range, customer details, Excel) and refunds by Admin only =====
+   - every payment of every booking: booking advance, complaint charge, service bill (UPI / cash / bank / online)
+   - Admin can refund any payment - also a double payment - through Razorpay (automatic) or record a manual refund
+   - "Check Razorpay" lists all Razorpay payments of the date range and shows payments that are not linked to a booking (double payments) */
+(function(){
+  const E=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const R=n=>'Rs '+(Math.round((+n||0)*100)/100).toLocaleString('en-IN');
+  const isAdm=()=>typeof me!='undefined'&&me&&me.role=='admin';
+  const canSee=()=>typeof me!='undefined'&&me&&(me.role=='admin'||me.role=='manager');
+  const LS={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(_){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(_){}}};
+  const t0=x=>{const h=x.hist&&x.hist[0];return +(h&&h.ts)||+x._c||+x.ts||Date.parse(x.date||'')||0};
+  const dt=ts=>ts?new Date(ts).toLocaleString('en-IN',{day:'2-digit',month:'short',year:'numeric',hour:'numeric',minute:'2-digit'}):'-';
+  const REASONS=['Double payment (customer paid twice)','Cancelled within 30 minutes of booking','Technician did not come on the booked date','Booking cancelled by NTUV Care / technician','Service could not be done','Extra amount charged by mistake','Other'];
+
+  /* ---------- all payments of a booking ---------- */
+  function lines(x){const L=[],ts0=t0(x);
+    if(x.paid)L.push({src:'adv',x,ts:ts0,what:'Booking advance',mode:'Online (Razorpay)',ref:x.payId||'',amt:+(x.adv||100),st:'Paid'});
+    (x.cmps||[]).forEach(c=>{if(c.paid&&+c.amt>0)L.push({src:'cmp:'+c.id,x,ts:+c.ts||ts0,what:'Complaint visit charge',mode:'Online (Razorpay)',ref:c.payId||'',amt:+c.amt,st:'Paid'})});
+    const cp=x.cpay;if(cp&&Array.isArray(cp.rows))cp.rows.forEach((r,i)=>{const p=r.pk&&(x.pp||[]).find(q=>q.k==r.pk);
+      L.push({src:'inv:'+i,x,ts:+(p&&p.ts)||+cp.ts||ts0,what:'Service bill',mode:r.m||'',ref:r.r||'',amt:+r.a||0,st:p&&p.st=='Pending'?'Pending approval':'Paid',by:(p&&p.by)||cp.by||''})});
+    (x.pp||[]).forEach(p=>{if(p.st=='Pending'&&p.src=='customer'&&!(cp&&(cp.rows||[]).some(r=>r.pk==p.k)))L.push({src:'pp:'+p.k,x,ts:+p.ts||ts0,what:'Service bill (screenshot sent)',mode:p.mode,ref:p.utr,amt:+p.amt||0,st:'Pending approval',by:p.by})});
+    (x.xpay||[]).forEach((p,i)=>L.push({src:'x:'+i,x,ts:+p.ts||ts0,what:'Extra payment (paid twice)',mode:p.mode||'Online',ref:p.payId||'',amt:+p.amt||0,st:'Paid'}));
+    L.forEach(l=>{l.done=refOf(x,l)});return L}
+  function refOf(x,l){return (x.rfs||[]).filter(r=>r.st!='Failed'&&((l.ref&&r.payId==l.ref)||(!r.payId&&r.src==l.src)||(r.src==l.src&&!l.ref))).reduce((a,r)=>a+(+r.amt||0),0)}
+  function refunds(x){const L=(x.rfs||[]).map(r=>({rf:1,x,ts:+r.ts,what:'Refund - '+r.reason,mode:r.mode,ref:(r.ref||'')+(r.payId?' (for '+r.payId+')':''),amt:-(+r.amt||0),st:r.st,by:r.by,rem:r.rem}));
+    if(x.rf&&x.rf.st=='Refunded'&&!(x.rfs||[]).some(r=>r.src=='adv'))L.push({rf:1,x,ts:Date.parse(x.rf.at)||t0(x),what:'Refund - booking advance',mode:x.rf.mode||'',ref:x.rf.ref||'',amt:-(+x.rf.amt||0),st:'Refunded',by:x.rf.by,rem:x.rf.rem});
+    return L}
+
+  /* ---------- date range ---------- */
+  const day=d=>{const x=new Date(d);x.setHours(0,0,0,0);return x};
+  function range(F){const n=new Date(),T=day(n).getTime(),D=864e5;
+    switch(F.q){case 'today':return [T,T+D];case 'yday':return [T-D,T];case '7':return [T-6*D,T+D];case '30':return [T-29*D,T+D];
+      case 'month':{const a=new Date(n.getFullYear(),n.getMonth(),1);return [a.getTime(),T+D]}
+      case 'lmonth':{const a=new Date(n.getFullYear(),n.getMonth()-1,1),b=new Date(n.getFullYear(),n.getMonth(),1);return [a.getTime(),b.getTime()]}
+      case 'custom':{const a=F.f?day(F.f).getTime():0,b=F.t?day(F.t).getTime()+D:T+D;return [a,b]}
+      default:return [0,8.64e15]}}
+  let F=Object.assign({q:'month',f:'',t:'',s:'',k:'all'},LS.get('payF',{}));
+  const iso=ts=>{const d=new Date(ts),z=n=>String(n).padStart(2,'0');return d.getFullYear()+'-'+z(d.getMonth()+1)+'-'+z(d.getDate())};
+
+  function rows(){const [a,b]=range(F),q=F.s.trim().toLowerCase();let L=[];
+    (db.b||[]).forEach(x=>{L=L.concat(lines(x),refunds(x))});
+    L=L.filter(l=>l.ts>=a&&l.ts<b);
+    if(F.k=='paid')L=L.filter(l=>!l.rf&&l.st=='Paid');else if(F.k=='ref')L=L.filter(l=>l.rf);else if(F.k=='pend')L=L.filter(l=>l.st=='Pending approval');
+    else if(F.k=='online')L=L.filter(l=>/online|razorpay/i.test(l.mode));else if(F.k=='cash')L=L.filter(l=>/cash/i.test(l.mode));else if(F.k=='upi')L=L.filter(l=>/upi|bank|neft|imps|transfer/i.test(l.mode));
+    if(q)L=L.filter(l=>[l.x.id,l.x.name,l.x.mob,l.ref,l.x.ci,l.x.ad,l.x.pin,l.mode,l.what].join(' ').toLowerCase().indexOf(q)>=0);
+    return L.sort((m,n)=>n.ts-m.ts)}
+  const addr=x=>[x.ad,x.ci,x.st,x.pin].filter(Boolean).join(', ');
+  function payHtml(){const L=rows(),paid=L.filter(l=>!l.rf&&l.st=='Paid'),ref=L.filter(l=>l.rf),pend=L.filter(l=>l.st=='Pending approval');
+    const sum=a=>a.reduce((s,l)=>s+Math.abs(l.amt),0),A=isAdm(),[ra,rb]=range(F);
+    const q=(v,t)=>`<button type="button" class="${F.q==v?'on':''}" data-pq="${v}">${t}</button>`;
+    const st=l=>l.rf?`<span class="ppst ${l.st=='Refunded'?'ok':'wait'}">&#8617; ${E(l.st)}</span>`:l.st=='Paid'?(l.done>0?`<span class="ppst ok">Paid</span><br><small class="payrf">Refunded ${R(l.done)}</small>`:'<span class="ppst ok">&#10003; Paid</span>'):`<span class="ppst wait">&#9203; ${E(l.st)}</span>`;
+    const act=l=>{let h=`<button type="button" class="alt pbtn" onclick="vb('${E(l.x.id)}','all',0)">View</button>`;
+      if(A&&!l.rf&&l.st=='Paid'&&l.amt-l.done>0.009)h+=` <button type="button" class="pbtn payrfb" data-rfx="${E(l.x.id)}" data-src="${E(l.src)}">&#8617; Refund</button>`;return h};
+    return `<div class="payw"><h3 class="sh">Payments</h3><p><small>All payments with customer details. ${A?'Only you (Admin) can refund. Use <b>Refund</b> on a payment, or <b>Refund another payment</b> on a booking if the customer paid twice.':'Only Admin can refund payments.'}</small></p>
+<div class="cfgc payf"><div class="payq">${q('today','Today')}${q('yday','Yesterday')}${q('7','Last 7 days')}${q('30','Last 30 days')}${q('month','This month')}${q('lmonth','Last month')}${q('all','All time')}${q('custom','Custom')}</div>
+<div class="row"><label>From<input type="date" id="pay_f" value="${E(F.q=='custom'?F.f:(ra?iso(ra):''))}"></label><label>To<input type="date" id="pay_t" value="${E(F.q=='custom'?F.t:(rb<8e15?iso(rb-1):''))}"></label>
+<label>Show<select id="pay_k">${[['all','All payments & refunds'],['paid','Received'],['ref','Refunds'],['pend','Waiting for approval'],['online','Online (Razorpay)'],['upi','UPI / Bank'],['cash','Cash']].map(o=>`<option value="${o[0]}" ${F.k==o[0]?'selected':''}>${o[1]}</option>`).join('')}</select></label>
+<label>Search<input id="pay_s" type="search" value="${E(F.s)}" placeholder="Name, mobile, booking, payment ID / UTR"></label></div></div>
+<div class="paysum"><div><small>Received</small><b>${R(sum(paid))}</b><span>${paid.length} payment${paid.length==1?'':'s'}</span></div><div class="r"><small>Refunded</small><b>${R(sum(ref))}</b><span>${ref.length} refund${ref.length==1?'':'s'}</span></div>
+<div class="n"><small>Net received</small><b>${R(sum(paid)-sum(ref))}</b><span>${E(F.q=='all'?'All time':rangeTxt(ra,rb))}</span></div><div class="w"><small>Waiting for approval</small><b>${R(sum(pend))}</b><span>${pend.length} payment${pend.length==1?'':'s'}</span></div></div>
+<div class="payx"><button type="button" class="alt" id="pay_xl">&#11015; Download Excel</button>${canSee()?'<button type="button" class="alt" id="pay_rz">Check Razorpay for double payments</button>':''}${A?'<button type="button" class="alt" id="pay_other">&#8617; Refund another payment</button>':''}</div>
+<div id="pay_rzl"></div>
+${L.length?`<div class="tw"><table class="hz payt"><tr><th>Date &amp; time</th><th>Booking</th><th>Customer</th><th>Payment for</th><th>Mode</th><th>Payment ID / UTR</th><th>Amount</th><th>Status</th><th></th></tr>
+${L.map(l=>`<tr class="${l.rf?'payr':''}"><td><small>${E(dt(l.ts))}</small></td><td><b>${E(l.x.id)}</b><br><small>${E(l.x.status||'')}</small></td>
+<td><b>${E(l.x.name||'')}</b><br><a href="tel:+91${E(l.x.mob||'')}">${E(l.x.mob||'')}</a>${addr(l.x)?`<br><small>${E(addr(l.x))}</small>`:''}${l.x.gstn?`<br><small>GST ${E(l.x.gstn)}</small>`:''}</td>
+<td>${E(l.what)}${l.by?`<br><small>${E(l.by)}</small>`:''}${l.rem?`<br><small>${E(l.rem)}</small>`:''}</td><td>${E(l.mode||'-')}</td><td><small class="payid">${E(l.ref||'-')}</small></td>
+<td class="payamt ${l.rf?'neg':''}"><b>${l.rf?'- ':''}${R(Math.abs(l.amt))}</b></td><td>${st(l)}</td><td>${act(l)}</td></tr>`).join('')}</table></div>`:'<p class="note">No payment in this date range.</p>'}</div>`}
+  const rangeTxt=(a,b)=>new Date(a).toLocaleDateString('en-IN',{day:'numeric',month:'short'})+' - '+new Date(b-1).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
+  function setF(o){F=Object.assign(F,o);LS.set('payF',F);payForce=1;render()}
+  document.addEventListener('click',e=>{const t=e.target;if(!t.closest)return;
+    const q=t.closest('[data-pq]');if(q){setF({q:q.dataset.pq});return}
+    if(t.id=='pay_xl'){xl();return}
+    if(t.id=='pay_rz'){rzCheck();return}
+    if(t.id=='pay_other'){rfxOpen({});return}
+    const r=t.closest('[data-rfx]');if(r){rfxOpen({bid:r.dataset.rfx,src:r.dataset.src,payId:r.dataset.pid||'',amt:r.dataset.amt||'',full:+r.dataset.full||0,pts:+r.dataset.pts||0});return}});
+  document.addEventListener('change',e=>{const id=e.target&&e.target.id;
+    if(id=='pay_f'||id=='pay_t')setF({q:'custom',f:$('pay_f').value,t:$('pay_t').value});
+    else if(id=='pay_k')setF({k:e.target.value})});
+  let sT=0;document.addEventListener('input',e=>{if(e.target&&e.target.id=='pay_s'){clearTimeout(sT);const v=e.target.value;sT=setTimeout(()=>{F.s=v;LS.set('payF',F);payForce=1;render();const s=$('pay_s');if(s){s.focus();s.setSelectionRange(v.length,v.length)}},350)}});
+  function xl(){const L=rows(),c=v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"';
+    const H=['Date & time','Booking','Customer','Mobile','Address','City','State','Pincode','GSTIN','Payment for','Mode','Payment ID / UTR','Amount (Rs)','Status','Refunded (Rs)','By','Remarks'];
+    const B=L.map(l=>[dt(l.ts),l.x.id,l.x.name,l.x.mob,l.x.ad,l.x.ci,l.x.st,l.x.pin,l.x.gstn,l.what,l.mode,l.ref,l.amt,l.st,l.rf?'':(l.done||0),l.by,l.rem].map(c).join(','));
+    const blob=new Blob(['﻿'+[H.map(c).join(',')].concat(B).join('\r\n')],{type:'text/csv'}),a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);a.download='NTUV-Payments-'+(F.q=='all'?'all':iso(range(F)[0]))+'.csv';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},2000);toast('Excel file downloaded','ok')}
+
+  /* ---------- Razorpay: find payments that are not linked to a booking (double payments) ---------- */
+  let rzL=null;
+  async function rzCheck(){const box=$('pay_rzl');if(!box)return;const [a,b]=range(F);box.innerHTML='<p class="note">Checking Razorpay...</p>';
+    try{const r=await gcall({action:'rzlist',from:Math.max(a,Date.now()-365*864e5),to:Math.min(b,Date.now())});if(!r||!r.ok)throw new Error(r&&/unknown action/i.test(r.err||'')?'Deploy the new Code.gs first (Apps Script > Deploy > Manage deployments > New version).':(r&&r.err)||'failed');rzL=r.list;rzPaint()}
+    catch(err){box.innerHTML='<p class="note bad">'+E(err.message)+'</p>'}}
+  function rzPaint(){const box=$('pay_rzl');if(!box||!rzL)return;const known={};(db.b||[]).forEach(x=>lines(x).forEach(l=>{if(l.ref)known[l.ref]=x}));
+    const L=rzL.filter(p=>p.st=='captured'||p.st=='refunded'||p.st=='authorized'),A=isAdm();
+    const un=L.filter(p=>!known[p.id]&&p.st!='refunded');
+    box.innerHTML=`<div class="cfgc rzc"><h4>Razorpay payments (${L.length}) ${un.length?`<span class="ppst bad">${un.length} not linked to a booking</span>`:'<span class="ppst ok">All linked</span>'}</h4><p><small>A payment that is not linked to any booking is usually a <b>double payment</b> (the customer paid twice). Check it and refund it.</small></p>
+${L.length?`<div class="tw"><table class="hz"><tr><th>Date &amp; time</th><th>Payment ID</th><th>Customer</th><th>Amount</th><th>Razorpay status</th><th>Booking</th><th></th></tr>${L.sort((m,n)=>n.ts-m.ts).map(p=>{const x=known[p.id],cand=!x&&p.contact?(db.b||[]).filter(b=>String(b.mob)==p.contact):[],left=p.amt-p.refunded;
+  return `<tr class="${!x&&p.st!='refunded'?'rzun':''}"><td><small>${E(dt(p.ts))}</small></td><td><small class="payid">${E(p.id)}</small><br><small>${E(p.method||'')}</small></td><td>${E(p.contact||'-')}${p.email?`<br><small>${E(p.email)}</small>`:''}</td><td><b>${R(p.amt)}</b>${p.refunded?`<br><small class="payrf">Refunded ${R(p.refunded)}</small>`:''}</td><td>${E(p.st)}${p.rst?' / '+E(p.rst):''}</td>
+<td>${x?`<b>${E(x.id)}</b> <small>${E(x.name||'')}</small>`:`<b class="bad">Not linked</b>${cand.length?`<br><small>Bookings of this mobile: ${cand.map(b=>E(b.id)).join(', ')}</small>`:''}`}</td>
+<td>${A&&left>0.009&&p.st!='refunded'?`<button type="button" class="pbtn payrfb" data-rfx="${E((x&&x.id)||(cand[0]&&cand[0].id)||'')}" data-src="${x?'':'rzp'}" data-pid="${E(p.id)}" data-amt="${left}" data-full="${p.amt}" data-pts="${p.ts}">&#8617; Refund</button>`:''}</td></tr>`}).join('')}</table></div>`:'<p class="note">No Razorpay payment in this date range.</p>'}</div>`}
+
+  /* ---------- refund dialog (Admin only) ---------- */
+  function rfxOpen(o){if(!isAdm())return alert('Only Admin can refund payments');let d=$('drx');if(!d){d=document.createElement('dialog');d.id='drx';d.className='drx';document.body.appendChild(d)}
+    const bid=o.bid||'';d._o=o;
+    d.innerHTML=`<h3>&#8617; Refund payment</h3>
+<label>Booking *<input id="rx_b" list="rx_bl" value="${E(bid)}" placeholder="Booking ID or customer mobile" autocomplete="off"></label><datalist id="rx_bl">${(db.b||[]).slice(-300).reverse().map(x=>`<option value="${E(x.id)}">${E((x.name||'')+' - '+(x.mob||''))}</option>`).join('')}</datalist>
+<div id="rx_bi" class="note"></div>
+<label>Which payment *<select id="rx_p"></select></label>
+<div class="row"><label>Payment ID / UTR<input id="rx_id" placeholder="pay_... for Razorpay, or the UTR"></label><label>Refund amount (Rs) *<input id="rx_a" type="number" min="1" step="0.01"></label></div>
+<label>Reason *<select id="rx_r"><option value="">-- Select reason --</option>${REASONS.map(r=>`<option>${E(r)}</option>`).join('')}</select></label>
+<label>Remarks <small>(the customer sees this)</small><textarea id="rx_m" rows="2" maxlength="400"></textarea></label>
+<div class="rxhow"><label class="rxo"><input type="radio" name="rx_h" value="rzp"><span><b>Refund now through Razorpay</b><small>The money goes back automatically to the same card / UPI / bank (5-7 working days).</small></span></label>
+<label class="rxo"><input type="radio" name="rx_h" value="manual"><span><b>I have already refunded it myself</b><small>For UPI, bank transfer or cash refunds - enter how and the reference.</small></span></label></div>
+<div class="row" id="rx_mn" hidden><label>Refunded by<select id="rx_md"><option value="">Select</option><option>UPI</option><option>Bank transfer (NEFT / IMPS)</option><option>Cash</option><option>Razorpay dashboard</option></select></label><label>Refund reference / UTR<input id="rx_ref" placeholder="e.g. UPI reference number"></label></div>
+<div class="row" style="margin-top:12px"><button type="button" id="rx_go">Refund</button><button type="button" class="alt" onclick="$('drx').close()">Cancel</button></div>`;
+    d.showModal();fillB();
+    $('rx_b').oninput=()=>fillB();$('rx_p').onchange=()=>fillP();d.querySelectorAll('[name=rx_h]').forEach(r=>r.onchange=howUI);$('rx_id').oninput=howUI;$('rx_go').onclick=go}
+  function findB(v){v=String(v||'').trim();if(!v)return null;return (db.b||[]).find(x=>x.id==v)||(/^\d{10}$/.test(v)?(db.b||[]).filter(x=>String(x.mob)==v).pop():null)}
+  function fillB(){const d=$('drx'),o=d._o||{},x=findB($('rx_b').value),bi=$('rx_bi'),ps=$('rx_p');
+    if(!x){bi.innerHTML='Type the booking ID (or the customer mobile number).';ps.innerHTML='<option value="">-</option>';d._x=null;fillP();return}
+    d._x=x;bi.innerHTML=`<b>${E(x.id)}</b> - ${E(x.name||'')} &middot; ${E(x.mob||'')}<br><small>${E(addr(x))}</small>`;
+    const L=lines(x).filter(l=>l.st=='Paid');d._L=L;
+    ps.innerHTML=L.map((l,i)=>`<option value="${i}">${E(l.what)} - ${R(l.amt)} ${E(l.mode)}${l.ref?' - '+E(l.ref):''}${l.done?' (refunded '+R(l.done)+')':''}</option>`).join('')+'<option value="x">Another payment (e.g. paid twice) - enter the Payment ID</option>';
+    let sel=o.src?L.findIndex(l=>l.src==o.src):-1;if(o.payId&&!L.some(l=>l.ref==o.payId))sel=-1;if(o.payId&&L.findIndex(l=>l.ref==o.payId)>=0)sel=L.findIndex(l=>l.ref==o.payId);
+    ps.value=sel>=0?String(sel):(o.payId?'x':(L.length?'0':'x'));fillP(true)}
+  function fillP(first){const d=$('drx'),o=d._o||{},v=$('rx_p').value,L=d._L||[],l=v!=='x'&&v!==''?L[+v]:null;
+    $('rx_id').value=l?l.ref:(first&&o.payId?o.payId:'');$('rx_id').readOnly=!!l;
+    $('rx_a').value=l?Math.round((l.amt-l.done)*100)/100:(first&&o.amt?o.amt:'');
+    if(!l&&first&&o.payId)$('rx_r').value=REASONS[0];
+    const auto=/^pay_/.test($('rx_id').value);d.querySelector(`[name=rx_h][value=${auto?'rzp':'manual'}]`).checked=true;howUI()}
+  function howUI(){const h=(document.querySelector('[name=rx_h]:checked')||{}).value,isR=/^pay_/.test($('rx_id').value.trim());
+    const r=document.querySelector('[name=rx_h][value=rzp]');r.disabled=!isR;if(!isR&&h=='rzp')document.querySelector('[name=rx_h][value=manual]').checked=true;
+    $('rx_mn').hidden=(document.querySelector('[name=rx_h]:checked')||{}).value!='manual';
+    $('rx_go').textContent=(document.querySelector('[name=rx_h]:checked')||{}).value=='rzp'?'Refund through Razorpay':'Save refund'}
+  let busy=0;
+  async function go(){if(busy)return;const d=$('drx'),x=d._x;if(!x)return alert('Select the booking');
+    const v=$('rx_p').value,l=v!=='x'?(d._L||[])[+v]:null,payId=$('rx_id').value.trim(),amt=+$('rx_a').value,how=(document.querySelector('[name=rx_h]:checked')||{}).value;
+    if(!$('rx_r').value)return alert('Select the reason for the refund');if(!(amt>0))return alert('Enter the refund amount');if(l&&amt>l.amt-l.done+0.009)return alert('Refund cannot be more than '+R(l.amt-l.done)+' for this payment');
+    if(!l&&!payId)return alert('Enter the Payment ID / UTR of the payment you are refunding');
+    if(l&&!l.ref&&how=='rzp')return alert('This payment has no Razorpay ID - choose "I have already refunded it myself"');
+    const mode=how=='manual'?$('rx_md').value:'Razorpay',ref=how=='manual'?$('rx_ref').value.trim():'';if(how=='manual'&&!mode)return alert('Select how you refunded the money');
+    if(!confirm((how=='rzp'?'Refund '+R(amt)+' to the customer through Razorpay now?':'Save a refund of '+R(amt)+' for '+x.id+'?')+'\n\n'+x.name+' - '+x.mob))return;
+    busy=1;const b=$('rx_go');b.disabled=true;b.textContent='Please wait...';
+    try{if(window.flushNow)await flushNow();
+      const o=d._o||{},xa=!l&&o.payId&&o.payId==payId&&o.full?o.full:0;
+      const r=await gcall({action:'refund',bid:x.id,src:l?l.src:'other',payId,amt,max:l?l.amt:(xa||''),xamt:xa,xts:o.pts||'',reason:$('rx_r').value,rem:$('rx_m').value.trim(),how,mode,ref});
+      if(!r||!r.ok)throw new Error(r&&/unknown action/i.test(r.err||'')?'Deploy the new Code.gs first (Apps Script > Deploy > Manage deployments > New version).':(r&&r.err)||'not saved');
+      if(r.db)adopt(r.db);d.close();toast((r.rf&&r.rf.st=='Refunded'?'Refund done: ':'Refund started: ')+R(amt)+(r.rf&&r.rf.ref?' (Ref '+r.rf.ref+')':'')+'. The customer gets a notification.','ok');payForce=1;render();if(rzL)setTimeout(rzCheck,800)}
+    catch(err){alert('Refund not done: '+err.message)}finally{busy=0;b.disabled=false;howUI()}}
+  window.rfxOpen=rfxOpen;
+
+  /* old refund window -> Admin only, opens the new one */
+  if(typeof openRf=='function'){openRf=function(id){if(!isAdm())return alert('Only Admin can process refunds');const x=db.b.find(b=>b.id==id);rfxOpen({bid:id,src:x&&x.paid?'adv':''});
+    const d=$('drx');if(x&&x.rfq&&x.rfq.st=='Requested'){const m=$('rx_m');if(m&&!m.value)m.value='Customer request: '+x.rfq.reason+(x.rfq.rem?' - '+x.rfq.rem:'');
+      const rr=$('rx_r'),k=REASONS.find(r=>/twice/i.test(x.rfq.reason)?/Double/.test(r):/not come/i.test(x.rfq.reason)?/not come/.test(r):/cancel/i.test(x.rfq.reason)?/cancelled by/i.test(r):false);if(rr&&k)rr.value=k;
+      const row=d.querySelector('.row:last-child');if(row)row.insertAdjacentHTML('afterbegin',`<button type="button" class="alt" onclick="$('drx').close();rfqReject('${E(id)}')">Reject request</button>`)}}}
+  if(typeof window.rfqReject=='function'){const _rj=window.rfqReject;window.rfqReject=function(){if(!isAdm())return alert('Only Admin can decide refund requests');return _rj.apply(this,arguments)}}
+
+  /* ---------- the Payments tab ---------- */
+  let payForce=0;
+  const _rn=render;render=function(){
+    const want=canSee()&&ptab=='pay';
+    if(want&&!payForce&&document.querySelector('#panel .payw')&&!$('panel').hidden)return;
+    payForce=0;if(want)ptab='d';
+    try{_rn.apply(this,arguments)}finally{if(want)ptab='pay'}
+    if(!canSee())return;const tabs=document.querySelector('#panel .tabs');if(!tabs)return;
+    let t=tabs.querySelector('.tb-pay');if(!t){t=document.createElement('button');t.type='button';t.className='tb-pay';t.innerHTML='&#8377; Payments';t.onclick=()=>{payForce=1;ptab='pay';render()};
+      const ref=tabs.querySelector('.tb-ppa');tabs.insertBefore(t,ref?ref.nextSibling:null)}
+    if(want){tabs.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b==t));let s=tabs.nextSibling;while(s){const z=s.nextSibling;s.remove();s=z}tabs.insertAdjacentHTML('afterend',payHtml());if(rzL)rzPaint()}
     if(window.shellSync)shellSync()};
 })();
 
