@@ -1,6 +1,1 @@
-﻿{
-    "url":  "https://ntuvcare.in/NTUV-Care.apk",
-    "code":  53,
-    "name":  "6.2",
-    "note":  "Customer Online Payment, Auto Advance Deduction, Camera Capture \u0026 Technician Billing Edit"
-}
+{"code":52,"name":"6.1","url":"https://ntuvcare.in/NTUV-Care.apk","note":"Admin Payments tab with date range, refunds by Admin (also double payments)"}
