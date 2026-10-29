@@ -1418,6 +1418,15 @@ body.shell header .nbell-h{display:none!important}
 .nxw textarea{font-size:13.5px;line-height:1.5}
 @media(max-width:600px){.dntf{width:calc(100vw - 16px);max-height:calc(100dvh - 24px)}.nbell{width:38px;height:38px;min-width:38px}}
 .dntf>.dlx{display:none!important}
+/* v6.0.1: phone top bar - everything fits (call button shows only the phone icon on small screens) */
+@media(max-width:440px){
+ #tb2 .tb2-a{gap:6px}
+ #tb2 .tb2-call .tb2-cn{display:none!important}
+ #tb2 .tb2-call{width:40px!important;min-width:40px;height:40px!important;padding:0!important;gap:0!important;justify-content:center;border-radius:12px!important}
+ #tb2 .tb2-call .tb2-ci{margin:0!important}
+ #tb2 .nbell{width:38px;height:38px;min-width:38px}
+}
+@media(max-width:340px){#tb2 .tb2-a{gap:4px}#tb2 .nbell,#tb2 .tb2-call{width:36px!important;min-width:36px;height:36px!important}}
 
 /* admin settings */
 .cfgw{max-width:860px}
