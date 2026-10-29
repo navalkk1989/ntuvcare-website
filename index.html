@@ -1372,6 +1372,53 @@ body.shell #home .sc>div{padding:14px 16px 16px}
 body.shell #home .acg>figure{border-radius:18px;overflow:hidden;background:var(--card);box-shadow:0 10px 26px #0b2a7814}
 @media(prefers-reduced-motion:reduce){.vin-r,.vin-l{animation:none!important}body.shell #home[data-sub=main] .hx::after{animation:none}}
 
+/* ===== v5.9 notifications ===== */
+.nbell{position:relative;width:40px;height:40px;min-width:40px;padding:0!important;display:inline-grid!important;place-items:center;border-radius:12px!important;background:var(--card,#fff)!important;border:1px solid var(--line,#e3e9f3)!important;color:var(--ink,#0f1b33)!important;box-shadow:none!important;cursor:pointer;flex:none}
+.nbell .ic{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.nbell.has{color:var(--acc,#0f5bff)!important;border-color:color-mix(in srgb,var(--acc,#0f5bff) 40%,var(--line,#e3e9f3))!important}
+.nbdg{position:absolute;top:-6px;right:-6px;min-width:19px;height:19px;padding:0 5px;border-radius:999px;background:#e31e24;color:#fff;font:800 11px/19px system-ui,sans-serif;text-align:center;box-shadow:0 0 0 2px var(--card,#fff)}
+.nbell.ring .ic{animation:nring 1s ease 2}
+@keyframes nring{0%,100%{transform:rotate(0)}15%{transform:rotate(16deg)}30%{transform:rotate(-14deg)}45%{transform:rotate(10deg)}60%{transform:rotate(-8deg)}75%{transform:rotate(4deg)}}
+header .nav .nbell-h{margin-right:6px;align-self:center}
+body.shell header .nbell-h{display:none!important}
+#tb2 .tb2-a .nbell{margin-right:2px}
+@media(prefers-reduced-motion:reduce){.nbell.ring .ic{animation:none}}
+
+.dntf{width:min(460px,calc(100vw - 24px));max-height:min(640px,calc(100dvh - 40px));padding:0!important;border-radius:20px;border:1px solid var(--line);background:var(--card);color:var(--ink);overflow:hidden;display:none;flex-direction:column}
+.dntf[open]{display:flex}
+.dntf::backdrop{background:#0b122080;backdrop-filter:blur(2px)}
+.ntf-h{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--line);background:linear-gradient(120deg,#0b3fe0,#0f5bff 60%,#2b7bff);color:#fff}
+.ntf-h .ic{width:22px;height:22px;fill:none;stroke:#fff;stroke-width:2}.ntf-h h3{margin:0;flex:1;font-family:var(--hf);font-size:22px;letter-spacing:.02em;text-transform:uppercase;color:#fff}
+.ntf-h .ntf-x{width:34px;height:34px;padding:0!important;border-radius:10px!important;background:#ffffff26!important;color:#fff!important;border:0!important}
+.ntf-b{flex:1;overflow:auto;padding:12px 14px}
+.ntf-snd{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:14px;background:var(--note,#eef4ff);cursor:pointer;margin-bottom:10px}
+.ntf-snd input{position:absolute;opacity:0;pointer-events:none}
+.ntf-sw{position:relative;width:44px;height:26px;border-radius:999px;background:#c5cedd;flex:none;transition:background .2s}
+.ntf-sw::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px #0003;transition:transform .2s}
+.ntf-snd input:checked+.ntf-sw{background:#16a34a}.ntf-snd input:checked+.ntf-sw::after{transform:translateX(18px)}
+.ntf-snd input:focus-visible+.ntf-sw{outline:2px solid var(--acc);outline-offset:2px}
+.ntf-snd b{display:block;font-size:14.5px}.ntf-snd small{color:var(--mut);font-size:12.5px}
+.ntf-perm{padding:10px 12px;border-radius:12px;border:1px dashed var(--line);margin-bottom:10px;font-size:13px;color:var(--mut);display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.ntf-l{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.ntf-l li{position:relative;padding:10px 12px 10px 14px;border-radius:14px;border:1px solid var(--line);background:var(--card);cursor:pointer;transition:background .15s}
+.ntf-l li:hover{background:var(--note,#f4f7fc)}
+.ntf-l li.nw{border-color:color-mix(in srgb,var(--acc,#0f5bff) 45%,var(--line));background:color-mix(in srgb,var(--acc,#0f5bff) 6%,var(--card))}
+.ntf-l li.nw::before{content:"";position:absolute;left:5px;top:16px;width:6px;height:6px;border-radius:50%;background:#e31e24}
+.ntf-l b{display:block;font-size:14.5px;line-height:1.35;margin-top:3px}.ntf-l p{margin:3px 0 0;font-size:13.5px;color:var(--ink);opacity:.85;line-height:1.45}
+.ntf-l small{display:block;margin-top:4px;font-size:12px;color:var(--mut)}
+.ntf-k{display:inline-block;font:800 10.5px/1 system-ui,sans-serif;text-transform:uppercase;letter-spacing:.06em;padding:4px 7px;border-radius:999px;color:var(--kc);background:color-mix(in srgb,var(--kc) 12%,transparent)}
+.ntf-0{text-align:center;color:var(--mut);padding:26px 10px;font-size:14px}
+.ntf-f{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end;padding:10px 14px;border-top:1px solid var(--line)}
+.ntf-f button{padding:8px 12px!important;font-size:13px!important}
+
+.nxw .cfgc h4 .ic{width:19px;height:19px;vertical-align:-4px;fill:none;stroke:currentColor;stroke-width:2}
+.nx-pv{margin:10px 0 0}.nx-pv>small{color:var(--mut);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.nx-pc{display:flex;gap:10px;align-items:flex-start;margin-top:6px;padding:12px 14px;border-radius:16px;background:var(--note,#eef4ff);border:1px solid var(--line);max-width:420px}
+.nx-pc .ic{width:22px;height:22px;flex:none;fill:none;stroke:var(--acc,#0f5bff);stroke-width:2;margin-top:2px}.nx-pc b{display:block;font-size:14.5px}.nx-pc span{display:block;font-size:13.5px;color:var(--mut);margin-top:2px}
+.nxw textarea{font-size:13.5px;line-height:1.5}
+@media(max-width:600px){.dntf{width:calc(100vw - 16px);max-height:calc(100dvh - 24px)}.nbell{width:38px;height:38px;min-width:38px}}
+.dntf>.dlx{display:none!important}
+
 /* admin settings */
 .cfgw{max-width:860px}
 .cfgc{border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin:14px 0;background:var(--card);box-shadow:var(--shd)}
@@ -3444,10 +3491,10 @@ const _bcr27=bcRow;bcRow=function(x){const a=cmpLast(x);return _bcr27(x).concat(
 hlog=function(b,by,ev,st,rem,amt){(b.hist=b.hist||[]).push({at:new Date().toLocaleString(),ts:Date.now(),by,ev,st,rem:rem||'',amt:amt||''})};
 /* ---- phone app notifications: tell the app who is logged in ---- */
 function ntfWho(){if(me)return{role:me.role,id:me.id,name:me.name||''};if(cu)return{role:'cust',mob:cu};return null}
-function ntfSync(){if(!window.AndroidApp||!AndroidApp.setNotify||!GAS_URL)return;const w=ntfWho();try{w?AndroidApp.setNotify(GAS_URL,JSON.stringify(w)):AndroidApp.clearNotify()}catch(e){}}
+function ntfSync(){if(!window.AndroidApp||!AndroidApp.setNotify||!GAS_URL)return;const w=ntfWho();try{AndroidApp.setNotify(GAS_URL,JSON.stringify(w||{role:'visitor'}))}catch(e){}}
 let ntfLast=0;function ntfCheck(){if(!window.AndroidApp||!AndroidApp.checkNow||Date.now()-ntfLast<45000)return;ntfLast=Date.now();try{AndroidApp.checkNow()}catch(e){}}
 const _lg27=login;login=async function(){await _lg27();ntfSync()};const _cl27=clogin;clogin=async function(){await _cl27();ntfSync()};
-setInterval(()=>{ntfSync();ntfCheck()},60000);setTimeout(ntfSync,4000);
+setInterval(()=>{ntfSync();ntfCheck()},60000);setTimeout(()=>ntfSync(),4000);
 
 </script>
 <script>
@@ -5181,6 +5228,175 @@ ${V.length?`<div class="tw"><table class="hz"><tr><th>Complaint</th><th>Booking<
     const html=`<div class="tcm-h">${window.shIco?shIco('cash'):''}<b>My Commission</b><small>set by the office</small></div><div class="tcm-r"><div><small>Part profit</small><b>${esc(p.pc)}%</b><span>Company ${esc(100-p.pc)}%</span></div><div><small>Labour charge</small><b>${esc(p.lc)}%</b><span>Company ${esc(100-p.lc)}%</span></div></div><small class="tcm-n">Your commission on each bill is worked out with these rates. Part profit = part amount minus the purchase price when you buy the part.</small>`;
     if(!e){h.insertAdjacentHTML('afterend','<div id="tcm" class="tcm"></div>');e=$('tcm')}if(e.innerHTML!==html)e.innerHTML=html}
   const _r=render;render=function(){_r.apply(this,arguments);try{tcm()}catch(_){}};
+})();
+
+</script><script>
+/* ===== NTUV v5.9: live notifications with sound (website + app) =====
+   - bell with unread count in the top bar (website header and app), list of all notifications
+   - website: checks every 20-45 s, plays a chime, shows a pop-up (and a browser alert when allowed)
+   - app: the phone shows each notification with sound, even when the app is closed; sound on/off switch
+   - Admin / Office > Notifications: send to customers / technicians / staff, all or one state / city (price updates, offers),
+     regular reminders every few hours, list of sent messages */
+(function(){
+  const APP=/NTUVCareApp/.test(navigator.userAgent),B=document.body;
+  const AA=()=>window.AndroidApp||null,NAPP=()=>APP&&AA()&&typeof AA().inbox=='function';
+  const LS={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(_){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(_){}}};
+  const I=n=>window.shIco?shIco(n):'';
+  const E=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const BELL='<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 8.5 3 8.5H3S6 15 6 8M10.3 20.5a2 2 0 0 0 3.4 0"/></svg>';
+  const KIND={act:['Update','#0f5bff'],price:['Price update','#16a34a'],offer:['Offer','#e11d74'],info:['News','#8b5cf6'],remind:['Reminder','#f97316'],tip:['Tip','#0ea5a4']};
+
+  /* ---------- who is this device (role + city / state for local offers) ---------- */
+  function loc(){return LS.get('nLoc',{})||{}}
+  function saveLoc(){const l=loc(),c=$('ci'),s=$('st');if(c&&c.value.trim())l.city=c.value.trim();if(s&&s.value.trim())l.state=s.value.trim();LS.set('nLoc',l)}
+  document.addEventListener('change',e=>{const id=e.target&&e.target.id;if(id=='ci'||id=='st'||id=='pin')setTimeout(saveLoc,600)},true);
+  document.addEventListener('submit',e=>{if(e.target&&e.target.id=='bf')saveLoc()},true);
+  function who(){let w=null;try{w=typeof ntfWho=='function'?ntfWho():null}catch(_){}w=w||{role:'visitor'};const l=loc();if(l.city)w.city=l.city;if(l.state)w.state=l.state;return w}
+  const idKey=()=>{const w=who();return w.role+':'+(w.id||w.mob||'')};
+
+  /* the phone checks in the background for this user - visitors too (offers, price updates, reminders) */
+  window.ntfSync=function(){const a=AA();if(!a||!a.setNotify||!GAS_URL)return;try{a.setNotify(GAS_URL,JSON.stringify(who()))}catch(_){}};
+
+  /* ---------- sound ---------- */
+  const sndOn=()=>{const a=AA();if(APP&&a&&a.getSound){try{return !!a.getSound()}catch(_){}}return LS.get('nSnd',true)!==false};
+  function setSnd(v){LS.set('nSnd',!!v);try{const a=AA();if(a&&a.setSound)a.setSound(!!v)}catch(_){}paint();toast(v?'Notification sound is ON':'Notification sound is OFF - notifications will come silently','info')}
+  let ac=null;
+  function actx(){try{if(!ac){const C=window.AudioContext||window.webkitAudioContext;if(!C)return null;ac=new C()}if(ac.state=='suspended')ac.resume();return ac}catch(_){return null}}
+  ['pointerdown','keydown','touchstart'].forEach(ev=>document.addEventListener(ev,()=>actx(),{once:true,passive:true}));
+  function chime(){const c=actx();if(!c)return;const t=c.currentTime+.02;
+    [[784,0,.32],[1175,.15,.32],[1568,.3,.22]].forEach(([f,d,v])=>{const o=c.createOscillator(),g=c.createGain();o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(.0001,t+d);g.gain.exponentialRampToValueAtTime(v,t+d+.02);g.gain.exponentialRampToValueAtTime(.0001,t+d+.6);o.connect(g);g.connect(c.destination);o.start(t+d);o.stop(t+d+.65)})}
+
+  /* ---------- inbox ---------- */
+  let inbox=LS.get('nIn',[])||[],seen=+LS.get('nSeen',0)||0,since=+LS.get('nSince',0)||0,alertFrom=+LS.get('nAlert',0)||0,busy=0;
+  function fresh(){const k=idKey();if(LS.get('nWho','')===k&&since)return;LS.set('nWho',k);
+    inbox=[];since=Date.now()-2*864e5;alertFrom=Date.now();seen=0;LS.set('nIn',inbox);LS.set('nSince',since);LS.set('nAlert',alertFrom);LS.set('nSeen',0);
+    if(NAPP())backfill()}
+  const keyOf=it=>(it.id||'')+'|'+it.ts+'|'+(it.title||'');
+  function take(items,ring){if(!Array.isArray(items)||!items.length)return;const nw=[];
+    items.forEach(it=>{if(!it||!it.ts)return;const k=keyOf(it);if(inbox.some(x=>x.k==k))return;inbox.push({k,ts:+it.ts,kind:it.kind||'act',title:String(it.title||'NTUV Care'),body:String(it.body||''),bid:it.bid||''});if(+it.ts>alertFrom)nw.push(it)});
+    since=Math.max(since,...items.map(i=>+i.ts||0));LS.set('nSince',since);
+    inbox.sort((a,b)=>a.ts-b.ts);inbox=inbox.slice(-60);LS.set('nIn',inbox);
+    if(nw.length){alertFrom=Math.max(alertFrom,...nw.map(i=>+i.ts));LS.set('nAlert',alertFrom);if(ring)alertNew(nw)}
+    paint()}
+  function alertNew(nw){const last=nw[nw.length-1];
+    if(!NAPP()){if(sndOn())chime();
+      try{if(window.Notification&&Notification.permission=='granted'&&(document.hidden||!document.hasFocus()))nw.slice(-3).forEach(it=>{const n=new Notification(it.title,{body:it.body,tag:keyOf(it),renotify:true,silent:!sndOn()});n.onclick=()=>{window.focus();n.close();openIt(it)}})}catch(_){}}
+    if(!document.hidden)toast((nw.length>1?nw.length+' new notifications - ':'')+last.title+(last.body?': '+last.body.slice(0,90):''),'info');
+    const b=document.querySelectorAll('.nbell');b.forEach(x=>{x.classList.remove('ring');void x.offsetWidth;x.classList.add('ring')})}
+
+  /* website: ask the server; app: the phone asks (with sound) and this page reads the phone's list */
+  async function poll(){if(!GAS_URL||busy)return;fresh();
+    if(NAPP()){try{AA().checkNow()}catch(_){}setTimeout(readApp,4000);return}
+    busy=1;try{const r=await gcall({action:'ntf',since,who:who()});if(r&&r.ok)take(r.items,true)}catch(_){}finally{busy=0}}
+  async function backfill(){if(!GAS_URL)return;try{const r=await gcall({action:'ntf',since:Date.now()-2*864e5,who:who()});if(r&&r.ok){const a=alertFrom;take(r.items,false);alertFrom=a;LS.set('nAlert',a)}}catch(_){}}
+  let appLast='';
+  function readApp(){if(!NAPP())return;let s='';try{s=AA().inbox()||'[]'}catch(_){return}if(s===appLast)return;appLast=s;let L=[];try{L=JSON.parse(s)}catch(_){}take(L,true)}
+  const staffish=()=>!!(typeof me!='undefined'&&me&&me.role);
+  let pT=0;function loop(){clearTimeout(pT);const ms=document.hidden?90000:(staffish()||(typeof cu!='undefined'&&cu)?20000:40000);pT=setTimeout(()=>{poll();loop()},ms)}
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden){setTimeout(poll,600);readApp()}loop()});
+  setInterval(readApp,3000);
+  setTimeout(()=>{fresh();poll();loop();if(typeof ntfSync=='function')ntfSync()},2500);
+  /* login / logout -> new list for the new user */
+  ['login','clogin'].forEach(f=>{if(typeof window[f]=='function'){const _f=window[f];window[f]=async function(){const r=await _f.apply(this,arguments);setTimeout(()=>{fresh();poll();ntfSync()},1200);return r}}});
+
+  /* ---------- bell + list ---------- */
+  const unread=()=>inbox.filter(x=>x.ts>seen).length;
+  function ensureBell(){
+    const spots=[document.querySelector('#tb2 .tb2-a'),document.querySelector('header .nav')];
+    spots.forEach((sp,i)=>{if(!sp||sp.querySelector('.nbell'))return;const b=document.createElement('button');b.type='button';b.className='nbell'+(i?' nbell-h':'');b.setAttribute('aria-label','Notifications');
+      b.innerHTML=BELL+'<span class="nbdg" hidden></span>';b.onclick=e=>{e.preventDefault();e.stopPropagation();openList()};sp.insertBefore(b,sp.firstChild)});
+    paint()}
+  function paint(){const n=unread();document.querySelectorAll('.nbell .nbdg').forEach(d=>{d.hidden=!n;d.textContent=n>99?'99+':n});
+    document.querySelectorAll('.nbell').forEach(b=>b.classList.toggle('has',n>0));
+    const d=$('dntf');if(d&&d.open)fill()}
+  setInterval(ensureBell,1500);setTimeout(ensureBell,300);
+  const ago=ts=>{const s=Math.max(0,(Date.now()-ts)/1000);if(s<60)return 'just now';if(s<3600)return Math.floor(s/60)+' min ago';if(s<86400)return Math.floor(s/3600)+' hr ago';
+    return new Date(ts).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'numeric',minute:'2-digit'})};
+  function fill(){const d=$('dntf');if(!d)return;const L=inbox.slice().reverse(),on=sndOn();
+    const perm=!APP&&window.Notification?Notification.permission:'';
+    d.querySelector('.ntf-b').innerHTML=`<label class="ntf-snd"><input type="checkbox" id="ntf_snd" ${on?'checked':''}><span class="ntf-sw"></span><span><b>Notification sound</b><small>${on?'ON - every notification plays a sound':'OFF - notifications come silently'}</small></span></label>
+${perm&&perm!='granted'?`<div class="ntf-perm">${perm=='denied'?'Pop-up alerts are blocked in this browser. Allow notifications for this site in the browser settings to get alerts in other tabs.':'<button type="button" class="pbtn" id="ntf_allow">Allow pop-up alerts</button><small>Get alerts with sound even when you are in another tab.</small>'}</div>`:''}
+${L.length?`<ul class="ntf-l">${L.map(it=>{const k=KIND[it.kind]||KIND.act;return `<li class="${it.ts>seen?'nw':''}" data-nk="${E(it.k)}"><span class="ntf-k" style="--kc:${k[1]}">${E(k[0])}</span><b>${E(it.title)}</b>${it.body?`<p>${E(it.body)}</p>`:''}<small>${ago(it.ts)}</small></li>`}).join('')}</ul>`
+  :'<p class="ntf-0">No notifications yet. Booking updates, offers and price news will appear here.</p>'}`;
+    const s=$('ntf_snd');if(s)s.onchange=()=>setSnd(s.checked);const al=$('ntf_allow');if(al)al.onclick=askPerm}
+  function openList(){let d=$('dntf');if(!d){d=document.createElement('dialog');d.id='dntf';d.className='dntf';
+      d.innerHTML=`<div class="ntf-h">${BELL}<h3>Notifications</h3><button type="button" class="alt ntf-x" aria-label="Close">&#10005;</button></div><div class="ntf-b"></div>
+<div class="ntf-f"><button type="button" class="alt" id="ntf_test">Test sound</button>${APP&&AA()&&AA().openNotifySettings?'<button type="button" class="alt" id="ntf_set">Phone settings</button>':''}<button type="button" class="alt" id="ntf_read">Mark all read</button></div>`;
+      document.body.appendChild(d);d.querySelector('.ntf-x').onclick=()=>d.close();d.addEventListener('click',e=>{if(e.target===d)d.close();const li=e.target.closest&&e.target.closest('li[data-nk]');if(li){const it=inbox.find(x=>x.k==li.dataset.nk);if(it)openIt(it)}});
+      $('ntf_test').onclick=()=>{if(NAPP()&&AA().testNotify){AA().testNotify();toast('A test notification was sent to this phone','info')}else{chime();toast(sndOn()?'This is the notification sound':'Sound is OFF - turn it ON above to hear it','info')}};
+      const st=$('ntf_set');if(st)st.onclick=()=>{try{AA().openNotifySettings()}catch(_){}};
+      $('ntf_read').onclick=()=>{markRead();fill()};
+      d.addEventListener('close',markRead)}
+    fill();d.showModal();d.querySelector('.ntf-b').scrollTop=0}
+  function markRead(){const m=inbox.reduce((a,x)=>Math.max(a,x.ts),seen);seen=m;LS.set('nSeen',seen);paint()}
+  function openIt(it){const d=$('dntf');if(d&&d.open)d.close();
+    if(it.bid){if(typeof me!='undefined'&&me&&typeof vb=='function'){try{vb(it.bid,'all',0)}catch(_){}}else if((typeof cu!='undefined'&&cu)){try{show('cust')}catch(_){}}}
+    else if(/price|offer/.test(it.kind)){try{show('home');const f=$('bf');if(f)setTimeout(()=>f.scrollIntoView({behavior:'smooth'}),200)}catch(_){}}}
+  async function askPerm(){try{const p=await Notification.requestPermission();toast(p=='granted'?'Pop-up alerts are ON':'Pop-up alerts were not allowed','info')}catch(_){}fill()}
+
+  /* ---------- Admin / Office > Notifications ---------- */
+  const ENG_DEF={on:true,every:4,from:9,to:21,autoPrice:true,
+    cust:["AC cooling low? | A quick service brings the cooling back. Book a technician in 1 minute on {name}.","Today's offer | {offer} at just Rs {price}. Book now - a trained technician comes to your home.","Save on electricity | A clean AC filter can cut the electricity bill. Book a general service today.","Water dripping from the AC? | Our technicians fix leakage and drain blockage the same day. Book now.","Gas filling and repair | Strange noise, smell or no cooling? Book an expert check-up on {name}.","Track your service | See your booking, technician, invoice and refund status anytime in My Account.","Moving house? | We do AC uninstallation, installation and copper piping. Get it booked today.","Healthy air at home | Regular AC cleaning removes dust and germs. Book your service with {name}."],
+    tech:["Stay online | Keep the app open with location on to get new jobs near you first.","Check your jobs | Open the app to see new and pending bookings.","Close jobs on time | Update the status and bill after every visit so the office and customer stay informed.","Your earnings | See your commission and deposits in your panel."]};
+  const engGet=()=>Object.assign({},ENG_DEF,(setGet().eng||{}));
+  let nList=null,nForce=0,nBusy=0;
+  const isStaff=()=>typeof me!='undefined'&&me&&['admin','manager','office'].indexOf(me.role)>=0;
+  function places(){const S={},C={};(db.b||[]).forEach(b=>{if(b.st)S[String(b.st).trim()]=1;if(b.ci)C[String(b.ci).trim()]=1});return [Object.keys(S).sort(),Object.keys(C).sort()]}
+  function nxHtml(){const e=engGet(),A=me.role=='admin',[SS,CC]=places(),hr=h=>{const x=h%24;return (x%12||12)+' '+(x<12?'AM':'PM')};
+    const sel=(id,opts,v,dis)=>`<select id="${id}" ${dis?'disabled':''}>${opts.map(o=>`<option value="${o[0]}" ${String(o[0])==String(v)?'selected':''}>${E(o[1])}</option>`).join('')}</select>`;
+    return `<div class="nxw"><h3 class="sh">Notifications</h3><p><small>Everything that happens on a booking (new booking, technician assigned, status, payment, complaint, refund) reaches the customer, technician and office automatically with sound. Here you can also send your own message, for example a new price in one city.</small></p>
+<div class="cfgc"><h4>${BELL} Send a notification</h4>
+<div class="row"><label>Type${sel('nx_k',[['info','Announcement'],['price','Price update'],['offer','Offer'],['remind','Reminder']],'info')}</label>
+<label>Send to${sel('nx_a',[['cust','Customers and website / app visitors'],['tech','Technicians'],['all','Customers + Technicians'],['staff','Office staff']],'cust')}</label></div>
+<div class="row"><label>State <small>(empty = all states)</small><input id="nx_s" list="nx_sl" placeholder="e.g. Haryana" autocomplete="off"></label><label>City <small>(empty = all cities)</small><input id="nx_c" list="nx_cl" placeholder="e.g. Gurgaon" autocomplete="off"></label></div>
+<datalist id="nx_sl">${SS.map(x=>`<option value="${E(x)}">`).join('')}</datalist><datalist id="nx_cl">${CC.map(x=>`<option value="${E(x)}">`).join('')}</datalist>
+<div class="row nx-pr" hidden><label>Service<input id="nx_sv" placeholder="e.g. AC General Service"></label><label>New price (Rs)<input id="nx_p" type="number" min="0" placeholder="e.g. 499"></label></div>
+<label>Title<input id="nx_t" maxlength="80" placeholder="e.g. Diwali offer: AC service at Rs 499"></label>
+<label>Message<textarea id="nx_b" rows="3" maxlength="400" placeholder="Write the message. {city} is replaced with the customer's city."></textarea></label>
+<div class="nx-pv"><small>Preview</small><div class="nx-pc">${BELL}<div><b id="nx_pt">Title</b><span id="nx_pb">Message</span></div></div></div>
+<div class="cfg-ft"><button type="button" class="pbtn" id="nx_go">Send notification</button></div></div>
+<div class="cfgc"><h4>${I('cal')} Regular reminders ${A?'':'<small>(only Admin can change)</small>'}</h4>
+<label class="cfgt"><input type="checkbox" id="ne_on" ${e.on?'checked':''} ${A?'':'disabled'}><span class="cfg-s"></span><span class="cfg-t"><b>Send a reminder every few hours</b><small>Customers, visitors and technicians get a friendly message (tips, offers) even on days with no booking update - so they keep opening the app.</small></span></label>
+<div class="row"><label>Every${sel('ne_ev',[1,2,3,4,6,8,12].map(h=>[h,h+(h>1?' hours':' hour')]),e.every,!A)}</label><label>From${sel('ne_fr',[...Array(24).keys()].map(h=>[h,hr(h)]),e.from,!A)}</label><label>Until${sel('ne_to',[...Array(24).keys()].map(h=>[h+1,hr(h+1)]),e.to,!A)}</label></div>
+<label class="cfgt"><input type="checkbox" id="ne_ap" ${e.autoPrice!==false?'checked':''} ${A?'':'disabled'}><span class="cfg-s"></span><span class="cfg-t"><b>Tell customers when the offer price changes</b><small>When you change the home page offer price in Settings, everyone gets "New price" automatically.</small></span></label>
+<label>Messages for customers and visitors <small>(one per line: Title | Message. {offer} {price} {city} {name} are filled in)</small><textarea id="ne_c" rows="7" ${A?'':'disabled'}>${E((e.cust||[]).join('\n'))}</textarea></label>
+<label>Messages for technicians <small>(one per line)</small><textarea id="ne_t" rows="4" ${A?'':'disabled'}>${E((e.tech||[]).join('\n'))}</textarea></label>
+${A?'<div class="cfg-ft"><button type="button" class="alt" id="ne_def">Default messages</button><button type="button" class="pbtn" id="ne_sv">Save reminders</button></div>':''}</div>
+<div class="cfgc"><h4>${I('list')} Sent notifications</h4><div id="nx_list">${nList?listHtml():'<p class="note">Loading...</p>'}</div></div></div>`}
+  const AUD={cust:'Customers & visitors',tech:'Technicians',all:'Customers + Technicians',staff:'Office staff'};
+  function listHtml(){const L=nList||[];if(!L.length)return '<p class="note">Nothing sent yet.</p>';
+    return `<div class="tw"><table class="hz"><tr><th>Sent</th><th>Notification</th><th>To</th><th>Where</th><th></th></tr>${L.map(n=>`<tr><td><small>${E(new Date(n.ts).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'numeric',minute:'2-digit'}))}</small><br><small>${E(n.by||'')}</small></td><td class="w"><span class="ntf-k" style="--kc:${(KIND[n.kind]||KIND.info)[1]}">${E((KIND[n.kind]||KIND.info)[0])}</span><br><b>${E(n.title)}</b><br><small>${E(n.body||'')}</small></td><td>${E(AUD[n.aud]||n.aud)}</td><td>${E([n.city,n.state].filter(Boolean).join(', ')||'All')}</td><td><button type="button" class="alt pbtn" data-ndel="${E(n.id)}">Delete</button></td></tr>`).join('')}</table></div>`}
+  async function loadList(){try{const r=await gcall({action:'nlist'});if(r&&r.ok){nList=r.list;const x=$('nx_list');if(x)x.innerHTML=listHtml()}else{const x=$('nx_list');if(x)x.innerHTML='<p class="note">'+E(r&&/unknown action/i.test(r.err||'')?'Deploy the new Code.gs to use notifications (Apps Script > Deploy > Manage deployments > New version).':(r&&r.err)||'Could not load')+'</p>'}}catch(_){}}
+  function pv(){const t=$('nx_t'),b=$('nx_b');if(!t)return;const c=($('nx_c').value||'').trim()||'your city';$('nx_pt').textContent=(t.value||'Title').replace(/\{city\}/g,c);$('nx_pb').textContent=(b.value||'Message').replace(/\{city\}/g,c)}
+  function prFill(){const sv=($('nx_sv').value||'').trim()||'AC Service',p=($('nx_p').value||'').trim(),c=($('nx_c').value||'').trim()||($('nx_s').value||'').trim();if(!p)return;
+    $('nx_t').value=`New price${c?' in '+c:''}: ${sv} now Rs ${p}`;$('nx_b').value=`Good news! ${sv} is now just Rs ${p}${c?' in '+c:''}. Book now on the app or website - a trained technician comes to your home.`;pv()}
+  document.addEventListener('input',e=>{const id=e.target&&e.target.id;if(!/^nx_/.test(id||''))return;if(id=='nx_sv'||id=='nx_p'||((id=='nx_c'||id=='nx_s')&&$('nx_k').value=='price'))prFill();pv()});
+  document.addEventListener('change',e=>{if(e.target&&e.target.id=='nx_k'){const p=e.target.value=='price';document.querySelector('.nx-pr').hidden=!p;if(p)prFill()}});
+  document.addEventListener('click',async e=>{const t=e.target;
+    if(t.id=='nx_go'){if(nBusy)return;const title=$('nx_t').value.trim(),body=$('nx_b').value.trim();if(!title)return alert('Write a title');
+      const st=$('nx_s').value.trim(),ci=$('nx_c').value.trim(),aud=$('nx_a').value;
+      if(!confirm('Send this notification to '+(AUD[aud]||aud)+(ci||st?' in '+[ci,st].filter(Boolean).join(', '):' everywhere')+'?'))return;
+      nBusy=1;t.disabled=true;t.textContent='Sending...';
+      try{const r=await gcall({action:'nsend',kind:$('nx_k').value,aud,state:st,city:ci,title,body});if(!r||!r.ok)throw new Error(r&&r.err||'not sent');nList=r.list;$('nx_list').innerHTML=listHtml();$('nx_t').value='';$('nx_b').value='';pv();toast('Notification sent. Phones get it within a few minutes, open apps and websites right away.','ok')}
+      catch(err){toast(/unknown action/i.test(err.message)?'Deploy the new Code.gs first (Apps Script > Deploy > Manage deployments > New version).':'Not sent: '+err.message,'bad')}
+      finally{nBusy=0;t.disabled=false;t.textContent='Send notification'}return}
+    const del=t.closest&&t.closest('[data-ndel]');if(del){if(!confirm('Delete this notification? Users who have not received it yet will not get it.'))return;try{const r=await gcall({action:'ndel',id:del.dataset.ndel});if(r&&r.ok){nList=r.list;$('nx_list').innerHTML=listHtml();toast('Deleted','ok')}}catch(_){}return}
+    if(t.id=='ne_def'){$('ne_c').value=ENG_DEF.cust.join('\n');$('ne_t').value=ENG_DEF.tech.join('\n');return}
+    if(t.id=='ne_sv'){if(!me||me.role!='admin')return;const fr=+$('ne_fr').value,to=+$('ne_to').value;if(to<=fr)return alert('"Until" must be later than "From"');
+      const lines=id=>$(id).value.split('\n').map(x=>x.trim()).filter(Boolean).slice(0,40);
+      const r=stx();r.eng={on:$('ne_on').checked,every:+$('ne_ev').value,from:fr,to,autoPrice:$('ne_ap').checked,cust:lines('ne_c'),tech:lines('ne_t')};r.at=new Date().toLocaleString();save();try{applySet()}catch(_){}
+      toast('Reminders saved','ok')}});
+  const stx=()=>{const r=db.set.find(x=>x.id=='co');if(r)return r;const n={id:'co'};db.set.push(n);return n};
+  const _rn=render;render=function(){
+    const want=isStaff()&&ptab=='ntx';
+    if(want&&!nForce&&document.querySelector('#panel .nxw')&&!$('panel').hidden)return;
+    nForce=0;if(want)ptab='d';
+    try{_rn.apply(this,arguments)}finally{if(want)ptab='ntx'}
+    if(!isStaff())return;const tabs=document.querySelector('#panel .tabs');if(!tabs)return;
+    let t=tabs.querySelector('.tb-ntx');if(!t){t=document.createElement('button');t.type='button';t.className='tb-ntx';t.innerHTML='&#128276; Notifications';t.onclick=()=>{nForce=1;ptab='ntx';render();loadList()};tabs.appendChild(t)}
+    if(want){tabs.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b==t));let s=tabs.nextSibling;while(s){const z=s.nextSibling;s.remove();s=z}tabs.insertAdjacentHTML('afterend',nxHtml());pv()}
+    if(window.shellSync)shellSync()};
 })();
 
 </script>
