@@ -1480,14 +1480,26 @@ body.shell header .nbell-h{display:none!important}
 .ad-h{display:flex;align-items:center;justify-content:space-between;margin:0 2px 6px}
 .ad-h>span:first-child{font:700 11px/1 system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--mut,#64748b);background:var(--card,#fff);border:1px solid var(--line,#e3e9f3);padding:4px 8px;border-radius:999px}
 .ad-dots{display:flex;gap:5px}.ad-dots i{width:7px;height:7px;border-radius:50%;background:var(--line,#cbd5e1);cursor:pointer}.ad-dots i.on{background:var(--acc,#0f5bff)}
-.ad-card{display:block;border-radius:16px;overflow:hidden;background:var(--card,#fff);border:1px solid var(--line,#e3e9f3);text-decoration:none!important;color:var(--ink)!important;box-shadow:0 6px 18px #0b2a7812;animation:adin .5s ease}
-@keyframes adin{from{opacity:.2}to{opacity:1}}
-.ad-card img{display:block;width:100%;max-height:260px;object-fit:contain;background:#f4f7fc}
+.ad-card{display:block;margin:0 auto;border-radius:16px;overflow:hidden;background:var(--card,#fff);border:1px solid var(--line,#e3e9f3);text-decoration:none!important;color:var(--ink)!important;box-shadow:0 6px 18px #0b2a7812}
+.ad-card img{display:block;width:100%;height:auto;max-height:420px;object-fit:contain;background:#f4f7fc}
 .ad-cap{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 12px}
 .ad-cap b{display:block;font-size:14px}.ad-cap small{display:block;color:var(--mut);font-size:12.5px}
 .ad-cap em{font-style:normal;font-weight:800;font-size:12.5px;color:var(--acc,#0f5bff);white-space:nowrap}
 body.shell .adslot{padding:0;margin:var(--mp,14px) 0 0}
-@media(prefers-reduced-motion:reduce){.ad-card{animation:none}}
+/* sliding ads */
+.ad-v{position:relative;overflow:hidden;border-radius:16px;touch-action:pan-y}
+.ad-tr{display:flex;align-items:center;transition:transform .6s cubic-bezier(.4,0,.2,1);will-change:transform}
+.ad-sl{flex:0 0 100%;min-width:0;box-sizing:border-box;padding:0 2px 8px}
+.ad-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:34px;height:34px;border-radius:50%;border:0;padding:0!important;background:#ffffffe6;color:#0b2a78;font:700 24px/32px system-ui,sans-serif;box-shadow:0 2px 10px #0b2a7833;cursor:pointer;opacity:.85}
+.ad-nav:hover{opacity:1}.ad-pv{left:6px}.ad-nx{right:6px}
+.ad-dots i{width:8px;height:8px;transition:width .3s}.ad-dots i.on{width:18px;border-radius:5px}
+@media(hover:none){.ad-nav{display:none}}
+@media(prefers-reduced-motion:reduce){.ad-tr{transition:none}}
+.adszp{margin:4px 0 12px;padding:10px;border:1px dashed var(--line);border-radius:12px;background:#f4f7fc}
+.adszp>span{display:block;font-size:12px;color:var(--mut);margin-bottom:6px}
+.adszb{margin:0 auto;border-radius:10px;overflow:hidden;background:#fff;border:1px solid var(--line);text-align:center;color:var(--mut);min-height:40px;line-height:40px;transition:max-width .3s}
+.adszb img{display:block;width:100%;height:auto}
+.adspd{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;margin:6px 0 14px!important}.adspd label{display:flex;align-items:center;gap:8px;margin:0}.adspd select{width:auto}.adspd small{color:var(--mut)}
 /* Admin > Ads */
 .adhelp summary{cursor:pointer}.adhelp ol{margin:10px 0 0;padding-left:20px}.adhelp li{margin:5px 0}
 .adprev{flex:1 1 220px;min-height:90px;border:1px dashed var(--line);border-radius:12px;display:grid;place-items:center;overflow:hidden;position:relative;background:#f4f7fc}
@@ -1515,6 +1527,8 @@ body.app-foot.shell #home[data-sub=main]>footer{display:block!important;border-r
 body.app-foot footer .f-addr{display:none!important}
 body.app-foot #apol{display:none!important}
 body.shell #home[data-sub=main]>.adslot{display:block!important}
+/* phones: Small and Medium ads stay smaller than the screen */
+@media(max-width:600px){.ad-z-s{max-width:62%!important}.ad-z-m{max-width:85%!important}.ad-z-s .ad-cap{padding:6px 9px}.ad-z-s .ad-cap b{font-size:12.5px}.ad-z-s .ad-cap small,.ad-z-s .ad-cap em{font-size:11px}}
 
 /* admin settings */
 .cfgw{max-width:860px}
@@ -5765,23 +5779,38 @@ ${on&&left>0?`<button type="button" class="bpay-go" onclick="billPay('${E(x.id)}
   let dev=LS.get('adDev','');if(!dev){dev=Math.random().toString(36).slice(2,12);LS.set('adDev',dev)}
   const SPOTS=[['#home','footer'],['#cust',null],['#tech',null]];
   let adI=Math.floor(Math.random()*97),adSig='';
-  function adCard(a){return `<a class="ad-card" href="${E(a.link)}" target="_blank" rel="noopener sponsored nofollow" data-adid="${E(a.id)}" aria-label="Advertisement: ${E(a.co)} - opens their website in a new tab">
+  const SZ={s:360,m:600,l:900,f:0};
+  const adW=a=>{if(a.size=='c'){const w=Math.round(+a.w||0);return w>=160?Math.min(w,1200):600}return a.size in SZ?SZ[a.size]:SZ.m};
+  const adSec=()=>{const n=+setGet().adSec;return n>=2&&n<=30?n:5};
+  function adCard(a){const w=adW(a);return `<a class="ad-card ad-z-${E(a.size||'m')}" style="${w?'max-width:'+w+'px':''}" href="${E(a.link)}" target="_blank" rel="noopener sponsored nofollow" data-adid="${E(a.id)}" aria-label="Advertisement: ${E(a.co)} - opens their website in a new tab">
 <img src="${E(a.img)}" alt="${E(a.co+(a.txt?' - '+a.txt:''))}" loading="lazy" decoding="async"><span class="ad-cap"><span><b>${E(a.co)}</b>${a.txt?`<small>${E(a.txt)}</small>`:''}</span><em>Visit website &#8599;</em></span></a>`}
-  function adPaint(){const L=adsLive(),sig=JSON.stringify(L.map(a=>[a.id,a.img,a.link,a.co,a.txt]));
+  function adPaint(){const L=adsLive(),sig=JSON.stringify(L.map(a=>[a.id,a.img,a.link,a.co,a.txt,a.size,a.w]));
     SPOTS.forEach(([sec,before],k)=>{const s=document.querySelector(sec);if(!s)return;let slot=s.querySelector(':scope > .adslot');
       if(!L.length){if(slot)slot.remove();return}
       if(!slot){slot=document.createElement('aside');slot.className='adslot';slot.setAttribute('aria-label','Sponsored');const b=before&&s.querySelector(':scope > '+before);if(b)s.insertBefore(slot,b);else s.appendChild(slot)}
-      if(slot.dataset.sig!==sig){slot.dataset.sig=sig;slot.innerHTML=`<div class="ad-h"><span>Sponsored</span>${L.length>1?`<span class="ad-dots">${L.map((_,i)=>`<i data-i="${i}"></i>`).join('')}</span>`:''}</div><div class="ad-v"></div>`}
-      adShow(slot,L,(adI+k)%L.length)});adSig=sig}
-  function adShow(slot,L,i){const v=slot.querySelector('.ad-v');if(!v||!L[i])return;if(v.dataset.id===L[i].id)return;v.dataset.id=L[i].id;v.innerHTML=adCard(L[i]);
+      if(slot.dataset.sig!==sig){slot.dataset.sig=sig;delete slot.dataset.i;
+        slot.innerHTML=`<div class="ad-h"><span>Sponsored</span>${L.length>1?`<span class="ad-dots">${L.map((_,i)=>`<i data-i="${i}" role="button" aria-label="Show ad ${i+1}"></i>`).join('')}</span>`:''}</div><div class="ad-v">${L.length>1?'<button type="button" class="ad-nav ad-pv" aria-label="Previous ad">&#8249;</button>':''}<div class="ad-tr">${L.map(a=>`<div class="ad-sl">${adCard(a)}</div>`).join('')}</div>${L.length>1?'<button type="button" class="ad-nav ad-nx" aria-label="Next ad">&#8250;</button>':''}</div>`;
+        slot.onmouseenter=()=>slot.dataset.hold=1;slot.onmouseleave=()=>delete slot.dataset.hold;adSwipe(slot)}
+      if(slot.dataset.i==null)adShow(slot,L,adI%L.length)});adSig=sig}
+  function adShow(slot,L,i){const tr=slot.querySelector('.ad-tr');if(!tr||!L.length)return;i=((i%L.length)+L.length)%L.length;slot.dataset.i=i;
+    tr.style.transform='translateX('+(-100*i)+'%)';tr.querySelectorAll('.ad-sl').forEach((d,j)=>{d.setAttribute('aria-hidden',j!=i);d.querySelectorAll('a').forEach(a=>a.tabIndex=j==i?0:-1)});
     slot.querySelectorAll('.ad-dots i').forEach((d,j)=>d.classList.toggle('on',j==i))}
-  setInterval(()=>{if(document.hidden)return;const L=adsLive();if(L.length>1){adI++;document.querySelectorAll('.adslot').forEach((s,k)=>adShow(s,L,(adI+k)%L.length))}},7000);
+  const adStep=(slot,d)=>{const L=adsLive();if(L.length>1)adShow(slot,L,(+slot.dataset.i||0)+d)};
+  /* swipe left / right on phones; a swipe does not open the ad */
+  function adSwipe(slot){const v=slot.querySelector('.ad-v');if(!v)return;let x0=null,y0=0,moved=0;
+    v.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;y0=e.touches[0].clientY;moved=0;slot.dataset.hold=1},{passive:true});
+    v.addEventListener('touchend',e=>{delete slot.dataset.hold;if(x0==null)return;const dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;x0=null;
+      if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)){moved=1;adStep(slot,dx<0?1:-1);slot._last=Date.now()}},{passive:true});
+    v.addEventListener('click',e=>{if(moved){moved=0;e.preventDefault();e.stopPropagation()}},true)}
+  /* slides by itself every few seconds (Admin > Ads > Change ad every ...) */
+  (function tick(){setTimeout(()=>{try{if(!document.hidden){const L=adsLive();if(L.length>1)document.querySelectorAll('.adslot').forEach(s=>{if(s.dataset.hold||Date.now()-(s._last||0)<adSec()*1000-50)return;adStep(s,1)})}}catch(_){}tick()},adSec()*1000)})();
+  document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('.adslot .ad-nav');if(!b)return;const s=b.closest('.adslot');adStep(s,b.classList.contains('ad-nx')?1:-1);s._last=Date.now()});
   setInterval(adPaint,2500);setTimeout(adPaint,600);
   if(typeof applySet=='function'){const _a=applySet;applySet=function(){_a.apply(this,arguments);try{adPaint()}catch(_){}}}
   document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('a[data-adid]');if(!a)return;
     if(!/^https?:\/\//i.test(a.getAttribute('href')||'')){e.preventDefault();return}
     try{if(GAS_URL)gcall({action:'adclick',id:a.dataset.adid,dev}).catch(()=>{})}catch(_){}},true);
-  document.addEventListener('click',e=>{const d=e.target.closest&&e.target.closest('.adslot .ad-dots i');if(!d)return;const s=d.closest('.adslot');adShow(s,adsLive(),+d.dataset.i)});
+  document.addEventListener('click',e=>{const d=e.target.closest&&e.target.closest('.adslot .ad-dots i');if(!d)return;const s=d.closest('.adslot');adShow(s,adsLive(),+d.dataset.i);s._last=Date.now()});
 
   /* ---------- Admin > Ads ---------- */
   let adForce=0,adEdit=null,adClicks={},adBusy=0;
@@ -5789,32 +5818,40 @@ ${on&&left>0?`<button type="button" class="bpay-go" onclick="billPay('${E(x.id)}
   function adsHtml(){const L=adsAll(),A=isAdm(),a=adEdit||{};
     return `<div class="adw"><h3 class="sh">Ads</h3><p><small>Show ads of other companies on your website and app. Ads appear at the <b>bottom</b> of the Home, My Account and Technician pages (never at the top), with a small "Sponsored" label. A tap on the ad opens that company's website in a new browser tab.</small></p>
 <details class="cfgc adhelp" ${L.length?'':'open'}><summary><b>How to run an ad</b></summary><ol>
-<li>Get from the company: their <b>ad image</b> (best size <b>1200 x 500 px</b>, JPG or PNG), their <b>website link</b> (starting with https://) and the dates.</li>
+<li>Get from the company: their <b>ad image</b> (best size <b>1200 x 400 px</b>, JPG or PNG), their <b>website link</b> (starting with https://) and the dates.</li>
 <li>Press <b>Add new ad</b> below, fill the company name, choose the image, paste the link and set the start and end date.</li>
-<li>Choose where to show it (website, app or both) and press <b>Save ad</b>. It shows within a minute for everyone.</li>
+<li>Choose the <b>ad size</b> (Small, Medium, Large, Full width or your own width - the preview shows it), where to show it (website, app or both) and press <b>Save ad</b>. It shows within a minute for everyone.</li>
 <li>Check the <b>Clicks</b> number below to see how many people opened the company's website - you can share this with the company.</li>
-<li>To stop an ad, switch it <b>Off</b> or set an end date. More than one ad? They change by themselves every few seconds.</li></ol></details>
+<li>To stop an ad, switch it <b>Off</b> or set an end date. More than one ad? They slide by themselves - choose how fast below.</li></ol></details>
 ${A?`<div class="cfgc adf" id="adf" ${adEdit?'':'hidden'}><h4>${adEdit&&adEdit.id?'Edit ad':'New ad'}</h4>
 <div class="row"><label>Company name *<input id="ad_co" maxlength="60" value="${E(a.co||'')}" placeholder="e.g. Sharma Electricals"></label><label>Website link *<input id="ad_ln" type="url" maxlength="300" value="${E(a.link||'')}" placeholder="https://www.example.com"></label></div>
 <label>Short text <small>(optional, under the image)</small><input id="ad_tx" maxlength="80" value="${E(a.txt||'')}" placeholder="e.g. 20% off on inverters this week"></label>
-<div class="row"><label>Ad image * <small>(1200 x 500 px is best)</small><input id="ad_im" type="file" accept="image/*"></label><div class="adprev" id="ad_pv">${a.img?`<img src="${E(a.img)}" alt="">`:'<span>No image yet</span>'}</div></div>
+<div class="row"><label>Ad image * <small>(1200 x 400 px is best)</small><input id="ad_im" type="file" accept="image/*"></label><div class="adprev" id="ad_pv">${a.img?`<img src="${E(a.img)}" alt="">`:'<span>No image yet</span>'}</div></div>
+<div class="row"><label>Ad size on the page<select id="ad_sz">${[['s','Small (up to 360 px wide)'],['m','Medium (up to 600 px wide)'],['l','Large (up to 900 px wide)'],['f','Full width'],['c','Custom width']].map(([k,t])=>`<option value="${k}" ${(a.size||'m')==k?'selected':''}>${t}</option>`).join('')}</select></label><label id="ad_wl" ${a.size=='c'?'':'hidden'}>Custom width (px)<input id="ad_w" type="number" min="160" max="1200" step="10" value="${E(a.w||480)}"></label></div>
+<div class="adszp" id="ad_szp"><span>Size preview</span><div class="adszb" style="max-width:${adW(a)||1100}px">${a.img?`<img src="${E(a.img)}" alt="">`:'Ad'}</div></div>
 <div class="row"><label>Start date<input id="ad_fr" type="date" value="${E(a.from||today())}"></label><label>End date <small>(empty = no end)</small><input id="ad_to" type="date" value="${E(a.to||'')}"></label></div>
 <div class="row adsw"><label class="cfgt"><input type="checkbox" id="ad_web" ${a.web!==false?'checked':''}><span class="cfg-s"></span><span class="cfg-t"><b>Show on website</b></span></label><label class="cfgt"><input type="checkbox" id="ad_app" ${a.app!==false?'checked':''}><span class="cfg-s"></span><span class="cfg-t"><b>Show in mobile app</b></span></label><label class="cfgt"><input type="checkbox" id="ad_on" ${a.on!==false?'checked':''}><span class="cfg-s"></span><span class="cfg-t"><b>Ad is On</b></span></label></div>
 <div class="cfg-ft"><button type="button" class="alt" id="ad_cancel">Cancel</button><button type="button" class="pbtn" id="ad_save">Save ad</button></div></div>
-<p><button type="button" class="pbtn" id="ad_new" ${adEdit?'hidden':''}>+ Add new ad</button></p>`:'<p class="note">Only Admin can add or change ads.</p>'}
+<p><button type="button" class="pbtn" id="ad_new" ${adEdit?'hidden':''}>+ Add new ad</button></p>
+<div class="cfgc adspd"><label>Change to the next ad every<select id="ad_sec">${[3,4,5,6,8,10,15].map(n=>`<option value="${n}" ${adSec()==n?'selected':''}>${n} seconds</option>`).join('')}</select></label><small>More than one ad slides by itself. Customers can also swipe or use the arrows.</small></div>`:'<p class="note">Only Admin can add or change ads.</p>'}
 ${L.length?`<div class="adl">${L.slice().reverse().map(a=>{const st=adState(a);return `<div class="cfgc adi"><div class="adi-im">${a.img?`<img src="${E(a.img)}" alt="" loading="lazy">`:''}</div><div class="adi-b">
 <div class="adi-h"><b>${E(a.co)}</b><span class="ppst ${ST_CL[st]}">${st}</span></div>${a.txt?`<small>${E(a.txt)}</small>`:''}
 <a href="${E(a.link)}" target="_blank" rel="noopener" class="adi-ln">${E(a.link)}</a>
-<small>${E(a.from||'-')} to ${E(a.to||'no end')} &middot; ${[a.web!==false?'Website':'',a.app!==false?'App':''].filter(Boolean).join(' + ')||'Nowhere'} &middot; <b>${adClicks[a.id]||0}</b> clicks</small>
+<small>${E(a.from||'-')} to ${E(a.to||'no end')} &middot; ${[a.web!==false?'Website':'',a.app!==false?'App':''].filter(Boolean).join(' + ')||'Nowhere'} &middot; ${({s:'Small',m:'Medium',l:'Large',f:'Full width',c:(a.w||'')+' px'})[a.size||'m']} &middot; <b>${adClicks[a.id]||0}</b> clicks</small>
 ${A?`<div class="adi-a"><button type="button" class="alt pbtn" data-ad="edit" data-id="${E(a.id)}">Edit</button><button type="button" class="alt pbtn" data-ad="tog" data-id="${E(a.id)}">${a.on?'Switch Off':'Switch On'}</button><button type="button" class="alt pbtn" data-ad="del" data-id="${E(a.id)}">Delete</button></div>`:''}</div></div>`}).join('')}</div>`:'<p class="note">No ads yet.</p>'}</div>`}
   const stx=()=>{const r=db.set.find(x=>x.id=='co');if(r)return r;const n={id:'co'};db.set.push(n);return n};
   function adsSave(list,msg){const r=stx();r.ads=list;r.at=new Date().toLocaleString();save();try{applySet()}catch(_){}adForce=1;render();if(msg)toast(msg,'ok')}
   let newImg='';
+  function szPrev(){const z=$('ad_sz'),b=document.querySelector('#ad_szp .adszb');if(!z||!b)return;$('ad_wl').hidden=z.value!='c';
+    const w=adW({size:z.value,w:$('ad_w').value});b.style.maxWidth=(w||1100)+'px';const im=newImg||(adEdit&&adEdit.img);b.innerHTML=im?`<img src="${E(im)}" alt="">`:'Ad'}
+  document.addEventListener('input',e=>{if(e.target&&(e.target.id=='ad_sz'||e.target.id=='ad_w'))szPrev()});
+  document.addEventListener('change',e=>{if(!e.target)return;if(e.target.id=='ad_sz')szPrev();
+    if(e.target.id=='ad_sec'){const r=stx();r.adSec=+e.target.value;r.at=new Date().toLocaleString();save();try{applySet()}catch(_){}toast('Ads now change every '+e.target.value+' seconds','ok')}});
   document.addEventListener('change',async e=>{if(!e.target||e.target.id!='ad_im')return;const f=e.target.files&&e.target.files[0];if(!f)return;
     if(!/^image\//.test(f.type))return alert('Please choose an image (JPG or PNG)');
     const pv=$('ad_pv');pv.innerHTML='<span>Preparing image...</span>';
     let d='';try{d=await fileData(f)}catch(_){}if(!d){pv.innerHTML='<span>Could not read the image</span>';return}
-    newImg=d;pv.innerHTML=`<img src="${d}" alt=""><span class="adkb">${Math.round(d.length*0.75/1024)} KB</span>`});
+    newImg=d;pv.innerHTML=`<img src="${d}" alt=""><span class="adkb">${Math.round(d.length*0.75/1024)} KB</span>`;szPrev()});
   document.addEventListener('click',async e=>{const t=e.target;if(!t.closest)return;
     if(t.id=='ad_new'){adEdit={};newImg='';adForce=1;render();setTimeout(()=>{const f=$('adf');if(f)f.scrollIntoView({behavior:'smooth',block:'start'})},60);return}
     if(t.id=='ad_cancel'){adEdit=null;newImg='';adForce=1;render();return}
@@ -5824,7 +5861,7 @@ ${A?`<div class="adi-a"><button type="button" class="alt pbtn" data-ad="edit" da
       if(!$('ad_web').checked&&!$('ad_app').checked)return alert('Choose website, app or both');
       adBusy=1;t.disabled=true;t.textContent='Saving...';let img=adEdit.img||'';
       try{if(newImg){img=newImg;if(GAS_URL){try{const r=await gcall({action:'upload',kind:'ad',name:'Ad-'+co.replace(/[^\w-]+/g,'-').slice(0,30)+'-'+Date.now()+'.jpg',data:newImg});if(r&&r.ok&&r.url)img=r.url}catch(_){}}}
-        const L=adsAll().slice(),o={id:adEdit.id||('ad'+Date.now().toString(36)),co,link:ln,txt:$('ad_tx').value.trim(),img,from:fr,to,web:$('ad_web').checked,app:$('ad_app').checked,on:$('ad_on').checked,at:new Date().toLocaleString()};
+        const L=adsAll().slice(),o={id:adEdit.id||('ad'+Date.now().toString(36)),co,link:ln,txt:$('ad_tx').value.trim(),img,from:fr,to,size:$('ad_sz').value,w:$('ad_sz').value=='c'?Math.max(160,Math.min(1200,Math.round(+$('ad_w').value||480))):'',web:$('ad_web').checked,app:$('ad_app').checked,on:$('ad_on').checked,at:new Date().toLocaleString()};
         const i=L.findIndex(x=>x.id==o.id);if(i>=0)L[i]=Object.assign({},L[i],o);else L.push(o);
         adEdit=null;newImg='';adsSave(L,'Ad saved. It shows on the '+[o.web?'website':'',o.app?'app':''].filter(Boolean).join(' and ')+' within a minute.')}
       finally{adBusy=0}return}
