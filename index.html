@@ -1530,57 +1530,55 @@ body.shell #home[data-sub=main]>.adslot{display:block!important}
 /* phones: Small and Medium ads stay smaller than the screen */
 @media(max-width:600px){.ad-z-s{max-width:62%!important}.ad-z-m{max-width:85%!important}.ad-z-s .ad-cap{padding:6px 9px}.ad-z-s .ad-cap b{font-size:12.5px}.ad-z-s .ad-cap small,.ad-z-s .ad-cap em{font-size:11px}}
 
-/* ===== v6.6 ads: card with heading + text, sliding fan of pictures, round button ===== */
+/* ===== v6.7 ads: one separate card per company (heading + text, picture, button), the row of cards moves by itself ===== */
 .adslot[data-w]{max-width:1100px}
-.adx{--ac:#0f5bff;--sw:60%;--sh:220px;--off:160px;position:relative;margin:0 auto;box-sizing:border-box;text-align:center;overflow:hidden;
-  background:var(--card,#fff);border:1px solid var(--line,#e3e9f3);border-radius:22px;padding:12px 14px 14px;box-shadow:0 10px 30px #0b2a7814}
-.adx::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 70% at 50% 0%,color-mix(in srgb,var(--ac) 9%,transparent),transparent 70%)}
+.adrow{--cw:320px;position:relative;margin:0 auto}
+.adv{overflow:hidden;padding:6px 2px 14px;margin:-6px -2px 0;touch-action:pan-y}
+.adt{display:flex;gap:16px;align-items:stretch;transition:transform .75s cubic-bezier(.4,.1,.2,1);will-change:transform}
+.adrow-still .adt{justify-content:center}.adrow-still .adcl{display:none}
+.adcw{flex:0 0 var(--cw);width:var(--cw);display:flex;min-width:0}
+/* one company card */
+.adc{--ac:#0f5bff;position:relative;flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;box-sizing:border-box;min-width:0;overflow:hidden;
+  background:var(--card,#fff);border:1px solid var(--line,#e3e9f3);border-radius:20px;padding:12px 14px 16px;box-shadow:0 8px 24px #0b2a7812;transition:transform .3s,box-shadow .3s}
+.adc::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 55% at 50% 0%,color-mix(in srgb,var(--ac) 10%,transparent),transparent 70%)}
+.adc:hover{transform:translateY(-3px);box-shadow:0 14px 30px #0b2a781f}
 .adx-tag{position:relative;display:inline-block;margin:0 0 6px;font:700 9.5px/1 system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--mut,#64748b);border:1px solid var(--line,#e3e9f3);background:var(--card,#fff);padding:3px 7px;border-radius:999px}
-.adx-tx{position:relative;padding:0 8px 12px}
-.adx-hd{display:block;font:800 clamp(19px,2.3vw,27px)/1.15 var(--hf,system-ui),system-ui,sans-serif;letter-spacing:-.01em;
-  background:linear-gradient(90deg,var(--ac),color-mix(in srgb,var(--ac) 35%,#ff3d7f) 55%,#ff9f1a);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
-.adx-sb{display:block;margin-top:5px;color:var(--mut,#475569);font-size:14.5px;line-height:1.35}
-.adx-tx-bottom{display:none;padding-top:14px;padding-bottom:0}
-.adx-tb .adx-tx-bottom{display:block}.adx-tb .adx-tx-top{display:none}
-/* the fan of pictures */
-.adx-st{position:relative;height:var(--sh);margin:0 -14px;touch-action:pan-y}
-.adx-s{position:absolute;top:0;left:50%;width:var(--sw);height:100%;display:block;border-radius:16px;overflow:hidden;background:#e9eef7;
-  box-shadow:0 10px 24px #0b1a4033;transform-origin:50% 92%;transform:translateX(-50%) scale(.6);opacity:0;z-index:1;
-  transition:transform .85s cubic-bezier(.3,.75,.2,1),opacity .85s,filter .85s;text-decoration:none!important}
-.adx-s>i{position:absolute;inset:-24px;background:center/cover no-repeat;filter:blur(20px) saturate(1.25);opacity:.9}
-.adx-s>img{position:relative;display:block;width:100%;height:100%;object-fit:contain}
-.adx-s[data-p="0"]{transform:translateX(-50%);opacity:1;z-index:4}
-.adx-s[data-p="1"]{transform:translateX(calc(-50% + var(--off))) rotate(6deg) scale(.82);opacity:.96;z-index:3;filter:brightness(.93);cursor:pointer}
-.adx-s[data-p="-1"]{transform:translateX(calc(-50% - var(--off))) rotate(-6deg) scale(.82);opacity:.96;z-index:3;filter:brightness(.93);cursor:pointer}
-.adx-s[data-p="2"],.adx-s[data-p="3"]{transform:translateX(calc(-50% + var(--off) * 1.5)) rotate(10deg) scale(.62)}
-.adx-s[data-p="-2"],.adx-s[data-p="-3"]{transform:translateX(calc(-50% - var(--off) * 1.5)) rotate(-10deg) scale(.62)}
-.adx-s[data-p="0"]>img{animation:adkb 9s ease-in-out infinite alternate}
-@keyframes adkb{to{transform:scale(1.07)}}
-/* button + dots */
-.adx-ft{position:relative}
-.adx-btn{display:inline-flex;align-items:center;gap:9px;margin-top:14px;padding:11px 26px;border-radius:999px;background:var(--ac);color:#fff!important;
-  font:700 15px/1.1 system-ui,sans-serif;text-decoration:none!important;box-shadow:0 8px 18px color-mix(in srgb,var(--ac) 38%,transparent);transition:transform .2s,box-shadow .2s;max-width:100%;box-sizing:border-box}
+.adc-tx{position:relative;width:100%;padding:0 4px 10px;box-sizing:border-box;min-height:62px;display:flex;flex-direction:column;justify-content:center}
+.adc-tb .adc-tx{padding:12px 4px 0;justify-content:flex-start}
+.adc-hd{display:block;font:800 21px/1.15 var(--hf,system-ui),system-ui,sans-serif;letter-spacing:-.01em;overflow-wrap:anywhere;
+  background:linear-gradient(90deg,var(--ac),color-mix(in srgb,var(--ac) 72%,var(--ink,#000)) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.adc-sb{display:block;margin-top:4px;color:var(--mut,#475569);font-size:13.5px;line-height:1.35}
+/* the picture: always the whole picture (no cutting), soft blurred copy behind it */
+.adc-im{position:relative;display:block;width:100%;aspect-ratio:16/10;border-radius:14px;overflow:hidden;background:#e9eef7;box-shadow:0 6px 16px #0b1a4024;text-decoration:none!important}
+.adrow-side .adc-im{aspect-ratio:4/5}
+.adc-p{position:absolute;inset:0;opacity:0;transition:opacity .9s}
+.adc-p.on{opacity:1}
+.adc-p>i{position:absolute;inset:-24px;background:center/cover no-repeat;filter:blur(20px) saturate(1.2);opacity:.85}
+.adc-p>img{position:relative;display:block;width:100%;height:100%;object-fit:contain;transition:transform 6s ease}
+.adc:hover .adc-p.on>img{transform:scale(1.04)}
+.adc-pd{position:absolute;left:0;right:0;bottom:7px;display:flex;justify-content:center;gap:4px;z-index:2}
+.adc-pd b{width:6px;height:6px;border-radius:3px;background:#ffffff99;transition:width .3s}.adc-pd b.on{width:14px;background:#fff}
+/* button at the bottom of every card */
+.adx-btn{display:inline-flex;align-items:center;gap:9px;margin-top:auto;padding:10px 22px;border-radius:999px;background:var(--ac);color:#fff!important;
+  font:700 14.5px/1.1 system-ui,sans-serif;text-decoration:none!important;box-shadow:0 8px 18px color-mix(in srgb,var(--ac) 38%,transparent);transition:transform .2s,box-shadow .2s;max-width:100%;box-sizing:border-box;position:relative}
+.adc>.adc-im{margin-bottom:14px}.adc-tb>.adc-im{margin-bottom:0}.adc-tb>.adc-tx{padding-bottom:14px}
 .adx-btn:hover{transform:translateY(-2px);box-shadow:0 10px 22px color-mix(in srgb,var(--ac) 48%,transparent)}
 .adx-bt{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .adx-pl{flex:none;display:inline-grid;place-items:center;width:19px;height:19px;border-radius:50%;border:2px solid #fff;font-size:8px;padding-left:2px;box-sizing:border-box}
-.adx-dots{position:relative;display:flex;justify-content:center;gap:5px;margin-top:11px}
+.adx-dots{display:flex;justify-content:center;gap:5px;margin-top:2px}
 .adx-dots i{width:7px;height:7px;border-radius:5px;background:var(--line,#cbd5e1);cursor:pointer;transition:width .3s,background .3s}
-.adx-dots i.on{width:18px;background:var(--ac)}
-.adx-fd .adx-tx,.adx-fd .adx-bt{animation:adfd .55s ease}
-@keyframes adfd{from{opacity:0;transform:translateY(6px)}}
-/* side of the page: tall card in a fixed column next to the page (big screens only) */
+.adx-dots i.on{width:18px;background:var(--acc,#0f5bff)}
+/* side of the page: one tall card at a time in a fixed column next to the page (big screens only) */
 .adrail{position:fixed;z-index:40;margin:0!important;padding:0!important;max-width:none!important;transition:transform .15s}
-.adrail .adx,.adprv-side .adx{padding:12px 10px 12px}
-.adrail .adx-st,.adprv-side .adx-st{margin:0 -10px}
-.adrail .adx-hd,.adprv-side .adx-hd{font-size:21px}
-.adrail .adx-sb,.adprv-side .adx-sb{font-size:13px}
-.adrail .adx-btn,.adprv-side .adx-btn{padding:10px 18px;font-size:14px}
+.adrow-side .adc{padding:12px 12px 14px}
+.adrow-side .adc-hd{font-size:20px}
 /* phones */
-@media(max-width:600px){.adx{border-radius:18px;padding:10px 10px 12px}.adx-st{margin:0 -10px}.adx-hd{font-size:20px}.adx-sb{font-size:13.5px}.adx-btn{padding:10px 20px;font-size:14px}}
-@media(prefers-reduced-motion:reduce){.adx-s{transition:none}.adx-s[data-p="0"]>img,.adx-fd .adx-tx,.adx-fd .adx-bt{animation:none}}
+@media(max-width:600px){.adc{border-radius:18px;padding:10px 12px 14px}.adc-hd{font-size:19px}.adc-sb{font-size:13px}.adx-btn{padding:10px 20px;font-size:14px}}
+@media(prefers-reduced-motion:reduce){.adt,.adc-p{transition:none}}
 /* Admin > Ads: live preview */
 .adprvw{max-width:100%}
 .adprv{margin:0!important;padding:0!important;max-width:none!important}
+.adprv .adrow{max-width:380px!important}
 .adprv-side{width:270px;margin:0 auto!important}
 .adpe{margin:6px 0;color:var(--mut);font-size:13px;text-align:center}
 .adprev2{display:flex!important;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center;padding:6px}
@@ -5836,44 +5834,51 @@ ${on&&left>0?`<button type="button" class="bpay-go" onclick="billPay('${E(x.id)}
   let dev=LS.get('adDev','');if(!dev){dev=Math.random().toString(36).slice(2,12);LS.set('adDev',dev)}
   const SPOTS=[['#home','footer'],['#cust',null],['#tech',null]];
   let adI=Math.floor(Math.random()*97);
-  /* v6.6: ad card = heading + text (above or below), sliding fan of images, button.
+  /* v6.7: every company gets its own card (heading + text above or below, picture, button). The cards stand in a row
+     and move along by themselves, one card at a time, round and round. More pictures of one company change inside its card.
      Where: bottom of the page, middle (Home page) or side (fixed column on big screens; smaller screens show it in the middle) */
-  const SZ={a:980,s:360,m:600,l:900,f:0};
+  const SZ={a:1100,s:360,m:600,l:900,f:0};
   const adW=a=>{if(a.size=='c'){const w=Math.round(+a.w||0);return w>=160?Math.min(w,1200):600}return (a.size||'a') in SZ?SZ[a.size||'a']:SZ.a};
   const adSec=()=>{const n=+setGet().adSec;return n>=2&&n<=30?n:5};
   const place=a=>a&&(a.place=='middle'||a.place=='side')?a.place:'bottom';
   const okImg=u=>typeof u=='string'&&/^(https?:\/\/|data:image\/)/i.test(u);
   const imgsOf=a=>[a.img].concat(Array.isArray(a.imgs)?a.imgs:[]).filter(okImg).slice(0,4).map(u=>/^https:\/\/drive\.google\.com\/thumbnail/.test(u)?u.replace(/([?&]sz=)w\d+/,'$1w1600'):u);  /* sharper Drive pictures */
-  const slidesOf=L=>{const S=[];L.forEach(a=>imgsOf(a).forEach(u=>S.push({a,u})));return S.slice(0,16)};
   const col=a=>/^#[0-9a-f]{6}$/i.test((a&&a.col)||'')?a.col:'#0f5bff';
   const cssUrl=u=>String(u).replace(/["'()\\\s]/g,c=>'%'+c.charCodeAt(0).toString(16).padStart(2,'0'));
-  function adBox(S,kind){const one=S.length<2,tx=p=>`<div class="adx-tx adx-tx-${p}"><b class="adx-hd"></b><small class="adx-sb"></small></div>`;
-    return `<div class="adx adx-${kind}${one?' adx-one':''}"><span class="adx-tag">Sponsored</span>${tx('top')}
-<div class="adx-st">${S.map((s,k)=>`<a class="adx-s" data-k="${k}" href="${E(s.a.link)}" target="_blank" rel="noopener sponsored nofollow" data-adid="${E(s.a.id)}" aria-label="Advertisement: ${E(s.a.co)} - opens their website in a new tab"><i style="background-image:url(&quot;${E(cssUrl(s.u))}&quot;)"></i><img src="${E(s.u)}" alt="${E(s.a.head||s.a.co)}" loading="lazy" decoding="async"></a>`).join('')}</div>
-${tx('bottom')}<div class="adx-ft"><a class="adx-btn" href="${E(S[0].a.link)}" target="_blank" rel="noopener sponsored nofollow" data-adid="${E(S[0].a.id)}"><span class="adx-pl" aria-hidden="true">&#9654;</span><span class="adx-bt"></span></a></div>
-${one?'':`<div class="adx-dots">${S.map((_,k)=>`<i data-i="${k}" role="button" aria-label="Show ad ${k+1}"></i>`).join('')}</div>`}</div>`}
-  /* the size follows the place: wide fan under / inside the page, tall card at the side */
-  function adFit(slot){const box=slot.querySelector('.adx'),st=slot.querySelector('.adx-st');if(!box||!st)return;const W=st.clientWidth;if(!W)return;
-    const one=box.classList.contains('adx-one');let sw,h,off;
-    if(box.classList.contains('adx-side')){sw=one?W*.88:W*.72;h=sw*1.42;const mx=Math.max(240,innerHeight-330);if(h>mx){h=mx;sw=Math.min(sw,h/1.1)}off=W*.21}
-    else{sw=one?(W>=700?Math.min(W*.62,620):W*.9):(W>=700?Math.min(W*.56,560):W*.7);h=Math.max(140,Math.min(sw*9/16,460));off=(W-sw)/2*.9+sw*.12}
-    box.style.setProperty('--sw',Math.round(sw)+'px');box.style.setProperty('--sh',Math.round(h)+'px');box.style.setProperty('--off',Math.round(off)+'px')}
-  function adShow(slot,i){const S=slot._S||[],n=S.length;if(!n)return;i=((i%n)+n)%n;slot.dataset.i=i;
-    slot.querySelectorAll('.adx-s').forEach((d,j)=>{let p=j-i;if(n>2){if(p>n/2)p-=n;if(p<-n/2)p+=n}if(n==2&&p<0)p=1;
-      d.dataset.p=p>2?3:p<-2?-3:p;d.setAttribute('aria-hidden',p!=0);d.tabIndex=p==0?0:-1});
-    const a=S[i].a,box=slot.querySelector('.adx');if(!box)return;box.style.setProperty('--ac',col(a));box.classList.toggle('adx-tb',a.tpos=='bottom');
-    if(slot._ad!==a.id||slot._ver!==slot.dataset.sig){slot._ad=a.id;slot._ver=slot.dataset.sig;
-      slot.querySelectorAll('.adx-hd').forEach(e=>e.textContent=a.head||a.co||'');
-      slot.querySelectorAll('.adx-sb').forEach(e=>{e.textContent=a.txt||'';e.hidden=!a.txt});
-      const b=slot.querySelector('.adx-btn');b.href=a.link;b.dataset.adid=a.id;b.setAttribute('aria-label',(a.btn||'Visit website')+' - '+a.co+' (opens in a new tab)');
-      slot.querySelector('.adx-bt').textContent=a.btn||'Visit website';
-      box.classList.remove('adx-fd');void box.offsetWidth;box.classList.add('adx-fd')}
-    slot.querySelectorAll('.adx-dots i').forEach((d,j)=>d.classList.toggle('on',j==i))}
+  const GAP=16;
+  function adCard(a,clone){const P=imgsOf(a),tb=a.tpos=='bottom',h=clone?' aria-hidden="true" tabindex="-1"':'',
+    lk=`href="${E(a.link)}" target="_blank" rel="noopener sponsored nofollow" data-adid="${E(a.id)}"`,
+    tx=`<div class="adc-tx"><b class="adc-hd">${E(a.head||a.co)}</b>${a.txt?`<small class="adc-sb">${E(a.txt)}</small>`:''}</div>`,
+    pic=`<a class="adc-im" ${lk}${h} aria-label="Advertisement: ${E(a.co)} - opens their website in a new tab">${P.map((u,k)=>`<span class="adc-p${k?'':' on'}"><i style="background-image:url(&quot;${E(cssUrl(u))}&quot;)"></i><img src="${E(u)}" alt="${E(a.head||a.co)}" loading="lazy" decoding="async"></span>`).join('')}${P.length>1?`<span class="adc-pd">${P.map((_,k)=>`<b${k?'':' class="on"'}></b>`).join('')}</span>`:''}</a>`;
+    return `<div class="adcw${clone?' adcl':''}"${clone?' aria-hidden="true"':''}><div class="adc${tb?' adc-tb':''}" style="--ac:${col(a)}"><span class="adx-tag">Sponsored</span>${tb?'':tx}${pic}${tb?tx:''}
+<a class="adx-btn" ${lk}${h}><span class="adx-pl" aria-hidden="true">&#9654;</span><span class="adx-bt">${E(a.btn||'Visit website')}</span></a></div></div>`}
+  function adBox(L,kind){const n=L.length;
+    return `<div class="adrow adrow-${kind}"><div class="adv"><div class="adt">${L.map(a=>adCard(a)).join('')}${n>1?L.map(a=>adCard(a,1)).join(''):''}</div></div>
+${n>1?`<div class="adx-dots">${L.map((a,k)=>`<i data-i="${k}" role="button" aria-label="Show the ad of ${E(a.co)}"></i>`).join('')}</div>`:''}</div>`}
+  /* how many cards fit next to each other: 3 on a computer, 2 on a tablet, 1 (and a bit of the next one) on a phone, 1 at the side */
+  function adFit(slot){const v=slot.querySelector('.adv'),row=slot.querySelector('.adrow');if(!v||!row)return;const W=row.clientWidth;if(!W)return;
+    const n=slot._n||1,side=row.classList.contains('adrow-side');
+    let vis=side?1:Math.min(W>=860?3:W>=560?2:1,n),cw=(W-GAP*(vis-1))/vis;
+    if(!side){if(vis==1&&n>1)cw=W*.84;else cw=Math.min(cw,420)}          /* phone: a bit of the next card shows */
+    slot._move=n>1;slot._step=cw+GAP;
+    v.style.maxWidth=!side&&!(vis==1&&n>1)?Math.round(vis*cw+GAP*(vis-1)+4)+'px':'';v.style.marginLeft=v.style.marginRight=v.style.maxWidth?'auto':'';
+    row.style.setProperty('--cw',Math.round(cw)+'px');row.classList.toggle('adrow-still',!slot._move);
+    adGo(slot,slot._pos||0,false)}
+  function adGo(slot,i,anim){const t=slot.querySelector('.adt'),n=slot._n||1;if(!t)return;clearTimeout(slot._jt);
+    if(!slot._move){t.style.transform='';slot.dataset.i=0;dots(slot,0);return}
+    if(anim===false)t.style.transition='none';
+    t.style.transform='translateX('+(-i*slot._step)+'px)';
+    if(anim===false){void t.offsetWidth;t.style.transition=''}
+    const r=((i%n)+n)%n;slot.dataset.i=r;slot._pos=i;dots(slot,r);
+    t.querySelectorAll('.adcw').forEach((c,k)=>c.classList.toggle('on',k==i));
+    if(i>=n)slot._jt=setTimeout(()=>adGo(slot,i-n,false),800)}          /* the copy of the first card is showing: jump back without moving */
+  function dots(slot,r){slot.querySelectorAll('.adx-dots i').forEach((d,j)=>d.classList.toggle('on',j==r))}
+  const adShow=(slot,i)=>adGo(slot,i);
   function fill(slot,list,kind){const sig=kind+JSON.stringify(list.map(a=>[a.id,a.img,a.imgs,a.link,a.co,a.head,a.txt,a.btn,a.tpos,a.col,a.size,a.w]));
-    if(slot.dataset.sig!==sig){slot.dataset.sig=sig;slot._S=slidesOf(list);slot._last=0;if(!slot._S.length){slot.innerHTML='';return}
-      slot.innerHTML=adBox(slot._S,kind);const bx=slot.querySelector('.adx');
-      if(kind=='inline'){const ws=list.map(adW);bx.style.maxWidth=ws.includes(0)?'none':Math.max(...ws)+'px'}
-      slot.onmouseenter=()=>slot.dataset.hold=1;slot.onmouseleave=()=>delete slot.dataset.hold;adSwipe(slot);adFit(slot);adShow(slot,slot.classList.contains('adprv')?0:adI%slot._S.length)}
+    if(slot.dataset.sig!==sig){slot.dataset.sig=sig;slot._n=list.length;slot._S=list;slot._last=0;slot.dataset.i=0;if(!list.length){slot.innerHTML='';return}
+      slot.innerHTML=adBox(list,kind);const row=slot.querySelector('.adrow');
+      if(kind=='inline'){const ws=list.map(adW);row.style.maxWidth=ws.includes(0)?'none':Math.max(...ws)+'px'}
+      slot.onmouseenter=()=>slot.dataset.hold=1;slot.onmouseleave=()=>delete slot.dataset.hold;adSwipe(slot);adFit(slot)}
     else adFit(slot)}
   /* side column: only when the screen has room next to the page (big computer screens) */
   const visSec=()=>SPOTS.map(([q])=>document.querySelector(q)).find(x=>x&&!x.hidden&&x.offsetParent!==null);
@@ -5898,26 +5903,32 @@ ${one?'':`<div class="adx-dots">${S.map((_,k)=>`<i data-i="${k}" role="button" a
     if(!g||!side.length){if(r)r.remove();return}
     if(!r){r=document.createElement('aside');r.id='adrail';r.className='adslot adrail';r.dataset.w='side';r.setAttribute('aria-label','Sponsored');document.body.appendChild(r)}
     railPos();fill(r,side,'side');railPos()}
-  const adStep=(slot,d)=>{const n=(slot._S||[]).length;if(n>1)adShow(slot,(+slot.dataset.i||0)+d)};
+  const adStep=(slot,d)=>{if(!slot._move)return;const n=slot._n;let p=slot._pos||0;
+    if(slot._pos>=n){adGo(slot,p-n,false);p-=n}                          /* finish a pending jump first */
+    if(d<0&&p==0){adGo(slot,n,false);requestAnimationFrame(()=>adGo(slot,n-1));return}
+    adGo(slot,p+d)};
   /* swipe left / right on phones; a swipe does not open the ad */
-  function adSwipe(slot){const v=slot.querySelector('.adx-st');if(!v)return;let x0=null,y0=0,moved=0;
+  function adSwipe(slot){const v=slot.querySelector('.adv');if(!v)return;let x0=null,y0=0,moved=0;
     v.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;y0=e.touches[0].clientY;moved=0;slot.dataset.hold=1},{passive:true});
     v.addEventListener('touchend',e=>{delete slot.dataset.hold;if(x0==null)return;const dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;x0=null;
       if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)){moved=1;adStep(slot,dx<0?1:-1);slot._last=Date.now()}},{passive:true});
     v.addEventListener('click',e=>{if(moved){moved=0;e.preventDefault();e.stopPropagation()}},true)}
-  /* slides by itself every few seconds (Admin > Ads > Change ad every ...) */
-  (function tick(){setTimeout(()=>{try{if(!document.hidden)document.querySelectorAll('.adslot').forEach(s=>{if((s._S||[]).length<2||s.dataset.hold||Date.now()-(s._last||0)<adSec()*1000-50)return;adStep(s,1)})}catch(_){}tick()},adSec()*1000)})();
+  /* moves by itself every few seconds (Admin > Ads > Change ad every ...); pictures of one company change inside its card */
+  let picT=0;
+  (function tick(){setTimeout(()=>{try{if(!document.hidden){picT++;document.querySelectorAll('.adslot').forEach(s=>{if(s.dataset.hold)return;
+      if(picT%2==0)s.querySelectorAll('.adc-im').forEach(m=>{const P=m.querySelectorAll('.adc-p');if(P.length<2)return;let k=[...P].findIndex(x=>x.classList.contains('on'));k=(k+1)%P.length;P.forEach((x,j)=>x.classList.toggle('on',j==k));m.querySelectorAll('.adc-pd b').forEach((x,j)=>x.classList.toggle('on',j==k))});
+      if(picT%2==1||!s._move)return;
+      if(Date.now()-(s._last||0)<adSec()*1000-50)return;adStep(s,1)})}}catch(_){}tick()},adSec()*500)})();
   setInterval(adPaint,2500);setTimeout(adPaint,600);
   let rzT=0;addEventListener('resize',()=>{clearTimeout(rzT);rzT=setTimeout(()=>{adPaint();document.querySelectorAll('.adslot').forEach(adFit)},150)});
   addEventListener('scroll',()=>{if($('adrail'))requestAnimationFrame(railPos)},{passive:true});
   if(typeof applySet=='function'){const _a=applySet;applySet=function(){_a.apply(this,arguments);try{adPaint()}catch(_){}}}
-  /* a tap on a card at the side brings it to the front; in the admin preview nothing opens */
-  document.addEventListener('click',e=>{const t=e.target.closest&&e.target.closest('.adslot .adx-s');if(t&&t.dataset.p!='0'){e.preventDefault();e.stopImmediatePropagation();const s=t.closest('.adslot');adShow(s,+t.dataset.k);s._last=Date.now();return}
-    if(e.target.closest&&e.target.closest('.adprv a')){e.preventDefault();e.stopImmediatePropagation()}},true);
+  /* in the admin preview nothing opens */
+  document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('.adprv a')){e.preventDefault();e.stopImmediatePropagation()}},true);
   document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('a[data-adid]');if(!a)return;
     if(!/^https?:\/\//i.test(a.getAttribute('href')||'')){e.preventDefault();return}
     try{if(GAS_URL)gcall({action:'adclick',id:a.dataset.adid,dev}).catch(()=>{})}catch(_){}},true);
-  document.addEventListener('click',e=>{const d=e.target.closest&&e.target.closest('.adslot .adx-dots i');if(!d)return;const s=d.closest('.adslot');adShow(s,+d.dataset.i);s._last=Date.now()});
+  document.addEventListener('click',e=>{const d=e.target.closest&&e.target.closest('.adslot .adx-dots i');if(!d)return;const s=d.closest('.adslot');adGo(s,+d.dataset.i);s._last=Date.now()});
 
   /* ---------- Admin > Ads ---------- */
   let adForce=0,adEdit=null,adClicks={},adBusy=0;
