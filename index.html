@@ -1534,7 +1534,7 @@ body.shell #home[data-sub=main]>.adslot{display:block!important}
 .adslot[data-w]{max-width:1100px}
 .adrow{--cw:320px;position:relative;margin:0 auto}
 .adv{overflow:hidden;padding:6px 2px 14px;margin:-6px -2px 0;touch-action:pan-y}
-.adt{display:flex;gap:16px;align-items:stretch;transition:transform .75s cubic-bezier(.4,.1,.2,1);will-change:transform}
+.adt{display:flex;gap:16px;align-items:stretch;will-change:transform}
 .adrow-still .adt{justify-content:center}.adrow-still .adcl{display:none}
 .adcw{flex:0 0 var(--cw);width:var(--cw);display:flex;min-width:0}
 /* one company card */
@@ -1574,7 +1574,7 @@ body.shell #home[data-sub=main]>.adslot{display:block!important}
 .adrow-side .adc-hd{font-size:20px}
 /* phones */
 @media(max-width:600px){.adc{border-radius:18px;padding:10px 12px 14px}.adc-hd{font-size:19px}.adc-sb{font-size:13px}.adx-btn{padding:10px 20px;font-size:14px}}
-@media(prefers-reduced-motion:reduce){.adt,.adc-p{transition:none}}
+@media(prefers-reduced-motion:reduce){.adc-p{transition:none}}
 /* Admin > Ads: live preview */
 .adprvw{max-width:100%}
 .adprv{margin:0!important;padding:0!important;max-width:none!important}
@@ -5863,22 +5863,21 @@ ${n>1?`<div class="adx-dots">${L.map((a,k)=>`<i data-i="${k}" role="button" aria
     slot._move=n>1;slot._step=cw+GAP;
     v.style.maxWidth=!side&&!(vis==1&&n>1)?Math.round(vis*cw+GAP*(vis-1)+4)+'px':'';v.style.marginLeft=v.style.marginRight=v.style.maxWidth?'auto':'';
     row.style.setProperty('--cw',Math.round(cw)+'px');row.classList.toggle('adrow-still',!slot._move);
-    adGo(slot,slot._pos||0,false)}
-  function adGo(slot,i,anim){const t=slot.querySelector('.adt'),n=slot._n||1;if(!t)return;clearTimeout(slot._jt);
-    if(!slot._move){t.style.transform='';slot.dataset.i=0;dots(slot,0);return}
-    if(anim===false)t.style.transition='none';
-    t.style.transform='translateX('+(-i*slot._step)+'px)';
-    if(anim===false){void t.offsetWidth;t.style.transition=''}
-    const r=((i%n)+n)%n;slot.dataset.i=r;slot._pos=i;dots(slot,r);
-    t.querySelectorAll('.adcw').forEach((c,k)=>c.classList.toggle('on',k==i));
-    if(i>=n)slot._jt=setTimeout(()=>adGo(slot,i-n,false),800)}          /* the copy of the first card is showing: jump back without moving */
+    if(slot._st0&&slot._st0!=slot._step)slot._off=(slot._off||0)/slot._st0*slot._step;slot._st0=slot._step;adPos(slot)}
+  /* v6.8: the row moves on all the time, smoothly (no stopping); after the last card the first one comes again */
+  function adPos(slot){const t=slot.querySelector('.adt');if(!t)return;
+    if(!slot._move){t.style.transform='';slot._off=0;dots(slot,0);return}
+    const L=slot._n*slot._step;let o=slot._off||0;o=((o%L)+L)%L;slot._off=o;
+    t.style.transform='translate3d('+(-o).toFixed(2)+'px,0,0)';
+    const r=Math.round(o/slot._step)%slot._n;if(slot.dataset.i!=r){slot.dataset.i=r;dots(slot,r)}}
+  function adGo(slot,i){slot._off=i*(slot._step||0);adPos(slot)}
   function dots(slot,r){slot.querySelectorAll('.adx-dots i').forEach((d,j)=>d.classList.toggle('on',j==r))}
   const adShow=(slot,i)=>adGo(slot,i);
   function fill(slot,list,kind){const sig=kind+JSON.stringify(list.map(a=>[a.id,a.img,a.imgs,a.link,a.co,a.head,a.txt,a.btn,a.tpos,a.col,a.size,a.w]));
     if(slot.dataset.sig!==sig){slot.dataset.sig=sig;slot._n=list.length;slot._S=list;slot._last=0;slot.dataset.i=0;if(!list.length){slot.innerHTML='';return}
       slot.innerHTML=adBox(list,kind);const row=slot.querySelector('.adrow');
       if(kind=='inline'){const ws=list.map(adW);row.style.maxWidth=ws.includes(0)?'none':Math.max(...ws)+'px'}
-      slot.onmouseenter=()=>slot.dataset.hold=1;slot.onmouseleave=()=>delete slot.dataset.hold;adSwipe(slot);adFit(slot)}
+      slot.onpointerenter=e=>{if(e.pointerType=='mouse')slot.dataset.hold=1};slot.onpointerleave=()=>delete slot.dataset.hold;adSwipe(slot);adFit(slot)}
     else adFit(slot)}
   /* side column: only when the screen has room next to the page (big computer screens) */
   const visSec=()=>SPOTS.map(([q])=>document.querySelector(q)).find(x=>x&&!x.hidden&&x.offsetParent!==null);
@@ -5903,22 +5902,25 @@ ${n>1?`<div class="adx-dots">${L.map((a,k)=>`<i data-i="${k}" role="button" aria
     if(!g||!side.length){if(r)r.remove();return}
     if(!r){r=document.createElement('aside');r.id='adrail';r.className='adslot adrail';r.dataset.w='side';r.setAttribute('aria-label','Sponsored');document.body.appendChild(r)}
     railPos();fill(r,side,'side');railPos()}
-  const adStep=(slot,d)=>{if(!slot._move)return;const n=slot._n;let p=slot._pos||0;
-    if(slot._pos>=n){adGo(slot,p-n,false);p-=n}                          /* finish a pending jump first */
-    if(d<0&&p==0){adGo(slot,n,false);requestAnimationFrame(()=>adGo(slot,n-1));return}
-    adGo(slot,p+d)};
-  /* swipe left / right on phones; a swipe does not open the ad */
-  function adSwipe(slot){const v=slot.querySelector('.adv');if(!v)return;let x0=null,y0=0,moved=0;
-    v.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;y0=e.touches[0].clientY;moved=0;slot.dataset.hold=1},{passive:true});
-    v.addEventListener('touchend',e=>{delete slot.dataset.hold;if(x0==null)return;const dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;x0=null;
-      if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)){moved=1;adStep(slot,dx<0?1:-1);slot._last=Date.now()}},{passive:true});
+  /* phones: the row can be pulled left / right with the finger; pulling does not open the ad */
+  function adSwipe(slot){const v=slot.querySelector('.adv');if(!v)return;let x0=null,y0=0,o0=0,moved=0,hz=null;
+    v.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;y0=e.touches[0].clientY;o0=slot._off||0;moved=0;hz=null;slot._drag=1},{passive:true});
+    v.addEventListener('touchmove',e=>{if(x0==null)return;const dx=e.touches[0].clientX-x0,dy=e.touches[0].clientY-y0;
+      if(hz==null&&(Math.abs(dx)>6||Math.abs(dy)>6))hz=Math.abs(dx)>Math.abs(dy);
+      if(hz&&slot._move){slot._off=o0-dx;adPos(slot);if(Math.abs(dx)>8)moved=1}},{passive:true});
+    const end=()=>{x0=null;delete slot._drag};v.addEventListener('touchend',end,{passive:true});v.addEventListener('touchcancel',end,{passive:true});
     v.addEventListener('click',e=>{if(moved){moved=0;e.preventDefault();e.stopPropagation()}},true)}
-  /* moves by itself every few seconds (Admin > Ads > Change ad every ...); pictures of one company change inside its card */
-  let picT=0;
-  (function tick(){setTimeout(()=>{try{if(!document.hidden){picT++;document.querySelectorAll('.adslot').forEach(s=>{if(s.dataset.hold)return;
-      if(picT%2==0)s.querySelectorAll('.adc-im').forEach(m=>{const P=m.querySelectorAll('.adc-p');if(P.length<2)return;let k=[...P].findIndex(x=>x.classList.contains('on'));k=(k+1)%P.length;P.forEach((x,j)=>x.classList.toggle('on',j==k));m.querySelectorAll('.adc-pd b').forEach((x,j)=>x.classList.toggle('on',j==k))});
-      if(picT%2==1||!s._move)return;
-      if(Date.now()-(s._last||0)<adSec()*1000-50)return;adStep(s,1)})}}catch(_){}tick()},adSec()*500)})();
+  /* speed: one card in "adSec" seconds (Admin > Ads); stops while the mouse is on an ad or a finger holds it */
+  let lastT=0;
+  function run(t){const dt=lastT?Math.min(t-lastT,100):0;lastT=t;
+    try{if(!document.hidden)document.querySelectorAll('.adslot').forEach(s=>{if(!s._move||s.dataset.hold||s._drag)return;
+      const b=s.getBoundingClientRect();if(b.bottom<0||b.top>innerHeight||!b.width)return;
+      s._off=(s._off||0)+s._step/adSec()*dt/1000;adPos(s)})}catch(_){}
+    requestAnimationFrame(run)}
+  requestAnimationFrame(run);
+  /* more pictures of one company change inside its card */
+  setInterval(()=>{if(document.hidden)return;document.querySelectorAll('.adslot .adc-im').forEach(m=>{if(m.closest('.adslot').dataset.hold)return;const P=m.querySelectorAll('.adc-p');if(P.length<2)return;
+    let k=[...P].findIndex(x=>x.classList.contains('on'));k=(k+1)%P.length;P.forEach((x,j)=>x.classList.toggle('on',j==k));m.querySelectorAll('.adc-pd b').forEach((x,j)=>x.classList.toggle('on',j==k))})},3500);
   setInterval(adPaint,2500);setTimeout(adPaint,600);
   let rzT=0;addEventListener('resize',()=>{clearTimeout(rzT);rzT=setTimeout(()=>{adPaint();document.querySelectorAll('.adslot').forEach(adFit)},150)});
   addEventListener('scroll',()=>{if($('adrail'))requestAnimationFrame(railPos)},{passive:true});
@@ -5928,7 +5930,7 @@ ${n>1?`<div class="adx-dots">${L.map((a,k)=>`<i data-i="${k}" role="button" aria
   document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('a[data-adid]');if(!a)return;
     if(!/^https?:\/\//i.test(a.getAttribute('href')||'')){e.preventDefault();return}
     try{if(GAS_URL)gcall({action:'adclick',id:a.dataset.adid,dev}).catch(()=>{})}catch(_){}},true);
-  document.addEventListener('click',e=>{const d=e.target.closest&&e.target.closest('.adslot .adx-dots i');if(!d)return;const s=d.closest('.adslot');adGo(s,+d.dataset.i);s._last=Date.now()});
+  document.addEventListener('click',e=>{const d=e.target.closest&&e.target.closest('.adslot .adx-dots i');if(!d)return;const s=d.closest('.adslot');adGo(s,+d.dataset.i)});
 
   /* ---------- Admin > Ads ---------- */
   let adForce=0,adEdit=null,adClicks={},adBusy=0;
@@ -5941,7 +5943,7 @@ ${n>1?`<div class="adx-dots">${L.map((a,k)=>`<i data-i="${k}" role="button" aria
 <li>Choose the pictures, paste the link, choose <b>where on the page</b> (bottom, middle or side) and a colour. The <b>Live preview</b> shows exactly how the ad will look.</li>
 <li>Set the dates, choose website, app or both and press <b>Save ad</b>. It shows within a minute for everyone.</li>
 <li>Check the <b>Clicks</b> number below to see how many people opened the company's website - you can share this with the company.</li>
-<li>To stop an ad, switch it <b>Off</b> or set an end date. More than one ad? They slide by themselves - choose how fast below.</li></ol></details>
+<li>To stop an ad, switch it <b>Off</b> or set an end date. More than one ad? They move along all the time by themselves - choose the speed below.</li></ol></details>
 ${A?`<div class="cfgc adf" id="adf" ${adEdit?'':'hidden'}><h4>${adEdit&&adEdit.id?'Edit ad':'New ad'}</h4>
 <div class="row"><label>Company name *<input id="ad_co" maxlength="60" value="${E(a.co||'')}" placeholder="e.g. Sharma Electricals"></label><label>Website link *<input id="ad_ln" type="url" maxlength="300" value="${E(a.link||'')}" placeholder="https://www.example.com"></label></div>
 <div class="row"><label>Heading <small>(big text, empty = company name)</small><input id="ad_hd" maxlength="50" value="${E(a.head||'')}" placeholder="e.g. Summer AC Sale"></label><label>Text <small>(optional, one short line)</small><input id="ad_tx" maxlength="90" value="${E(a.txt||'')}" placeholder="e.g. 20% off on inverters this week"></label></div>
@@ -5955,7 +5957,7 @@ ${A?`<div class="cfgc adf" id="adf" ${adEdit?'':'hidden'}><h4>${adEdit&&adEdit.i
 <div class="row adsw"><label class="cfgt"><input type="checkbox" id="ad_web" ${a.web!==false?'checked':''}><span class="cfg-s"></span><span class="cfg-t"><b>Show on website</b></span></label><label class="cfgt"><input type="checkbox" id="ad_app" ${a.app!==false?'checked':''}><span class="cfg-s"></span><span class="cfg-t"><b>Show in mobile app</b></span></label><label class="cfgt"><input type="checkbox" id="ad_on" ${a.on!==false?'checked':''}><span class="cfg-s"></span><span class="cfg-t"><b>Ad is On</b></span></label></div>
 <div class="cfg-ft"><button type="button" class="alt" id="ad_cancel">Cancel</button><button type="button" class="pbtn" id="ad_save">Save ad</button></div></div>
 <p><button type="button" class="pbtn" id="ad_new" ${adEdit?'hidden':''}>+ Add new ad</button></p>
-<div class="cfgc adspd"><label>Change to the next ad every<select id="ad_sec">${[3,4,5,6,8,10,15].map(n=>`<option value="${n}" ${adSec()==n?'selected':''}>${n} seconds</option>`).join('')}</select></label><small>More than one ad slides by itself. Customers can also swipe or use the arrows.</small></div>`:'<p class="note">Only Admin can add or change ads.</p>'}
+<div class="cfgc adspd"><label>Moving speed<select id="ad_sec">${[[3,'Fast'],[4,'Quick'],[5,'Normal'],[6,'Calm'],[8,'Slow'],[10,'Very slow'],[15,'Very very slow']].map(([n,t])=>`<option value="${n}" ${adSec()==n?'selected':''}>${t} (one ad in ${n} seconds)</option>`).join('')}</select></label><small>More than one ad moves along all the time. It stops while the mouse is on an ad; on phones customers can pull it with the finger.</small></div>`:'<p class="note">Only Admin can add or change ads.</p>'}
 ${L.length?`<div class="adl">${L.slice().reverse().map(a=>{const st=adState(a);return `<div class="cfgc adi"><div class="adi-im">${a.img?`<img src="${E(a.img)}" alt="" loading="lazy">`:''}</div><div class="adi-b">
 <div class="adi-h"><b>${E(a.head||a.co)}</b><span class="ppst ${ST_CL[st]}">${st}</span></div>${a.txt?`<small>${E(a.txt)}</small>`:''}
 <a href="${E(a.link)}" target="_blank" rel="noopener" class="adi-ln">${E(a.link)}</a>
@@ -5973,7 +5975,7 @@ ${A?`<div class="adi-a"><button type="button" class="alt pbtn" data-ad="edit" da
     sl.classList.toggle('adprv-side',side);fill(sl,[a],side?'side':'inline');adShow(sl,+sl.dataset.i||0)}
   document.addEventListener('input',e=>{if(e.target&&/^ad_(sz|w|co|hd|tx|bt|cl)$/.test(e.target.id))szPrev()});
   document.addEventListener('change',e=>{if(!e.target)return;if(/^ad_(sz|tp|pl|cl)$/.test(e.target.id))szPrev();
-    if(e.target.id=='ad_sec'){const r=stx();r.adSec=+e.target.value;r.at=new Date().toLocaleString();save();try{applySet()}catch(_){}toast('Ads now change every '+e.target.value+' seconds','ok')}});
+    if(e.target.id=='ad_sec'){const r=stx();r.adSec=+e.target.value;r.at=new Date().toLocaleString();save();try{applySet()}catch(_){}toast('Ads now move one ad in '+e.target.value+' seconds','ok')}});
   document.addEventListener('change',async e=>{if(!e.target||e.target.id!='ad_im')return;const f=e.target.files&&e.target.files[0];if(!f)return;
     if(!/^image\//.test(f.type))return alert('Please choose an image (JPG or PNG)');
     const pv=$('ad_pv');pv.innerHTML='<span>Preparing image...</span>';
