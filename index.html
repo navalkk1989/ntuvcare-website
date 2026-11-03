@@ -4421,7 +4421,7 @@ ${S.adm?'':'<div class="note"><b>You are using the default login</b> &ndash; ID:
     const W=function(o){this._o=Object.assign({},o);this._ev=[]};
     W.prototype.on=function(e,f){this._ev.push([e,f]);return this};
     W.prototype.open=function(){const S=setGet(),o=this._o,ev=this._ev;if(S.rzpKey)o.key=S.rzpKey;o.theme={color:'#0f5bff'};if(S.name)o.name=S.name;
-      const go=oid=>{const x=Object.assign({},o);if(oid)x.order_id=oid;const real=new R(x);ev.forEach(a=>real.on(a[0],a[1]));real.open()};
+      const go=oid=>{const x=Object.assign({},o);if(oid)x.order_id=oid;if(APP)x.webview_intent=true;window.rzpLast={oid:oid||'',amount:o.amount,notes:o.notes||{},ts:Date.now()};try{window.onRzpOpen&&onRzpOpen(window.rzpLast)}catch(_){}const real=new R(x);ev.forEach(a=>real.on(a[0],a[1]));real.open()};
       if(GAS_URL&&S.rzpSec&&S.rzpKey)gcall({action:'rzporder',amount:o.amount,notes:o.notes||{},receipt:('NT'+Date.now()).slice(-20)}).then(r=>go(r&&r.ok?r.id:'')).catch(()=>go(''));else go('')};
     W._nt=1;window.Razorpay=W}
   patchR();setInterval(patchR,1500);
@@ -5039,7 +5039,7 @@ ${window.ppaExtra?ppaExtra():''}<h4>Recently checked</h4>${D.length?`<div class=
     if(typeof covered=='function'&&!covered($('pin').value))return noTech($('pin').value);
     const q=$('qty');if(q&&!(+q.value>=1))return alert('Total AC Quantity is required (minimum 1)');if(!$('agree').checked)return alert('Please agree to the Terms & Conditions');
     const before=db.b.length;const r=await _r.apply(this,arguments);let n=0;
-    const w=setInterval(()=>{n++;if(paid){clearInterval(w);bookBtns();setTimeout(()=>{if(db.b.length==before){$('bk').hidden=false;f.requestSubmit($('bk'))}},300)}else if(n>1200)clearInterval(w)},500);return r}}
+    const w=setInterval(()=>{n++;if(paid){clearInterval(w);bookBtns();setTimeout(()=>{if(db.b.length==before){$('bk').hidden=false;f.requestSubmit($('bk'))}},300)}else if(n>3600)clearInterval(w)},500);return r}}
   if(typeof clearF=='function'){const _cf=clearF;clearF=function(){_cf.apply(this,arguments);bookBtns()}}
 
   /* ---------- 4. refund request by the customer ---------- */
@@ -5877,6 +5877,84 @@ ${A?`<div class="adi-a"><button type="button" class="alt pbtn" data-ad="edit" da
   function footFix(){const f=document.querySelector('footer');if(!f)return;const a=f.querySelector('.fc .fcb>div:first-child');if(a&&!a.classList.contains('f-addr')&&/Pincode|Sec|Shop|Gurgaon|Gurugram|Address/i.test(a.textContent))a.classList.add('f-addr')}
   footFix();setInterval(footFix,3000);
   if(APP)B.classList.add('app-foot');
+})();
+
+</script><script>
+/* ===== NTUV v6.4: booking is saved automatically after the advance payment - also when the phone closed the
+   page while the customer was paying in the UPI app (the payment is checked with Razorpay and the booking saved) ===== */
+(function(){
+  const KEY='bkPayDraft',TTL=48*3600e3;
+  const LS={get(){try{return JSON.parse(localStorage.getItem(KEY)||'null')}catch(_){return null}},set(v){try{v?localStorage.setItem(KEY,JSON.stringify(v)):localStorage.removeItem(KEY)}catch(_){}}};
+  const R=n=>'Rs '+(Math.round((+n||0)*100)/100).toLocaleString('en-IN');
+  const ctl=()=>[...document.querySelectorAll('#bf input,#bf select,#bf textarea')].filter(e=>e.type!='file'&&e.type!='button'&&e.type!='submit'&&e.id!='otp');
+  const snap=()=>({rows:($('xrows')||{children:[]}).children.length,v:ctl().map(e=>e.type=='checkbox'||e.type=='radio'?!!e.checked:e.value)});
+  function restore(s){try{if(typeof clearF=='function')clearF()}catch(_){}
+    try{for(let i=0;i<(s.rows||0);i++)if(typeof addRow=='function')addRow()}catch(_){}
+    const L=ctl();(s.v||[]).forEach((v,i)=>{const e=L[i];if(!e)return;
+      if(e.type=='checkbox'||e.type=='radio')e.checked=!!v;else{if(e.id=='pin')return;e.value=v}
+      try{e.dispatchEvent(new Event('change',{bubbles:true}))}catch(_){}});
+    const p=L.find(e=>e.id=='pin'),i=L.indexOf(p);if(p&&i>=0&&s.v[i]!=null){p.value=s.v[i];try{if(typeof chkPin=='function')chkPin(p.value)}catch(_){}}
+    /* restore the address text the pincode lookup may have changed */
+    ['st','ci'].forEach(id=>{const e=$(id),k=L.findIndex(x=>x.id==id);if(e&&k>=0)e.value=s.v[k]})}
+  const bookedId=pid=>{const x=pid&&(db.b||[]).find(b=>b.payId==pid);return x?x.id:''};
+  function note(h,cls){const f=$('bf');if(!f)return;let n=$('bkrec');if(!n){f.insertAdjacentHTML('afterbegin','<div class="note" id="bkrec" role="status"></div>');n=$('bkrec')}n.className='note '+(cls||'');n.innerHTML=h}
+  const noteOff=()=>{const n=$('bkrec');if(n)n.remove()};
+
+  /* 1. the payment window opens for a booking: remember the form + the Razorpay order */
+  const isBook=o=>o&&o.notes&&o.notes.service!==undefined&&!o.notes.type;
+  const prevOpen=window.onRzpOpen;
+  window.onRzpOpen=function(o){try{prevOpen&&prevOpen(o)}catch(_){}
+    if(!isBook(o))return;LS.set({oid:o.oid||'',amt:(+o.amount||0)/100,mob:($('cm')||{}).value||'',ts:Date.now(),s:snap()})};
+
+  /* 2. save the booking with the payment (form already filled on this page, or filled again from the saved copy) */
+  let busy=0,lastTry=0;
+  async function finish(d,pid,amt,fromServer){
+    if(busy||Date.now()-lastTry<6000)return;busy=1;lastTry=Date.now();
+    try{
+      const was=bookedId(pid);if(was){done(d,was,fromServer);return}
+      if(fromServer&&!(paid&&payId==pid)){show('home');restore(d.s);paid=true;payId=pid;ver=true}
+      try{const p=$('pay');if(p){p.disabled=true;p.textContent=R(amt||d.amt)+' Paid'}}catch(_){}
+      note('<b class="ok">&#10003; Your payment of '+R(amt||d.amt)+' is received.</b> Saving your booking...','');
+      const bk=$('bk'),f=$('bf');if(bk){bk.hidden=false;bk.disabled=false}
+      const n0=(db.b||[]).length;f.requestSubmit(bk);
+      await new Promise(r=>setTimeout(r,2500));
+      const id=bookedId(pid)||((db.b||[]).length>n0?(db.b[db.b.length-1]||{}).id:'');
+      if(id)done(d,id,fromServer);
+      else{note('<b class="ok">&#10003; Your payment of '+R(amt||d.amt)+' is received.</b> Please check the form and tap <b>Book Now</b> to finish your booking. You do not have to pay again.','');
+        try{f.reportValidity();bk.scrollIntoView({behavior:'smooth',block:'center'})}catch(_){}}
+    }finally{busy=0}}
+  function done(d,id,fromServer){LS.set(null);
+    if(fromServer){noteOff();toast('Your payment is received and booking '+id+' is confirmed.')}
+    setTimeout(noteOff,4000)}
+
+  /* 3. after a payment: ask the server whether the Razorpay order was paid */
+  let chkBusy=0;
+  async function check(){const d=LS.get();if(!d)return;
+    if(Date.now()-d.ts>TTL){LS.set(null);return}
+    if(paid&&payId){const id=bookedId(payId);if(id){LS.set(null);return}
+      if(window.rzpLast&&Date.now()-(rzpLast.paidAt||0)<10000)return;     /* the page itself is saving it right now */
+      if(d.shown)return;d.shown=1;LS.set(d);
+      note('<b class="ok">&#10003; Your payment of '+R(d.amt)+' is received.</b> Please check the form and tap <b>Book Now</b> to finish your booking. You do not have to pay again.','');
+      const bk=$('bk');if(bk){bk.hidden=false;bk.disabled=false}return}
+    if(!d.oid||chkBusy||typeof gcall!='function')return;
+    chkBusy=1;
+    try{const r=await gcall({action:'bkchk',oid:d.oid});
+      if(!r||!r.ok){if(r&&/unknown action/i.test(r.err||''))LS.set(null);return}
+      if(r.paid&&r.booked){LS.set(null);if(!bookedId(r.payId)&&typeof pull=='function')try{pull()}catch(_){}
+        if(Date.now()-d.ts<6*3600e3&&!(paid&&payId==r.payId))toast('Your payment is received and booking '+r.booked+' is confirmed.');return}
+      if(r.paid)return finish(d,r.payId,r.amt,true);
+      if(Date.now()-d.ts>45*60e3)LS.set(null);                              /* never paid: forget it */
+    }catch(_){}finally{chkBusy=0}}
+  window.bkPayCheck=check;
+
+  /* the page's own payment answer: remember the time so both do not save the booking at once */
+  setInterval(()=>{if(paid&&payId&&window.rzpLast&&!rzpLast.paidAt&&rzpLast.pid!==payId){rzpLast.paidAt=Date.now();rzpLast.pid=payId;const d=LS.get();if(d&&!d.pid){d.pid=payId;LS.set(d)}}
+    const d=LS.get();if(d&&d.pid&&bookedId(d.pid))LS.set(null)},400);
+
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)setTimeout(check,1200)});
+  window.addEventListener('pageshow',()=>setTimeout(check,2500));
+  setTimeout(check,3500);
+  setInterval(()=>{if(!document.hidden&&LS.get())check()},15000);
 })();
 
 </script>
