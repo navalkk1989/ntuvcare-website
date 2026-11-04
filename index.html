@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#ffffff"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="NTUV Care"><link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icons/icon-192.png">
+<!DOCTYPE html><html lang="en"><head><script>window.NTUV_BUILD='20261104132719'</script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#ffffff"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="NTUV Care"><link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icons/icon-192.png">
 <title>NTUV Care - AC Service, Repair & Copper Piping Work</title>
 <script>try{document.documentElement.dataset.theme=localStorage.ntuvTheme||"light"}catch(e){}</script><link rel="preload" href="static/f/bc700.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" as="image" href="static/m/hero-1672.webp" imagesrcset="static/m/hero-760.webp 760w, static/m/hero-1100.webp 1100w, static/m/hero-1672.webp 1672w" imagesizes="100vw"><style>@font-face{font-family:'Barlow Condensed';font-weight:500;font-display:swap;src:url(static/f/bc500.woff2) format('woff2')}@font-face{font-family:'Barlow Condensed';font-weight:600;font-display:swap;src:url(static/f/bc600.woff2) format('woff2')}@font-face{font-family:'Barlow Condensed';font-weight:700;font-display:swap;src:url(static/f/bc700.woff2) format('woff2')}@font-face{font-family:'Barlow';font-weight:400;font-display:swap;src:url(static/f/b400.woff2) format('woff2')}@font-face{font-family:'Barlow';font-weight:500;font-display:swap;src:url(static/f/b500.woff2) format('woff2')}@font-face{font-family:'Barlow';font-weight:600;font-display:swap;src:url(static/f/b600.woff2) format('woff2')}@font-face{font-family:'Barlow';font-weight:700;font-display:swap;src:url(static/f/b700.woff2) format('woff2')}@font-face{font-family:'Nunito';font-weight:800;font-display:swap;src:url(static/f/n800.woff2) format('woff2')}</style><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" media="print" onload="this.media='all'"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script><script async src="https://checkout.razorpay.com/v1/checkout.js"></script><style>
 :root{color-scheme:light;--bg:#fff;--bg2:#f3f3f3;--card:#fff;--ink:#0b0b0b;--mut:#666;--line:#d9d9d9;--acc:#e31e24;--acc2:#b8141a;--inp:#fff;--hdr:#fff;--okc:#15803d;--bad:#c8102e;--note:#fff3f3;--thead:#0b0b0b;--shd:0 6px 24px #0000001a;--n:var(--bg);--p:var(--card);--a:var(--acc);--t:var(--ink);--g:var(--mut);--hf:'Barlow Condensed','Oswald','Arial Narrow',sans-serif;--bf:'Barlow','Noto Sans Devanagari',system-ui,'Segoe UI',Arial,sans-serif}
@@ -1585,6 +1585,39 @@ body.shell #home[data-sub=main]>.adslot{display:block!important}
 .adprev2{display:flex!important;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center;padding:6px}
 .adprev2 img{max-height:70px!important;border-radius:8px}
 .adprev2 button{padding:6px 10px!important;font-size:12px!important}
+
+/* ===== v7.1 Admin > Ads > Ad click report ===== */
+.adrep{margin-top:18px!important}
+.adrep .arh{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.adrep .arh h3,.adrep .arh h4{margin:0}
+.arld{color:var(--mut);font-size:12px}
+.arq{margin:6px 0 12px}
+.arsum{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:4px 0 10px}
+.artile{display:flex!important;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;padding:12px 14px!important;border-radius:14px!important;
+  background:#f1f4fa!important;color:var(--ink)!important;border:1px solid transparent!important;box-shadow:none!important;cursor:pointer;min-width:0;font-weight:400!important}
+.artile b{font-size:24px;line-height:1.1}
+.artile small{color:var(--mut);font-size:13px}
+.artile em{font-style:normal;font-size:11.5px;color:var(--acc,#0f5bff);opacity:0;transition:opacity .2s}
+.artile:hover em,.artile.on em{opacity:1}
+.artile:hover{border-color:var(--line)!important}
+.artile.on{background:#e7efff!important;border-color:var(--acc,#0f5bff)!important}
+.arco{display:flex;flex-wrap:wrap;gap:4px 16px;margin:0 0 10px;font-size:13.5px}
+.art td,.art th{white-space:nowrap}
+.art .artot td{background:#f6f8fc}
+.arn{background:none!important;border:0!important;padding:2px 6px!important;margin:-2px -6px;color:var(--acc,#0f5bff)!important;font:inherit!important;text-decoration:underline;cursor:pointer;box-shadow:none!important;border-radius:6px!important;min-height:0!important}
+.arn:hover{background:#e7efff!important}
+.ardet{margin:10px 0 14px;padding:12px;border:1px solid var(--acc,#0f5bff);border-radius:14px;background:#f8faff}
+.ardet .tw{margin-top:8px}
+@media(max-width:700px){.arsum{grid-template-columns:repeat(2,minmax(0,1fr))}.artile b{font-size:21px}.artile em{opacity:1}}
+:root[data-theme=dark] .artile,body.dark .artile{background:#1b2436!important}
+:root[data-theme=dark] .artile.on,body.dark .artile.on,:root[data-theme=dark] .ardet,body.dark .ardet{background:#1d2b4a!important}
+:root[data-theme=dark] .art .artot td,body.dark .art .artot td{background:#18202f}
+/* ===== v7.1 "new version ready" bar ===== */
+.nvup{position:fixed;left:50%;top:calc(72px + env(safe-area-inset-top,0px));transform:translateX(-50%);z-index:9999;display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center;
+  max-width:calc(100vw - 24px);box-sizing:border-box;padding:10px 12px 10px 16px;border-radius:14px;background:#0b1a44;color:#fff;font:600 14px/1.3 system-ui,sans-serif;box-shadow:0 10px 30px #0b1a4466;animation:nvin .4s ease}
+.nvup button{padding:8px 14px!important;border-radius:10px!important;background:#fff!important;color:#0b1a44!important;border:0!important;font-weight:700!important;min-height:0!important}
+body.shell .nvup{top:calc(64px + env(safe-area-inset-top,0px))}
+@keyframes nvin{from{opacity:0;transform:translate(-50%,-12px)}}
 
 /* admin settings */
 .cfgw{max-width:860px}
@@ -5934,7 +5967,14 @@ ${on&&left>0?`<button type="button" class="bpay-go" onclick="billPay('${E(x.id)}
   document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('.adprv a')){e.preventDefault();e.stopImmediatePropagation()}},true);
   document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('a[data-adid]');if(!a)return;
     if(!/^https?:\/\//i.test(a.getAttribute('href')||'')){e.preventDefault();return}
-    try{if(GAS_URL)gcall({action:'adclick',id:a.dataset.adid,dev}).catch(()=>{})}catch(_){}},true);
+    try{if(GAS_URL){const sl=a.closest('.adslot'),sec=sl&&(sl.id=='adrail'?visSec():sl.closest('#home,#cust,#tech'));
+      gcall({action:'adclick',id:a.dataset.adid,dev,k:clickFrom(),os:devName(),pg:({home:'Home',cust:'My Account',tech:'Technician'})[sec&&sec.id]||'',pl:({bottom:'Bottom',middle:'Middle',side:'Side'})[sl&&sl.dataset.w]||'',
+        nm:(typeof me!='undefined'&&me&&(me.name||me.mob))||''}).catch(()=>{})}}catch(_){}},true);
+  /* where the click came from: the app, a phone / tablet browser or a computer; and a short name of the phone / browser */
+  function clickFrom(){if(APP)return 'app';return /Android|iPhone|iPad|iPod|Mobile|Tablet/i.test(UA)||(navigator.maxTouchPoints>1&&/Macintosh/.test(UA))?'mweb':'pc'}
+  function devName(){const os=/Android/i.test(UA)?'Android':/iPhone|iPad|iPod/i.test(UA)?'iPhone':/Windows/i.test(UA)?'Windows':/Mac OS X|Macintosh/i.test(UA)?'Mac':/Linux/i.test(UA)?'Linux':'Other',
+    br=APP?'NTUV Care app':/Edg\//.test(UA)?'Edge':/OPR\/|Opera/.test(UA)?'Opera':/SamsungBrowser/.test(UA)?'Samsung Internet':/Firefox|FxiOS/.test(UA)?'Firefox':/Chrome|CriOS/.test(UA)?'Chrome':/Safari/.test(UA)?'Safari':'Browser';
+    const m=/Android[^;]*;\s*([^;)]+?)(?:\s+Build|\))/i.exec(UA),md=m&&!/^(K|wv)$/.test(m[1].trim())?' ('+m[1].trim().slice(0,24)+')':'';return os+md+' - '+br}
   
 
   /* ---------- Admin > Ads ---------- */
@@ -6133,6 +6173,165 @@ ${A?`<div class="adi-a"><button type="button" class="alt pbtn" data-ad="edit" da
   window.addEventListener('pageshow',()=>setTimeout(check,2500));
   setTimeout(check,3500);
   setInterval(()=>{if(!document.hidden&&LS.get())check()},15000);
+})();
+
+</script><script>
+/* ===== NTUV v7.1: Admin > Ads > Ad click report (under the ads): date range, one company or all, date-wise clicks,
+   App / Mobile website / Computer counts, who clicked (tap a number), Excel (.xlsx) download. Refreshes by itself. ===== */
+(function(){
+  const E=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const LS={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(_){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(_){}}};
+  const canAds=()=>typeof me!='undefined'&&me&&(me.role=='admin'||me.role=='manager');
+  const z=n=>String(n).padStart(2,'0'),iso=d=>d.getFullYear()+'-'+z(d.getMonth()+1)+'-'+z(d.getDate());
+  const day=ts=>iso(new Date(ts)),dTxt=s=>{const [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})};
+  const tTxt=ts=>new Date(ts).toLocaleString('en-IN',{day:'numeric',month:'short',year:'numeric',hour:'numeric',minute:'2-digit'});
+  const KIND={app:'App',mweb:'Mobile website',pc:'Computer'};
+  const ROLE={admin:'Admin',manager:'Office Manager',office:'Office Employee',technician:'Technician',cust:'Customer',guest:'Guest (not logged in)'};
+  const ads=()=>{const a=(typeof setGet=='function'?setGet().ads:null);return Array.isArray(a)?a:[]};
+  const adName=id=>{const a=ads().find(x=>x.id==id);return a?(a.co||a.head||id):'Deleted ad'};
+  /* ---------- filters ---------- */
+  function preset(q){const n=new Date(),t=new Date(n.getFullYear(),n.getMonth(),n.getDate());let f=t,to=t;
+    if(q=='7')f=new Date(t-6*864e5);else if(q=='30')f=new Date(t-29*864e5);
+    else if(q=='month')f=new Date(t.getFullYear(),t.getMonth(),1);
+    else if(q=='lmonth'){f=new Date(t.getFullYear(),t.getMonth()-1,1);to=new Date(t.getFullYear(),t.getMonth(),0)}
+    return {f:iso(f),t:iso(to)}}
+  let F=Object.assign({q:'7',ad:'',k:'',dd:'',da:''},LS.get('adRepF',{}));
+  if(F.q!='custom')Object.assign(F,preset(F.q));
+  F.k='';F.dd='';F.da='';                                                /* the details list starts closed */
+  const save=()=>{const o=Object.assign({},F);delete o.k;delete o.dd;delete o.da;LS.set('adRepF',o)};
+  const span=()=>{const [y1,m1,d1]=F.f.split('-').map(Number),[y2,m2,d2]=F.t.split('-').map(Number);return [new Date(y1,m1-1,d1).getTime(),new Date(y2,m2-1,d2+1).getTime()-1]};
+  /* ---------- data from the server ---------- */
+  let rows=[],more=false,busy=0,err='',got=0,key='';
+  async function load(force){if(!canAds()||busy)return;const [a,b]=span(),k=a+'|'+b+'|'+F.ad;if(!force&&k==key&&Date.now()-got<25000)return;
+    if(typeof GAS_URL=='undefined'||!GAS_URL){err='The report needs the internet connection to the server.';paint();return}
+    busy=1;paint();
+    try{const r=await gcall({action:'adreport',from:a,to:b,ad:F.ad});
+      if(r&&r.ok){rows=(r.rows||[]).map(x=>({ts:x[0],ad:x[1],k:x[2],r:x[3],uid:x[4],nm:x[5],mob:x[6],dev:x[7],os:x[8],pg:x[9],pl:x[10]}));more=!!r.more;err='';got=Date.now();key=k}
+      else err=r&&/unknown action/i.test(r.err||'')?'Please deploy the new Code.gs (Manage deployments > Edit > New version) to see the report.':((r&&r.err)||'Could not load the report');
+    }catch(e){err='Could not load the report. Check the internet and try again.'}
+    finally{busy=0;paint()}}
+  /* ---------- the report ---------- */
+  const pick=(L,o)=>L.filter(x=>(!o.k||o.k=='all'||x.k==o.k)&&(!o.dd||day(x.ts)==o.dd)&&(!o.da||x.ad==o.da));
+  function byDate(L){const m={};L.forEach(x=>{const d=day(x.ts),k=d+'|'+x.ad;const r=m[k]||(m[k]={d,ad:x.ad,n:0,app:0,mweb:0,pc:0});r.n++;r[x.k]=(r[x.k]||0)+1});
+    return Object.values(m).sort((a,b)=>a.d<b.d?1:a.d>b.d?-1:adName(a.ad).localeCompare(adName(b.ad)))}
+  const cnt=(L,k)=>L.filter(x=>x.k==k).length;
+  const who=x=>x.r=='guest'||!x.r?'Guest (not logged in)':(x.nm||ROLE[x.r]||x.r);
+  function html(){const L=rows,T=byDate(L),q=(v,t)=>`<button type="button" class="${F.q==v?'on':''}" data-arq="${v}">${t}</button>`;
+    const ids=[...new Set(ads().map(a=>a.id).concat(L.map(x=>x.ad)))];
+    const tile=(k,n,t)=>`<button type="button" class="artile${F.k==k&&!F.dd?' on':''}" data-ark="${k}" title="Show who clicked"><b>${n}</b><small>${t}</small><em>Show users &#8250;</em></button>`;
+    const per={};L.forEach(x=>per[x.ad]=(per[x.ad]||0)+1);
+    const c=(d,ad,k,n)=>n?`<button type="button" class="arn" data-ard="${E(d)}" data-ara="${E(ad)}" data-ark2="${k}" title="Show who clicked">${n}</button>`:'0';
+    const D=F.k?pick(L,F).sort((a,b)=>b.ts-a.ts):[];
+    const dHead=F.k?(F.k=='all'?'All clicks':KIND[F.k])+(F.dd?' on '+dTxt(F.dd):'')+(F.da?' - '+adName(F.da):''):'';
+    return `<div class="cfgc adrep" id="adrep"><div class="arh"><h3 class="sh">Ad click report</h3>${busy?'<small class="arld">Updating...</small>':got?`<small class="arld">Updated ${new Date(got).toLocaleTimeString('en-IN',{hour:'numeric',minute:'2-digit'})}</small>`:''}</div>
+<p><small>How many people clicked the ads, day by day, and who they were. Tap a number to see the users. The report updates by itself.</small></p>
+<div class="row"><label>From<input type="date" id="ar_f" value="${E(F.f)}" max="${E(F.t)}"></label><label>To<input type="date" id="ar_t" value="${E(F.t)}" min="${E(F.f)}"></label>
+<label>Ad<select id="ar_ad"><option value="">All ads</option>${ids.map(id=>`<option value="${E(id)}" ${F.ad==id?'selected':''}>${E(adName(id))}</option>`).join('')}</select></label></div>
+<div class="payq arq">${q('today','Today')}${q('7','Last 7 days')}${q('30','Last 30 days')}${q('month','This month')}${q('lmonth','Last month')}</div>
+${err?`<p class="note bad">${E(err)}</p>`:''}
+<div class="arsum">${tile('all',L.length,'Total clicks')}${tile('app',cnt(L,'app'),'From the app')}${tile('mweb',cnt(L,'mweb'),'Mobile website')}${tile('pc',cnt(L,'pc'),'Computer')}</div>
+${L.length?`<p class="arco">${Object.keys(per).sort((a,b)=>per[b]-per[a]).map(id=>`<span><b>${E(adName(id))}</b>: ${per[id]}</span>`).join('')}</p>`:''}
+<div class="payx"><button type="button" class="alt" id="ar_xl" ${L.length?'':'disabled'}>&#11015; Download Excel</button><button type="button" class="alt" id="ar_rf">&#8635; Refresh</button></div>
+${more?'<p class="note">Showing the latest 20,000 clicks. Choose a shorter date range to see all.</p>':''}
+${F.k?`<div class="ardet" id="ar_det"><div class="arh"><h4>Who clicked - ${E(dHead)} (${D.length})</h4><button type="button" class="alt" id="ar_x">Close</button></div>
+${D.length?`<div class="tw"><table class="hz art"><tr><th>Date &amp; time</th><th>Ad (company)</th><th>From</th><th>User</th><th>Mobile</th><th>Phone / browser</th><th>Page</th><th>Device ID</th></tr>
+${D.map(x=>`<tr><td><small>${E(tTxt(x.ts))}</small></td><td>${E(adName(x.ad))}</td><td>${E(KIND[x.k]||x.k)}</td><td><b>${E(who(x))}</b>${x.r&&x.r!='guest'?`<br><small>${E(ROLE[x.r]||x.r)}${x.uid?' &middot; '+E(x.uid):''}</small>`:''}</td>
+<td>${x.mob?`<a href="tel:+91${E(x.mob)}">${E(x.mob)}</a>`:'-'}</td><td><small>${E(x.os||'-')}</small></td><td><small>${E([x.pg,x.pl].filter(Boolean).join(' - ')||'-')}</small></td><td><small class="payid">${E(x.dev||'-')}</small></td></tr>`).join('')}</table></div>`:'<p class="note">No clicks.</p>'}</div>`:''}
+${T.length?`<div class="tw"><table class="hz art"><tr><th>Date</th><th>Ad (company)</th><th>Clicks</th><th>App</th><th>Mobile website</th><th>Computer</th></tr>
+${T.map(r=>`<tr><td>${E(dTxt(r.d))}</td><td>${E(adName(r.ad))}</td><td><b>${c(r.d,r.ad,'all',r.n)}</b></td><td>${c(r.d,r.ad,'app',r.app)}</td><td>${c(r.d,r.ad,'mweb',r.mweb)}</td><td>${c(r.d,r.ad,'pc',r.pc)}</td></tr>`).join('')}
+<tr class="artot"><td><b>Total</b></td><td></td><td><b>${L.length}</b></td><td>${cnt(L,'app')}</td><td>${cnt(L,'mweb')}</td><td>${cnt(L,'pc')}</td></tr></table></div>`:(busy&&!got?'':'<p class="note">No clicks in this date range.</p>')}</div>`}
+  function paint(){const w=document.querySelector('#panel .adw');if(!w||!canAds())return;let r=$('adrep');
+    const keep=r&&r.contains(document.activeElement)?document.activeElement.id:'';
+    const h=html();if(r){if(r._h===h)return;r.outerHTML=h}else w.insertAdjacentHTML('beforeend',h);r=$('adrep');r._h=h;
+    if(keep&&$(keep))try{$(keep).focus()}catch(_){}}
+  /* ---------- Excel (.xlsx) ---------- */
+  function excel(){const L=rows,T=byDate(L),[a,b]=span();
+    const s1=[['Ad click report'],['From',dTxt(F.f),'To',dTxt(F.t),'Ad',F.ad?adName(F.ad):'All ads'],[],['Date','Ad (company)','Clicks','App','Mobile website','Computer']]
+      .concat(T.map(r=>[dTxt(r.d),adName(r.ad),r.n,r.app||0,r.mweb||0,r.pc||0])).concat([['Total','',L.length,cnt(L,'app'),cnt(L,'mweb'),cnt(L,'pc')]]);
+    const s2=[['Date & time','Ad (company)','From','User','Role','User ID','Mobile','Phone / browser','Page','Place on page','Device ID']]
+      .concat(L.slice().sort((x,y)=>y.ts-x.ts).map(x=>[tTxt(x.ts),adName(x.ad),KIND[x.k]||x.k,who(x),ROLE[x.r]||x.r||'Guest',x.uid||'',x.mob||'',x.os||'',x.pg||'',x.pl||'',x.dev||'']));
+    const per=[['Ad (company)','Clicks','App','Mobile website','Computer']];[...new Set(L.map(x=>x.ad))].forEach(id=>{const M=L.filter(x=>x.ad==id);per.push([adName(id),M.length,cnt(M,'app'),cnt(M,'mweb'),cnt(M,'pc')])});
+    const blob=xlsx([{name:'Date wise',rows:s1,w:[16,26,10,10,16,12],bold:[0,3,s1.length-1]},{name:'By company',rows:per,w:[26,10,10,16,12],bold:[0]},{name:'User details',rows:s2,w:[22,24,15,24,18,14,14,30,13,13,14],bold:[0]}]);
+    const nm='NTUV-Ad-Clicks-'+F.f+'-to-'+F.t+(F.ad?'-'+adName(F.ad).replace(/[^\w-]+/g,'-').slice(0,30):'')+'.xlsx';
+    const x=document.createElement('a');x.href=URL.createObjectURL(blob);x.download=nm;document.body.appendChild(x);x.click();setTimeout(()=>{URL.revokeObjectURL(x.href);x.remove()},2000);toast('Excel file downloaded','ok')}
+  /* small .xlsx writer (zip without compression) */
+  const CRC=(()=>{const t=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0}return t})();
+  const crc=u=>{let c=-1;for(let i=0;i<u.length;i++)c=CRC[(c^u[i])&255]^(c>>>8);return (c^-1)>>>0};
+  function zip(files){const enc=new TextEncoder(),parts=[],cd=[];let off=0;
+    const h16=v=>[v&255,(v>>8)&255],h32=v=>[v&255,(v>>8)&255,(v>>16)&255,(v>>>24)&255];
+    files.forEach(f=>{const n=enc.encode(f.n),d=enc.encode(f.d),c=crc(d);
+      const lh=new Uint8Array([0x50,0x4b,3,4,...h16(20),...h16(0),...h16(0),...h16(0),...h16(0x21),...h32(c),...h32(d.length),...h32(d.length),...h16(n.length),...h16(0)]);
+      parts.push(lh,n,d);cd.push(new Uint8Array([0x50,0x4b,1,2,...h16(20),...h16(20),...h16(0),...h16(0),...h16(0),...h16(0x21),...h32(c),...h32(d.length),...h32(d.length),...h16(n.length),...h16(0),...h16(0),...h16(0),...h16(0),...h32(0),...h32(off)]),n);
+      off+=lh.length+n.length+d.length});
+    const cdl=cd.reduce((s,u)=>s+u.length,0);
+    return new Blob(parts.concat(cd,[new Uint8Array([0x50,0x4b,5,6,...h16(0),...h16(0),...h16(files.length),...h16(files.length),...h32(cdl),...h32(off),...h16(0)])]),{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'})}
+  function xlsx(sheets){const X=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])).replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/g,'');
+    const col=i=>{let s='';i++;while(i){const m=(i-1)%26;s=String.fromCharCode(65+m)+s;i=(i-m-1)/26}return s};
+    const sh=S=>`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetViews><sheetView workbookViewId="0"><pane ySplit="${S.name=='Date wise'?4:1}" topLeftCell="A${S.name=='Date wise'?5:2}" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews><cols>${S.w.map((w,i)=>`<col min="${i+1}" max="${i+1}" width="${w}" customWidth="1"/>`).join('')}</cols><sheetData>${S.rows.map((r,ri)=>`<row r="${ri+1}">${r.map((v,ci)=>{const ref=col(ci)+(ri+1),st=S.bold.includes(ri)?' s="1"':'';
+      return typeof v=='number'?`<c r="${ref}"${st}><v>${v}</v></c>`:`<c r="${ref}" t="inlineStr"${st}><is><t xml:space="preserve">${X(v)}</t></is></c>`}).join('')}</row>`).join('')}</sheetData></worksheet>`;
+    return zip([
+      {n:'[Content_Types].xml',d:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>${sheets.map((_,i)=>`<Override PartName="/xl/worksheets/sheet${i+1}.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>`).join('')}</Types>`},
+      {n:'_rels/.rels',d:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>`},
+      {n:'xl/workbook.xml',d:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets>${sheets.map((s,i)=>`<sheet name="${X(s.name)}" sheetId="${i+1}" r:id="rId${i+1}"/>`).join('')}</sheets></workbook>`},
+      {n:'xl/_rels/workbook.xml.rels',d:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">${sheets.map((_,i)=>`<Relationship Id="rId${i+1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet${i+1}.xml"/>`).join('')}<Relationship Id="rId${sheets.length+1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>`},
+      {n:'xl/styles.xml',d:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><fonts count="2"><font><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="11"/><name val="Calibri"/></font></fonts><fills count="2"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill></fills><borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="2"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="0" borderId="0" xfId="0" applyFont="1"/></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>`}
+    ].concat(sheets.map((s,i)=>({n:'xl/worksheets/sheet'+(i+1)+'.xml',d:sh(s)}))))}
+  window.ntuvXlsx=xlsx;
+  /* ---------- events ---------- */
+  function setF(o){Object.assign(F,o);save();paint();load()}
+  document.addEventListener('click',e=>{const t=e.target;if(!t.closest||!t.closest('#adrep'))return;
+    const q=t.closest('[data-arq]');if(q){setF(Object.assign({q:q.dataset.arq,k:'',dd:'',da:''},preset(q.dataset.arq)));return}
+    const k=t.closest('[data-ark]');if(k){const v=k.dataset.ark;Object.assign(F,F.k==v&&!F.dd?{k:'',dd:'',da:''}:{k:v,dd:'',da:''});paint();goDet();return}
+    const n=t.closest('[data-ard]');if(n){Object.assign(F,{k:n.dataset.ark2,dd:n.dataset.ard,da:n.dataset.ara});paint();goDet();return}
+    if(t.id=='ar_x'){Object.assign(F,{k:'',dd:'',da:''});paint();return}
+    if(t.id=='ar_xl'){excel();return}
+    if(t.id=='ar_rf'){load(1);return}});
+  const goDet=()=>setTimeout(()=>{const d=$('ar_det');if(d)d.scrollIntoView({behavior:'smooth',block:'nearest'})},50);
+  document.addEventListener('change',e=>{const id=e.target&&e.target.id;
+    if(id=='ar_f'||id=='ar_t'){let f=$('ar_f').value,t=$('ar_t').value;if(!f||!t)return;if(f>t)[f,t]=[t,f];setF({q:'custom',f,t,k:'',dd:'',da:''})}
+    else if(id=='ar_ad')setF({ad:e.target.value,k:'',dd:'',da:''})});
+  /* show it under the ads every time Admin > Ads is drawn, and keep it fresh */
+  const _rn=render;render=function(){const r=_rn.apply(this,arguments);try{if(canAds()&&document.querySelector('#panel .adw')){paint();load()}}catch(_){}return r};
+  setInterval(()=>{try{if(!document.hidden&&canAds()&&document.querySelector('#panel .adw')){if(!$('adrep'))paint();load()}}catch(_){}},10000);
+})();
+
+</script><script>
+/* ===== NTUV v7.1: live update of the website and app code on every computer and phone =====
+   Website: asks /web-version.json every 2 minutes (and when the tab comes back); a newer build is loaded at once,
+            or with a "Refresh now" bar when the person is typing, has a window open or is paying.
+   App:     the app downloads a newer page from ntuvcare.in/app-web/ by itself and tells the page (onAppWebUpdate). */
+(function(){
+  const APP=/NTUVCareApp/.test(navigator.userAgent),B=String(window.NTUV_BUILD||'');
+  const busy=()=>{const a=document.activeElement;if(a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)&&a.type!='button')return true;
+    if(document.querySelector('dialog[open]'))return true;
+    try{if(localStorage.getItem('bkPayDraft'))return true}catch(_){}
+    if(window.rzpLast&&Date.now()-(window.rzpLast.ts||0)<20*60e3&&!window.rzpLast.paidAt)return true;
+    const f=document.getElementById('bf');if(f&&f.offsetParent&&[...f.querySelectorAll('input:not([type=hidden]):not([type=checkbox]):not([type=radio]),textarea')].some(e=>e.value&&e.value!==e.defaultValue&&!e.readOnly))return true;
+    return false};
+  let bar=null,want=null,waitT=0;
+  function showBar(go){want=go;if(bar)return;bar=document.createElement('div');bar.className='nvup';bar.setAttribute('role','status');
+    bar.innerHTML='<span>&#10024; A new version of NTUV Care is ready.</span><button type="button">Refresh now</button>';
+    bar.querySelector('button').onclick=()=>{const g=want;bar.remove();bar=null;g&&g()};document.body.appendChild(bar)}
+  /* load the new version now, or as soon as the person is not busy (the bar lets them do it at once) */
+  function apply(go){if(!busy()){go();return}showBar(go);clearInterval(waitT);waitT=setInterval(()=>{if(!busy()&&document.visibilityState=='visible'&&!(bar&&bar.matches(':hover'))){clearInterval(waitT);if(bar){bar.remove();bar=null}go()}},20000)}
+  window.ntuvApplyUpdate=apply;
+  if(APP){
+    window.onAppWebUpdate=function(b){if(b&&b===B)return;apply(()=>{try{sessionStorage.setItem('ntuvUpd','1')}catch(_){}location.reload()})};
+    const A=window.AndroidApp;setInterval(()=>{try{if(!document.hidden&&A&&A.webCheck)A.webCheck()}catch(_){}},30*60e3);
+  }else if(B&&/^https?:$/.test(location.protocol)){
+    let last=0;
+    async function check(){if(Date.now()-last<60e3)return;last=Date.now();
+      try{const r=await fetch('web-version.json?t='+Date.now(),{cache:'no-store'});if(!r.ok)return;const j=await r.json(),nb=String(j.b||'');
+        if(!nb||nb<=B)return;
+        const key='ntuvRel_'+nb;let tried=false;try{tried=!!sessionStorage.getItem(key)}catch(_){}
+        const go=()=>{try{sessionStorage.setItem(key,'1');sessionStorage.setItem('ntuvUpd','1')}catch(_){}const u=new URL(location.href);u.searchParams.set('v',nb);location.replace(u.toString())};
+        if(tried)showBar(go);else apply(go)}catch(_){}}
+    setTimeout(check,8000);setInterval(()=>{if(!document.hidden)check()},2*60e3);
+    document.addEventListener('visibilitychange',()=>{if(!document.hidden)setTimeout(check,1500)});
+  }
+  /* after the refresh: a short note, and the "?v=" is taken out of the address */
+  try{if(sessionStorage.getItem('ntuvUpd')){sessionStorage.removeItem('ntuvUpd');setTimeout(()=>{try{toast('NTUV Care is updated to the newest version','ok')}catch(_){}},1500)}}catch(_){}
+  try{const u=new URL(location.href);if(u.searchParams.has('v')&&!APP){u.searchParams.delete('v');history.replaceState(history.state,'',u.toString())}}catch(_){}
 })();
 
 </script>
