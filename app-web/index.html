@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><script>window.NTUV_BUILD='20261108035959'</script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#ffffff"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="NTUV Care">
+<!DOCTYPE html><html lang="en"><head><script>window.NTUV_BUILD='20261108043906'</script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#ffffff"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="NTUV Care">
 <title>NTUV Care - AC Service, Repair & Copper Piping Work</title>
 <script>try{document.documentElement.dataset.theme=localStorage.ntuvTheme||"light"}catch(e){}</script><link rel="preload" href="static/f/bc700.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" as="image" href="static/m/hero-1672.webp" imagesrcset="static/m/hero-760.webp 760w, static/m/hero-1100.webp 1100w, static/m/hero-1672.webp 1672w" imagesizes="100vw"><style>@font-face{font-family:'Barlow Condensed';font-weight:500;font-display:swap;src:url(static/f/bc500.woff2) format('woff2')}@font-face{font-family:'Barlow Condensed';font-weight:600;font-display:swap;src:url(static/f/bc600.woff2) format('woff2')}@font-face{font-family:'Barlow Condensed';font-weight:700;font-display:swap;src:url(static/f/bc700.woff2) format('woff2')}@font-face{font-family:'Barlow';font-weight:400;font-display:swap;src:url(static/f/b400.woff2) format('woff2')}@font-face{font-family:'Barlow';font-weight:500;font-display:swap;src:url(static/f/b500.woff2) format('woff2')}@font-face{font-family:'Barlow';font-weight:600;font-display:swap;src:url(static/f/b600.woff2) format('woff2')}@font-face{font-family:'Barlow';font-weight:700;font-display:swap;src:url(static/f/b700.woff2) format('woff2')}@font-face{font-family:'Nunito';font-weight:800;font-display:swap;src:url(static/f/n800.woff2) format('woff2')}</style><link rel="stylesheet" href="static/lib/leaflet.css"><script defer src="static/lib/leaflet.js"></script><script async src="https://checkout.razorpay.com/v1/checkout.js"></script><style>
 :root{color-scheme:light;--bg:#fff;--bg2:#f3f3f3;--card:#fff;--ink:#0b0b0b;--mut:#666;--line:#d9d9d9;--acc:#e31e24;--acc2:#b8141a;--inp:#fff;--hdr:#fff;--okc:#15803d;--bad:#c8102e;--note:#fff3f3;--thead:#0b0b0b;--shd:0 6px 24px #0000001a;--n:var(--bg);--p:var(--card);--a:var(--acc);--t:var(--ink);--g:var(--mut);--hf:'Barlow Condensed','Oswald','Arial Narrow',sans-serif;--bf:'Barlow','Noto Sans Devanagari',system-ui,'Segoe UI',Arial,sans-serif}
@@ -1746,6 +1746,18 @@ td .ctb{display:flex}
 .cdtag{color:#b45309}.cdtag span{color:var(--mut)}
 :root[data-theme=dark] .cdec,body.dark .cdec{background:#2a2110}
 .cdamt[hidden]{display:none!important}
+/* ===== technician: change my area pincode ===== */
+.areaw{margin:10px 0 12px;padding:12px 14px;border-radius:14px;border:1px solid #bfd3ff;background:#f3f7ff;display:flex;flex-direction:column;gap:4px}
+.areaw>small{color:var(--mut)}
+.areaf{align-items:end!important;flex-wrap:wrap;margin:4px 0 0!important}
+.areaf label{flex:1 1 180px;margin:0!important}
+.areaf input{margin:0!important}
+.areaf .pbtn{margin:0!important;height:40px}
+:root[data-theme=dark] .areaw,body.dark .areaw{background:#17223a;border-color:#2b3f6b}
+.pvw{display:flex;flex-direction:column;gap:4px;align-items:flex-start;margin:0 0 10px;padding:10px 12px;border-radius:12px;background:#f3f7ff;border:1px solid #d6e2ff}
+.pvw small{color:var(--mut)}
+.pvw .pbtn{margin:4px 0 0!important;padding:5px 12px!important}
+:root[data-theme=dark] .pvw,body.dark .pvw{background:#17223a;border-color:#2b3f6b}
 
 /* admin settings */
 .cfgw{max-width:860px}
@@ -6534,7 +6546,7 @@ ${R.map(r=>`<tr class="${uDay==r.d?'on':''}"><td>${new Date(r.ts).toLocaleDateSt
 <td><b>${r.n}</b>${r.n?`<br><small>${r.done} done${r.open?', '+r.open+' open':''}${r.cx?', '+r.cx+' cancelled':''}</small>`:''}</td><td>${r.last?dOnly(r.last):'-'}</td><td><button type="button" class="pbtn" data-uv="${E(c.mob)}">View details</button></td></tr>`}).join('')}</table></div>`:`<p class="note">${uq||uDay?'No customer matches.':'No customer account yet.'}</p>`)}
     else if(uk=='t'){const R=techRows();
       body=R.length?`<div class="tw"><table class="hz ust"><tr>${ckH()}<th>#</th><th>Technician</th><th>Mobile</th><th>Pincodes (area)</th><th>Status</th><th>Booking area</th><th>Jobs done</th><th>Jobs running</th><th>Open complaints</th><th></th></tr>${R.map((r,i)=>{const t=r.t;
-        return `<tr class="${t.left?'usl':''} ${sel.has('t:'+t.id)?'ussel':''}">${ck('t:'+t.id)}<td>${i+1}</td><td><b>${E(t.name||'-')}</b><br><small>ID ${E(t.id)}</small></td><td><a href="tel:+91${E(t.mob)}">${E(t.mob||'')}</a></td><td class="w">${E((t.pins||[]).map(p=>p.pin).join(', ')||t.pin||'-')}</td>
+        return `<tr class="${t.left?'usl':''} ${sel.has('t:'+t.id)?'ussel':''}">${ck('t:'+t.id)}<td>${i+1}</td><td><b>${E(t.name||'-')}</b><br><small>ID ${E(t.id)}</small></td><td><a href="tel:+91${E(t.mob)}">${E(t.mob||'')}</a></td><td class="w">${t.pin?`<b>Area ${E(t.pin)}</b> <small>(${(t.pins||[]).length} pincodes${t.areaAt?', changed '+E(dOnly(t.areaAt)):''})</small><br>`:''}<small>${E((t.pins||[]).map(p=>p.pin).join(', ')||'-')}</small></td>
 <td>${tSt(t)}${t.left&&t.leftAt?`<br><small>${dOnly(t.leftAt)}</small>`:''}${t.off&&t.offWhy?`<br><small>${E(t.offWhy)}</small>`:''}</td><td class="w">${lmCell(t)}</td><td>${r.done}</td><td>${r.open}</td><td>${r.cmp?`<b class="usr-r">${r.cmp}</b>`:'0'}</td>
 <td>${t.left?`<button type="button" class="alt pbtn" data-ul="${E(t.id)}" data-v="0">Rejoined</button>`:`<button type="button" class="alt pbtn" data-ul="${E(t.id)}" data-v="1">Left the job</button>`}</td></tr>`}).join('')}</table></div>
 <p class="note">Bookings go automatically, turn by turn, to the <b>Active</b> technicians of the customer's pincode. A technician marked <b>Left the job</b> gets no new bookings, and his open complaints go to the office to choose another technician.</p>`:`<p class="note">No technician matches.</p>`}
@@ -6657,6 +6669,8 @@ ${extra.map(k=>`<tr><th>${E(k)}</th><td>${E(c[k])}</td></tr>`).join('')}</table>
           else if(/^Complaint (\S+) assigned to/.test(ev)){const c=(b.cmps||[]).find(z=>ev.indexOf(z.id)>0);if(c&&c.tech==m.id&&c.st!='Resolved')out.push({k,ts:h.ts,lvl:'warn',bid:b.id,stay:1,title:'Complaint '+c.id+' - '+b.id,body:`${E(b.name||'')} &middot; ${E(b.mob||'')}<br>Issue: ${E(c.text||'')}<br>Please visit the customer again.`,btn:'Open complaint',cmx:1})}}});
       if(stf)(b.cmps||[]).forEach(c=>{if(c.need&&c.st!='Resolved')out.push({k:'need|'+b.id+'|'+c.id+'|'+(c.rtTs||0),ts:+c.rtTs||Date.now(),lvl:'bad',stay:1,need:{b,c},title:'Complaint needs a technician',body:''})})});
     /* one pop-up per booking for "did not accept / cancelled": only the newest one */
+    if(stf)(db.t||[]).forEach(t=>{const L=(t.areaLog||[]).slice(-1)[0];if(L&&L.ts>=from)out.push({k:'area|'+t.id+'|'+L.ts,ts:L.ts,lvl:'info',title:'Technician area changed - '+t.name,body:`${E(t.name)} moved to pincode <b>${E(L.to)}</b>${L.from?' (before '+E(L.from)+')':''}.<br>Now ${L.n} service pincodes within ${AREA_KM} km.`})});
+    (db.t||[]).forEach(t=>{const L=(t.psLog||[]).slice(-1)[0];if(!L||L.ts<from)return;if(stf||(T&&t.id==m.id))out.push({k:'ps|'+t.id+'|'+L.ts,ts:L.ts,lvl:'info',title:(T?'Your service pincodes were updated':'Pincodes updated - '+t.name),body:`New India Post pincode list ${E(L.v)}: ${L.add.length?'added <b>'+E(L.add.join(', '))+'</b>':''}${L.add.length&&L.rem.length?'; ':''}${L.rem.length?'removed <b>'+E(L.rem.join(', '))+'</b>':''}.`})});
     const last={};out.forEach(p=>{if(p.lvl=='warn'&&p.bid&&!p.cmx&&/^Technician /.test(p.title)&&(!last[p.bid]||p.ts>last[p.bid].ts))last[p.bid]=p});
     return out.filter(p=>!(p.lvl=='warn'&&/^Technician /.test(p.title)&&last[p.bid]!==p)).filter(p=>!popSeen[p.k]).sort((a,b)=>a.ts-b.ts)}
   let wrap=null;
@@ -6914,6 +6928,90 @@ ${L.map(it=>{const d=DEC[it.key]||{m:'skip',a:slabOf(it)},B=it.c.bill,sl=slabOf(
   {const _rn9=render;render=function(){const r=_rn9.apply(this,arguments);try{daysField();daysText()}catch(_){}return r}}
   setTimeout(()=>{try{daysText()}catch(_){}},2500);
   if(typeof polOpen=='function'){const _p=polOpen;polOpen=function(){const r=_p.apply(this,arguments);try{daysText()}catch(_){}return r}}
+
+  /* =========================================================
+     10. Technician changed his home / address: he types his new area pincode in My Profile and ALL pincodes
+         within 10 km of it become his service pincodes (the old ones are removed). The office sees it (pop-up + Users tab).
+     ========================================================= */
+  const AREA_KM=LM_KM;
+  function areaHtml(t){const P=pinsOf(t),last=(t.areaLog||[]).slice(-1)[0];
+    return `<div class="areaw"><b>&#127968; Moved to a new place?</b><small>Type the pincode of your new home / area. All pincodes within <b>${AREA_KM} km</b> of it become your service pincodes, and the old ones are removed.</small>
+<div class="row areaf"><label>My area pincode<input id="ar_pin" inputmode="numeric" maxlength="6" placeholder="6 digit pincode" value="${E(t.pin||'')}"></label><button type="button" class="pbtn" id="ar_go">Change my area</button></div>
+<small id="ar_msg">${t.pin?`Now: area pincode <b>${E(t.pin)}</b>${t.areaAt?' (set '+E(dt(t.areaAt))+')':''} &middot; ${P.length} service pincodes`:''}${last&&last.from?' &middot; before: '+E(last.from):''}</small></div>`}
+  async function areaGo(){const m=ME();const t=m&&(db.t||[]).find(x=>x.id==m.id);if(!t)return;const v=($('ar_pin')||{}).value.trim(),msg=$('ar_msg'),b=$('ar_go');
+    if(!/^[1-9]\d{5}$/.test(v))return alert('Enter a valid 6 digit pincode');
+    b.disabled=true;b.textContent='Finding pincodes...';
+    try{await pinDB()}catch(e){b.disabled=false;b.textContent='Change my area';return alert('Pincode data could not be loaded. Please check your internet and try again.')}
+    b.disabled=false;b.textContent='Change my area';
+    const o=PDB.get(v);if(!o||!o.c)return alert('Pincode '+v+' was not found. Please check it.');
+    const L=pinsWithin(o.c[0],o.c[1],AREA_KM);if(!L.some(x=>x.pin==v))L.unshift({pin:v,area:typeof parea=='function'?parea(o):'',dist:0,lat:o.c[0],lng:o.c[1]});
+    const old=pinsOf(t),nw=L.map(x=>x.pin),add=nw.filter(p=>!old.includes(p)).length,rem=old.filter(p=>!nw.includes(p)).length;
+    if(!confirm('New area pincode: '+v+(o.d?' ('+o.d+(o.s?', '+o.s:'')+')':'')+'\n\n'+nw.length+' pincodes are within '+AREA_KM+' km.\nThese will be your service pincodes: '+add+' new, '+rem+' old removed.\n\nBookings of these pincodes will come to you (Registered Location).'))return;
+    const at=new Date().toLocaleString();
+    (t.areaLog=t.areaLog||[]).push({from:t.pin||'',to:v,n:nw.length,old:old.length,at,ts:Date.now()});if(t.areaLog.length>20)t.areaLog=t.areaLog.slice(-20);
+    t.pin=v;t.rad=AREA_KM;t.areaAt=Date.now();t.ac={lat:o.c[0],lng:o.c[1],km:AREA_KM,pin:v};t.ps={v:typeof pdbVer!='undefined'?pdbVer:'',l:L.map(x=>x.pin).sort(),at:Date.now()};t.pins=L.map(x=>({pin:x.pin,area:x.area||'',dist:x.dist,src:'area',by:'tech',lat:x.lat,lng:x.lng,at}));
+    (t.svcLog=t.svcLog||[]).push(at+' - Area changed by Technician '+t.name+': pincode '+v+', '+nw.length+' pincodes within '+AREA_KM+' km ('+rem+' old removed)');
+    save();try{render()}catch(_){}toast('Your area is now '+v+' - '+nw.length+' pincodes within '+AREA_KM+' km')}
+  document.addEventListener('click',e=>{if(e.target&&e.target.id=='ar_go'){e.preventDefault();areaGo()}});
+  if(typeof tpinHtml=='function'){const _tp=tpinHtml;tpinHtml=function(){const h=_tp.apply(this,arguments);const m=ME();const t=m&&(db.t||[]).find(x=>x.id==m.id);if(!t||!h)return h;
+    const i=h.indexOf('</small>');return i<0?areaHtml(t)+h:h.slice(0,i+8)+areaHtml(t)+h.slice(i+8)}}
+
+  /* =========================================================
+     11. India Post pincode list stays up to date by itself, and every technician's pincodes follow it inside his radius.
+         - Admin / Office Manager browser checks once a day for a newer India Post list (npm package "india-pincode" on jsDelivr),
+           checks it is complete, then saves its version in Settings (co.pinVer) -> every website / app loads that list.
+         - Office browsers (Admin, Manager, Office) compare each technician's radius with the list: when the list changes,
+           new pincodes inside his radius are ADDED and pincodes that are gone / outside are REMOVED (pincodes added by hand stay).
+     ========================================================= */
+  const PKG_VER0='2.5.9',CDN=v=>'https://cdn.jsdelivr.net/npm/india-pincode@'+v+'/data/pincodes.json.gz';
+  const semGt=(a,b)=>{const x=String(a).split('.').map(Number),y=String(b).split('.').map(Number);for(let i=0;i<3;i++){if((x[i]||0)!=(y[i]||0))return (x[i]||0)>(y[i]||0)}return false};
+  const pinVer=()=>{let v='';try{v=setGet().pinVer||''}catch(_){}return /^\d+\.\d+\.\d+$/.test(v)&&semGt(v,PKG_VER0)?v:PKG_VER0};
+  let pdbVer=PKG_VER0;
+  function useVer(){const v=pinVer();if(typeof PIN_URLS=='undefined')return;
+    const want=v==PKG_VER0?['pincodes-india.json',CDN(PKG_VER0)]:[CDN(v),'pincodes-india.json'];
+    if(PIN_URLS.join()==want.join())return;PIN_URLS.splice(0,PIN_URLS.length,...want);
+    if(pdbVer!==v){try{PDB=null;pdbP=null}catch(_){}}pdbVer=v}
+  if(typeof pinDB=='function'){const _pd=pinDB;pinDB=function(){useVer();return _pd.apply(this,arguments)}}
+  useVer();
+  if(typeof window.applySet=='function'){const _as=window.applySet;window.applySet=function(){const r=_as.apply(this,arguments);try{useVer()}catch(_){}return r}}
+  /* the radius of a technician: his area pincode (or the first pincode) and his km */
+  function techCenter(t){if(t.ac&&t.ac.lat!=null)return {lat:+t.ac.lat,lng:+t.ac.lng,km:+t.ac.km||AREA_KM};
+    const p=String(t.pin||'');const o=/^\d{6}$/.test(p)&&PDB&&PDB.get(p);if(!o||!o.c)return null;return {lat:o.c[0],lng:o.c[1],km:+t.rad||AREA_KM}}
+  function radiusList(t){const c=techCenter(t);if(!c)return null;const L=pinsWithin(c.lat,c.lng,c.km);const m=new Map(L.map(x=>[x.pin,x]));if(t.pin&&!m.has(String(t.pin))){const o=PDB.get(String(t.pin));if(o)m.set(String(t.pin),{pin:String(t.pin),area:parea(o),dist:0,lat:o.c?o.c[0]:null,lng:o.c?o.c[1]:null})}return m}
+  let syncBusy=0,syncDone='';
+  async function techSync(force){const m=ME();if(!m||!isStaff()||syncBusy)return;if(!force&&syncDone===pinVer()+'|'+(db.t||[]).length)return;syncBusy=1;
+    try{await pinDB();const V=pdbVer,at=new Date().toLocaleString();let ch=0;
+      (db.t||[]).forEach(t=>{if(!t||!t.id)return;const M=radiusList(t);if(!M)return;const list=[...M.keys()].sort();
+        if(!t.ps||!Array.isArray(t.ps.l)){t.ps={v:V,l:list,at:Date.now()};ch=1;return}         /* first time: remember what the radius gives now */
+        if(t.ps.v===V)return;
+        const old=new Set(t.ps.l),now=new Set(list),add=list.filter(p=>!old.has(p)),rem=t.ps.l.filter(p=>!now.has(p));
+        const auto=(t.pins||[]).filter(x=>x.src!='manual').length;
+        if(rem.length>5&&rem.length>auto*0.5){t.ps.warn='Pincode list '+V+' would remove '+rem.length+' of '+auto+' pincodes - not applied, please check';ch=1;return}   /* safety: a broken list never empties a technician */
+        const have=new Set(pinsOf(t));
+        add.forEach(p=>{if(have.has(p))return;const x=M.get(p);(t.pins=t.pins||[]).push({pin:p,area:x.area||'',dist:x.dist,src:'auto',by:'system',lat:x.lat,lng:x.lng,at})});
+        if(rem.length)t.pins=(t.pins||[]).filter(x=>x.src=='manual'||!rem.includes(String(x.pin)));
+        if(add.length||rem.length){(t.psLog=t.psLog||[]).push({v:V,add,rem,at,ts:Date.now()});if(t.psLog.length>20)t.psLog=t.psLog.slice(-20);
+          (t.svcLog=t.svcLog||[]).push(at+' - Pincodes updated automatically (India Post list '+V+'): +'+add.length+' / -'+rem.length)}
+        t.ps={v:V,l:list,at:Date.now()};ch=1});
+      if(ch)save();syncDone=pinVer()+'|'+(db.t||[]).length}catch(_){}finally{syncBusy=0}}
+  /* once a day: is there a newer India Post list? (Admin / Office Manager) */
+  async function verCheck(force){if(!canUsers())return;let last=0;try{last=+localStorage.getItem('pinChk')||0}catch(_){}
+    if(!force&&Date.now()-last<20*3600e3)return;try{localStorage.setItem('pinChk',String(Date.now()))}catch(_){}
+    try{const j=await (await fetch('https://data.jsdelivr.com/v1/packages/npm/india-pincode',{cache:'no-store'})).json();const v=j&&j.tags&&j.tags.latest;
+      const co=(db.set||[]).find(x=>x.id=='co');if(co){co.pinChk=Date.now()}
+      if(!v||!/^\d+\.\d+\.\d+$/.test(v)||!semGt(v,pinVer())){if(co&&force)save();return 'same'}
+      const r=await fetch(CDN(v));if(!r.ok)throw 0;const raw=await readMaybeGz(r);const N=Array.isArray(raw)?pdbFromRaw(raw):pdbFromCompact(raw);
+      await pinDB();let keep=0;PDB.forEach((o,p)=>{if(N.has(p))keep++});
+      if(N.size<15000||keep<PDB.size*0.95){if(co){co.pinBad=v;save()}return 'bad'}             /* incomplete list: not used */
+      if(co){co.pinVer=v;co.pinAt=Date.now();delete co.pinBad;save();try{window.applySet&&applySet()}catch(_){}}
+      PDB=N;pdbP=null;pdbVer=v;useVer();syncDone='';await techSync(true);return 'new'}catch(_){return 'err'}}
+  setTimeout(async()=>{try{await techSync();await verCheck()}catch(_){}},6000);   /* first remember every technician's radius, then look for a newer list */setInterval(()=>{try{techSync()}catch(_){}},60000);
+  window.ntuvPinCheck=async()=>{const b=$('pv_chk');if(b){b.disabled=true;b.textContent='Checking...'}const r=await verCheck(true);await techSync(true);
+    toast(r=='new'?'New India Post pincode list '+pinVer()+' is now used - technicians updated':r=='bad'?'A new list was found but it looks incomplete, so it was not used':r=='err'?'Could not check now - please try later':'The pincode list is up to date ('+pinVer()+')');uForce=1;render()};
+  /* Users > Technicians: the line about the list */
+  function pvHtml(){let co={};try{co=setGet()}catch(_){}const L=[];(db.t||[]).forEach(t=>(t.psLog||[]).forEach(x=>L.push(x)));const last=L.sort((a,b)=>b.ts-a.ts)[0];const W=(db.t||[]).filter(t=>t.ps&&t.ps.warn);
+    return `<div class="pvw"><b>&#128238; Pincode list: India Post ${E(pinVer())}</b><small>Technicians' pincodes follow this list automatically inside their radius: new pincodes are added, closed ones removed. Pincodes added by hand stay. Checked for a newer list ${co.pinChk?E(dt(co.pinChk)):'daily'}.${last?' Last change: '+E(last.at)+' (+'+last.add.length+' / -'+last.rem.length+')':''}</small>${W.length?`<small class="lmold">&#9888; ${W.map(t=>E(t.name)+': '+E(t.ps.warn)).join('<br>')}</small>`:''}<button type="button" class="alt pbtn" id="pv_chk" onclick="ntuvPinCheck()">Check now</button></div>`}
+  {const _rnP=render;render=function(){const r=_rnP.apply(this,arguments);try{if(canUsers()&&ptab=='usr'&&uk=='t'){const w=document.querySelector('#panel .usrw');if(w&&!w.querySelector('.pvw')){const b=$('us_body');if(b)b.insertAdjacentHTML('beforebegin',pvHtml())}}}catch(_){}return r}}
   /* technician page: the note about how bookings come (now by service pincode, turn by turn) */
   function noteFix(){document.querySelectorAll('#panel .note,#panel p,#panel div').forEach(n=>{if(n.children.length>8||n.dataset.n72)return;const t=n.textContent;if(/^New bookings within .* km of your saved GPS location/.test(t.trim())){n.dataset.n72=1;
     n.innerHTML='Choose above where your bookings come from: <b>Registered Location</b> (your pincodes) or <b>Current Location</b> ('+LM_KM+' km around you). Bookings come turn by turn with the other technicians, with an SMS and a pop-up here. You get <b>10 minutes</b> to accept, after that the booking goes to the next technician.'}})}
