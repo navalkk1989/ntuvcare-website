@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><script>window.NTUV_BUILD='20261108002836'</script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#ffffff"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="NTUV Care"><link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icons/icon-192.png">
+<!DOCTYPE html><html lang="en"><head><script>window.NTUV_BUILD='20261108012656'</script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#ffffff"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="NTUV Care"><link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icons/icon-192.png">
 <title>NTUV Care - AC Service, Repair & Copper Piping Work</title>
 <script>try{document.documentElement.dataset.theme=localStorage.ntuvTheme||"light"}catch(e){}</script><link rel="preload" href="static/f/bc700.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" as="image" href="static/m/hero-1672.webp" imagesrcset="static/m/hero-760.webp 760w, static/m/hero-1100.webp 1100w, static/m/hero-1672.webp 1672w" imagesizes="100vw"><style>@font-face{font-family:'Barlow Condensed';font-weight:500;font-display:swap;src:url(static/f/bc500.woff2) format('woff2')}@font-face{font-family:'Barlow Condensed';font-weight:600;font-display:swap;src:url(static/f/bc600.woff2) format('woff2')}@font-face{font-family:'Barlow Condensed';font-weight:700;font-display:swap;src:url(static/f/bc700.woff2) format('woff2')}@font-face{font-family:'Barlow';font-weight:400;font-display:swap;src:url(static/f/b400.woff2) format('woff2')}@font-face{font-family:'Barlow';font-weight:500;font-display:swap;src:url(static/f/b500.woff2) format('woff2')}@font-face{font-family:'Barlow';font-weight:600;font-display:swap;src:url(static/f/b600.woff2) format('woff2')}@font-face{font-family:'Barlow';font-weight:700;font-display:swap;src:url(static/f/b700.woff2) format('woff2')}@font-face{font-family:'Nunito';font-weight:800;font-display:swap;src:url(static/f/n800.woff2) format('woff2')}</style><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" media="print" onload="this.media='all'"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script><script async src="https://checkout.razorpay.com/v1/checkout.js"></script><style>
 :root{color-scheme:light;--bg:#fff;--bg2:#f3f3f3;--card:#fff;--ink:#0b0b0b;--mut:#666;--line:#d9d9d9;--acc:#e31e24;--acc2:#b8141a;--inp:#fff;--hdr:#fff;--okc:#15803d;--bad:#c8102e;--note:#fff3f3;--thead:#0b0b0b;--shd:0 6px 24px #0000001a;--n:var(--bg);--p:var(--card);--a:var(--acc);--t:var(--ink);--g:var(--mut);--hf:'Barlow Condensed','Oswald','Arial Narrow',sans-serif;--bf:'Barlow','Noto Sans Devanagari',system-ui,'Segoe UI',Arial,sans-serif}
@@ -1665,6 +1665,27 @@ body.shell .pop72w{top:calc(66px + env(safe-area-inset-top,0px))}
 @keyframes pop72in{from{opacity:0;transform:translateY(-10px)}}
 @media(max-width:600px){.pop72w{right:12px;left:12px;width:auto}}
 @media print{.pop72w{display:none}}
+/* ===== v7.2.1 Users: select + delete, customers day by day ===== */
+.ust .usck{width:34px;text-align:center}
+.ust .usck input,.usck input{width:18px!important;height:18px!important;margin:0!important;accent-color:#dc2626;cursor:pointer}
+.ust tr.ussel td{background:#fff1f2!important}
+.usdel{background:#dc2626!important;border-color:#dc2626!important;color:#fff!important}
+.usdel:disabled{opacity:.45;cursor:not-allowed}
+.usday{margin:4px 0 16px;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.usday h4{margin:0 0 8px}
+.usday .arq{display:flex;flex-wrap:wrap;gap:6px}
+.usday .arq .pbtn{margin:0!important}
+.usdr{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 8px}
+.usdr label{display:flex;flex-direction:column;font-size:12px;color:var(--mut);gap:2px}
+.usdr input{margin:0!important;height:36px!important}
+.usday .tw{max-height:360px;overflow:auto}
+.usdt td:nth-child(2){min-width:170px}
+.usbar2{display:inline-block;vertical-align:middle;margin-left:10px;height:8px;width:calc(120px * var(--w) / 100);border-radius:4px;background:#0f5bff55;pointer-events:none}
+.usdt tr.on td{background:#e7efff}
+.uschip{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 8px;padding:8px 12px;border-radius:12px;background:#e7efff}
+.uschip .pbtn{margin:0!important;padding:5px 12px!important}
+:root[data-theme=dark] .ust tr.ussel td,body.dark .ust tr.ussel td{background:#3a1b20!important}
+:root[data-theme=dark] .uschip,body.dark .uschip,:root[data-theme=dark] .usdt tr.on td,body.dark .usdt tr.on td{background:#1d2b4a}
 
 /* admin settings */
 .cfgw{max-width:860px}
@@ -4265,7 +4286,7 @@ ${S.adm?'':'<div class="note"><b>You are using the default login</b> &ndash; ID:
     chev:'m6 9 6 6 6-6',wa:'M20.5 11.6A8.5 8.5 0 0 1 8 19.1L3.5 20.5 5 16.2A8.5 8.5 0 1 1 20.5 11.6z',file:'M14 3H6v18h12V7zM14 3v4h4M9 13h6M9 17h6',ok:'m5 12.5 4.5 4.5L19 7.5',info:'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 11v6M12 7.5h.01'};
   const ico=(n,c)=>`<svg class="ic ${c||''}" viewBox="0 0 24 24" aria-hidden="true"><path d="${P[n]||P.grid}"/></svg>`;
   window.shIco=ico;
-  const tabIcon=t=>/dash/i.test(t)?'dash':/technician book/i.test(t)?'list':/booking/i.test(t)?'list':/technician/i.test(t)?'users':/office|staff/i.test(t)?'brief':/registr/i.test(t)?'uplus':/commission/i.test(t)?'cash':/wallet/i.test(t)?'wallet':/setting/i.test(t)?'gear':/profile/i.test(t)?'user':/deposit|cash/i.test(t)?'cash':/complaint/i.test(t)?'alert':/report|chart/i.test(t)?'chart':'grid';
+  const tabIcon=t=>/dash/i.test(t)?'dash':/technician book/i.test(t)?'list':/booking/i.test(t)?'list':/registr/i.test(t)?'uplus':/technician/i.test(t)?'users':/office|staff/i.test(t)?'brief':/registr/i.test(t)?'uplus':/commission/i.test(t)?'cash':/wallet/i.test(t)?'wallet':/setting/i.test(t)?'gear':/profile/i.test(t)?'user':/deposit|cash/i.test(t)?'cash':/complaint/i.test(t)?'alert':/report|chart/i.test(t)?'chart':'grid';
 
   /* ---------- toasts (replace blocking alert boxes) ---------- */
   B.insertAdjacentHTML('beforeend','<div id="toasts" aria-live="polite"></div>');
@@ -6404,7 +6425,30 @@ ${T.map(r=>`<tr><td>${E(dTxt(r.d))}</td><td>${E(adName(r.ad))}</td><td><b>${c(r.
   /* =========================================================
      1. Users tab
      ========================================================= */
-  let uk=LS.get('usrK','c'),uq='',uForce=0,uSig='',uOpen='';
+  let uk=LS.get('usrK','c'),uq='',uForce=0,uSig='',uOpen='',uDay='';const sel=new Set();
+  const isAdm=()=>{const m=ME();return !!m&&m.role=='admin'};
+  const ymd=ts=>{const d=new Date(+ts);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+  const ck=key=>isAdm()?`<td class="usck"><input type="checkbox" class="uck" data-us="${E(key)}" ${sel.has(key)?'checked':''} aria-label="Select"></td>`:'';
+  const ckH=()=>isAdm()?'<th class="usck"><input type="checkbox" id="us_all" aria-label="Select all"></th>':'';
+  /* ---- date-wise: new customer accounts, customers who booked and bookings per day ---- */
+  let DF=Object.assign({q:'30'},LS.get('usrDF',{}));
+  function dRange(){const t0=new Date();t0.setHours(0,0,0,0);const d=n=>{const x=new Date(t0);x.setDate(x.getDate()-n);return x};
+    if(DF.q=='today')return [t0,t0];if(DF.q=='7')return [d(6),t0];if(DF.q=='30')return [d(29),t0];
+    if(DF.q=='month'){const a=new Date(t0);a.setDate(1);return [a,t0]}
+    if(DF.q=='lmonth'){const a=new Date(t0.getFullYear(),t0.getMonth()-1,1),b=new Date(t0.getFullYear(),t0.getMonth(),0);return [a,b]}
+    const f=DF.f?new Date(DF.f+'T00:00'):d(29),t=DF.t?new Date(DF.t+'T00:00'):t0;return f<=t?[f,t]:[t,f]}
+  function dayRows(){const [f,t]=dRange(),M={};let x=new Date(t),n=0;
+    while(x>=f&&n<370){M[ymd(x)]={d:ymd(x),ts:x.getTime(),nc:0,bk:0,cu:new Set()};x.setDate(x.getDate()-1);n++}
+    (db.c||[]).forEach(c=>{const k=ymd(custTs(c));if(M[k])M[k].nc++});
+    (db.b||[]).forEach(b=>{const ts=bTs(b);if(!ts)return;const k=ymd(ts);if(M[k]){M[k].bk++;M[k].cu.add(String(b.mob))}});
+    return Object.values(M)}
+  function dayHtml(){const R=dayRows(),[f,t]=dRange(),T={nc:0,bk:0,cu:0};R.forEach(r=>{T.nc+=r.nc;T.bk+=r.bk;T.cu+=r.cu.size});const mx=Math.max(1,...R.map(r=>r.nc));
+    const P=[['today','Today'],['7','Last 7 days'],['30','Last 30 days'],['month','This month'],['lmonth','Last month']];
+    return `<div class="usday"><h4>Customers day by day</h4><div class="arq">${P.map(p=>`<button type="button" class="${DF.q==p[0]?'':'alt '}pbtn" data-udq="${p[0]}">${p[1]}</button>`).join(' ')}</div>
+<div class="usdr"><label>From<input type="date" id="ud_f" value="${ymd(f)}"></label><label>To<input type="date" id="ud_t" value="${ymd(t)}"></label></div>
+<div class="tw"><table class="hz usdt"><tr><th>Date</th><th>New customer accounts</th><th>Customers who booked</th><th>Bookings</th></tr>
+${R.map(r=>`<tr class="${uDay==r.d?'on':''}"><td>${new Date(r.ts).toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short',year:'numeric'})}</td><td>${r.nc?`<button type="button" class="arn" data-uday="${r.d}">${r.nc}</button>`:'0'}<i class="usbar2" style="--w:${Math.round(r.nc/mx*100)}%"></i></td><td>${r.cu.size}</td><td>${r.bk}</td></tr>`).join('')}
+<tr class="artot"><td><b>Total</b></td><td><b>${T.nc}</b></td><td><b>${T.cu}</b></td><td><b>${T.bk}</b></td></tr></table></div><small class="arld">Tap a number to see those customers in the list below.</small></div>`}
   const custTs=c=>{if(+c._c)return +c._c;const L=(db.b||[]).filter(b=>String(b.mob)==String(c.mob)).map(bTs).filter(Boolean);return L.length?Math.min(...L):0};
   const custBk=c=>(db.b||[]).filter(b=>String(b.mob)==String(c.mob));
   const FIELDS=[['name','Name'],['mob','Mobile'],['alt','Other mobile'],['email','Email'],['gstn','GST number'],['ad','Address'],['ci','City'],['st','State'],['pin','Pincode'],['at','AC type'],['br','AC brand']];
@@ -6413,7 +6457,7 @@ ${T.map(r=>`<tr><td>${E(dTxt(r.d))}</td><td>${E(adName(r.ad))}</td><td><b>${c(r.
     return (db.c||[]).filter(c=>c&&c.mob).map(c=>{const L=custBk(c),last=L.reduce((a,b)=>Math.max(a,bTs(b)),0);
       return {c,ts:custTs(c),n:L.length,done:L.filter(b=>b.status=='Closed').length,cx:L.filter(b=>b.status=='Cancelled').length,open:L.filter(b=>!['Closed','Cancelled'].includes(b.status)).length,last,cmp:L.reduce((a,b)=>a+(b.cmps||[]).length,0)}})
       .filter(r=>!q||[r.c.name,r.c.mob,r.c.email,r.c.ci,r.c.st,r.c.pin,r.c.ad].some(v=>String(v||'').toLowerCase().includes(q)))
-      .sort((a,b)=>b.ts-a.ts)}
+      .filter(r=>!uDay||ymd(r.ts)==uDay).sort((a,b)=>b.ts-a.ts)}
   function techRows(){const q=uq.trim().toLowerCase();
     return (db.t||[]).filter(t=>t&&t.id).map(t=>{const L=(db.b||[]).filter(b=>b.tm==t.id);
       return {t,done:L.filter(b=>b.status=='Closed').length,open:L.filter(b=>b.ta=='accepted'&&!['Closed','Cancelled'].includes(b.status)).length,cmp:(db.b||[]).reduce((a,b)=>a+(b.cmps||[]).filter(c=>(c.tech||b.tm)==t.id&&c.st!='Resolved').length,0)}})
@@ -6424,23 +6468,23 @@ ${T.map(r=>`<tr><td>${E(dTxt(r.d))}</td><td>${E(adName(r.ad))}</td><td><b>${c(r.
     const newM=C.filter(c=>custTs(c)>=m0.getTime()).length,d7=C.filter(c=>custTs(c)>=Date.now()-7*864e5).length,withB=C.filter(c=>custBk(c).length).length;
     let body='';
     if(uk=='c'){const R=custRows();
-      body=R.length?`<div class="tw"><table class="hz ust"><tr><th>#</th><th>Customer</th><th>Mobile</th><th>Address</th><th>AC</th><th>Account made</th><th>Bookings</th><th>Last booking</th><th></th></tr>${R.map((r,i)=>{const c=r.c;
-        return `<tr><td>${i+1}</td><td><b>${E(c.name||'-')}</b>${c.email?`<br><small>${E(c.email)}</small>`:''}${c.gstn?`<br><small>GST ${E(c.gstn)}</small>`:''}</td><td><a href="tel:+91${E(c.mob)}">${E(c.mob)}</a>${c.alt?`<br><small>${E(c.alt)}</small>`:''}</td>
+      body=(uDay?`<p class="uschip">Showing customers who joined on <b>${new Date(uDay+'T00:00').toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})}</b> (${R.length}) <button type="button" class="alt pbtn" id="us_dx">Show all</button></p>`:'')+(R.length?`<div class="tw"><table class="hz ust"><tr>${ckH()}<th>#</th><th>Customer</th><th>Mobile</th><th>Address</th><th>AC</th><th>Account made</th><th>Bookings</th><th>Last booking</th><th></th></tr>${R.map((r,i)=>{const c=r.c;
+        return `<tr class="${sel.has('c:'+c.mob)?'ussel':''}">${ck('c:'+c.mob)}<td>${i+1}</td><td><b>${E(c.name||'-')}</b>${c.email?`<br><small>${E(c.email)}</small>`:''}${c.gstn?`<br><small>GST ${E(c.gstn)}</small>`:''}</td><td><a href="tel:+91${E(c.mob)}">${E(c.mob)}</a>${c.alt?`<br><small>${E(c.alt)}</small>`:''}</td>
 <td class="w">${E([c.ad,c.ci,c.st].filter(Boolean).join(', ')||'-')}${c.pin?`<br><small>Pincode ${E(c.pin)}</small>`:''}</td><td>${E([c.at,c.br].filter(Boolean).join(' / ')||'-')}</td><td>${dt(r.ts)}</td>
-<td><b>${r.n}</b>${r.n?`<br><small>${r.done} done${r.open?', '+r.open+' open':''}${r.cx?', '+r.cx+' cancelled':''}</small>`:''}</td><td>${r.last?dOnly(r.last):'-'}</td><td><button type="button" class="pbtn" data-uv="${E(c.mob)}">View details</button></td></tr>`}).join('')}</table></div>`:`<p class="note">${uq?'No customer matches the search.':'No customer account yet.'}</p>`}
+<td><b>${r.n}</b>${r.n?`<br><small>${r.done} done${r.open?', '+r.open+' open':''}${r.cx?', '+r.cx+' cancelled':''}</small>`:''}</td><td>${r.last?dOnly(r.last):'-'}</td><td><button type="button" class="pbtn" data-uv="${E(c.mob)}">View details</button></td></tr>`}).join('')}</table></div>`:`<p class="note">${uq||uDay?'No customer matches.':'No customer account yet.'}</p>`)}
     else if(uk=='t'){const R=techRows();
-      body=R.length?`<div class="tw"><table class="hz ust"><tr><th>#</th><th>Technician</th><th>Mobile</th><th>Pincodes (area)</th><th>Status</th><th>Jobs done</th><th>Jobs running</th><th>Open complaints</th><th></th></tr>${R.map((r,i)=>{const t=r.t;
-        return `<tr class="${t.left?'usl':''}"><td>${i+1}</td><td><b>${E(t.name||'-')}</b><br><small>ID ${E(t.id)}</small></td><td><a href="tel:+91${E(t.mob)}">${E(t.mob||'')}</a></td><td class="w">${E((t.pins||[]).map(p=>p.pin).join(', ')||t.pin||'-')}</td>
+      body=R.length?`<div class="tw"><table class="hz ust"><tr>${ckH()}<th>#</th><th>Technician</th><th>Mobile</th><th>Pincodes (area)</th><th>Status</th><th>Jobs done</th><th>Jobs running</th><th>Open complaints</th><th></th></tr>${R.map((r,i)=>{const t=r.t;
+        return `<tr class="${t.left?'usl':''} ${sel.has('t:'+t.id)?'ussel':''}">${ck('t:'+t.id)}<td>${i+1}</td><td><b>${E(t.name||'-')}</b><br><small>ID ${E(t.id)}</small></td><td><a href="tel:+91${E(t.mob)}">${E(t.mob||'')}</a></td><td class="w">${E((t.pins||[]).map(p=>p.pin).join(', ')||t.pin||'-')}</td>
 <td>${tSt(t)}${t.left&&t.leftAt?`<br><small>${dOnly(t.leftAt)}</small>`:''}${t.off&&t.offWhy?`<br><small>${E(t.offWhy)}</small>`:''}</td><td>${r.done}</td><td>${r.open}</td><td>${r.cmp?`<b class="usr-r">${r.cmp}</b>`:'0'}</td>
 <td>${t.left?`<button type="button" class="alt pbtn" data-ul="${E(t.id)}" data-v="0">Rejoined</button>`:`<button type="button" class="alt pbtn" data-ul="${E(t.id)}" data-v="1">Left the job</button>`}</td></tr>`}).join('')}</table></div>
 <p class="note">Bookings go automatically, turn by turn, to the <b>Active</b> technicians of the customer's pincode. A technician marked <b>Left the job</b> gets no new bookings, and his open complaints go to the office to choose another technician.</p>`:`<p class="note">No technician matches.</p>`}
-    else{body=O.length?`<div class="tw"><table class="hz ust"><tr><th>#</th><th>Name</th><th>Login ID</th><th>Role</th><th>Mobile</th></tr>${O.map((o,i)=>`<tr><td>${i+1}</td><td><b>${E(o.name||'-')}</b></td><td>${E(o.id)}</td><td>${o.mgr?'Office Manager':'Office Employee'}</td><td>${E(o.mob||'-')}</td></tr>`).join('')}</table></div>`:'<p class="note">No office staff yet.</p>'}
+    else{body=O.length?`<div class="tw"><table class="hz ust"><tr>${ckH()}<th>#</th><th>Name</th><th>Login ID</th><th>Role</th><th>Mobile</th></tr>${O.map((o,i)=>`<tr class="${sel.has('o:'+o.id)?'ussel':''}">${ck('o:'+o.id)}<td>${i+1}</td><td><b>${E(o.name||'-')}</b></td><td>${E(o.id)}</td><td>${o.mgr?'Office Manager':'Office Employee'}</td><td>${E(o.mob||'-')}</td></tr>`).join('')}</table></div>`:'<p class="note">No office staff yet.</p>'}
     return `<div class="usrw"><div class="arh"><h3 class="sh">Users</h3><small class="arld">Live - new accounts appear here by themselves</small></div>
 <div class="arsum ussum"><button type="button" class="artile ${uk=='c'?'on':''}" data-uk="c"><b>${C.length}</b><small>Customer accounts</small><em>${newM} this month &middot; ${d7} in last 7 days</em></button>
 <button type="button" class="artile" data-uk="c" data-uf="b"><b>${withB}</b><small>Customers with a booking</small><em>${C.length-withB} without a booking</em></button>
 <button type="button" class="artile ${uk=='t'?'on':''}" data-uk="t"><b>${T.length}</b><small>Technicians</small><em>${T.filter(tOk).length} active &middot; ${T.filter(t=>t.left).length} left</em></button>
 <button type="button" class="artile ${uk=='o'?'on':''}" data-uk="o"><b>${O.length}</b><small>Office staff</small><em>${O.filter(o=>o.mgr).length} manager &middot; ${O.filter(o=>!o.mgr).length} employee</em></button></div>
-<div class="usbar"><input type="search" id="us_q" placeholder="${uk=='o'?'':'Search name, mobile, city, pincode'}" value="${E(uq)}" ${uk=='o'?'hidden':''}><button type="button" class="pbtn" id="us_xl">&#8681; Download Excel</button></div>
+${uk=='c'?dayHtml():''}<div class="usbar"><input type="search" id="us_q" placeholder="${uk=='o'?'':'Search name, mobile, city, pincode'}" value="${E(uq)}" ${uk=='o'?'hidden':''}><button type="button" class="pbtn" id="us_xl">&#8681; Download Excel</button>${isAdm()&&uk!='x'?`<button type="button" class="pbtn usdel" id="us_del" ${sel.size?'':'disabled'}>&#128465; Delete selected (<span id="us_n">${sel.size}</span>)</button>`:''}</div>
 <div id="us_body">${body}</div></div>`}
   function custDlg(mob){const c=(db.c||[]).find(x=>String(x.mob)==String(mob));if(!c)return;uOpen=mob;const L=custBk(c).sort((a,b)=>bTs(b)-bTs(a));
     let d=$('dusr');if(!d){d=document.createElement('dialog');d.id='dusr';d.className='dusr';document.body.appendChild(d);d.addEventListener('click',e=>{if(e.target===d||e.target.closest('.dusr-x'))d.close()});d.addEventListener('close',()=>{uOpen=''})}
@@ -6456,6 +6500,7 @@ ${extra.map(k=>`<tr><th>${E(k)}</th><td>${E(c[k])}</td></tr>`).join('')}</table>
     const C=custRows(),T=techRows(),O=(db.o||[]).filter(o=>o&&o.id),n0=new Date(),dd=n0.getFullYear()+'-'+String(n0.getMonth()+1).padStart(2,'0')+'-'+String(n0.getDate()).padStart(2,'0');
     const sheets=[{name:'Customers',w:[5,22,14,14,26,36,16,16,10,14,14,20,10,10,10,10,18],bold:[0],rows:[['#','Name','Mobile','Other mobile','Email','Address','City','State','Pincode','AC type','AC brand','Account made','Bookings','Done','Open','Cancelled','Last booking']].concat(C.map((r,i)=>{const c=r.c;return [i+1,c.name||'',c.mob||'',c.alt||'',c.email||'',c.ad||'',c.ci||'',c.st||'',c.pin||'',c.at||'',c.br||'',r.ts?dt(r.ts):'',r.n,r.done,r.open,r.cx,r.last?dOnly(r.last):'']}))},
       {name:'Technicians',w:[5,22,14,10,30,18,30,10,10,12],bold:[0],rows:[['#','Name','Mobile','ID','Pincodes','Status','Reason','Jobs done','Jobs running','Open complaints']].concat(T.map((r,i)=>{const t=r.t;return [i+1,t.name||'',t.mob||'',t.id,(t.pins||[]).map(p=>p.pin).join(', '),t.left?'Left the job':t.off?'Service stopped':'Active',t.off?t.offWhy||'':'',r.done,r.open,r.cmp]}))},
+      {name:'Customers per day',w:[18,24,24,12],bold:[0],rows:[['Date','New customer accounts','Customers who booked','Bookings']].concat(dayRows().map(r=>[r.d,r.nc,r.cu.size,r.bk]))},
       {name:'Office staff',w:[5,22,14,18,14],bold:[0],rows:[['#','Name','Login ID','Role','Mobile']].concat(O.map((o,i)=>[i+1,o.name||'',o.id,o.mgr?'Office Manager':'Office Employee',o.mob||'']))}];
     const a=document.createElement('a');a.href=URL.createObjectURL(X(sheets));a.download='NTUV-Users-'+dd+'.xlsx';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},4000)}
   async function leftSet(id,v){const t=(db.t||[]).find(x=>x.id==id);if(!t)return;
@@ -6464,11 +6509,35 @@ ${extra.map(k=>`<tr><th>${E(k)}</th><td>${E(c[k])}</td></tr>`).join('')}</table>
     (t.svcLog=t.svcLog||[]).push(new Date().toLocaleString()+' - '+(v?'Marked as left the job':'Rejoined')+' by '+who());
     save();uForce=1;render();toast(t.name+(v?' marked as left the job':' is active again'))}
   document.addEventListener('click',e=>{const t=e.target;if(!t.closest)return;
-    const k=t.closest('[data-uk]');if(k&&t.closest('.usrw')){uk=k.dataset.uk;LS.set('usrK',uk);uForce=1;render();return}
+    const k=t.closest('[data-uk]');if(k&&t.closest('.usrw')){if(uk!=k.dataset.uk)sel.clear();uk=k.dataset.uk;uDay='';LS.set('usrK',uk);uForce=1;render();return}
+    const dq=t.closest('[data-udq]');if(dq){DF={q:dq.dataset.udq};LS.set('usrDF',DF);uDay='';uForce=1;render();return}
+    const dy=t.closest('[data-uday]');if(dy){uDay=uDay==dy.dataset.uday?'':dy.dataset.uday;uForce=1;render();setTimeout(()=>{const b=$('us_body');if(b)b.scrollIntoView({behavior:'smooth',block:'start'})},60);return}
+    if(t.id=='us_dx'){uDay='';uForce=1;render();return}
+    if(t.id=='us_del'){delSel();return}
     const v=t.closest('[data-uv]');if(v){custDlg(v.dataset.uv);return}
     const b=t.closest('[data-ub]');if(b){const d=$('dusr');if(d)d.close();vb(b.dataset.ub,'all',0);return}
     const l=t.closest('[data-ul]');if(l){leftSet(l.dataset.ul,l.dataset.v=='1');return}
     if(t.id=='us_xl')usersXl()});
+  function selPaint(){const n=$('us_n'),b=$('us_del');if(n)n.textContent=sel.size;if(b)b.disabled=!sel.size;
+    document.querySelectorAll('.usrw .uck').forEach(i=>{i.checked=sel.has(i.dataset.us);const r=i.closest('tr');if(r)r.classList.toggle('ussel',i.checked)});
+    const a=$('us_all');if(a){const L=[...document.querySelectorAll('.usrw .uck')];a.checked=L.length>0&&L.every(i=>i.checked);a.indeterminate=!a.checked&&L.some(i=>i.checked)}}
+  document.addEventListener('change',e=>{const t=e.target;if(!t||!t.closest||!t.closest('.usrw'))return;
+    if(t.classList.contains('uck')){t.checked?sel.add(t.dataset.us):sel.delete(t.dataset.us);selPaint();return}
+    if(t.id=='us_all'){document.querySelectorAll('.usrw .uck').forEach(i=>{t.checked?sel.add(i.dataset.us):sel.delete(i.dataset.us)});selPaint();return}
+    if(t.id=='ud_f'||t.id=='ud_t'){const f=$('ud_f').value,to=$('ud_t').value;if(!f||!to)return;DF={q:'custom',f,t:to};LS.set('usrDF',DF);uDay='';uForce=1;render()}});
+  /* Admin: delete the selected users. A deleted customer is logged out at once and can come back only with a new booking + OTP */
+  function delSel(){if(!isAdm())return alert('Only Admin can delete users');const K=[...sel];if(!K.length)return;
+    const C=(db.c||[]).filter(c=>sel.has('c:'+c.mob)),T=(db.t||[]).filter(t=>sel.has('t:'+t.id)),O=(db.o||[]).filter(o=>sel.has('o:'+o.id));
+    const nm=[...C.map(c=>(c.name||'')+' '+c.mob),...T.map(t=>'Technician '+t.name),...O.map(o=>(o.mgr?'Office Manager ':'Office Employee ')+(o.name||o.id))];
+    const busyT=T.filter(t=>(db.b||[]).some(b=>b.tm==t.id&&!['Closed','Cancelled'].includes(b.status)));
+    let msg='Delete '+nm.length+' user'+(nm.length>1?'s':'')+'?\n\n'+nm.slice(0,10).join('\n')+(nm.length>10?'\n... and '+(nm.length-10)+' more':'')+'\n\n';
+    if(C.length)msg+='Customers: their login stops at once. To use NTUV Care again they must book again and verify their mobile with OTP, like a new customer. Their old bookings stay here for your records.\n';
+    if(T.length||O.length)msg+='Technicians / office staff: their login stops at once.\n';
+    if(busyT.length)msg+='\nWARNING: '+busyT.map(t=>t.name).join(', ')+' still has open bookings. Please assign them to another technician.\n';
+    msg+='\nThis cannot be undone.';
+    if(!confirm(msg))return;
+    if(C.length)db.c=db.c.filter(c=>!sel.has('c:'+c.mob));if(T.length)db.t=db.t.filter(t=>!sel.has('t:'+t.id));if(O.length)db.o=db.o.filter(o=>!sel.has('o:'+o.id));
+    sel.clear();save();uForce=1;render();toast(nm.length+' user'+(nm.length>1?'s':'')+' deleted')}
   document.addEventListener('input',e=>{if(e.target&&e.target.id=='us_q'){uq=e.target.value;const b=$('us_body');if(b){const h=document.createElement('div');h.innerHTML=usersHtml();b.innerHTML=h.querySelector('#us_body').innerHTML}}});
   const sigOf=()=>JSON.stringify([(db.c||[]).map(c=>c._u||c._k),(db.t||[]).map(t=>[t.id,t.off,t.left]),(db.o||[]).length,(db.b||[]).length,(db.b||[]).reduce((a,b)=>Math.max(a,+b._u||0),0)]);
   const _rn=render;render=function(){
@@ -6498,7 +6567,10 @@ ${extra.map(k=>`<tr><th>${E(k)}</th><td>${E(c[k])}</td></tr>`).join('')}</table>
       toast('Complaint assigned to '+tName(sel.value));const p=box.closest('.pop72');if(p)popGone(p.dataset.pk);render()}catch(_){alert('No internet connection. Please try again.');btn.disabled=false}}
   document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-na]');if(b)assign(b.closest('.cmneed'))});
   /* show the list at the top of the Complaints tab */
-  const _rn2=render;render=function(){const r=_rn2.apply(this,arguments);try{
+  const _rn2=render;render=function(){const r=_rn2.apply(this,arguments);
+    /* "Registrations" tab is now "Technician Registration" */
+    try{let ch=0;document.querySelectorAll('#panel .tabs button').forEach(b=>{if(/^\s*Registrations\b/.test(b.textContent)){b.textContent=b.textContent.replace(/Registrations/,'Technician Registration');ch=1}});if(ch&&window.shellSync)shellSync()}catch(_){}
+    try{
     if(isStaff()&&ptab=='cmx'){const w=document.querySelector('#panel .cmw');if(w){const L=needList();let n=w.querySelector('.cmneedl');
       const h=L.length?L.map(o=>needHtml(o.b,o.c)).join(''):'';const key=L.map(o=>o.b.id+o.c.id).join(',');
       if(!n){n=document.createElement('div');n.className='cmneedl';w.querySelector('h3').insertAdjacentElement('afterend',n)}
