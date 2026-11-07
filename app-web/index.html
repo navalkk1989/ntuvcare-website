@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><script>window.NTUV_BUILD='20261108025806'</script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#ffffff"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="NTUV Care">
+<!DOCTYPE html><html lang="en"><head><script>window.NTUV_BUILD='20261108035959'</script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#ffffff"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="NTUV Care">
 <title>NTUV Care - AC Service, Repair & Copper Piping Work</title>
 <script>try{document.documentElement.dataset.theme=localStorage.ntuvTheme||"light"}catch(e){}</script><link rel="preload" href="static/f/bc700.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" as="image" href="static/m/hero-1672.webp" imagesrcset="static/m/hero-760.webp 760w, static/m/hero-1100.webp 1100w, static/m/hero-1672.webp 1672w" imagesizes="100vw"><style>@font-face{font-family:'Barlow Condensed';font-weight:500;font-display:swap;src:url(static/f/bc500.woff2) format('woff2')}@font-face{font-family:'Barlow Condensed';font-weight:600;font-display:swap;src:url(static/f/bc600.woff2) format('woff2')}@font-face{font-family:'Barlow Condensed';font-weight:700;font-display:swap;src:url(static/f/bc700.woff2) format('woff2')}@font-face{font-family:'Barlow';font-weight:400;font-display:swap;src:url(static/f/b400.woff2) format('woff2')}@font-face{font-family:'Barlow';font-weight:500;font-display:swap;src:url(static/f/b500.woff2) format('woff2')}@font-face{font-family:'Barlow';font-weight:600;font-display:swap;src:url(static/f/b600.woff2) format('woff2')}@font-face{font-family:'Barlow';font-weight:700;font-display:swap;src:url(static/f/b700.woff2) format('woff2')}@font-face{font-family:'Nunito';font-weight:800;font-display:swap;src:url(static/f/n800.woff2) format('woff2')}</style><link rel="stylesheet" href="static/lib/leaflet.css"><script defer src="static/lib/leaflet.js"></script><script async src="https://checkout.razorpay.com/v1/checkout.js"></script><style>
 :root{color-scheme:light;--bg:#fff;--bg2:#f3f3f3;--card:#fff;--ink:#0b0b0b;--mut:#666;--line:#d9d9d9;--acc:#e31e24;--acc2:#b8141a;--inp:#fff;--hdr:#fff;--okc:#15803d;--bad:#c8102e;--note:#fff3f3;--thead:#0b0b0b;--shd:0 6px 24px #0000001a;--n:var(--bg);--p:var(--card);--a:var(--acc);--t:var(--ink);--g:var(--mut);--hf:'Barlow Condensed','Oswald','Arial Narrow',sans-serif;--bf:'Barlow','Noto Sans Devanagari',system-ui,'Segoe UI',Arial,sans-serif}
@@ -1698,6 +1698,54 @@ td .ctb{display:flex}
 .pop72-a .pbtn{margin:2px 0 0!important;padding:7px 14px!important}
 .pop72-ok{background:#16a34a!important;border-color:#16a34a!important;color:#fff!important}
 .cmp-paygo{background:#16a34a!important;border-color:#16a34a!important;color:#fff!important}
+/* ===== UPI QR code + payment screenshot ===== */
+.qrup{display:flex;gap:12px;align-items:flex-start;margin:10px 0;padding:10px 12px;border:1px dashed var(--line);border-radius:14px}
+.qrup>div:last-child{display:flex;flex-direction:column;gap:3px;min-width:0}
+.qrup small{color:var(--mut)}
+.qrv{flex:none;width:96px;height:96px;border-radius:12px;background:#f1f4fa;display:grid;place-items:center;overflow:hidden;border:1px solid var(--line)}
+.qrv img{width:100%;height:100%;object-fit:contain;background:#fff}
+.qrv span{font-size:11px;color:var(--mut);text-align:center;padding:4px}
+.qrbtn{display:inline-flex!important;align-items:center;gap:6px;cursor:pointer;margin:0!important}
+.qrup .ppb{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.qrpay{display:flex;flex-direction:column;align-items:center;gap:6px;margin:10px 0;padding:12px;border:2px solid #16a34a;border-radius:16px;background:#f0fdf4;text-align:center}
+.qrpay img{width:220px;max-width:100%;height:auto;border-radius:10px;background:#fff;border:1px solid var(--line)}
+.qrpay small{color:var(--mut)}
+.sslink img{width:54px;height:54px;object-fit:cover;border-radius:8px;border:1px solid var(--line);display:block}
+:root[data-theme=dark] .qrpay,body.dark .qrpay{background:#12261a}
+:root[data-theme=dark] .qrv,body.dark .qrv{background:#1b2436}
+/* ===== booking area switch (technician) ===== */
+.lmw{display:grid;gap:8px;margin:12px 0 14px;padding:14px;border:1px solid var(--line);border-radius:18px;background:var(--card);box-shadow:0 6px 18px #0b2a7810}
+.lmh{display:flex;flex-direction:column;gap:2px}.lmh small{color:var(--mut)}
+.lmo{text-transform:none!important;letter-spacing:normal!important;font-family:inherit!important;display:flex!important;align-items:center;gap:12px;text-align:left;width:100%;padding:12px 14px!important;border-radius:14px!important;border:2px solid var(--line)!important;background:var(--card)!important;color:var(--ink)!important;box-shadow:none!important;font-weight:400!important;cursor:pointer;min-height:0!important}
+.lmo>span:last-child{display:flex;flex-direction:column;gap:2px;min-width:0}
+.lmo b{font-size:15px}.lmo small{color:var(--mut);font-size:12.5px;white-space:normal}
+.lms{flex:none;position:relative;width:46px;height:26px;border-radius:13px;background:#cbd5e1;transition:background .2s}
+.lms::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px #0003;transition:left .2s}
+.lmo.on{border-color:#16a34a!important;background:#f0fdf4!important}
+.lmo.on .lms{background:#16a34a}.lmo.on .lms::after{left:23px}
+.lmo.busy{opacity:.6;pointer-events:none}
+.lmgps{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:13px;padding:8px 10px;border-radius:12px;background:#eef4ff}
+.lmgps .pbtn{margin:0!important;padding:5px 12px!important}
+.lmgps.lmold,.lmold{color:#b91c1c}
+.lmgps.lmold{background:#fef2f2}
+.lmb{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 9px;border-radius:10px;white-space:nowrap}
+.lmb-r{background:#e7efff;color:#0f3fb8}.lmb-c{background:#dcfce7;color:#166534}
+.lmsel{margin:4px 0 0!important;height:30px!important;font-size:12px!important;padding:2px 6px!important;width:auto!important}
+:root[data-theme=dark] .lmo.on,body.dark .lmo.on{background:#0f2a1a!important}
+:root[data-theme=dark] .lmgps,body.dark .lmgps{background:#1d2b4a}
+:root[data-theme=dark] .lmgps.lmold,body.dark .lmgps.lmold{background:#3a1b20}
+/* ===== complaint commission decision ===== */
+.cdec{margin:10px 0;padding:12px;border:2px solid #f59e0b;border-radius:16px;background:#fffbeb;display:grid;gap:8px}
+.cdec h4{margin:0}.cdec>small{color:var(--mut)}
+.cdr{display:grid;gap:4px;padding:10px;border-radius:12px;background:var(--card);border:1px solid var(--line)}
+.cdr.off{opacity:.7}
+.cdr-h{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline}.cdr-h small,.cdr>small{color:var(--mut)}
+.cdr-a{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.cdr-a select{margin:0!important;flex:1 1 220px}
+.cdamt{display:flex!important;align-items:center;gap:6px;margin:0!important}.cdamt input{width:110px!important;margin:0!important}
+.cdtag{color:#b45309}.cdtag span{color:var(--mut)}
+:root[data-theme=dark] .cdec,body.dark .cdec{background:#2a2110}
+.cdamt[hidden]{display:none!important}
 
 /* admin settings */
 .cfgw{max-width:860px}
@@ -6485,16 +6533,16 @@ ${R.map(r=>`<tr class="${uDay==r.d?'on':''}"><td>${new Date(r.ts).toLocaleDateSt
 <td class="w">${E([c.ad,c.ci,c.st].filter(Boolean).join(', ')||'-')}${c.pin?`<br><small>Pincode ${E(c.pin)}</small>`:''}</td><td>${E([c.at,c.br].filter(Boolean).join(' / ')||'-')}</td><td>${dt(r.ts)}</td>
 <td><b>${r.n}</b>${r.n?`<br><small>${r.done} done${r.open?', '+r.open+' open':''}${r.cx?', '+r.cx+' cancelled':''}</small>`:''}</td><td>${r.last?dOnly(r.last):'-'}</td><td><button type="button" class="pbtn" data-uv="${E(c.mob)}">View details</button></td></tr>`}).join('')}</table></div>`:`<p class="note">${uq||uDay?'No customer matches.':'No customer account yet.'}</p>`)}
     else if(uk=='t'){const R=techRows();
-      body=R.length?`<div class="tw"><table class="hz ust"><tr>${ckH()}<th>#</th><th>Technician</th><th>Mobile</th><th>Pincodes (area)</th><th>Status</th><th>Jobs done</th><th>Jobs running</th><th>Open complaints</th><th></th></tr>${R.map((r,i)=>{const t=r.t;
+      body=R.length?`<div class="tw"><table class="hz ust"><tr>${ckH()}<th>#</th><th>Technician</th><th>Mobile</th><th>Pincodes (area)</th><th>Status</th><th>Booking area</th><th>Jobs done</th><th>Jobs running</th><th>Open complaints</th><th></th></tr>${R.map((r,i)=>{const t=r.t;
         return `<tr class="${t.left?'usl':''} ${sel.has('t:'+t.id)?'ussel':''}">${ck('t:'+t.id)}<td>${i+1}</td><td><b>${E(t.name||'-')}</b><br><small>ID ${E(t.id)}</small></td><td><a href="tel:+91${E(t.mob)}">${E(t.mob||'')}</a></td><td class="w">${E((t.pins||[]).map(p=>p.pin).join(', ')||t.pin||'-')}</td>
-<td>${tSt(t)}${t.left&&t.leftAt?`<br><small>${dOnly(t.leftAt)}</small>`:''}${t.off&&t.offWhy?`<br><small>${E(t.offWhy)}</small>`:''}</td><td>${r.done}</td><td>${r.open}</td><td>${r.cmp?`<b class="usr-r">${r.cmp}</b>`:'0'}</td>
+<td>${tSt(t)}${t.left&&t.leftAt?`<br><small>${dOnly(t.leftAt)}</small>`:''}${t.off&&t.offWhy?`<br><small>${E(t.offWhy)}</small>`:''}</td><td class="w">${lmCell(t)}</td><td>${r.done}</td><td>${r.open}</td><td>${r.cmp?`<b class="usr-r">${r.cmp}</b>`:'0'}</td>
 <td>${t.left?`<button type="button" class="alt pbtn" data-ul="${E(t.id)}" data-v="0">Rejoined</button>`:`<button type="button" class="alt pbtn" data-ul="${E(t.id)}" data-v="1">Left the job</button>`}</td></tr>`}).join('')}</table></div>
 <p class="note">Bookings go automatically, turn by turn, to the <b>Active</b> technicians of the customer's pincode. A technician marked <b>Left the job</b> gets no new bookings, and his open complaints go to the office to choose another technician.</p>`:`<p class="note">No technician matches.</p>`}
     else{body=O.length?`<div class="tw"><table class="hz ust"><tr>${ckH()}<th>#</th><th>Name</th><th>Login ID</th><th>Role</th><th>Mobile</th></tr>${O.map((o,i)=>`<tr class="${sel.has('o:'+o.id)?'ussel':''}">${ck('o:'+o.id)}<td>${i+1}</td><td><b>${E(o.name||'-')}</b></td><td>${E(o.id)}</td><td>${o.mgr?'Office Manager':'Office Employee'}</td><td>${E(o.mob||'-')}</td></tr>`).join('')}</table></div>`:'<p class="note">No office staff yet.</p>'}
     return `<div class="usrw"><div class="arh"><h3 class="sh">Users</h3><small class="arld">Live - new accounts appear here by themselves</small></div>
 <div class="arsum ussum"><button type="button" class="artile ${uk=='c'?'on':''}" data-uk="c"><b>${C.length}</b><small>Customer accounts</small><em>${newM} this month &middot; ${d7} in last 7 days</em></button>
 <button type="button" class="artile" data-uk="c" data-uf="b"><b>${withB}</b><small>Customers with a booking</small><em>${C.length-withB} without a booking</em></button>
-<button type="button" class="artile ${uk=='t'?'on':''}" data-uk="t"><b>${T.length}</b><small>Technicians</small><em>${T.filter(tOk).length} active &middot; ${T.filter(t=>t.left).length} left</em></button>
+<button type="button" class="artile ${uk=='t'?'on':''}" data-uk="t"><b>${T.length}</b><small>Technicians</small><em>${T.filter(tOk).length} active &middot; ${T.filter(t=>tOk(t)&&t.lm=='cur').length} on current location</em></button>
 <button type="button" class="artile ${uk=='o'?'on':''}" data-uk="o"><b>${O.length}</b><small>Office staff</small><em>${O.filter(o=>o.mgr).length} manager &middot; ${O.filter(o=>!o.mgr).length} employee</em></button></div>
 ${uk=='c'?dayHtml():''}<div class="usbar"><input type="search" id="us_q" placeholder="${uk=='o'?'':'Search name, mobile, city, pincode'}" value="${E(uq)}" ${uk=='o'?'hidden':''}><button type="button" class="pbtn" id="us_xl">&#8681; Download Excel</button>${isAdm()&&uk!='x'?`<button type="button" class="pbtn usdel" id="us_del" ${sel.size?'':'disabled'}>&#128465; Delete selected (<span id="us_n">${sel.size}</span>)</button>`:''}</div>
 <div id="us_body">${body}</div></div>`}
@@ -6511,7 +6559,7 @@ ${extra.map(k=>`<tr><th>${E(k)}</th><td>${E(c[k])}</td></tr>`).join('')}</table>
   function usersXl(){const X=window.ntuvXlsx;if(!X)return toast('Please try again in a moment');
     const C=custRows(),T=techRows(),O=(db.o||[]).filter(o=>o&&o.id),n0=new Date(),dd=n0.getFullYear()+'-'+String(n0.getMonth()+1).padStart(2,'0')+'-'+String(n0.getDate()).padStart(2,'0');
     const sheets=[{name:'Customers',w:[5,22,14,14,26,36,16,16,10,14,14,20,10,10,10,10,18],bold:[0],rows:[['#','Name','Mobile','Other mobile','Email','Address','City','State','Pincode','AC type','AC brand','Account made','Bookings','Done','Open','Cancelled','Last booking']].concat(C.map((r,i)=>{const c=r.c;return [i+1,c.name||'',c.mob||'',c.alt||'',c.email||'',c.ad||'',c.ci||'',c.st||'',c.pin||'',c.at||'',c.br||'',r.ts?dt(r.ts):'',r.n,r.done,r.open,r.cx,r.last?dOnly(r.last):'']}))},
-      {name:'Technicians',w:[5,22,14,10,30,18,30,10,10,12],bold:[0],rows:[['#','Name','Mobile','ID','Pincodes','Status','Reason','Jobs done','Jobs running','Open complaints']].concat(T.map((r,i)=>{const t=r.t;return [i+1,t.name||'',t.mob||'',t.id,(t.pins||[]).map(p=>p.pin).join(', '),t.left?'Left the job':t.off?'Service stopped':'Active',t.off?t.offWhy||'':'',r.done,r.open,r.cmp]}))},
+      {name:'Technicians',w:[5,22,14,10,30,18,30,26,20,10,10,12],bold:[0],rows:[['#','Name','Mobile','ID','Pincodes','Status','Reason','Booking area','Last GPS','Jobs done','Jobs running','Open complaints']].concat(T.map((r,i)=>{const t=r.t;return [i+1,t.name||'',t.mob||'',t.id,(t.pins||[]).map(p=>p.pin).join(', '),t.left?'Left the job':t.off?'Service stopped':'Active',t.off?t.offWhy||'':'',t.lm=='cur'?'Current Location (10 km)':'Registered Location (pincodes)',t.gts?dt(t.gts):'',r.done,r.open,r.cmp]}))},
       {name:'Customers per day',w:[18,24,24,12],bold:[0],rows:[['Date','New customer accounts','Customers who booked','Bookings']].concat(dayRows().map(r=>[r.d,r.nc,r.cu.size,r.bk]))},
       {name:'Office staff',w:[5,22,14,18,14],bold:[0],rows:[['#','Name','Login ID','Role','Mobile']].concat(O.map((o,i)=>[i+1,o.name||'',o.id,o.mgr?'Office Manager':'Office Employee',o.mob||'']))}];
     const a=document.createElement('a');a.href=URL.createObjectURL(X(sheets));a.download='NTUV-Users-'+dd+'.xlsx';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},4000)}
@@ -6551,7 +6599,7 @@ ${extra.map(k=>`<tr><th>${E(k)}</th><td>${E(c[k])}</td></tr>`).join('')}</table>
     if(C.length)db.c=db.c.filter(c=>!sel.has('c:'+c.mob));if(T.length)db.t=db.t.filter(t=>!sel.has('t:'+t.id));if(O.length)db.o=db.o.filter(o=>!sel.has('o:'+o.id));
     sel.clear();save();uForce=1;render();toast(nm.length+' user'+(nm.length>1?'s':'')+' deleted')}
   document.addEventListener('input',e=>{if(e.target&&e.target.id=='us_q'){uq=e.target.value;const b=$('us_body');if(b){const h=document.createElement('div');h.innerHTML=usersHtml();b.innerHTML=h.querySelector('#us_body').innerHTML}}});
-  const sigOf=()=>JSON.stringify([(db.c||[]).map(c=>c._u||c._k),(db.t||[]).map(t=>[t.id,t.off,t.left]),(db.o||[]).length,(db.b||[]).length,(db.b||[]).reduce((a,b)=>Math.max(a,+b._u||0),0)]);
+  const sigOf=()=>JSON.stringify([(db.c||[]).map(c=>c._u||c._k),(db.t||[]).map(t=>[t.id,t.off,t.left,t.lm,t.gts]),(db.o||[]).length,(db.b||[]).length,(db.b||[]).reduce((a,b)=>Math.max(a,+b._u||0),0)]);
   const _rn=render;render=function(){
     const want=canUsers()&&ptab=='usr';
     if(want&&!uForce&&document.querySelector('#panel .usrw')&&!$('panel').hidden){const s=sigOf();if(s!==uSig){uSig=s;const f=document.activeElement&&document.activeElement.id=='us_q';const w=document.querySelector('#panel .usrw');const h=document.createElement('div');h.innerHTML=usersHtml();
@@ -6684,10 +6732,192 @@ ${extra.map(k=>`<tr><th>${E(k)}</th><td>${E(c[k])}</td></tr>`).join('')}</table>
   window.cmpPayGo=cmpPayGo;
   if(typeof cmpOpen=='function'){const _co=cmpOpen;cmpOpen=function(id){const r=_co.apply(this,arguments);setTimeout(()=>cmpBtns(id),0);return r}}
   if(typeof window.cmpMode=='function'){const _cm=window.cmpMode;window.cmpMode=function(m){const r=_cm.apply(this,arguments);const d=$('dcmp'),id=d&&(d.querySelector('h3')||{}).textContent;const bid=(String(id||'').match(/- (\S+)\s*$/)||[])[1];if(bid)cmpBtns(bid);return r}}
+
+  /* =========================================================
+     6. UPI QR code of the technician (registration + My Profile), shown when paying commission;
+        payment screenshot when paying commission; every picture made small before it is saved
+     ========================================================= */
+  /* 6a. one small picture: longest side at most 1100 px, JPEG, about 50-150 KB */
+  function shrink(dataUrl,maxB){return new Promise(res=>{if(typeof dataUrl!='string'||!/^data:image\/(jpe?g|png|webp|bmp)/i.test(dataUrl))return res(dataUrl);
+    const im=new Image();im.onload=()=>{const enc=(mx,q)=>{const s=Math.min(1,mx/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.max(1,Math.round(im.width*s));c.height=Math.max(1,Math.round(im.height*s));const g=c.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,c.width,c.height);g.drawImage(im,0,0,c.width,c.height);return c.toDataURL('image/jpeg',q)};
+      const lim=maxB||150000;let d=enc(1100,.6);if(d.length>lim)d=enc(950,.5);if(d.length>lim)d=enc(800,.45);if(d.length>lim)d=enc(700,.4);res(d.length<dataUrl.length?d:dataUrl)};im.onerror=()=>res(dataUrl);im.src=dataUrl})}
+  window.ntuvShrink=shrink;
+  const readF=f=>new Promise(res=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=()=>res('');r.readAsDataURL(f)});
+  async function pickImg(inp){const f=inp.files&&inp.files[0];if(!f)return '';if(!/^image\//.test(f.type))return alert('Please choose a photo or screenshot (JPG / PNG)'),'';if(f.size>15e6)return alert('This file is too big (max 15 MB)'),'';return await shrink(await readF(f))}
+  /* every picture that goes to Google Drive is made small first (bills, receipts, documents, payment photos ...) */
+  if(typeof lift=='function'){const _lift=lift,SC={};lift=async function(v,kind,name){
+    if(typeof v=='string'&&v.length>160000&&/^data:image\/(jpe?g|png|webp|bmp)/i.test(v)){const k=v.length+v.slice(100,180)+v.slice(-80);if(!SC[k])SC[k]=await shrink(v,kind=='photo'?90000:150000);v=SC[k]}
+    return _lift.call(this,v,kind,name)}}
+  const qrBox=(id,src)=>`<div class="qrup"><div class="qrv" id="${id}_v">${src?`<img src="${E(src)}" alt="UPI QR code">`:'<span>No QR code</span>'}</div><div><b>UPI QR code</b> <small>(optional)</small><small>Add a photo or screenshot of your UPI QR code (GPay / PhonePe / Paytm / BHIM). The office can scan it to pay your commission.</small>
+    <div class="ppb"><label class="btn alt qrbtn">&#128247; Add QR code<input type="file" id="${id}" accept="image/*" hidden></label><button type="button" class="alt" id="${id}_x" ${src?'':'hidden'}>Remove</button></div></div></div>`;
+  let regQr='',profQr=null;
+  function qrPaint(id,src){const v=$(id+'_v'),x=$(id+'_x');if(v)v.innerHTML=src?`<img src="${E(src)}" alt="UPI QR code">`:'<span>No QR code</span>';if(x)x.hidden=!src}
+  document.addEventListener('change',async e=>{const t=e.target;if(!t||!t.id)return;
+    if(t.id=='bk_qr'){regQr=await pickImg(t)||regQr;qrPaint('bk_qr',regQr);t.value=''}
+    if(t.id=='pp_qr'){const d=await pickImg(t);if(d){profQr=d;qrPaint('pp_qr',d)}t.value=''}
+    if(t.id=='py_ss'){const d=await pickImg(t);if(d){paySS=d;ssPaint()}t.value=''}});
+  document.addEventListener('click',e=>{const t=e.target;if(!t||!t.id)return;
+    if(t.id=='bk_qr_x'){regQr='';qrPaint('bk_qr','')}if(t.id=='pp_qr_x'){profQr='';qrPaint('pp_qr','')}if(t.id=='py_ss_x'){paySS='';ssPaint()}});
+  /* registration form */
+  (function(){const pf=$('bk_pref');if(!pf||$('bk_qr'))return;(pf.closest('label')||pf).insertAdjacentHTML('afterend',qrBox('bk_qr',''))})();
+  {const f=$('tf');if(f&&f.onsubmit){const _tf=f.onsubmit;f.onsubmit=function(e){const n=db.r.length,n2=db.t.length;const r=_tf.call(this,e);
+    if(regQr){if(db.r.length>n){const x=db.r[db.r.length-1];x.pay=Object.assign({},x.pay||{},{qr:regQr,upd:(x.pay&&x.pay.upd)||Date.now()});save();regQr='';qrPaint('bk_qr','')}
+      else if(db.t.length>n2){const x=db.t[db.t.length-1];x.pay=Object.assign({},x.pay||{},{qr:regQr});save();regQr='';qrPaint('bk_qr','')}}
+    return r}}}
+  /* technician: My Profile */
+  if(typeof tprofHtml=='function'){const _h=tprofHtml;tprofHtml=function(){let h=_h.apply(this,arguments);const t=(db.t||[]).find(x=>ME()&&x.id==ME().id);if(!t||h.indexOf('id="pp_pref"')<0)return h;
+    const i=h.indexOf('</label>',h.indexOf('id="pp_pref"'));return h.slice(0,i+8)+qrBox('pp_qr',profQr!==null?profQr:((t.pay||{}).qr||''))+h.slice(i+8)}}
+  if(typeof tprofSave=='function'){const _s=tprofSave;tprofSave=function(){const t=(db.t||[]).find(x=>ME()&&x.id==ME().id),old=t&&t.pay&&t.pay.qr||'';const r=_s.apply(this,arguments);
+    const t2=(db.t||[]).find(x=>ME()&&x.id==ME().id);if(t2){const nq=profQr===null?old:profQr;if((t2.pay||{}).qr!==nq||nq!==old){t2.pay=Object.assign({},t2.pay||{},{qr:nq||undefined});if(!nq)delete t2.pay.qr;if(nq!==old){t2.pay.upd=Date.now();t2.payChg=Date.now();(t2.pay.log=t2.pay.log||[]).push(new Date().toLocaleString()+': UPI QR code '+(nq?'changed':'removed'))}save();try{render()}catch(_){}}}
+    profQr=null;return r}}
+  /* Admin / Manager > Commission > Pay Commission: the technician's QR code + payment screenshot */
+  let paySS='';
+  function ssPaint(){const v=$('py_ss_v'),x=$('py_ss_x');if(v)v.innerHTML=paySS?`<img src="${E(paySS)}" alt="Payment screenshot">`:'<span>No screenshot</span>';if(x)x.hidden=!paySS}
+  if(typeof payOpen=='function'){const _po=payOpen;payOpen=function(){paySS='';const r=_po.apply(this,arguments);const d=$('dpay');if(!d||!d.open)return r;const t=(db.t||[]).find(x=>x.id==cmT);
+    if(t&&(t.pay||{}).qr&&!d.querySelector('.qrpay')){const box=d.querySelector('.pobox')||d.querySelector('.wal');const h=`<div class="qrpay"><b>&#128247; ${E(t.name)}'s UPI QR code</b><a href="${E(t.pay.qr)}" target="_blank" rel="noopener"><img src="${E(t.pay.qr)}" alt="UPI QR code of ${E(t.name)}"></a><small>Scan it with any UPI app and pay <b>${typeof payCalc=='function'?rs(payCalc().n):''}</b>. Tap the picture to open it big.</small></div>`;
+      if(box)box.insertAdjacentHTML('afterend',h)}
+    const ref=$('py_r');if(ref&&!$('py_ss')){const row=ref.closest('.row')||ref.closest('label');(row||ref).insertAdjacentHTML('afterend',`<div class="qrup ssup"><div class="qrv" id="py_ss_v"><span>No screenshot</span></div><div><b>Payment screenshot</b> <small>(optional)</small><small>Add the screenshot of the payment from your UPI / bank app. It is made small automatically.</small><div class="ppb"><label class="btn alt qrbtn">&#128206; Add screenshot<input type="file" id="py_ss" accept="image/*" hidden></label><button type="button" class="alt" id="py_ss_x" hidden>Remove</button></div></div></div>`)}
+    return r}}
+  if(typeof payDo=='function'){const _pd=payDo;payDo=function(){const ids=[...cmSel],ss=paySS;const r=_pd.apply(this,arguments);
+    if(ss){let ch=0;ids.forEach(id=>{const b=db.b.find(x=>x.id==id);if(b&&b.bill&&b.bill.cp=='Paid'&&b.bill.cpd&&!b.bill.cpd.ss){b.bill.cpd.ss=ss;ch=1}});if(ch)save()}paySS='';return r}}
+  /* the screenshot in "Commission Payment History" (Admin, Manager and the technician) */
+  function ssHist(){document.querySelectorAll('#panel h3.sh').forEach(h=>{if(!/Commission Payment History/.test(h.textContent))return;let tb=h.nextElementSibling;tb=tb&&tb.querySelector('table');if(!tb)return;
+    const H=[...tb.rows[0].cells].map(c=>c.textContent.trim());const pi=H.indexOf('Payout ID');if(pi<0)return;let si=H.indexOf('Screenshot');
+    if(si<0){const th=document.createElement('th');th.textContent='Screenshot';tb.rows[0].appendChild(th);si=tb.rows[0].cells.length-1}
+    [...tb.rows].slice(1).forEach(r=>{if(r.cells.length>si&&r.cells[si].dataset.ss)return;const pid=(r.cells[pi]||{}).textContent;let u='';(db.b||[]).some(b=>{const c=b.bill&&b.bill.cpd;if(c&&c.pid==pid&&c.ss){u=c.ss;return true}return false});
+      let td=r.cells[si];if(!td){td=document.createElement('td');r.appendChild(td)}td.dataset.ss=1;td.innerHTML=u?`<a href="${E(u)}" target="_blank" rel="noopener" class="sslink"><img src="${E(u)}" alt="Payment screenshot"></a>`:'<small>-</small>'})})}
+  {const _rn6=render;render=function(){const r=_rn6.apply(this,arguments);try{ssHist()}catch(_){}return r}}
+
+  /* =========================================================
+     7. Where a technician's bookings come from: "Registered Location" (his pincodes) or "Current Location" (10 km around his live GPS).
+        Only one is ON. The technician switches it in his login; Admin / Office Manager see it (and can change it) in Users > Technicians.
+     ========================================================= */
+  const LM_KM=typeof AUTO_KM!='undefined'?AUTO_KM:10,FRESH_H=2;
+  const lmOf=t=>t&&t.lm=='cur'?'cur':'reg';
+  const gAge=t=>t&&+t.gts?Date.now()-+t.gts:Infinity;
+  const gFresh=t=>t&&t.lat!=null&&t.lat!==''&&gAge(t)<=FRESH_H*3600e3;
+  const ago=ms=>{if(!isFinite(ms))return 'never';const m=Math.floor(ms/60e3);return m<1?'just now':m<60?m+' min ago':m<1440?Math.floor(m/60)+' hr ago':Math.floor(m/1440)+' days ago'};
+  const gmap=t=>`https://www.google.com/maps?q=${encodeURIComponent(t.lat+','+t.lng)}`;
+  const pinsOf=t=>(t.pins||[]).map(p=>String(p.pin)).filter(Boolean);
+  function lmCell(t){const cur=lmOf(t)=='cur';let h=cur?`<span class="lmb lmb-c">&#128752; Current Location</span><br><small>Bookings within ${LM_KM} km</small>`:`<span class="lmb lmb-r">&#128205; Registered Location</span><br><small>${pinsOf(t).length} pincodes</small>`;
+    if(cur)h+=gFresh(t)?`<br><small>GPS ${ago(gAge(t))}${t.gacc?' (&plusmn;'+E(t.gacc)+' m)':''} &middot; <a href="${gmap(t)}" target="_blank" rel="noopener">Google Maps</a></small>`:`<br><small class="lmold">&#9888; GPS ${ago(gAge(t))} - gets no bookings until the location is updated</small>`;
+    else if(t.lat)h+=`<br><small>Last GPS ${ago(gAge(t))} &middot; <a href="${gmap(t)}" target="_blank" rel="noopener">Google Maps</a></small>`;
+    if(canUsers())h+=`<br><select class="lmsel" data-lmt="${E(t.id)}"><option value="reg" ${cur?'':'selected'}>Registered Location</option><option value="cur" ${cur?'selected':''}>Current Location</option></select>`;
+    return h}
+  document.addEventListener('change',e=>{const s=e.target;if(!s||!s.classList||!s.classList.contains('lmsel'))return;const t=(db.t||[]).find(x=>x.id==s.dataset.lmt);if(!t)return;const v=s.value;
+    if(v=='cur'&&!gFresh(t)&&!confirm(t.name+' has no fresh GPS location ('+ago(gAge(t))+').\nHe will get bookings only after his phone sends the location (he must open the app with location ON).\n\nSwitch to Current Location anyway?')){s.value=lmOf(t);return}
+    lmSet(t,v,who());uForce=1;render();toast(t.name+': '+(v=='cur'?'Current Location':'Registered Location')+' is ON')});
+  function lmSet(t,v,by){if(lmOf(t)==v&&t.lm)return;t.lm=v;t.lmAt=Date.now();t.lmBy=by;(t.svcLog=t.svcLog||[]).push(new Date().toLocaleString()+' - Booking area: '+(v=='cur'?'Current Location ('+LM_KM+' km)':'Registered Location (pincodes)')+' by '+by);save()}
+  /* technician: get the GPS now (Google Maps link is shown with it) */
+  function gpsNow(){return new Promise((res,rej)=>{if(!navigator.geolocation)return rej(new Error('GPS is not supported on this phone'));
+    navigator.geolocation.getCurrentPosition(p=>res(p.coords),e=>rej(new Error(e&&e.code==1?'Location permission was denied. Please allow location for NTUV Care and try again.':'Could not get your location. Turn ON location (GPS) and try again.')),{enableHighAccuracy:true,timeout:20000,maximumAge:0})})}
+  async function lmTech(v){const m=ME();if(!m||m.role!='technician')return;const t=(db.t||[]).find(x=>x.id==m.id);if(!t)return;
+    if(lmOf(t)==v){toast(v=='cur'?'Current Location is already ON':'Registered Location is already ON');return}
+    if(v=='reg'){if(!pinsOf(t).length&&!confirm('You have no registered pincodes, so you will not get bookings. Switch anyway?'))return;lmSet(t,'reg','Technician '+t.name);lmPaint(1);toast('Registered Location is ON - bookings of your '+pinsOf(t).length+' pincodes come to you');return}
+    const b=document.querySelector('[data-lm="cur"]');if(b)b.classList.add('busy');toast('Getting your location...');
+    try{const c=await gpsNow();t.lat=+c.latitude.toFixed(6);t.lng=+c.longitude.toFixed(6);t.gacc=Math.round(c.accuracy||0);t.gat=new Date().toLocaleString();t.gts=Date.now();
+      lmSet(t,'cur','Technician '+t.name);save();lmPaint(1);toast('Current Location is ON - bookings within '+LM_KM+' km come to you')}
+    catch(e){alert(e.message+'\n\nRegistered Location stays ON.')}finally{if(b)b.classList.remove('busy')}}
+  async function lmUpd(){const m=ME();const t=m&&(db.t||[]).find(x=>x.id==m.id);if(!t)return;toast('Updating your location...');
+    try{const c=await gpsNow();t.lat=+c.latitude.toFixed(6);t.lng=+c.longitude.toFixed(6);t.gacc=Math.round(c.accuracy||0);t.gat=new Date().toLocaleString();t.gts=Date.now();save();lmPaint(1);toast('Location updated')}catch(e){alert(e.message)}}
+  document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-lm]');if(b){e.preventDefault();lmTech(b.dataset.lm);return}if(e.target.id=='lm_up')lmUpd()});
+  function lmHtml(t){const cur=lmOf(t)=='cur',P=pinsOf(t),f=gFresh(t);
+    return `<div class="lmw"><div class="lmh"><b>Where should bookings come from?</b><small>Only one can be ON. Bookings are given turn by turn with the other technicians.</small></div>
+<button type="button" class="lmo ${cur?'':'on'}" data-lm="reg" role="switch" aria-checked="${!cur}"><span class="lms"></span><span><b>&#128205; Registered Location</b><small>Bookings of your ${P.length} registered pincode${P.length==1?'':'s'}${P.length?': '+E(P.slice(0,6).join(', '))+(P.length>6?' ...':''):' - ask the office to add pincodes'}</small></span></button>
+<button type="button" class="lmo ${cur?'on':''}" data-lm="cur" role="switch" aria-checked="${cur}"><span class="lms"></span><span><b>&#128752; Current Location</b><small>Bookings within ${LM_KM} km of where you are now (live GPS)</small></span></button>
+${cur?`<div class="lmgps ${f?'':'lmold'}">${f?`&#128752; Your location: ${ago(gAge(t))}${t.gacc?' (&plusmn;'+E(t.gacc)+' m)':''}`:`&#9888; Your location is ${ago(gAge(t))}. You get NO bookings until it is updated - keep the app open with location ON.`} &middot; <a href="${t.lat?gmap(t):'#'}" target="_blank" rel="noopener">See on Google Maps</a> <button type="button" class="alt pbtn" id="lm_up">&#128260; Update now</button></div>`:''}</div>`}
+  let lmSig='';
+  function lmPaint(force){const m=ME();if(!m||m.role!='technician'||$('panel').hidden)return;const t=(db.t||[]).find(x=>x.id==m.id);if(!t)return;
+    const sig=[t.lm,t.gts,t.gacc,pinsOf(t).length,Math.floor(gAge(t)/60e3)].join('|');let w=document.querySelector('#panel .lmw');
+    if(w&&!force&&sig===lmSig)return;lmSig=sig;const h=lmHtml(t);
+    if(w){w.outerHTML=h;return}const tabs=document.querySelector('#panel .tabs');if(tabs)tabs.insertAdjacentHTML('afterend',h)}
+  /* keep the live GPS fresh while the app is open (every 5 min it already updates; also when the app comes back) */
+  document.addEventListener('visibilitychange',()=>{try{const m=ME();if(document.hidden||!m||m.role!='technician')return;const t=(db.t||[]).find(x=>x.id==m.id);if(t&&lmOf(t)=='cur'&&gAge(t)>4*60e3&&typeof liveLoc=='function')liveLoc(1)}catch(_){}});
+  setInterval(()=>{try{lmPaint()}catch(_){}},30000);
+  /* booking form: "Technician Not Available" check follows the same rule as the server */
+  if(typeof covered=='function'){covered=function(p){const T=(db.t||[]).filter(t=>t&&!t.off&&!t.left);
+    if(T.some(t=>lmOf(t)=='reg'&&pinsOf(t).includes(String(p))))return true;
+    const C=T.filter(t=>lmOf(t)=='cur'&&gFresh(t));if(!C.length)return false;
+    let a=+(($('blat')||{}).value||0),o=+(($('blng')||{}).value||0);
+    if(!a){try{const P=typeof PDB!='undefined'&&PDB&&PDB.get(String(p));if(P&&P.c){a=P.c[0];o=P.c[1]}else if(typeof pinDB=='function')pinDB().catch(()=>{})}catch(_){}}   /* the pincode's place (India Post data) */
+    if(!a)return true;                                   /* place not known yet: the server checks it with Google Maps */
+    return C.some(t=>(typeof hav=='function'?hav(a,o,+t.lat,+t.lng):0)<=LM_KM+2)}}
+
+  /* =========================================================
+     8. Complaint commission: Admin / Office Manager decides at "Pay Commission" time
+        (pay as per the slab, another amount, or no commission). The decision is kept on the complaint bill:
+        its commission rates are scaled so every total (technician / company / Excel) follows the decided amount.
+     ========================================================= */
+  const DEC={};                                            /* key -> {m:'skip'|'slab'|'amt'|'none', a:number} */
+  const okCB=()=>typeof cbItems=='function'&&typeof cbCash=='function';
+  const r2=n=>Math.round((+n||0)*100)/100;
+  const ppOf=c=>c&&c.bill&&(c.bill.by||'Company')=='Technician'?(+c.bill.pp||0):0;
+  const slabOf=it=>r2(Math.max(0,(it.k?it.k.te:0)-ppOf(it.c)));          /* commission part only (parts bought by the technician are always paid back) */
+  const decAmt=(it)=>{const d=DEC[it.key];if(!d||d.m=='slab'||d.m=='skip')return slabOf(it);if(d.m=='none')return 0;return Math.max(0,Math.min(r2(d.a),99999))};
+  const cbUnpaid=tid=>okCB()?cbItems(tid).filter(it=>it.c.bill&&it.c.bill.cp!='Paid'):[];
+  function decInit(){const t=(db.t||[]).find(x=>x.id==cmT);if(!t)return;cbUnpaid(t.id).forEach(it=>{if(!DEC[it.key])DEC[it.key]={m:cmSelC.has(it.key)?'slab':'skip',a:slabOf(it)}})}
+  if(typeof payCalc=='function'){const _pc=payCalc;payCalc=function(){const c=_pc.apply(this,arguments);try{const t=(db.t||[]).find(x=>x.id==cmT);if(!t||!okCB())return c;let delta=0;
+      cbUnpaid(t.id).forEach(it=>{if(!cmSelC.has(it.key))return;const d=DEC[it.key];if(!d||d.m=='slab'||d.m=='skip')return;const cash=cbCash(it.c),te=it.k.te,te2=r2(te-slabOf(it)+decAmt(it));delta+=Math.max(0,te2-cash)-Math.max(0,te-cash)});
+      if(delta){const k=techCash(t.id,allB());c.g=r2(c.g+delta);c.cg=r2((c.cg||0)+delta);const room=Math.max(0,c.g-c.d);c.rOff=r2(Math.min(k.R,room));c.n=r2(c.g-c.d-c.rOff);c.owe=r2(Math.max(0,k.R-room))}}catch(_){}return c}}
+  function decHtml(){const t=(db.t||[]).find(x=>x.id==cmT);if(!t)return '';const L=cbUnpaid(t.id);if(!L.length)return '';
+    return `<div class="cdec"><h4>&#9888; Complaint commission - you decide</h4><small>Commission on complaint visits is not paid automatically. For each complaint choose: pay as per the slab, pay another amount, or no commission.</small>
+${L.map(it=>{const d=DEC[it.key]||{m:'skip',a:slabOf(it)},B=it.c.bill,sl=slabOf(it),cash=cbCash(it.c),pp=ppOf(it.c),lab=(+B.lab||0)+(+B.visAmt||0),LC=B.lc!=null&&B.lc!==''?+B.lc:70,PC=B.pc!=null&&B.pc!==''?+B.pc:70;
+  return `<div class="cdr ${d.m=='skip'?'off':''}" data-ck="${E(it.key)}"><div class="cdr-h"><b>${E(it.x.id)} &middot; ${E(it.c.id)}</b><small>${E(it.x.name||'')} &middot; Complaint bill ${rs(it.k.tot)}</small></div>
+<small>As per slab: <b>${rs(sl)}</b> (labour ${rs(lab)} &times; ${LC}%${B.by=='Technician'?' + part profit &times; '+PC+'%':''})${pp?' &middot; parts bought by technician paid back: '+rs(pp):''}${cash?' &middot; cash already with technician: '+rs(cash):''}</small>
+<div class="cdr-a"><select class="cdsel"><option value="skip" ${d.m=='skip'?'selected':''}>Not now (keep unpaid)</option><option value="slab" ${d.m=='slab'?'selected':''}>Pay as per slab - ${rs(sl)}</option><option value="amt" ${d.m=='amt'?'selected':''}>Pay another amount</option><option value="none" ${d.m=='none'?'selected':''}>No commission (Rs 0)</option></select>
+<label class="cdamt" ${d.m=='amt'?'':'hidden'}>Rs <input type="number" min="0" step="1" class="cdin" value="${d.m=='amt'?E(d.a):E(sl)}"></label></div></div>`}).join('')}</div>`}
+  function decTotals(){const d=$('dpay');if(!d||!d.open)return;const c=payCalc(),w=d.querySelector('.wal');
+    if(w){const B=w.querySelectorAll('b');if(B.length>=3){B[0].textContent=rs(c.g);B[B.length-1].textContent=rs(c.n)}else if(B.length)B[B.length-1].textContent=rs(c.n)}
+    const btn=[...d.querySelectorAll('button')].find(b=>/^Confirm Payment/.test(b.textContent));if(btn){btn.textContent='Confirm Payment '+rs(c.n);btn.disabled=!(cmSel.size||cmSelC.size)}
+    const q=d.querySelector('.qrpay small b');if(q)q.textContent=rs(c.n);
+    const u=d.querySelector('a.upib');if(u){u.href=u.href.replace(/([?&]am=)[^&]*/,'$1'+c.n);u.innerHTML='&#128241; Pay '+rs(c.n)+' with UPI app'}}
+  document.addEventListener('change',e=>{const el=e.target,row=el.closest&&el.closest('.cdr');if(!row)return;const k=row.dataset.ck,d=DEC[k]||(DEC[k]={m:'skip',a:0});
+    if(el.classList.contains('cdsel')){d.m=el.value;const inp=row.querySelector('.cdin');if(d.m=='amt'){d.a=+inp.value||0;row.querySelector('.cdamt').hidden=false;inp.focus()}else row.querySelector('.cdamt').hidden=true;
+      row.classList.toggle('off',d.m=='skip');if(d.m=='skip')cmSelC.delete(k);else cmSelC.add(k);decTotals()}});
+  document.addEventListener('input',e=>{const el=e.target;if(!el.classList||!el.classList.contains('cdin'))return;const row=el.closest('.cdr'),d=DEC[row.dataset.ck];if(d){d.a=Math.max(0,+el.value||0);decTotals()}});
+  if(typeof payOpen=='function'){const _po=payOpen;payOpen=function(){const t=(db.t||[]).find(x=>x.id==cmT);decInit();
+      const r=_po.apply(this,arguments);const d=$('dpay');
+      if(t&&!(d&&d.open)&&!cmSel.size&&!cmSelC.size&&cbUnpaid(t.id).length){alert('Tick a booking, or a complaint bill in "Complaint Billing", to pay.');return r}
+      try{const pd=$('py_d'),n0=new Date();if(pd&&!pd.dataset.loc){pd.dataset.loc=1;pd.value=n0.getFullYear()+'-'+String(n0.getMonth()+1).padStart(2,'0')+'-'+String(n0.getDate()).padStart(2,'0')}}catch(_){}   /* today in India, not in UTC */
+      if(d&&d.open&&!d.querySelector('.cdec')){const h=decHtml();if(h){const w=d.querySelector('.wal');(w||d.querySelector('h3')).insertAdjacentHTML('afterend',h);decTotals()}}return r}}
+  if(typeof payDo=='function'){const _pd=payDo;payDo=function(){const t=(db.t||[]).find(x=>x.id==cmT);const ch=[];
+      if(t&&okCB()){cbUnpaid(t.id).forEach(it=>{if(!cmSelC.has(it.key))return;const d=DEC[it.key];if(!d||d.m=='skip')return;const B=it.c.bill,sl=slabOf(it),A=decAmt(it);
+        const old={lc:B.lc,pc:B.pc};const LC=B.lc!=null&&B.lc!==''?+B.lc:70,PC=B.pc!=null&&B.pc!==''?+B.pc:70,f=sl>0?A/sl:0;
+        if(d.m!='slab'){B.lc=+(LC*f).toFixed(4);B.pc=+(PC*f).toFixed(4)}
+        B.cdec={slab:sl,amt:d.m=='slab'?sl:A,how:d.m=='none'?'No commission':d.m=='amt'?'Other amount':'As per slab',lc0:LC,pc0:PC,by:who(),at:new Date().toLocaleString(),ts:Date.now()};ch.push({it,old})})}
+      const r=_pd.apply(this,arguments);
+      ch.forEach(({it,old})=>{const B=it.c.bill;if(B.cp!='Paid'){B.lc=old.lc;B.pc=old.pc;delete B.cdec}else hlog(it.x,who(),'Complaint commission decided ('+it.c.id+')',it.x.status,B.cdec.how+': '+rs(B.cdec.amt)+' (slab '+rs(B.cdec.slab)+')',B.cdec.amt)});
+      if(ch.length)save();Object.keys(DEC).forEach(k=>delete DEC[k]);return r}}
+  /* Commission tab: show the decision on paid complaint bills */
+  function decShow(){document.querySelectorAll('#panel table.cbt tr').forEach((r,i)=>{if(!i||r.dataset.cd)return;const id=(r.cells[r.cells.length-12]||{}).textContent;
+      const cid=[...r.cells].map(c=>c.textContent.trim()).find(x=>/^CMP\d+/.test(x));const cc=cid&&cid.match(/^CMP\d+/)[0];if(!cc)return;let it=null;(db.b||[]).some(b=>(b.cmps||[]).some(c=>{if(c.id==cc){it=c;return true}return false}));
+      if(!it||!it.bill||!it.bill.cdec)return;r.dataset.cd=1;const td=r.cells[r.cells.length-2];if(td)td.insertAdjacentHTML('beforeend',`<br><small class="cdtag">${E(it.bill.cdec.how)}: ${rs(it.bill.cdec.amt)} <span>(slab ${rs(it.bill.cdec.slab)})</span></small>`)})}
+
+  /* =========================================================
+     9. Admin > Settings: how many days after the service is closed a customer can raise a complaint (was fixed 30)
+     ========================================================= */
+  const cmpDays=()=>{let n=30;try{n=Math.round(+setGet().cmpDays||30)}catch(_){}return Math.max(1,Math.min(365,n))};
+  const shiftX=x=>{if(!x||typeof clTs!='function')return x;const t=clTs(x);if(!t)return x;return Object.assign({},x,{closeTs:t+(cmpDays()-30)*864e5,_sh:1})};
+  if(typeof cmpCan=='function'){const _cc=cmpCan;cmpCan=function(x){return _cc(x&&x._sh?x:shiftX(x))}}
+  if(typeof cmpLine=='function'){const _cl=cmpLine;cmpLine=function(x){let h=_cl.call(this,shiftX(x));return typeof h=='string'?h.replace(/Complaint window closed \(30 days\)/,'Complaint window closed ('+cmpDays()+' days)'):h}}
+  if(typeof cmpOpen=='function'){const _co2=cmpOpen;cmpOpen=function(id){const x=(db.b||[]).find(b=>b.id==id);if(x&&!cmpCan(x))return alert('A complaint can be raised within '+cmpDays()+' days after the service is closed.');return _co2.apply(this,arguments)}}
+  /* the settings box */
+  function daysField(){const a=$('cfg_cmpa');if(!a||$('cfg_cmpd'))return;const row=a.closest('.row')||a.closest('label');
+    row.insertAdjacentHTML('afterend',`<div class="row"><label>Complaint can be raised within (days after the service is closed)<input id="cfg_cmpd" type="number" min="1" max="365" step="1" inputmode="numeric" value="${cmpDays()}"></label></div><small style="display:block;margin:0 0 10px">Customers see the "Raise Complaint" button for this many days after the booking is Closed. Now: ${cmpDays()} days.</small>`)}
+  if(typeof window.setSave=='function'){const _ss=window.setSave;window.setSave=function(){const el=$('cfg_cmpd'),v=el?Math.round(+el.value):0;
+    if(el&&!(v>=1&&v<=365))return alert('Complaint days must be between 1 and 365');
+    const r=_ss.apply(this,arguments);if(el){const co=(db.set||[]).find(x=>x.id=='co');if(co&&co.cmpDays!==v){co.cmpDays=v;save();try{applySet()}catch(_){}}}return r}}
+  /* the "30 days" in the texts customers read follows the setting */
+  function daysText(){const n=cmpDays();if(n==30&&!document.body.dataset.cd)return;document.body.dataset.cd=n;
+    const W=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode:t=>/(within|Complaint window closed \() ?\d+ days|\d+-Day Support/.test(t.nodeValue)&&!t.parentElement.closest('#panel .cfgw,script,style')?1:3});
+    const L=[];while(W.nextNode())L.push(W.currentNode);L.forEach(t=>{t.nodeValue=t.nodeValue.replace(/within \d+ days/g,'within '+n+' days').replace(/\d+-Day Support/g,n+'-Day Support')})}
+  {const _rn9=render;render=function(){const r=_rn9.apply(this,arguments);try{daysField();daysText()}catch(_){}return r}}
+  setTimeout(()=>{try{daysText()}catch(_){}},2500);
+  if(typeof polOpen=='function'){const _p=polOpen;polOpen=function(){const r=_p.apply(this,arguments);try{daysText()}catch(_){}return r}}
   /* technician page: the note about how bookings come (now by service pincode, turn by turn) */
   function noteFix(){document.querySelectorAll('#panel .note,#panel p,#panel div').forEach(n=>{if(n.children.length>8||n.dataset.n72)return;const t=n.textContent;if(/^New bookings within .* km of your saved GPS location/.test(t.trim())){n.dataset.n72=1;
-    n.innerHTML='New bookings of your <b>service pincodes</b> come to you automatically, <b>turn by turn</b> with the other technicians of the same pincode, with an SMS and a pop-up here. You get <b>10 minutes</b> to accept, after that the booking goes to the next technician. If no technician of the pincode is free, bookings within 10 km of your saved GPS location can also come to you, so press <b>Update my GPS location</b> when you change area.'}})}
-  const _rn4=render;render=function(){const r=_rn4.apply(this,arguments);try{ctList();noteFix()}catch(_){}return r};
+    n.innerHTML='Choose above where your bookings come from: <b>Registered Location</b> (your pincodes) or <b>Current Location</b> ('+LM_KM+' km around you). Bookings come turn by turn with the other technicians, with an SMS and a pop-up here. You get <b>10 minutes</b> to accept, after that the booking goes to the next technician.'}})}
+  const _rn4=render;render=function(){const r=_rn4.apply(this,arguments);try{ctList();noteFix();lmPaint(1);decShow()}catch(_){}return r};
   setInterval(()=>{try{ctList();ctDlg()}catch(_){}},1500);
   /* live data: a tiny "anything changed?" check every 5 seconds; the full data is loaded only when something was saved */
   let nv=-1,nvBusy=0;
