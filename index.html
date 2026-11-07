@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><script>window.NTUV_BUILD='20261108021634'</script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#ffffff"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="NTUV Care"><link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icons/icon-192.png">
+<!DOCTYPE html><html lang="en"><head><script>window.NTUV_BUILD='20261108025806'</script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#ffffff"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="NTUV Care"><link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icons/icon-192.png">
 <title>NTUV Care - AC Service, Repair & Copper Piping Work</title>
 <script>try{document.documentElement.dataset.theme=localStorage.ntuvTheme||"light"}catch(e){}</script><link rel="preload" href="static/f/bc700.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" as="image" href="static/m/hero-1672.webp" imagesrcset="static/m/hero-760.webp 760w, static/m/hero-1100.webp 1100w, static/m/hero-1672.webp 1672w" imagesizes="100vw"><style>@font-face{font-family:'Barlow Condensed';font-weight:500;font-display:swap;src:url(static/f/bc500.woff2) format('woff2')}@font-face{font-family:'Barlow Condensed';font-weight:600;font-display:swap;src:url(static/f/bc600.woff2) format('woff2')}@font-face{font-family:'Barlow Condensed';font-weight:700;font-display:swap;src:url(static/f/bc700.woff2) format('woff2')}@font-face{font-family:'Barlow';font-weight:400;font-display:swap;src:url(static/f/b400.woff2) format('woff2')}@font-face{font-family:'Barlow';font-weight:500;font-display:swap;src:url(static/f/b500.woff2) format('woff2')}@font-face{font-family:'Barlow';font-weight:600;font-display:swap;src:url(static/f/b600.woff2) format('woff2')}@font-face{font-family:'Barlow';font-weight:700;font-display:swap;src:url(static/f/b700.woff2) format('woff2')}@font-face{font-family:'Nunito';font-weight:800;font-display:swap;src:url(static/f/n800.woff2) format('woff2')}</style><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" media="print" onload="this.media='all'"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script><script async src="https://checkout.razorpay.com/v1/checkout.js"></script><style>
 :root{color-scheme:light;--bg:#fff;--bg2:#f3f3f3;--card:#fff;--ink:#0b0b0b;--mut:#666;--line:#d9d9d9;--acc:#e31e24;--acc2:#b8141a;--inp:#fff;--hdr:#fff;--okc:#15803d;--bad:#c8102e;--note:#fff3f3;--thead:#0b0b0b;--shd:0 6px 24px #0000001a;--n:var(--bg);--p:var(--card);--a:var(--acc);--t:var(--ink);--g:var(--mut);--hf:'Barlow Condensed','Oswald','Arial Narrow',sans-serif;--bf:'Barlow','Noto Sans Devanagari',system-ui,'Segoe UI',Arial,sans-serif}
@@ -1697,6 +1697,7 @@ td .ctb{display:flex}
 .pop72-a{display:flex;gap:6px;flex-wrap:wrap}
 .pop72-a .pbtn{margin:2px 0 0!important;padding:7px 14px!important}
 .pop72-ok{background:#16a34a!important;border-color:#16a34a!important;color:#fff!important}
+.cmp-paygo{background:#16a34a!important;border-color:#16a34a!important;color:#fff!important}
 
 /* admin settings */
 .cfgw{max-width:860px}
@@ -6653,6 +6654,36 @@ ${extra.map(k=>`<tr><th>${E(k)}</th><td>${E(c[k])}</td></tr>`).join('')}</table>
       const ki=H.indexOf('contact');if(ki>=0&&r1.cells[ki]&&r1.cells[ki].querySelector('a[href^="tel:"]')){r0.cells[ki].remove();r1.cells[ki].remove()}})}
   if(typeof vb=='function'){const _vb=vb;vb=function(){const r=_vb.apply(this,arguments);try{ctDlg()}catch(_){}return r}}
   document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('#dbk button');if(b)setTimeout(()=>{try{ctDlg()}catch(_){}},30)});
+
+  /* =========================================================
+     5. Complaint with "Pay Now": one button "Pay Rs X & Submit Complaint".
+        The complaint window closes while Razorpay is open (it was on top of Razorpay before),
+        after the payment the complaint is saved by itself (complaint id + same technician by the server).
+        Payment closed / failed -> the window comes back with the text still there.
+     ========================================================= */
+  const cmpFee=()=>{try{return CMP_FEE}catch(_){return 0}};
+  const payNow=()=>{const d=$('dcmp');if(!d)return false;const r=d.querySelector('.cmpm input[value="now"]');const anyMode=d.querySelector('.cmpm input');return cmpFee()>0&&!d.querySelector('.cmpfree')&&(r?r.checked:!anyMode&&!(d.querySelector('#cmp_pay')||{}).hidden)};
+  function cmpBtns(id){const d=$('dcmp');if(!d||!d.open)return;const pay=$('cmp_pay'),go=$('cmp_go');if(!go)return;if(pay)pay.hidden=true;
+    let paidNow=false;try{paidNow=!!cmpPaid}catch(_){}
+    const now=payNow()&&!paidNow;go.disabled=false;go.textContent=now?'Pay Rs '+cmpFee()+' & Submit Complaint':'Submit Complaint';go.classList.toggle('cmp-paygo',now);
+    go.onclick=e=>{e.preventDefault();now?cmpPayGo(id):cmpSave(id)};const a=d.querySelector('.cmpagree');if(a&&a.lastChild&&now)a.lastChild.textContent=' I agree to pay the Rs '+cmpFee()+' visiting charge now'}
+  async function cmpPayGo(id){const x=(db.b||[]).find(b=>b.id==id),d=$('dcmp');if(!x||!d)return;
+    const t=($('cmp_t')||{}).value||'';if(t.trim().length<5)return alert('Please describe the issue');
+    const ag=$('cmp_a');if(ag&&!ag.checked&&!ag.closest('[hidden]'))return alert('Please agree to the Rs '+cmpFee()+' visiting charge');
+    if(!window.Razorpay&&typeof rzpReady=='function'){toast('Opening the payment window...');await rzpReady()}
+    if(typeof Razorpay==='undefined')return alert('Payment gateway did not load. Please check your internet and try again.');
+    const back=()=>{try{if(!d.open)d.showModal();cmpBtns(id)}catch(_){}};
+    d.close();                                          /* Razorpay must be on top, not behind the complaint window */
+    let done=false;
+    try{const rz=new Razorpay({key:typeof RZP_KEY!='undefined'?RZP_KEY:'',amount:cmpFee()*100,currency:'INR',name:'NTUV Care',description:'Complaint visiting charge - '+x.id,prefill:{name:x.name,contact:x.mob},notes:{booking:x.id,type:'complaint'},theme:{color:'#0f5bff'},
+        handler:function(r){done=true;try{cmpPaid=true;cmpPayId=r.razorpay_payment_id||''}catch(_){}window._cmpVisit=false;
+          toast('Payment received - saving your complaint...');try{cmpSave(id)}catch(e){alert('Payment received ('+(r.razorpay_payment_id||'')+'), but the complaint could not be saved. Please call us.')}},
+        modal:{ondismiss:function(){if(!done)setTimeout(back,150)}}});
+      rz.on('payment.failed',function(r){alert('Payment failed: '+((r.error&&r.error.description)||'please try again'))});
+      rz.open()}catch(e){alert('Payment could not be started: '+e.message);back()}}
+  window.cmpPayGo=cmpPayGo;
+  if(typeof cmpOpen=='function'){const _co=cmpOpen;cmpOpen=function(id){const r=_co.apply(this,arguments);setTimeout(()=>cmpBtns(id),0);return r}}
+  if(typeof window.cmpMode=='function'){const _cm=window.cmpMode;window.cmpMode=function(m){const r=_cm.apply(this,arguments);const d=$('dcmp'),id=d&&(d.querySelector('h3')||{}).textContent;const bid=(String(id||'').match(/- (\S+)\s*$/)||[])[1];if(bid)cmpBtns(bid);return r}}
   /* technician page: the note about how bookings come (now by service pincode, turn by turn) */
   function noteFix(){document.querySelectorAll('#panel .note,#panel p,#panel div').forEach(n=>{if(n.children.length>8||n.dataset.n72)return;const t=n.textContent;if(/^New bookings within .* km of your saved GPS location/.test(t.trim())){n.dataset.n72=1;
     n.innerHTML='New bookings of your <b>service pincodes</b> come to you automatically, <b>turn by turn</b> with the other technicians of the same pincode, with an SMS and a pop-up here. You get <b>10 minutes</b> to accept, after that the booking goes to the next technician. If no technician of the pincode is free, bookings within 10 km of your saved GPS location can also come to you, so press <b>Update my GPS location</b> when you change area.'}})}
