@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><script>window.NTUV_BUILD='20261108012656'</script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#ffffff"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="NTUV Care"><link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icons/icon-192.png">
+<!DOCTYPE html><html lang="en"><head><script>window.NTUV_BUILD='20261108021634'</script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#ffffff"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="NTUV Care"><link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icons/icon-192.png">
 <title>NTUV Care - AC Service, Repair & Copper Piping Work</title>
 <script>try{document.documentElement.dataset.theme=localStorage.ntuvTheme||"light"}catch(e){}</script><link rel="preload" href="static/f/bc700.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" as="image" href="static/m/hero-1672.webp" imagesrcset="static/m/hero-760.webp 760w, static/m/hero-1100.webp 1100w, static/m/hero-1672.webp 1672w" imagesizes="100vw"><style>@font-face{font-family:'Barlow Condensed';font-weight:500;font-display:swap;src:url(static/f/bc500.woff2) format('woff2')}@font-face{font-family:'Barlow Condensed';font-weight:600;font-display:swap;src:url(static/f/bc600.woff2) format('woff2')}@font-face{font-family:'Barlow Condensed';font-weight:700;font-display:swap;src:url(static/f/bc700.woff2) format('woff2')}@font-face{font-family:'Barlow';font-weight:400;font-display:swap;src:url(static/f/b400.woff2) format('woff2')}@font-face{font-family:'Barlow';font-weight:500;font-display:swap;src:url(static/f/b500.woff2) format('woff2')}@font-face{font-family:'Barlow';font-weight:600;font-display:swap;src:url(static/f/b600.woff2) format('woff2')}@font-face{font-family:'Barlow';font-weight:700;font-display:swap;src:url(static/f/b700.woff2) format('woff2')}@font-face{font-family:'Nunito';font-weight:800;font-display:swap;src:url(static/f/n800.woff2) format('woff2')}</style><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" media="print" onload="this.media='all'"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script><script async src="https://checkout.razorpay.com/v1/checkout.js"></script><style>
 :root{color-scheme:light;--bg:#fff;--bg2:#f3f3f3;--card:#fff;--ink:#0b0b0b;--mut:#666;--line:#d9d9d9;--acc:#e31e24;--acc2:#b8141a;--inp:#fff;--hdr:#fff;--okc:#15803d;--bad:#c8102e;--note:#fff3f3;--thead:#0b0b0b;--shd:0 6px 24px #0000001a;--n:var(--bg);--p:var(--card);--a:var(--acc);--t:var(--ink);--g:var(--mut);--hf:'Barlow Condensed','Oswald','Arial Narrow',sans-serif;--bf:'Barlow','Noto Sans Devanagari',system-ui,'Segoe UI',Arial,sans-serif}
@@ -1686,6 +1686,17 @@ body.shell .pop72w{top:calc(66px + env(safe-area-inset-top,0px))}
 .uschip .pbtn{margin:0!important;padding:5px 12px!important}
 :root[data-theme=dark] .ust tr.ussel td,body.dark .ust tr.ussel td{background:#3a1b20!important}
 :root[data-theme=dark] .uschip,body.dark .uschip,:root[data-theme=dark] .usdt tr.on td,body.dark .usdt tr.on td{background:#1d2b4a}
+/* ===== Call + WhatsApp next to the customer's number ===== */
+.ctb{display:inline-flex;gap:6px;flex-wrap:wrap;margin:4px 0 0 0;vertical-align:middle}
+td .ctb{display:flex}
+.ctb a{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border-radius:999px;font:700 12.5px/1.1 system-ui,sans-serif;text-decoration:none!important;white-space:nowrap;color:#fff!important}
+.ctb-c{background:#0f5bff}
+.ctb-w{background:#16a34a}
+.ctb-w svg{width:14px;height:14px;fill:#fff}
+.ctb a:active{transform:scale(.96)}
+.pop72-a{display:flex;gap:6px;flex-wrap:wrap}
+.pop72-a .pbtn{margin:2px 0 0!important;padding:7px 14px!important}
+.pop72-ok{background:#16a34a!important;border-color:#16a34a!important;color:#fff!important}
 
 /* admin settings */
 .cfgw{max-width:860px}
@@ -6593,7 +6604,7 @@ ${extra.map(k=>`<tr><th>${E(k)}</th><td>${E(c[k])}</td></tr>`).join('')}</table>
           else if(/^Complaint .* assigned to the same technician/.test(ev))out.push({k,ts:h.ts,lvl:'info',bid:b.id,title:'New complaint - '+b.id,body:`${E(b.name||'')}: ${E(h.rem||'')}<br>Assigned automatically to the same technician <b>${E(ev.replace(/^.*same technician /,''))}</b>.`})
           else if(ev=='Booking Pending More than 30 Minutes'&&!b.tm)out.push({k,ts:h.ts,lvl:'bad',bid:b.id,title:'Booking pending 30 minutes - '+b.id,body:`${E(b.name||'')} &middot; Pincode ${E(b.pin||'-')}. No technician has accepted yet.`,btn:'Assign now'})}
         else if(T){
-          if(/^Auto-assigned to /.test(ev)&&b.tm==m.id&&b.ta=='pending'&&H.slice(i+1).every(z=>!/^Auto-assigned/.test(z.ev||'')))out.push({k,ts:h.ts,lvl:'info',bid:b.id,stay:1,title:'New job '+b.id,body:`${E(b.name||'')} &middot; ${E([b.ad,b.ci,b.pin].filter(Boolean).join(', '))}<br>Please accept within 10 minutes, otherwise it goes to the next technician.`,btn:'Open job'})
+          if(/^Auto-assigned to /.test(ev)&&b.tm==m.id&&b.ta=='pending'&&H.slice(i+1).every(z=>!/^Auto-assigned/.test(z.ev||'')))out.push({k,ts:h.ts,lvl:'info',bid:b.id,stay:1,title:'New job '+b.id,body:`${E(b.name||'')} &middot; ${E([b.ad,b.ci,b.pin].filter(Boolean).join(', '))}<br>Please accept within 10 minutes, otherwise it goes to the next technician.`,btn:'Open job',acc:1})
           else if(/^Complaint (\S+) assigned to/.test(ev)){const c=(b.cmps||[]).find(z=>ev.indexOf(z.id)>0);if(c&&c.tech==m.id&&c.st!='Resolved')out.push({k,ts:h.ts,lvl:'warn',bid:b.id,stay:1,title:'Complaint '+c.id+' - '+b.id,body:`${E(b.name||'')} &middot; ${E(b.mob||'')}<br>Issue: ${E(c.text||'')}<br>Please visit the customer again.`,btn:'Open complaint',cmx:1})}}});
       if(stf)(b.cmps||[]).forEach(c=>{if(c.need&&c.st!='Resolved')out.push({k:'need|'+b.id+'|'+c.id+'|'+(c.rtTs||0),ts:+c.rtTs||Date.now(),lvl:'bad',stay:1,need:{b,c},title:'Complaint needs a technician',body:''})})});
     /* one pop-up per booking for "did not accept / cancelled": only the newest one */
@@ -6603,7 +6614,8 @@ ${extra.map(k=>`<tr><th>${E(k)}</th><td>${E(c[k])}</td></tr>`).join('')}</table>
   function ensureWrap(){if(wrap&&document.body.contains(wrap))return wrap;wrap=document.createElement('div');wrap.className='pop72w';wrap.setAttribute('aria-live','polite');document.body.appendChild(wrap);
     wrap.addEventListener('click',e=>{if(e.target.closest('.pop72-all')){wrap.querySelectorAll('.pop72').forEach(x=>popGone(x.dataset.pk));return}const p=e.target.closest('.pop72');if(!p)return;
       if(e.target.closest('.pop72-x')){popGone(p.dataset.pk);return}
-      if(e.target.closest('[data-po]')){const id=p.dataset.bid;popGone(p.dataset.pk);try{if(p.dataset.cmx){ptab='cmx';show('panel');render()}else{show('panel');vb(id,'all',0)}}catch(_){}return}});
+      if(e.target.closest('[data-pacc]')){const id=p.dataset.bid;popGone(p.dataset.pk);try{show('panel');tAcc(id)}catch(_){}return}
+      if(e.target.closest('[data-po]')){const id=p.dataset.bid;popGone(p.dataset.pk);try{if(p.dataset.cmx){ptab='cmx';show('panel');render()}else{show('panel');const m=ME();if(m&&m.role=='technician'){ptab='b';render()}vb(id,'all',0)}}catch(_){}return}});
     return wrap}
   function stackPaint(){if(!wrap)return;const P=[...wrap.querySelectorAll('.pop72:not(.out)')];const mx=innerWidth<600?2:3;P.forEach((p,i)=>p.hidden=i<P.length-mx);let a=wrap.querySelector('.pop72-all');
     if(P.length>1){if(!a){a=document.createElement('button');a.type='button';a.className='pop72-all';wrap.prepend(a)}a.textContent=(P.length>mx?'+'+(P.length-mx)+' more · ':'')+'Close all ('+P.length+')'}else if(a)a.remove()}
@@ -6615,10 +6627,37 @@ ${extra.map(k=>`<tr><th>${E(k)}</th><td>${E(c[k])}</td></tr>`).join('')}</table>
       if(p.dataset.need){p.classList.add('done');p.querySelector('.pop72-b').innerHTML='Assigned. &#10003;';setTimeout(()=>popGone(p.dataset.pk),2500)}else if(p.dataset.stay)popGone(p.dataset.pk)}});
     let added=0;
     L.forEach(p=>{if(have.has(p.k))return;added++;const el=document.createElement('div'),lv=LV[p.lvl]||LV.info;el.className='pop72';el.dataset.pk=p.k;el.dataset.bid=p.bid||(p.need&&p.need.b.id)||'';if(p.stay)el.dataset.stay=1;if(p.cmx)el.dataset.cmx=1;if(p.need)el.dataset.need=1;el.style.setProperty('--pc',lv[0]);el.setAttribute('role','alert');
-      el.innerHTML=`<i class="pop72-i">${lv[1]}</i><div class="pop72-t"><b>${E(p.title)}</b><div class="pop72-b">${p.need?needHtml(p.need.b,p.need.c):p.body}</div>${p.btn?`<button type="button" class="pbtn" data-po="1">${E(p.btn)}</button>`:''}<small>${new Date(p.ts).toLocaleTimeString('en-IN',{hour:'numeric',minute:'2-digit'})}</small></div><button type="button" class="pop72-x" aria-label="Close">&#10005;</button>`;
+      el.innerHTML=`<i class="pop72-i">${lv[1]}</i><div class="pop72-t"><b>${E(p.title)}</b><div class="pop72-b">${p.need?needHtml(p.need.b,p.need.c):p.body}</div>${p.acc?`<span class="pop72-a"><button type="button" class="pbtn pop72-ok" data-pacc="1">&#10003; Accept</button><button type="button" class="alt pbtn" data-po="1">${E(p.btn)}</button></span>`:p.btn?`<button type="button" class="pbtn" data-po="1">${E(p.btn)}</button>`:''}<small>${new Date(p.ts).toLocaleTimeString('en-IN',{hour:'numeric',minute:'2-digit'})}</small></div><button type="button" class="pop72-x" aria-label="Close">&#10005;</button>`;
       w.appendChild(el)});
     if(added)stackPaint()}
   setInterval(()=>{try{tick()}catch(_){}},2500);
+
+  /* =========================================================
+     4. Call + WhatsApp buttons right next to the customer's mobile number (booking list and booking details)
+     ========================================================= */
+  const mob10=v=>{const d=String(v||'').replace(/\D/g,'');return d.length>=10?d.slice(-10):''};
+  function waText(x){const m=ME(),c=(typeof setGet=='function'&&setGet().name)||'NTUV Care';
+    return 'Hello '+((x&&x.name)||'')+', '+(m&&m.role=='technician'?'I am '+(m.name||'your technician')+' from '+c:'this is '+c)+(x&&x.id?' regarding your AC service booking '+x.id:'')+'.'}
+  function ctBtns(mob,x){const n=mob10(mob);if(!n)return '';
+    return `<span class="ctb"><a class="ctb-c" href="tel:+91${n}" aria-label="Call ${n}">&#128222; Call</a><a class="ctb-w" href="https://wa.me/91${n}?text=${encodeURIComponent(waText(x))}" target="_blank" rel="noopener" aria-label="WhatsApp ${n}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3.9 2.5c.1.2 1.6 2.5 4 3.5 1.5.6 2.1.7 2.8.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg>WhatsApp</a></span>`}
+  window.ntuvCallBtns=ctBtns;
+  function ctList(){const m=ME();if(!m)return;
+    document.querySelectorAll('#panel table').forEach(tb=>{const hr=tb.querySelector('tr');if(!hr)return;const H=[...hr.children].map(c=>c.textContent.trim().toLowerCase());
+      const ci=H.findIndex(t=>t=='customer number'||t=='mobile'&&tb.classList.contains('ust'));if(ci<0)return;
+      [...tb.querySelectorAll('tr')].slice(1).forEach(r=>{const td=r.children[ci];if(!td||td.querySelector('.ctb'))return;const n=mob10(td.textContent);if(!n)return;
+        const id=(r.querySelector('td b')||r.children[0]||{}).textContent||'',x=(db.b||[]).find(b=>b.id==String(id).trim())||(db.b||[]).find(b=>mob10(b.mob)==n);
+        td.insertAdjacentHTML('beforeend',ctBtns(n,x))})})}
+  function ctDlg(){const d=$('dbk');if(!d||!d.open||d.querySelector('.ctb'))return;const x=(db.b||[]).find(b=>b.id==vbId);if(!x)return;
+    d.querySelectorAll('table').forEach(tb=>{const r0=tb.rows[0],r1=tb.rows[1];if(!r0||!r1)return;const H=[...r0.cells].map(c=>c.textContent.trim().toLowerCase());
+      const ni=H.indexOf('customer number');if(ni<0||!r1.cells[ni])return;r1.cells[ni].insertAdjacentHTML('beforeend',ctBtns(x.mob,x));
+      const ki=H.indexOf('contact');if(ki>=0&&r1.cells[ki]&&r1.cells[ki].querySelector('a[href^="tel:"]')){r0.cells[ki].remove();r1.cells[ki].remove()}})}
+  if(typeof vb=='function'){const _vb=vb;vb=function(){const r=_vb.apply(this,arguments);try{ctDlg()}catch(_){}return r}}
+  document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('#dbk button');if(b)setTimeout(()=>{try{ctDlg()}catch(_){}},30)});
+  /* technician page: the note about how bookings come (now by service pincode, turn by turn) */
+  function noteFix(){document.querySelectorAll('#panel .note,#panel p,#panel div').forEach(n=>{if(n.children.length>8||n.dataset.n72)return;const t=n.textContent;if(/^New bookings within .* km of your saved GPS location/.test(t.trim())){n.dataset.n72=1;
+    n.innerHTML='New bookings of your <b>service pincodes</b> come to you automatically, <b>turn by turn</b> with the other technicians of the same pincode, with an SMS and a pop-up here. You get <b>10 minutes</b> to accept, after that the booking goes to the next technician. If no technician of the pincode is free, bookings within 10 km of your saved GPS location can also come to you, so press <b>Update my GPS location</b> when you change area.'}})}
+  const _rn4=render;render=function(){const r=_rn4.apply(this,arguments);try{ctList();noteFix()}catch(_){}return r};
+  setInterval(()=>{try{ctList();ctDlg()}catch(_){}},1500);
   /* live data: a tiny "anything changed?" check every 5 seconds; the full data is loaded only when something was saved */
   let nv=-1,nvBusy=0;
   setInterval(async()=>{if(document.hidden||nvBusy||typeof GAS_URL=='undefined'||!GAS_URL)return;let on=false;try{on=!!(ME()||(typeof cu!='undefined'&&cu))}catch(_){}if(!on)return;
