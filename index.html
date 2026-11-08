@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><script>window.NTUV_BUILD='20261108051249'</script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#ffffff"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="NTUV Care"><link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icons/icon-192.png">
+<!DOCTYPE html><html lang="en"><head><script>window.NTUV_BUILD='20261108053417'</script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#ffffff"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="NTUV Care"><link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icons/icon-192.png">
 <title>NTUV Care - AC Service, Repair & Copper Piping Work</title>
 <script>try{document.documentElement.dataset.theme=localStorage.ntuvTheme||"light"}catch(e){}</script><link rel="preload" href="static/f/bc700.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" as="image" href="static/m/hero-1672.webp" imagesrcset="static/m/hero-760.webp 760w, static/m/hero-1100.webp 1100w, static/m/hero-1672.webp 1672w" imagesizes="100vw"><style>@font-face{font-family:'Barlow Condensed';font-weight:500;font-display:swap;src:url(static/f/bc500.woff2) format('woff2')}@font-face{font-family:'Barlow Condensed';font-weight:600;font-display:swap;src:url(static/f/bc600.woff2) format('woff2')}@font-face{font-family:'Barlow Condensed';font-weight:700;font-display:swap;src:url(static/f/bc700.woff2) format('woff2')}@font-face{font-family:'Barlow';font-weight:400;font-display:swap;src:url(static/f/b400.woff2) format('woff2')}@font-face{font-family:'Barlow';font-weight:500;font-display:swap;src:url(static/f/b500.woff2) format('woff2')}@font-face{font-family:'Barlow';font-weight:600;font-display:swap;src:url(static/f/b600.woff2) format('woff2')}@font-face{font-family:'Barlow';font-weight:700;font-display:swap;src:url(static/f/b700.woff2) format('woff2')}@font-face{font-family:'Nunito';font-weight:800;font-display:swap;src:url(static/f/n800.woff2) format('woff2')}</style><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" media="print" onload="this.media='all'"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script><script async src="https://checkout.razorpay.com/v1/checkout.js"></script><style>
 :root{color-scheme:light;--bg:#fff;--bg2:#f3f3f3;--card:#fff;--ink:#0b0b0b;--mut:#666;--line:#d9d9d9;--acc:#e31e24;--acc2:#b8141a;--inp:#fff;--hdr:#fff;--okc:#15803d;--bad:#c8102e;--note:#fff3f3;--thead:#0b0b0b;--shd:0 6px 24px #0000001a;--n:var(--bg);--p:var(--card);--a:var(--acc);--t:var(--ink);--g:var(--mut);--hf:'Barlow Condensed','Oswald','Arial Narrow',sans-serif;--bf:'Barlow','Noto Sans Devanagari',system-ui,'Segoe UI',Arial,sans-serif}
@@ -1760,6 +1760,40 @@ td .ctb{display:inline-flex!important;margin:0 0 0 8px;vertical-align:middle}
 .pvw small{color:var(--mut)}
 .pvw .pbtn{margin:4px 0 0!important;padding:5px 12px!important}
 :root[data-theme=dark] .pvw,body.dark .pvw{background:#17223a;border-color:#2b3f6b}
+/* ===== phones: booking cards (ID + status, tap for all details) ===== */
+.bks{display:none}
+@media(max-width:760px){
+  table.mcard td.bkc0 .bks{display:block;margin:-7px -10px 0}
+  table.mcard tr.bkc>td:not(.bkc0){display:none!important}
+  table.mcard tr.bkc>td.bkc0{display:block!important;padding:0!important;border-bottom:0!important}
+  table.mcard tr.bkc>td.bkc0::before{display:none!important;content:none!important}
+  table.mcard tr.bkc>td.bkc0>:not(.bks){display:none!important}
+  table.mcard tr.bko>td.bkc0{display:block!important}
+  table.mcard tr.bko>td.bkc0::before{display:none!important;content:none!important}
+  table.mcard tr.bko>td.bkc0 .bks{margin:-7px -10px 8px;border-bottom:1px solid var(--line)}
+  table.mcard tr.bkc>td.bkc0 .bks{margin:0}
+  table.mcard tr.bkc{margin:0 0 8px}
+  .bks-h{display:grid;grid-template-columns:1fr auto;grid-template-areas:"l ch" "s ch";gap:3px 10px;align-items:center;padding:12px 12px 12px 14px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+  .bks-l{grid-area:l;display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+  .bks-id{font:800 16px/1.2 var(--hf,system-ui),system-ui,sans-serif;letter-spacing:.01em}
+  .bks-st{display:inline-block;padding:3px 9px;border-radius:999px;font:700 11.5px/1.2 system-ui,sans-serif;color:#fff;background:var(--sc,#64748b)}
+  .bks-sub{grid-area:s;color:var(--mut);font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .bks-ch{grid-area:ch;width:30px;height:30px;border-radius:50%;background:#eef3ff;position:relative}
+  .bks-ch::after{content:"";position:absolute;left:50%;top:45%;width:8px;height:8px;border:solid var(--acc,#0f5bff);border-width:0 2px 2px 0;transform:translate(-50%,-50%) rotate(45deg);transition:transform .2s}
+  tr.bko .bks-ch::after{transform:translate(-50%,-25%) rotate(-135deg)}
+  .bks-a{display:flex;gap:8px;padding:0 12px 12px 14px}
+  .bks-a .pbtn{flex:1;margin:0!important;padding:10px!important;font-size:14px!important}
+  .bks-ok{background:#16a34a!important;border-color:#16a34a!important;color:#fff!important}
+  :root[data-theme=dark] .bks-ch,body.dark .bks-ch{background:#1d2b4a}
+}
+/* ===== refund deduction ===== */
+.rfn{display:block;margin-top:6px;color:var(--mut);font-size:12.5px;line-height:1.4}
+.rfn b{color:var(--ink)}
+.rxcut{margin:4px 0 10px;padding:8px 10px;border-radius:10px;background:#fff7ed;border:1px solid #fed7aa;font-size:13px;line-height:1.5}
+.rxnc{display:flex!important;align-items:center;gap:6px;margin:6px 0 0!important;font-size:12.5px;font-weight:600}
+.rxnc input{width:16px!important;height:16px!important;margin:0!important}
+.rfpol{margin-top:10px}
+:root[data-theme=dark] .rxcut,body.dark .rxcut{background:#2a1d10;border-color:#7c4a14}
 
 /* admin settings */
 .cfgw{max-width:860px}
@@ -7016,6 +7050,79 @@ ${L.map(it=>{const d=DEC[it.key]||{m:'skip',a:slabOf(it)},B=it.c.bill,sl=slabOf(
   function pvHtml(){let co={};try{co=setGet()}catch(_){}const L=[];(db.t||[]).forEach(t=>(t.psLog||[]).forEach(x=>L.push(x)));const last=L.sort((a,b)=>b.ts-a.ts)[0];const W=(db.t||[]).filter(t=>t.ps&&t.ps.warn);
     return `<div class="pvw"><b>&#128238; Pincode list: India Post ${E(pinVer())}</b><small>Technicians' pincodes follow this list automatically inside their radius: new pincodes are added, closed ones removed. Pincodes added by hand stay. Checked for a newer list ${co.pinChk?E(dt(co.pinChk)):'daily'}.${last?' Last change: '+E(last.at)+' (+'+last.add.length+' / -'+last.rem.length+')':''}</small>${W.length?`<small class="lmold">&#9888; ${W.map(t=>E(t.name)+': '+E(t.ps.warn)).join('<br>')}</small>`:''}<button type="button" class="alt pbtn" id="pv_chk" onclick="ntuvPinCheck()">Check now</button></div>`}
   {const _rnP=render;render=function(){const r=_rnP.apply(this,arguments);try{if(canUsers()&&ptab=='usr'&&uk=='t'){const w=document.querySelector('#panel .usrw');if(w&&!w.querySelector('.pvw')){const b=$('us_body');if(b)b.insertAdjacentHTML('beforebegin',pvHtml())}}}catch(_){}return r}}
+
+  /* =========================================================
+     12. Phones: every booking is a small card - Booking ID + status (+ Accept / Cancel for a new job).
+         Tap the card to see all details, tap again to close. Computers keep the full table.
+     ========================================================= */
+  const MQ=window.matchMedia('(max-width:760px)'),openBk=new Set((()=>{try{return JSON.parse(sessionStorage.getItem('bkOpen')||'[]')}catch(_){return []}})());
+  const keepOpen=()=>{try{sessionStorage.setItem('bkOpen',JSON.stringify([...openBk].slice(-30)))}catch(_){}};
+  const stColor=st=>{try{return (typeof STC!='undefined'&&STC[st])||'#64748b'}catch(_){return '#64748b'}};
+  function bkSum(b){const m=ME(),T=m&&m.role=='technician',newJob=T&&b.tm==m.id&&b.ta=='pending',left=b.offAt?Math.max(0,Math.ceil((b.offAt+10*60e3-Date.now())/60e3)):null;
+    const cmp=(b.cmps||[]).some(c=>c.st!='Resolved'),st=b.status||'Open',sd=b.sd?new Date(b.sd+'T00:00').toLocaleDateString('en-IN',{day:'numeric',month:'short'}):'';
+    const tag=newJob?`<span class="bks-st" style="--sc:#dc2626">New job${left!=null?' &middot; '+left+' min left':''}</span>`:`<span class="bks-st" style="--sc:${stColor(st)}">${E(st)}</span>`;
+    return `<div class="bks-h" role="button" tabindex="0" aria-expanded="false"><span class="bks-l"><b class="bks-id">${E(b.id)}</b>${tag}${cmp?'<span class="bks-st" style="--sc:#ea580c">Complaint</span>':''}</span><span class="bks-sub">${E(b.name||'')}${sd?' &middot; '+E(sd):''}</span><i class="bks-ch" aria-hidden="true"></i></div>`+
+      (newJob?`<div class="bks-a"><button type="button" class="pbtn bks-ok" data-bacc="${E(b.id)}">&#10003; Accept</button><button type="button" class="alt pbtn" data-bdec="${E(b.id)}">Cancel</button></div>`:'')}
+  function bkCards(){const on=MQ.matches;document.querySelectorAll('#panel table.mcard').forEach(tb=>{const hr=tb.rows[0];if(!hr)return;const H=[...hr.cells].map(c=>c.textContent.trim().toLowerCase());if(!H.includes('booking id'))return;
+      [...tb.rows].slice(1).forEach(r=>{if(r.classList.contains('rtot'))return;const c0=r.cells[0];if(!c0)return;let id=(c0.querySelector('input.sck')||{}).value||'';
+        if(!id){const t=c0.textContent;const b0=(db.b||[]).find(b=>b.id&&t.indexOf(b.id)>=0);id=b0?b0.id:''}const b=(db.b||[]).find(x=>x.id==id);if(!b)return;
+        let s=c0.querySelector(':scope>.bks');const sig=[b.status,b.ta,b.tm,(b.cmps||[]).length,b.offAt,b.sd,b.name].join('|');
+        if(!s){s=document.createElement('div');s.className='bks';c0.insertBefore(s,c0.firstChild);c0.classList.add('bkc0')}
+        if(s.dataset.sig!==sig){s.dataset.sig=sig;s.innerHTML=bkSum(b)}
+        const open=openBk.has(id);r.classList.toggle('bkc',on&&!open);r.classList.toggle('bko',on&&open);r.dataset.bid=id;const h=s.querySelector('.bks-h');if(h)h.setAttribute('aria-expanded',String(open))})})}
+  function bkToggle(r){const id=r.dataset.bid;if(!id)return;openBk.has(id)?openBk.delete(id):openBk.add(id);keepOpen();bkCards();if(openBk.has(id))setTimeout(()=>{try{r.scrollIntoView({behavior:'smooth',block:'start'})}catch(_){}},30)}
+  document.addEventListener('click',e=>{const t=e.target;if(!t.closest)return;
+    const a=t.closest('[data-bacc]');if(a){e.stopPropagation();try{tAcc(a.dataset.bacc)}catch(_){}return}
+    const d=t.closest('[data-bdec]');if(d){e.stopPropagation();try{tDec(d.dataset.bdec)}catch(_){}return}
+    const h=t.closest('.bks .bks-h');if(h){bkToggle(h.closest('tr'))}});
+  document.addEventListener('keydown',e=>{if((e.key=='Enter'||e.key==' ')&&e.target.classList&&e.target.classList.contains('bks-h')){e.preventDefault();bkToggle(e.target.closest('tr'))}});
+  try{MQ.addEventListener('change',()=>bkCards())}catch(_){}
+  {const _rnB=render;render=function(){const r=_rnB.apply(this,arguments);try{bkCards()}catch(_){}return r}}
+  setInterval(()=>{try{bkCards()}catch(_){}},2000);
+  /* the list is sometimes drawn a moment after render(): cards are made as soon as rows appear (before the screen paints) */
+  try{let q=0;const mo=new MutationObserver(()=>{if(q||!MQ.matches)return;q=1;queueMicrotask(()=>{q=0;try{bkCards()}catch(_){}})});
+    const go=()=>{const p=$('panel');if(p)mo.observe(p,{childList:true,subtree:true});else setTimeout(go,500)};go()}catch(_){}
+
+
+  /* =========================================================
+     13. Refund deduction: every refund is paid after an X % deduction (Admin > Settings, default 5 %).
+         Shown at booking, cancel, refund request, complaint payment, in the policies, and applied in Admin's refund window.
+     ========================================================= */
+  const rfCut=()=>{let n=5;try{const v=setGet().rfCut;if(v!==undefined&&v!==null&&v!=='')n=+v}catch(_){}return isFinite(n)?Math.max(0,Math.min(50,Math.round(n*100)/100)):5};
+  const rfTxt=()=>rfCut()>0?`Refunds are paid after a <b>${rfCut()}% deduction</b> (payment gateway &amp; processing charges).`:'Refunds are paid in full (no deduction).';
+  function rfNotes(){if(!rfCut()&&!document.querySelector('.rfn'))return;
+    const put=(el,where,cls)=>{if(!el||el.querySelector('.rfn'))return;el.insertAdjacentHTML(where||'beforeend',`<small class="rfn ${cls||''}">&#8505; ${rfTxt()} <a href="#" onclick="polOpen('refund');return false">Refund policy</a></small>`)};
+    const pr=$('payreq');if(pr&&!/paid\./.test(pr.textContent))put(pr);
+    const cx=$('dcx');if(cx&&cx.open){const n=cx.querySelector('.note');if(n)put(n)}
+    const rq=$('drq');if(rq&&rq.open){const n=rq.querySelector('.note');if(n)put(n)}
+    const cm=$('dcmp');if(cm&&cm.open){const n=cm.querySelector('.cmpfee');if(n&&!n.hidden)put(n)}
+    document.querySelectorAll('.rfn').forEach(e=>{const h='&#8505; '+rfTxt()+' <a href="#" onclick="polOpen(\'refund\');return false">Refund policy</a>';if(e.dataset.p!=String(rfCut())){e.dataset.p=rfCut();e.innerHTML=h}})}
+  setInterval(()=>{try{rfNotes()}catch(_){}},700);
+  /* policies inside the website / app */
+  if(typeof polOpen=='function'){const _pol=polOpen;polOpen=function(k){const r=_pol.apply(this,arguments);try{const d=$('dpol');if(d&&(k=='refund'||k=='terms')&&!d.querySelector('.rfpol')){const p=rfCut();
+      const h=`<div class="pol-k rfpol"><b>Refund deduction:</b> ${p>0?`every refund (booking advance, complaint visiting charge or any other payment) is paid after deducting <b>${p}%</b> of the refund amount towards payment gateway and processing charges. Example: on a refund of Rs 100 you get Rs ${Math.round((100-p)*100)/100}.`:'refunds are paid in full.'}</div>`;
+      const k1=d.querySelector('.pol-k');if(k1)k1.insertAdjacentHTML('afterend',h);else{const h3=d.querySelector('h3');(h3||d.firstElementChild).insertAdjacentHTML('afterend',h)}
+      if(p>0)d.querySelectorAll('li').forEach(li=>{if(/refunded in full/.test(li.innerHTML))li.innerHTML=li.innerHTML.replace('refunded in full','refunded (after the '+p+'% deduction)')})}}catch(_){}return r}}
+  /* Admin > refund window: the amount is filled after the deduction, with the working shown */
+  function rxApply(force){const a=$('rx_a'),d=$('drx');if(!a||!d||!d.open)return;const v=+a.value;if(!(v>0))return;
+    if(!force&&a.dataset.set===a.value)return;                                   /* already ours */
+    const full=v,p=rfCut(),noCut=$('rx_nc')&&$('rx_nc').checked,amt=noCut?full:Math.round(full*(100-p))/100;a.dataset.full=full;a.value=amt;a.dataset.set=String(amt);rxInfo()}
+  function rxInfo(){const a=$('rx_a'),d=$('drx');if(!a||!d)return;const full=+a.dataset.full||0,p=rfCut(),noCut=$('rx_nc')&&$('rx_nc').checked;let w=$('rx_cut');
+    if(!w){(a.closest('label')||a).insertAdjacentHTML('afterend',`<div id="rx_cut" class="rxcut"></div>`);w=$('rx_cut')}
+    w.innerHTML=full?`Paid / left to refund: <b>Rs ${full}</b> &middot; Deduction ${noCut?'not applied':p+'% = <b>Rs '+(Math.round(full*p)/100)+'</b>'} &middot; Refund: <b>Rs ${a.value}</b><label class="rxnc"><input type="checkbox" id="rx_nc" ${noCut?'checked':''}> Refund the full amount (no deduction)</label>`:''}
+  document.addEventListener('change',e=>{const id=e.target&&e.target.id;if(id=='rx_p')setTimeout(()=>rxApply(true),0);
+    if(id=='rx_nc'){const a=$('rx_a'),full=+a.dataset.full||0;if(full){a.value=e.target.checked?full:Math.round(full*(100-rfCut()))/100;a.dataset.set=a.value;rxInfo()}}},true);
+  document.addEventListener('input',e=>{const id=e.target&&e.target.id;if(id=='rx_b')setTimeout(()=>rxApply(true),0);if(id=='rx_a'){e.target.dataset.set=e.target.value;rxInfo()}},true);
+  setInterval(()=>{try{const d=$('drx');if(d&&d.open){if(!d.dataset.rx){d.dataset.rx=1;rxApply(true)}else rxApply(false)}else if(d)delete d.dataset.rx}catch(_){}},400);
+  /* the server records the deduction with the refund */
+  if(typeof gcall=='function'){const _gc=gcall;gcall=function(o){try{if(o&&o.action=='refund'){const a=$('rx_a'),full=a&&+a.dataset.full;if(full&&+o.amt<full){o.full=full;o.cutPct=rfCut()}}}catch(_){}return _gc.apply(this,arguments)}}
+  /* Admin > Settings: the percentage */
+  function rfField(){const a=$('cfg_cmpd')||$('cfg_cmpa');if(!a||$('cfg_rfc'))return;const row=a.closest('.row')||a.closest('label');let after=row;const sm=row.nextElementSibling;if(sm&&sm.tagName=='SMALL')after=sm;
+    after.insertAdjacentHTML('afterend',`<div class="row"><label>Refund deduction (% of every refund)<input id="cfg_rfc" type="number" min="0" max="50" step="0.5" inputmode="decimal" value="${rfCut()}"></label></div><small style="display:block;margin:0 0 10px">Customers see this at booking, when cancelling, when asking for a refund and in the Terms / Refund Policy. Admin's refund window fills the amount after this deduction. 0 = full refund.</small>`)}
+  if(typeof window.setSave=='function'){const _ss2=window.setSave;window.setSave=function(){const el=$('cfg_rfc'),v=el?Math.round(+el.value*100)/100:0;
+    if(el&&!(el.value!==''&&v>=0&&v<=50))return alert('Refund deduction must be between 0 and 50 %');
+    const r=_ss2.apply(this,arguments);if(el){const co=(db.set||[]).find(x=>x.id=='co');if(co&&co.rfCut!==v){co.rfCut=v;save();try{applySet()}catch(_){}}}return r}}
+  {const _rnR=render;render=function(){const r=_rnR.apply(this,arguments);try{rfField()}catch(_){}return r}}
   /* technician page: the note about how bookings come (now by service pincode, turn by turn) */
   function noteFix(){document.querySelectorAll('#panel .note,#panel p,#panel div').forEach(n=>{if(n.children.length>8||n.dataset.n72)return;const t=n.textContent;if(/^New bookings within .* km of your saved GPS location/.test(t.trim())){n.dataset.n72=1;
     n.innerHTML='Choose above where your bookings come from: <b>Registered Location</b> (your pincodes) or <b>Current Location</b> ('+LM_KM+' km around you). Bookings come turn by turn with the other technicians, with an SMS and a pop-up here. You get <b>10 minutes</b> to accept, after that the booking goes to the next technician.'}})}
